@@ -3,13 +3,13 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="robots" content="noindex, nofollow">
 <title>배우현 경력기술서</title>
 <meta name="description" content="배우현 · 프론트엔드 개발자 경력기술서 — 담당 범위와 정량 지표의 기록.">
 <meta property="og:title" content="배우현 경력기술서">
 <meta property="og:description" content="배우현 · 프론트엔드 개발자 경력기술서 — 담당 범위와 정량 지표의 기록.">
 <meta property="og:type" content="profile">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hahmlet:wght@400;500;600;700&family=IBM+Plex+Sans+KR:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<meta name="robots" content="noindex, nofollow">
 <style>
   :root { color-scheme: light dark; }
   body { margin: 0; padding: 0; }
@@ -18,18 +18,18 @@
 </style>
 <style>
   :root {
-    --ground:      #EFF3F1;
+    --ground:      #ECF1F7;
     --surface:     #FFFFFF;
-    --surface-2:   #F7FAF8;
-    --ink:         #131E1A;
-    --ink-2:       #4E5D58;
-    --ink-3:       #7C8B85;
-    --rule:        #D5DEDA;
-    --rule-2:      #E5ECE8;
-    --accent:      #0A6B5C;
-    --accent-2:    #0E8874;
-    --accent-wash: #E2EFEB;
-    --shadow:      0 1px 2px rgba(19, 30, 26, .04), 0 8px 24px -16px rgba(19, 30, 26, .18);
+    --surface-2:   #F5F8FC;
+    --ink:         #111827;
+    --ink-2:       #45536B;
+    --ink-3:       #66738C;
+    --rule:        #D2DBE7;
+    --rule-2:      #E4EAF3;
+    --accent:      #1B4DA0;
+    --accent-2:    #2A6BC4;
+    --accent-wash: #E1EBFA;
+    --shadow:      0 1px 2px rgba(17, 24, 39, .04), 0 8px 24px -16px rgba(17, 24, 39, .18);
 
     --f-display: 'Hahmlet', 'Apple SD Gothic Neo', 'Malgun Gothic', Georgia, serif;
     --f-body:    'IBM Plex Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', system-ui, sans-serif;
@@ -38,33 +38,33 @@
 
   @media (prefers-color-scheme: dark) {
     :root:not([data-theme="light"]) {
-      --ground:      #0C1412;
-      --surface:     #111C19;
-      --surface-2:   #16221F;
-      --ink:         #E6EFEB;
-      --ink-2:       #9BADA7;
-      --ink-3:       #788A84;
-      --rule:        #22302C;
-      --rule-2:      #1A2724;
-      --accent:      #52C9AE;
-      --accent-2:    #6FDCC3;
-      --accent-wash: #15302A;
+      --ground:      #0C1119;
+      --surface:     #141B25;
+      --surface-2:   #19222E;
+      --ink:         #E6EDF7;
+      --ink-2:       #A3B0C4;
+      --ink-3:       #7F8CA1;
+      --rule:        #26303D;
+      --rule-2:      #1B242F;
+      --accent:      #6BA6F5;
+      --accent-2:    #8FBEFF;
+      --accent-wash: #14263F;
       --shadow:      0 1px 2px rgba(0, 0, 0, .3), 0 8px 24px -16px rgba(0, 0, 0, .6);
     }
   }
 
   :root[data-theme="dark"] {
-    --ground:      #0C1412;
-    --surface:     #111C19;
-    --surface-2:   #16221F;
-    --ink:         #E6EFEB;
-    --ink-2:       #9BADA7;
-    --ink-3:       #788A84;
-    --rule:        #22302C;
-    --rule-2:      #1A2724;
-    --accent:      #52C9AE;
-    --accent-2:    #6FDCC3;
-    --accent-wash: #15302A;
+    --ground:      #0C1119;
+    --surface:     #141B25;
+    --surface-2:   #19222E;
+    --ink:         #E6EDF7;
+    --ink-2:       #A3B0C4;
+    --ink-3:       #7F8CA1;
+    --rule:        #26303D;
+    --rule-2:      #1B242F;
+    --accent:      #6BA6F5;
+    --accent-2:    #8FBEFF;
+    --accent-wash: #14263F;
     --shadow:      0 1px 2px rgba(0, 0, 0, .3), 0 8px 24px -16px rgba(0, 0, 0, .6);
   }
 
@@ -421,7 +421,7 @@
     }
     .rail {
       display: block;
-      position: sticky; top: 34px;
+      position: sticky; top: 90px;
       border-left: 1px solid var(--rule);
     }
     .rail-hd {
@@ -448,17 +448,39 @@
     html { scroll-behavior: auto; }
   }
   html { scroll-behavior: smooth; }
-  .sect { scroll-margin-top: 30px; }
+  .sect { scroll-margin-top: 86px; }
+
+  /* ── 사이트 내비 ─────────────────────────────── */
+  .sitenav {
+    position: sticky; top: 0; z-index: 50;
+    background: var(--surface); border-bottom: 1px solid var(--rule);
+  }
+  .sitenav-in { display: flex; align-items: center; flex-wrap: wrap; gap: 6px 18px; padding-block: 12px; }
+  .sitenav-who { font-size: 15px; font-weight: 700; letter-spacing: -.02em; color: var(--ink); }
+  .sitenav-role { font-size: 12.5px; color: var(--ink-3); }
+  .sitenav nav { margin-left: auto; display: flex; gap: 4px; }
+  .sitenav nav a {
+    font-size: 12.5px; text-decoration: none; color: var(--ink-3);
+    padding: 5px 12px; border: 1px solid transparent; white-space: nowrap;
+  }
+  .sitenav nav a:hover { color: var(--ink); border-color: var(--rule); }
+  .sitenav nav a[aria-current="page"] { color: var(--accent); border-color: var(--rule); background: var(--accent-wash); font-weight: 600; }
+
 </style>
 </head>
 <body>
-<header class="masthead">
-  <div class="wrap masthead-in">
-    <span class="wordmark">배우현</span>
-    <span class="masthead-role">프론트엔드 개발자</span>
-    <span class="masthead-stamp">경력기술서 · 2024.01–2026.08</span>
+<header class="sitenav">
+  <div class="wrap sitenav-in">
+    <span class="sitenav-who">배우현</span>
+    <span class="sitenav-role">프론트엔드 개발자</span>
+    <nav>
+      <a href="./index.html">포트폴리오</a>
+      <a href="./career.html" aria-current="page">경력기술서</a>
+    </nav>
   </div>
 </header>
+
+<div class="wrap" style="padding-top:14px;"><span class="masthead-stamp">2024.01–2026.08</span></div>
 
 <section class="hero">
   <div class="wrap hero-in">
