@@ -3,13 +3,13 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="robots" content="noindex, nofollow">
 <title>배우현 포트폴리오</title>
 <meta name="description" content="배우현 · 프론트엔드 개발자 포트폴리오 — 사람이 기억하던 규칙을 도구가 검증하게 만듭니다.">
 <meta property="og:title" content="배우현 포트폴리오">
 <meta property="og:description" content="배우현 · 프론트엔드 개발자 포트폴리오 — 사람이 기억하던 규칙을 도구가 검증하게 만듭니다.">
 <meta property="og:type" content="profile">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@300;400;500;600;800&family=JetBrains+Mono:wght@400;500&display=swap">
+<meta name="robots" content="noindex, nofollow">
 <style>
   :root { color-scheme: light dark; }
   body { margin: 0; padding: 0; }
@@ -18,17 +18,17 @@
 </style>
 <style>
   :root {
-    --ground:    #EFEEEB;
-    --surface:   #FBFAF8;
-    --sunken:    #E7E5E0;
-    --ink:       #1A1815;
-    --ink-2:     #55504A;
-    --ink-3:     #837C73;
-    --rule:      #D9D5CE;
-    --rule-2:    #E6E3DC;
-    --accent:    #9A5200;
-    --accent-2:  #B96A0C;
-    --wash:      #F3E7D6;
+    --ground:    #ECF1F7;
+    --surface:   #FBFCFE;
+    --sunken:    #E3EAF3;
+    --ink:       #111827;
+    --ink-2:     #45536B;
+    --ink-3:     #66738C;
+    --rule:      #D2DBE7;
+    --rule-2:    #E4EAF3;
+    --accent:    #1B4DA0;
+    --accent-2:  #2A6BC4;
+    --wash:      #E1EBFA;
 
     --f-sans: 'Gothic A1', 'Apple SD Gothic Neo', 'Malgun Gothic', system-ui, sans-serif;
     --f-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
@@ -36,31 +36,31 @@
 
   @media (prefers-color-scheme: dark) {
     :root:not([data-theme="light"]) {
-      --ground:   #14120F;
-      --surface:  #1B1815;
-      --sunken:   #100E0C;
-      --ink:      #EDEAE4;
-      --ink-2:    #A8A198;
-      --ink-3:    #857E75;
-      --rule:     #2E2A25;
-      --rule-2:   #23201C;
-      --accent:   #E8A33D;
-      --accent-2: #F2B65C;
-      --wash:     #2C2317;
+      --ground:   #0C1119;
+      --surface:  #141B25;
+      --sunken:   #080C12;
+      --ink:      #E6EDF7;
+      --ink-2:    #A3B0C4;
+      --ink-3:    #7F8CA1;
+      --rule:     #26303D;
+      --rule-2:   #1B242F;
+      --accent:   #6BA6F5;
+      --accent-2: #8FBEFF;
+      --wash:     #14263F;
     }
   }
   :root[data-theme="dark"] {
-    --ground:   #14120F;
-    --surface:  #1B1815;
-    --sunken:   #100E0C;
-    --ink:      #EDEAE4;
-    --ink-2:    #A8A198;
-    --ink-3:    #857E75;
-    --rule:     #2E2A25;
-    --rule-2:   #23201C;
-    --accent:   #E8A33D;
-    --accent-2: #F2B65C;
-    --wash:     #2C2317;
+    --ground:   #0C1119;
+    --surface:  #141B25;
+    --sunken:   #080C12;
+    --ink:      #E6EDF7;
+    --ink-2:    #A3B0C4;
+    --ink-3:    #7F8CA1;
+    --rule:     #26303D;
+    --rule-2:   #1B242F;
+    --accent:   #6BA6F5;
+    --accent-2: #8FBEFF;
+    --wash:     #14263F;
   }
 
   * { box-sizing: border-box; }
@@ -326,9 +326,36 @@
   footer.end p + p { margin-top: 9px; }
 
   @media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
+
+  /* ── 사이트 내비 ─────────────────────────────── */
+  .sitenav {
+    position: sticky; top: 0; z-index: 50;
+    background: var(--surface); border-bottom: 1px solid var(--rule);
+  }
+  .sitenav-in { display: flex; align-items: center; flex-wrap: wrap; gap: 6px 18px; padding-block: 12px; }
+  .sitenav-who { font-size: 15px; font-weight: 700; letter-spacing: -.02em; color: var(--ink); }
+  .sitenav-role { font-size: 12.5px; color: var(--ink-3); }
+  .sitenav nav { margin-left: auto; display: flex; gap: 4px; }
+  .sitenav nav a {
+    font-size: 12.5px; text-decoration: none; color: var(--ink-3);
+    padding: 5px 12px; border: 1px solid transparent; white-space: nowrap;
+  }
+  .sitenav nav a:hover { color: var(--ink); border-color: var(--rule); }
+  .sitenav nav a[aria-current="page"] { color: var(--accent); border-color: var(--rule); background: var(--wash); font-weight: 600; }
 </style>
 </head>
 <body>
+<header class="sitenav">
+  <div class="wrap sitenav-in">
+    <span class="sitenav-who">배우현</span>
+    <span class="sitenav-role">프론트엔드 개발자</span>
+    <nav>
+      <a href="./index.html" aria-current="page">포트폴리오</a>
+      <a href="./career.html">경력기술서</a>
+    </nav>
+  </div>
+</header>
+
 <section class="hero">
   <div class="wrap">
     <p class="kicker">배우현 · 프론트엔드 개발자</p>
