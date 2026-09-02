@@ -1,0 +1,1406 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>배우현 경력기술서</title>
+<meta name="description" content="배우현 · 프론트엔드 개발자 경력기술서 — 담당 범위와 정량 지표의 기록.">
+<meta property="og:title" content="배우현 경력기술서">
+<meta property="og:description" content="배우현 · 프론트엔드 개발자 경력기술서 — 담당 범위와 정량 지표의 기록.">
+<meta property="og:type" content="profile">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hahmlet:wght@400;500;600;700&family=IBM+Plex+Sans+KR:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+  :root { color-scheme: light dark; }
+  body { margin: 0; padding: 0; }
+  img { max-width: 100%; }
+  [hidden] { display: none !important; }
+</style>
+<style>
+  :root {
+    --ground:      #EFF3F1;
+    --surface:     #FFFFFF;
+    --surface-2:   #F7FAF8;
+    --ink:         #131E1A;
+    --ink-2:       #4E5D58;
+    --ink-3:       #7C8B85;
+    --rule:        #D5DEDA;
+    --rule-2:      #E5ECE8;
+    --accent:      #0A6B5C;
+    --accent-2:    #0E8874;
+    --accent-wash: #E2EFEB;
+    --shadow:      0 1px 2px rgba(19, 30, 26, .04), 0 8px 24px -16px rgba(19, 30, 26, .18);
+
+    --f-display: 'Hahmlet', 'Apple SD Gothic Neo', 'Malgun Gothic', Georgia, serif;
+    --f-body:    'IBM Plex Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', system-ui, sans-serif;
+    --f-mono:    'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --ground:      #0C1412;
+      --surface:     #111C19;
+      --surface-2:   #16221F;
+      --ink:         #E6EFEB;
+      --ink-2:       #9BADA7;
+      --ink-3:       #788A84;
+      --rule:        #22302C;
+      --rule-2:      #1A2724;
+      --accent:      #52C9AE;
+      --accent-2:    #6FDCC3;
+      --accent-wash: #15302A;
+      --shadow:      0 1px 2px rgba(0, 0, 0, .3), 0 8px 24px -16px rgba(0, 0, 0, .6);
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --ground:      #0C1412;
+    --surface:     #111C19;
+    --surface-2:   #16221F;
+    --ink:         #E6EFEB;
+    --ink-2:       #9BADA7;
+    --ink-3:       #788A84;
+    --rule:        #22302C;
+    --rule-2:      #1A2724;
+    --accent:      #52C9AE;
+    --accent-2:    #6FDCC3;
+    --accent-wash: #15302A;
+    --shadow:      0 1px 2px rgba(0, 0, 0, .3), 0 8px 24px -16px rgba(0, 0, 0, .6);
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    background: var(--ground);
+    color: var(--ink);
+    font-family: var(--f-body);
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 1.72;
+    -webkit-font-smoothing: antialiased;
+    word-break: keep-all;
+    overflow-wrap: break-word;
+  }
+
+  a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+  a:focus-visible,
+  button:focus-visible { outline: 2px solid var(--accent-2); outline-offset: 3px; border-radius: 2px; }
+
+  .wrap { max-width: 1180px; margin: 0 auto; padding: 0 28px; }
+
+  /* ── 헤더 ─────────────────────────────────────────── */
+
+  .masthead {
+    border-bottom: 1px solid var(--rule);
+    background: var(--surface);
+  }
+  .masthead-in {
+    display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px 20px;
+    padding-block: 18px;
+  }
+  .wordmark {
+    font-family: var(--f-display);
+    font-weight: 600; font-size: 17px; letter-spacing: -.01em;
+    color: var(--ink);
+  }
+  .masthead-role {
+    font-size: 12.5px; color: var(--ink-2);
+  }
+  .masthead-stamp {
+    margin-left: auto;
+    font-family: var(--f-mono); font-size: 11px; font-weight: 500;
+    letter-spacing: .08em; text-transform: uppercase;
+    color: var(--ink-3);
+  }
+
+  /* ── 히어로 ───────────────────────────────────────── */
+
+  .hero { border-bottom: 1px solid var(--rule); background: var(--surface); }
+  .hero-in { padding-block: 76px 0; }
+
+  .eyebrow {
+    font-family: var(--f-mono);
+    font-size: 11px; font-weight: 500; letter-spacing: .14em; text-transform: uppercase;
+    color: var(--accent);
+    display: flex; align-items: center; gap: 12px;
+    margin-bottom: 26px;
+  }
+  .eyebrow::after {
+    content: ""; flex: 1; height: 1px; background: var(--rule); max-width: 180px;
+  }
+
+  .hero h1 {
+    font-family: var(--f-display);
+    font-size: clamp(31px, 5.1vw, 55px);
+    font-weight: 600;
+    line-height: 1.28;
+    letter-spacing: -.022em;
+    text-wrap: balance;
+    margin: 0 0 30px;
+    max-width: 15em;
+  }
+  .hero h1 em {
+    font-style: normal;
+    color: var(--accent);
+  }
+
+  .hero-lede {
+    max-width: 42em;
+    font-size: 16px;
+    color: var(--ink-2);
+    line-height: 1.82;
+    margin: 0 0 6px;
+    text-wrap: pretty;
+  }
+  .hero-lede + .hero-lede { margin-top: 16px; }
+  .hero-lede strong { color: var(--ink); font-weight: 500; }
+
+  .facts {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1px;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+    border-bottom: 0;
+    margin-top: 56px;
+  }
+  .fact { background: var(--surface); padding: 22px 20px 24px; }
+  .fact dt {
+    font-family: var(--f-mono);
+    font-size: 10.5px; font-weight: 500; letter-spacing: .1em; text-transform: uppercase;
+    color: var(--ink-3);
+    margin-bottom: 10px;
+  }
+  .fact dd {
+    margin: 0;
+    font-family: var(--f-display);
+    font-size: 25px; font-weight: 600; letter-spacing: -.02em;
+    font-variant-numeric: tabular-nums;
+    line-height: 1.2;
+  }
+  .fact dd span { font-size: 14px; font-weight: 500; color: var(--ink-2); margin-left: 3px; }
+
+  /* ── 본문 골격 ────────────────────────────────────── */
+
+  .page { padding-block: 64px 96px; }
+  .page-grid { display: block; }
+
+  .rail { display: none; }
+
+  .doc { min-width: 0; }
+
+  /* ── 섹션 ─────────────────────────────────────────── */
+
+  .sect { padding-top: 8px; }
+  .sect + .sect { margin-top: 76px; }
+  .sect > header { margin-bottom: 30px; }
+  .sect > header h2 {
+    font-family: var(--f-display);
+    font-size: 23px; font-weight: 600; letter-spacing: -.02em;
+    margin: 0; padding-bottom: 14px;
+    border-bottom: 2px solid var(--ink);
+  }
+  .sect > header p {
+    margin: 14px 0 0; max-width: 42em;
+    font-size: 14.5px; color: var(--ink-2);
+    text-wrap: pretty;
+  }
+
+  /* ── 핵심 역량 ────────────────────────────────────── */
+
+  .caps { display: grid; gap: 1px; background: var(--rule); border: 1px solid var(--rule); }
+  @media (min-width: 900px) { .caps { grid-template-columns: repeat(3, 1fr); } }
+  .cap { background: var(--surface); padding: 26px 24px 28px; display: flex; flex-direction: column; gap: 13px; }
+  .cap-kind {
+    font-family: var(--f-mono); font-size: 10.5px; font-weight: 500;
+    letter-spacing: .14em; text-transform: uppercase; color: var(--accent);
+    margin: 0; padding-bottom: 2px;
+  }
+  .cap-ev {
+    margin-top: auto; padding-top: 16px; border-top: 1px solid var(--rule-2);
+    font-size: 11.5px; line-height: 1.7; color: var(--ink-3);
+  }
+  .cap-ev b {
+    display: block; font-family: var(--f-mono); font-size: 9.5px; font-weight: 500;
+    letter-spacing: .12em; text-transform: uppercase; color: var(--ink-3);
+    margin-bottom: 5px; opacity: .8;
+  }
+  .cap h3 {
+    font-family: var(--f-display);
+    font-size: 17.5px; font-weight: 600; line-height: 1.45; letter-spacing: -.015em;
+    margin: 0; text-wrap: balance;
+  }
+  .cap p { margin: 0; font-size: 13.5px; color: var(--ink-2); line-height: 1.75; }
+  .cap-tags { margin-top: auto; padding-top: 6px; display: flex; flex-wrap: wrap; gap: 6px; }
+  .cap-tags span {
+    font-family: var(--f-mono); font-size: 10.5px; font-weight: 500; letter-spacing: .02em;
+    color: var(--accent); background: var(--accent-wash);
+    padding: 3px 7px;
+  }
+
+  /* ── 레코드 카드 ──────────────────────────────────── */
+
+  .recs { display: flex; flex-direction: column; gap: 22px; }
+
+  .rec {
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    box-shadow: var(--shadow);
+  }
+  .rec > header {
+    padding: 22px 26px 18px;
+    border-bottom: 1px solid var(--rule-2);
+  }
+  .rec > header h3 {
+    font-family: var(--f-display);
+    font-size: 19px; font-weight: 600; letter-spacing: -.018em; line-height: 1.42;
+    margin: 0 0 12px; text-wrap: balance;
+  }
+  .rec-meta {
+    display: flex; flex-wrap: wrap; gap: 6px 20px; margin: 0;
+    font-family: var(--f-mono); font-size: 11.5px; font-variant-numeric: tabular-nums;
+  }
+  .rec-meta > div { display: flex; gap: 8px; align-items: baseline; }
+  .rec-meta dt {
+    color: var(--ink-3); letter-spacing: .06em; text-transform: uppercase; font-size: 10px;
+  }
+  .rec-meta dd { margin: 0; color: var(--ink-2); }
+
+  .rec-body { padding: 6px 26px 26px; }
+  .blk { display: grid; gap: 6px; padding-block: 18px; }
+  .blk + .blk { border-top: 1px dashed var(--rule-2); }
+  .blk > .lbl {
+    font-size: 11px; font-weight: 600; letter-spacing: .16em;
+    color: var(--accent);
+  }
+  .blk p { margin: 0; color: var(--ink-2); font-size: 14px; }
+  .blk ul { margin: 2px 0 0; padding: 0; list-style: none; display: grid; gap: 10px; }
+  .blk li {
+    position: relative; padding-left: 17px;
+    font-size: 14px; color: var(--ink-2);
+  }
+  .blk li::before {
+    content: ""; position: absolute; left: 0; top: .68em;
+    width: 6px; height: 1px; background: var(--ink-3);
+  }
+  .blk li strong, .blk p strong { color: var(--ink); font-weight: 500; }
+  .blk--out p { color: var(--ink); font-weight: 500; }
+
+  /* 수행 = 헤드라인(스캔용) + 부연(필요한 사람만) 2단 구조 */
+  .blk .acts { margin: 4px 0 0; padding: 0; list-style: none; display: grid; gap: 20px; }
+  .blk .acts > li {
+    position: relative; padding-left: 18px;
+    display: grid; gap: 5px; max-width: 46em;
+  }
+  .blk .acts > li::before {
+    content: ""; position: absolute; left: 0; top: .66em;
+    width: 6px; height: 6px; background: var(--accent);
+  }
+  .blk .acts h4 {
+    margin: 0;
+    font-size: 15px; font-weight: 600; line-height: 1.6;
+    letter-spacing: -.012em; color: var(--ink);
+    text-wrap: pretty;
+  }
+  .blk .acts p {
+    margin: 0; max-width: none;
+    font-size: 13px; line-height: 1.78; color: var(--ink-3);
+  }
+  .blk .acts p em { font-style: normal; color: var(--ink-2); }
+
+  /* 한글 본문의 적정 행 길이(≈40자)로 제한 — em은 한글 한 글자 폭과 같다 */
+  .blk p, .blk li { max-width: 46em; text-wrap: pretty; }
+  .cap p, .tnote, .prev-body p, .prev-body li { text-wrap: pretty; }
+
+  code {
+    font-family: var(--f-mono);
+    font-size: .88em;
+    background: var(--surface-2);
+    border: 1px solid var(--rule-2);
+    padding: 1px 5px;
+    color: var(--ink);
+    white-space: nowrap;
+  }
+
+  /* ── 테이블 ───────────────────────────────────────── */
+
+  .tablewrap { overflow-x: auto; border: 1px solid var(--rule); background: var(--surface); }
+  table { border-collapse: collapse; width: 100%; min-width: 460px; font-size: 13.5px; }
+  caption {
+    text-align: left; padding: 16px 20px 0;
+    font-family: var(--f-mono); font-size: 10.5px; font-weight: 500;
+    letter-spacing: .1em; text-transform: uppercase; color: var(--ink-3);
+  }
+  th, td { padding: 11px 20px; text-align: left; border-bottom: 1px solid var(--rule-2); }
+  thead th {
+    font-size: 11px; font-weight: 500; letter-spacing: .06em; color: var(--ink-3);
+    border-bottom: 1px solid var(--rule);
+    padding-top: 14px;
+  }
+  tbody tr:last-child td { border-bottom: 0; }
+
+  /* 크기를 비교하는 숫자만 오른쪽 정렬. 날짜처럼 자릿수가 고정된 값은 왼쪽 */
+  td.num, th.num {
+    text-align: right; font-family: var(--f-mono); font-variant-numeric: tabular-nums;
+    white-space: nowrap; width: 1%; padding-left: 28px;
+  }
+  td.mono, th.mono {
+    font-family: var(--f-mono); font-variant-numeric: tabular-nums;
+    white-space: nowrap; width: 1%;
+  }
+  tbody th { font-weight: 500; color: var(--ink); }
+
+  /* 라벨과 숫자 사이의 빈 공간을 비율 막대가 채운다 */
+  td.barcell { width: 38%; padding-left: 28px; padding-right: 4px; }
+  .bar { display: block; height: 5px; background: var(--rule-2); }
+  .bar > span { display: block; height: 100%; background: var(--accent); opacity: .8; }
+  tr.total td, tr.total th { border-top: 1px solid var(--rule); font-weight: 600; color: var(--ink); }
+  .tnote {
+    margin: 12px 0 0; font-size: 12.5px; color: var(--ink-3); line-height: 1.7;
+  }
+  .grid2 { display: grid; gap: 26px; }
+  @media (min-width: 900px) { .grid2 { grid-template-columns: 1fr 1fr; align-items: start; } }
+
+  /* ── 스택 ─────────────────────────────────────────── */
+
+  .stack { display: grid; gap: 1px; background: var(--rule); border: 1px solid var(--rule); }
+  .stack-row { background: var(--surface); padding: 18px 22px; display: grid; gap: 12px; }
+  @media (min-width: 760px) {
+    .stack-row { grid-template-columns: 148px minmax(0, 1fr); gap: 24px; align-items: baseline; }
+  }
+  .stack-row > h3 {
+    margin: 0; font-size: 12px; font-weight: 600; letter-spacing: .1em; color: var(--ink-3);
+  }
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; }
+  .chips span {
+    font-family: var(--f-mono); font-size: 11.5px;
+    border: 1px solid var(--rule); padding: 3px 9px; color: var(--ink-2);
+    background: var(--surface-2);
+  }
+  .chips span.key { border-color: var(--accent); color: var(--accent); background: var(--accent-wash); font-weight: 500; }
+
+  /* ── 이전 경력 ────────────────────────────────────── */
+
+  .prev { display: grid; gap: 1px; background: var(--rule); border: 1px solid var(--rule); }
+  .prev-item { background: var(--surface); padding: 22px 24px; display: grid; gap: 12px; }
+  @media (min-width: 820px) {
+    .prev-item { grid-template-columns: 208px minmax(0, 1fr); gap: 28px; }
+  }
+  .prev-when {
+    font-family: var(--f-mono); font-size: 11.5px; font-variant-numeric: tabular-nums;
+    color: var(--ink-3); line-height: 1.65;
+  }
+  .prev-when b { display: block; font-family: var(--f-body); font-size: 14.5px; font-weight: 600; color: var(--ink); margin-bottom: 4px; letter-spacing: -.01em; }
+  .prev-body h4 { margin: 0 0 6px; font-size: 14.5px; font-weight: 600; letter-spacing: -.01em; }
+  .prev-body p { margin: 0; font-size: 13.5px; color: var(--ink-2); }
+  .prev-body ul { margin: 8px 0 0; padding: 0; list-style: none; display: grid; gap: 6px; }
+  .prev-body li { position: relative; padding-left: 15px; font-size: 13.5px; color: var(--ink-2); }
+  .prev-body li::before { content: ""; position: absolute; left: 0; top: .68em; width: 5px; height: 1px; background: var(--ink-3); }
+  .prev-stack { margin-top: 10px; font-family: var(--f-mono); font-size: 11px; color: var(--ink-3); }
+
+  /* ── 푸터 ─────────────────────────────────────────── */
+
+  .colophon {
+    border-top: 1px solid var(--rule); background: var(--surface);
+    padding-block: 34px 46px;
+  }
+  .colophon p {
+    margin: 0; max-width: 48em; font-size: 12.5px; color: var(--ink-3); line-height: 1.8;
+    text-wrap: pretty;
+  }
+  .colophon p + p { margin-top: 10px; }
+
+  /* ── 데스크톱: 인덱스 레일 ────────────────────────── */
+
+  @media (min-width: 1040px) {
+    .page-grid {
+      display: grid;
+      grid-template-columns: 186px minmax(0, 1fr);
+      gap: 58px;
+      align-items: start;
+    }
+    .rail {
+      display: block;
+      position: sticky; top: 34px;
+      border-left: 1px solid var(--rule);
+    }
+    .rail-hd {
+      font-family: var(--f-mono);
+      font-size: 10px; font-weight: 500; letter-spacing: .12em; text-transform: uppercase;
+      color: var(--ink-3);
+      padding: 0 0 12px 16px;
+    }
+    .rail ol { list-style: none; margin: 0; padding: 0; display: grid; }
+    .rail a {
+      display: block; padding: 6px 0 6px 16px;
+      font-size: 12.5px; color: var(--ink-2); text-decoration: none;
+      border-left: 2px solid transparent; margin-left: -1px;
+      transition: color .18s ease, border-color .18s ease;
+    }
+    .rail a:hover { color: var(--ink); }
+    .rail a[aria-current="true"] {
+      color: var(--accent); border-left-color: var(--accent); font-weight: 500;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { transition: none !important; animation: none !important; }
+    html { scroll-behavior: auto; }
+  }
+  html { scroll-behavior: smooth; }
+  .sect { scroll-margin-top: 30px; }
+</style>
+</head>
+<body>
+<header class="masthead">
+  <div class="wrap masthead-in">
+    <span class="wordmark">배우현</span>
+    <span class="masthead-role">프론트엔드 개발자</span>
+    <span class="masthead-stamp">경력기술서 · 2024.01–2026.08</span>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap hero-in">
+    <p class="eyebrow">Frontend · Platform · Automation</p>
+    <h1>규칙을 문서로 적어두기보다, <em>어겼을 때 도구가 알려주도록</em> 만듭니다.</h1>
+
+    <p class="hero-lede">
+      아파트·오피스텔 커뮤니티 플랫폼의 프론트엔드를 담당합니다. React·TypeScript 기반으로
+      입주민 앱, 단지 관리사무소용 운영툴, 사내 운영 콘솔, 매장 POS·주문 키오스크,
+      디지털 사이니지 CMS, 커뮤니티 앱(React&nbsp;Native)까지 <strong>6개 제품을 병행</strong>합니다.
+    </p>
+    <p class="hero-lede">
+      화면 구현에 머무르지 않고 프론트엔드 기반을 직접 설계·구축했습니다. 최근 2년은
+      <strong>사람이 매번 기억하고 판단하던 것을 기계가 생성·검증·갱신하게 만드는 일</strong>에
+      집중했습니다 — 스펙에서 타입을 생성하고, 결정 근거를 남기고, 규칙을 기계가 검증하도록 옮기는 작업입니다.
+    </p>
+
+    <dl class="facts">
+      <div class="fact"><dt>담당 제품</dt><dd>6<span>개</span></dd></div>
+      <div class="fact"><dt>처리 이슈</dt><dd>1,260<span>건</span></dd></div>
+      <div class="fact"><dt>단독 구축 신규 제품</dt><dd>2<span>건</span></dd></div>
+      <div class="fact"><dt>재직 기간</dt><dd>2년 7<span>개월</span></dd></div>
+      <div class="fact"><dt>동료 PR 리뷰</dt><dd>1,501<span>건</span></dd></div>
+    </dl>
+  </div>
+</section>
+
+<div class="wrap page">
+  <div class="page-grid">
+
+    <aside class="rail">
+      <p class="rail-hd">Index</p>
+      <ol>
+        <li><a href="#capabilities">핵심 역량</a></li>
+        <li><a href="#products">담당 제품</a></li>
+        <li><a href="#automation">자동화 · AI 개발 환경</a></li>
+        <li><a href="#platform">프론트엔드 플랫폼</a></li>
+        <li><a href="#work">제품 개발</a></li>
+        <li><a href="#metrics">정량 지표</a></li>
+        <li><a href="#stack">기술 스택</a></li>
+        <li><a href="#previous">이전 경력</a></li>
+      </ol>
+    </aside>
+
+    <main class="doc">
+
+      <!-- ── 핵심 역량 ─────────────────────────────── -->
+      <section class="sect" id="capabilities">
+        <header>
+          <h2>핵심 역량</h2>
+        </header>
+        <div class="caps">
+          <article class="cap">
+            <p class="cap-kind">자동화 설계</p>
+            <h3>반복되는 판단을 사람이 아니라 도구가 하게 만듭니다</h3>
+            <p>무엇이 사람 손에 남아 반복되는지 먼저 찾아내고, 그것을 생성·검증·갱신하는 장치로 옮깁니다. 규칙은 문서로 적어두는 대신 타입 시스템·CI 게이트·자동 PR처럼 <strong>어겼을 때 알려주는 형태</strong>로 놓습니다.</p>
+            <p class="cap-ev"><b>근거</b>OpenAPI 타입 생성 4개 제품 · 미사용 파일 CI 가드 직접 구현 · 문서 재생성 파이프라인 · ADR 31/34건</p>
+          </article>
+          <article class="cap">
+            <p class="cap-kind">기반 설계</p>
+            <h3>기능 하나보다, 다음 기능이 싸게 만들어지는 구조를 남깁니다</h3>
+            <p>제품마다 흩어진 설정·컴포넌트·라우팅에서 공통 축을 찾아 단일 소스로 묶습니다. 새 화면을 추가하면 <strong>권한 가드와 컨벤션이 자동으로 따라오는</strong> 쪽을 택합니다.</p>
+            <p class="cap-ev"><b>근거</b>CRA → Vite 3개 제품 · Turborepo 공용 config · 디자인 시스템 패키지화 · Sentry 관측성</p>
+          </article>
+          <article class="cap">
+            <p class="cap-kind">경계 설계</p>
+            <h3>여러 지점에 걸친 도메인을 한쪽만 맞게 만들지 않습니다</h3>
+            <p>하나의 정책이 앱·웹뷰·POS·네이티브에 동시에 걸칠 때 <strong>상태 머신과 인터페이스 규약을 맞추고 배포 순서를 통제</strong>합니다. 제품 하나를 골격부터 운영 투입까지 혼자 끌고 간 경험이 그 판단의 근거입니다.</p>
+            <p class="cap-ev"><b>근거</b>ANPR 3지점 연결 · 단지 시설 기기 3개 저장소 동시 대응 · 사이니지 CMS · Electron 앱 단독 구축</p>
+          </article>
+        </div>
+      </section>
+
+      <!-- ── 담당 제품 ─────────────────────────────── -->
+      <section class="sect" id="products">
+        <header>
+          <h2>담당 제품</h2>
+          <p>2024.01 ~ 2026.08. 이슈 수는 본인이 담당자로 지정된 건 기준이며 하위 작업을 포함합니다.</p>
+        </header>
+        <div class="tablewrap">
+          <table>
+            <thead>
+              <tr>
+                <th scope="col">제품</th>
+                <th scope="col">성격</th>
+                <th scope="col" class="mono">담당 기간</th>
+                <th scope="col" class="num">이슈</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">입주민 모바일 웹앱</th>
+                <td>B2C 커뮤니티 · 시설예약 · 결제</td>
+                <td class="mono">2024.04 – 2026.08</td>
+                <td class="num">332</td>
+              </tr>
+              <tr>
+                <th scope="row">내부 운영 콘솔</th>
+                <td>사내 운영자용 단지 · 기기 · 정책 관리</td>
+                <td class="mono">2024.02 – 2026.08</td>
+                <td class="num">200</td>
+              </tr>
+              <tr>
+                <th scope="row">디지털 사이니지 CMS</th>
+                <td>단지 게시판 · 광고 송출 (신규 구축)</td>
+                <td class="mono">2025.01 – 2025.11</td>
+                <td class="num">234</td>
+              </tr>
+              <tr>
+                <th scope="row">관리자 운영툴</th>
+                <td>관리사무소용 회원 · 시설 운영</td>
+                <td class="mono">2024.01 – 2026.08</td>
+                <td class="num">132</td>
+              </tr>
+              <tr>
+                <th scope="row">매장 POS · 주문 키오스크</th>
+                <td>단지 내 매장 · 세탁실 결제 단말</td>
+                <td class="mono">2025.01 – 2026.07</td>
+                <td class="num">53</td>
+              </tr>
+              <tr>
+                <th scope="row">커뮤니티 앱 (React Native)</th>
+                <td>비공개 회원제 커뮤니티 앱 리뉴얼</td>
+                <td class="mono">2024.08 – 2025.10</td>
+                <td class="num">49</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="tnote">
+          사이니지 CMS는 이슈 트래커의 컴포넌트 태깅이 2025.05부터 시작돼, 그 이전 구축 단계는
+          해당 에픽 하위 작업 48건으로 별도 집계했습니다.
+        </p>
+      </section>
+
+      <!-- ── 자동화 · AI ───────────────────────────── -->
+      <section class="sect" id="automation">
+        <header>
+          <h2>자동화 · AI 개발 환경</h2>
+          <p>
+            특정 기능 개발이 아니라 팀 전체의 작업 방식을 바꾼 기반 작업입니다.
+            관통하는 문제의식은 하나입니다 — 사람이 매번 기억하고 판단해야 하는 것을, 기계가 생성·검증·갱신하도록 옮긴다.
+          </p>
+        </header>
+        <div class="recs">
+
+          <article class="rec">
+            <header>
+              <h3>API 타입 자동 생성 파이프라인</h3>
+              <dl class="rec-meta">
+                <div><dt>기간</dt><dd>2025.06 – 2026.08</dd></div>
+                <div><dt>범위</dt><dd>4개 제품</dd></div>
+                <div><dt>역할</dt><dd>설계 · 구축 · 확산</dd></div>
+              </dl>
+            </header>
+            <div class="rec-body">
+              <div class="blk">
+                <span class="lbl">문제</span>
+                <p>
+                  서버 응답 타입을 프론트엔드에서 수기로 다시 정의하고 있었습니다. 서버가 필드를 바꿔도
+                  프론트엔드는 런타임에 터지기 전까지 알 수 없었고, 같은 API의 타입이 화면마다
+                  조금씩 다르게 복사돼 있었습니다.
+                </p>
+              </div>
+              <div class="blk">
+                <span class="lbl">수행</span>
+                <ul class="acts">
+                  <li>
+                    <h4>OpenAPI 스펙에서 타입과 쿼리 훅을 생성하는 파이프라인 구축</h4>
+                    <p>openapi-typescript · openapi-fetch · openapi-react-query 조합. 화면마다 조금씩 다르게 복사돼 있던 수기 타입 정의를 전부 없앴습니다.</p>
+                  </li>
+                  <li>
+                    <h4>파생 타입을 URL 경로 기준으로만 참조하도록 컨벤션 정립</h4>
+                    <p>서버가 스키마 컴포넌트 이름을 바꿔도 프론트엔드 타입이 조용히 깨지지 않습니다. 규칙 파일로 문서화해 사람과 AI가 같은 방식을 쓰도록 했습니다.</p>
+                  </li>
+                  <li>
+                    <h4>생성 산출물을 Git에서 분리하고, 제품별로 다르던 절차를 통일</h4>
+                    <p>로컬·CI에서 그때그때 생성합니다. 환경(dev·alpha·운영)별로 갈리던 스키마 출처는 환경 변수 하나로 묶고 결정 배경을 ADR로 남겼습니다. 4개 제품이 같은 스크립트·같은 폴더 구조를 씁니다.</p>
+                  </li>
+                </ul>
+              </div>
+              <div class="blk blk--out">
+                <span class="lbl">결과</span>
+                <p>
+                  서버 스펙 변경이 런타임 장애가 아니라 컴파일 에러로 드러나게 되었고, 팀원 간 스키마 파일
+                  충돌이 구조적으로 사라졌습니다. 부수적으로 AI 에이전트가 API 타입을 추측할 여지 자체가 제거됐습니다.
+                </p>
+              </div>
+            </div>
+          </article>
+
+          <article class="rec">
+            <header>
+              <h3>AI가 읽을 수 있는 코드베이스 만들기</h3>
+              <dl class="rec-meta">
+                <div><dt>기간</dt><dd>2026.04 – 2026.08</dd></div>
+                <div><dt>기여</dt><dd>ADR 31/34 · 규칙 18/21</dd></div>
+              </dl>
+            </header>
+            <div class="rec-body">
+              <div class="blk">
+                <span class="lbl">문제</span>
+                <p>
+                  AI 도구를 도입해도, 프로젝트의 암묵적 컨벤션(라우팅 규칙·네이밍·디자인 시스템 사용법·금지 패턴)이
+                  사람 머릿속에만 있으면 AI는 매번 틀린 코드를 냅니다. 리뷰 비용이 오히려 늘어납니다.
+                </p>
+              </div>
+              <div class="blk">
+                <span class="lbl">수행</span>
+                <ul class="acts">
+                  <li>
+                    <h4>저장소별 에이전트 규칙 파일 체계 구축 — 21개 규칙 중 18개 직접 작성</h4>
+                    <p><code>AGENTS.md</code> · <code>CLAUDE.md</code> · Cursor Rules. 라우팅 규약, 절대 경로 import, 타입·인터페이스 네이밍, 디자인 시스템·OpenAPI 클라이언트 사용 규칙 등. 규칙이 늘수록 컨텍스트 비용이 커지므로 실제로 위반이 잦은 항목만 남기고 경량화했습니다.</p>
+                  </li>
+                  <li>
+                    <h4>아키텍처 결정 기록(ADR) 체계 도입 및 운영 — 34건 중 31건 직접 작성</h4>
+                    <p>세션 저장소 단일 출처, 라우트 통합, 스키마 환경 분리 등. “왜 이렇게 되어 있는가”를 사람과 AI가 함께 읽을 수 있는 형태로 축적했습니다.</p>
+                  </li>
+                  <li>
+                    <h4>Figma MCP 연동 및 Code Connect 매핑</h4>
+                    <p>디자인에서 코드를 생성할 때 사내 디자인 시스템 컴포넌트를 쓰도록 유도합니다.</p>
+                  </li>
+                </ul>
+              </div>
+              <div class="blk blk--out">
+                <span class="lbl">결과</span>
+                <p>
+                  해당 저장소의 에이전트 규칙·설계 문서 커밋 <strong>393건 중 277건(약 70%)</strong>을 작성 —
+                  코드베이스의 “기계가 읽는 지식 계층”을 사실상 단독으로 운영했습니다.
+                </p>
+              </div>
+            </div>
+          </article>
+
+          <article class="rec">
+            <header>
+              <h3>도메인 지식의 LLM Wiki화 · 문서 자동 재생성</h3>
+              <dl class="rec-meta">
+                <div><dt>기간</dt><dd>2026.06 – 2026.08</dd></div>
+                <div><dt>역할</dt><dd>백엔드 유닛과 공동 진행</dd></div>
+              </dl>
+            </header>
+            <div class="rec-body">
+              <div class="blk">
+                <span class="lbl">문제</span>
+                <p>
+                  도메인 정책(정산·쿠폰·시설 예약·인증)은 코드에만 있어 개발자만 접근할 수 있었고,
+                  사람이 쓴 문서는 코드가 바뀌는 순간부터 낡기 시작했습니다.
+                </p>
+              </div>
+              <div class="blk">
+                <span class="lbl">수행</span>
+                <ul class="acts">
+                  <li>
+                    <h4>소스 코드를 원천으로 도메인 지식을 인용 가능한 위키로 구조화</h4>
+                    <p>도메인 · 엔티티 · 기능 · 용어사전 · 플레이북 · 결정기록 체계를 설계했습니다. LLM이 인덱스를 먼저 읽고 관련 페이지를 찾아 인용과 함께 답하는 형태입니다. 35개 문서 중 11개 최초 작성(해당 디렉터리 커밋 43/53건). <em>위키를 질의 가능한 지식 소스로 노출하는 로컬 MCP 서버와, Confluence·Jira·Figma 기획서를 마크다운으로 추출하는 수집 계층은 개인 작업 디렉터리에서 선행 프로토타입으로 제작했습니다.</em></p>
+                  </li>
+                  <li>
+                    <h4>감지된 드리프트를 받아 재생성 PR을 여는 구간 구현 — 담당자 지정 · 리뷰 요청까지</h4>
+                    <p>드리프트 <em>감지</em> 엔진은 백엔드 유닛이 먼저 구축했고, 감지 결과를 받아 재생성 PR을 열고 담당자를 지정해 리뷰를 요청하는 구간을 붙였습니다. 이후 에이전트 실패 시 원인 진단 스텝 추가, dispatch를 gh CLI에서 REST로 교체(러너에 gh 없음) 등 운영 안정화와 인증 토큰 이관을 담당했습니다(저장소 전체 371 커밋 중 23건).</p>
+                  </li>
+                  <li>
+                    <h4>재생성 PR 체크리스트를 “사실 확인”에서 “해석 확인” 중심으로 규약 개정</h4>
+                    <p>AI가 이미 검증한 항목을 사람이 반복 확인하는 낭비를 없애고, 사람만 판단할 수 있는 것에 리뷰를 집중시켰습니다.</p>
+                  </li>
+                </ul>
+              </div>
+              <div class="blk blk--out">
+                <span class="lbl">결과</span>
+                <p>
+                  도메인 지식이 “물어봐야 아는 것”에서 “AI에게 질문하면 근거와 함께 답이 나오는 것”으로 전환됐고,
+                  문서 갱신이 사람의 성실성이 아니라 파이프라인의 기능이 됐습니다.
+                </p>
+              </div>
+            </div>
+          </article>
+
+          <article class="rec">
+            <header>
+              <h3>코드 품질 자동 검증 — 사람이 지적하던 것을 CI가 지적하게</h3>
+              <dl class="rec-meta">
+                <div><dt>기간</dt><dd>2026.06 – 2026.08</dd></div>
+                <div><dt>역할</dt><dd>가드 직접 구현 · 운영</dd></div>
+              </dl>
+            </header>
+            <div class="rec-body">
+              <div class="blk">
+                <span class="lbl">수행</span>
+                <ul class="acts">
+                  <li>
+                    <h4>미사용 파일 가드 직접 구현 — PR로 새로 죽은 파일이 생기면 그 원인이 된 줄에 리뷰 코멘트를 남긴다</h4>
+                    <p>입주민 앱에 Knip 정적 분석을 도입한 뒤 내부 운영 콘솔로 확산했습니다. 머지 예정 트리 기준 오탐 보정, 확장자 포함 상대 경로 미탐지 수정, 리뷰 배치 API 오류 대응까지 운영 안정화를 담당했습니다.</p>
+                  </li>
+                  <li>
+                    <h4>타입 검증 파이프라인이 개발 흐름을 막지 않도록 재배치</h4>
+                    <p>feature 브랜치에서는 타입 체크를 완화하고 CI 타입 검증은 리포팅 전용으로 전환. 자동 라벨링 워크플로는 이벤트 유실 시 다음 push에서 백필하도록 자가치유를 보강했습니다.</p>
+                  </li>
+                  <li>
+                    <h4>조직 공통 AI 코드리뷰 GitHub Actions 도입 참여</h4>
+                    <p>각 저장소가 복사해 쓰던 워크플로를 재사용 워크플로 한 벌로 통합했습니다. 실제 앱 화면 스냅샷 자동 촬영 파이프라인은 수집 대상 경로 인벤토리까지 완료했고 Playwright 수집기는 진행 중입니다.</p>
+                  </li>
+                </ul>
+              </div>
+              <div class="blk blk--out">
+                <span class="lbl">결과</span>
+                <p>지적의 주체가 리뷰어에서 CI로 이동했습니다. 규칙이 문서가 아니라 게이트로 존재합니다.</p>
+              </div>
+            </div>
+          </article>
+
+        </div>
+      </section>
+
+      <!-- ── 프론트엔드 플랫폼 ─────────────────────── -->
+      <section class="sect" id="platform">
+        <header>
+          <h2>프론트엔드 플랫폼</h2>
+          <p>제품별 저장소가 각자 다른 번들러·린트·타입 설정을 쓰던 상태에서, 공유 가능한 기반을 만드는 작업입니다.</p>
+        </header>
+        <div class="recs">
+
+          <article class="rec">
+            <header>
+              <h3>Vite 마이그레이션 · 공용 설정 체계 · 라우팅 재설계</h3>
+              <dl class="rec-meta">
+                <div><dt>기간</dt><dd>2024.04 – 2024.08</dd></div>
+                <div><dt>역할</dt><dd>에픽 단위 실무 주도</dd></div>
+              </dl>
+            </header>
+            <div class="rec-body">
+              <div class="blk">
+                <span class="lbl">문제</span>
+                <p>
+                  제품별 저장소가 각자 다른 번들러(CRA)·린트 설정·타입 설정을 사용해 컨벤션이 파편화되고
+                  빌드 시간이 길었습니다. 라우팅도 수동 등록 방식이라 권한 가드가 화면마다 산발적으로 존재했습니다.
+                </p>
+              </div>
+              <div class="blk">
+                <span class="lbl">수행</span>
+                <ul class="acts">
+                  <li>
+                    <h4>CRA → Vite 마이그레이션(3개 제품)과 공용 설정 패키지 체계 구축</h4>
+                    <p>입주민 앱 · 관리자 운영툴 · 디자인 시스템 ui-kit에 적용했습니다. <code>config-typescript</code> · <code>config-tailwind</code> · <code>config-prettier</code> · <code>eslint-config</code>를 분리해 저장소마다 갈라져 있던 컨벤션을 단일 소스로 묶고, 변경 패키지만 배포하는 스크립트를 설계했습니다. <em>모노레포 이관은 내부 운영 콘솔에 적용했습니다.</em></p>
+                  </li>
+                  <li>
+                    <h4>파일시스템 라우팅 도입과 권한 가드 일원화</h4>
+                    <p>기존 라우터와의 구조 비교 문서·가이드라인을 작성해 팀에 공유한 뒤 전환했습니다. AuthGuard를 라우팅 레이어로 통합하고, <code>useNavigate</code> 사용 규칙과 <code>src</code> 직접 import 차단을 ESLint 규칙으로 강제했습니다.</p>
+                  </li>
+                  <li>
+                    <h4>shadcn/ui 전체를 사내 디자인 시스템 패키지로 편입</h4>
+                    <p>Storybook으로 문서화했습니다. 아이콘 파이프라인은 SVGR로 통일하고, 미사용 패키지·이미지를 전수 조사해 제거했습니다.</p>
+                  </li>
+                </ul>
+              </div>
+              <div class="blk blk--out">
+                <span class="lbl">결과</span>
+                <p>제품 간 설정이 단일 소스로 통합되고, 신규 페이지 추가 시 라우트 등록·권한 가드가 자동 적용되는 구조를 확보했습니다.</p>
+              </div>
+            </div>
+          </article>
+
+          <article class="rec">
+            <header>
+              <h3>프론트엔드 관측성 체계 구축</h3>
+              <dl class="rec-meta">
+                <div><dt>기간</dt><dd>2024.10 – 2025.11</dd></div>
+                <div><dt>역할</dt><dd>단독 설계 · 구축</dd></div>
+              </dl>
+            </header>
+            <div class="rec-body">
+              <div class="blk">
+                <span class="lbl">문제</span>
+                <p>
+                  운영 중 발생하는 프론트엔드 오류를 사용자 문의(CS)로만 인지할 수 있었고,
+                  어느 단지·어느 사용자에게서 발생했는지 추적이 불가능했습니다.
+                </p>
+              </div>
+              <div class="blk">
+                <span class="lbl">수행</span>
+                <ul class="acts">
+                  <li>
+                    <h4>Sentry 도입과 에러 바운더리에서 리포팅 로직 분리</h4>
+                    <p>릴리즈 버전 네이밍 체계를 정리하고, 에러 유형별로 로그 수집 경로를 구분했습니다.</p>
+                  </li>
+                  <li>
+                    <h4>운영상 의미 없는 노이즈 필터링</h4>
+                    <p>홈넷 연동 오류·401 인증 오류 등. 401은 핑거프린트를 분리해 별도 집계하고, 샘플 레이트를 조정해 비용과 신호의 균형을 잡았습니다.</p>
+                  </li>
+                  <li>
+                    <h4>단지 ID·사용자 태그를 이벤트에 부착</h4>
+                    <p>“어느 단지에서 나는 오류인지”를 즉시 식별할 수 있게 됐습니다. 이후 사이니지 CMS에도 동일 체계를 확산 적용했습니다.</p>
+                  </li>
+                </ul>
+              </div>
+              <div class="blk blk--out">
+                <span class="lbl">결과</span>
+                <p>장애 인지 경로가 CS 접수에서 모니터링 알림으로 전환됐습니다.</p>
+              </div>
+            </div>
+          </article>
+
+          <article class="rec">
+            <header>
+              <h3>번역 데이터 무손실 동기화 · CI/CD · 보안</h3>
+              <dl class="rec-meta">
+                <div><dt>기간</dt><dd>2024.02 – 2026.08</dd></div>
+                <div><dt>역할</dt><dd>상시</dd></div>
+              </dl>
+            </header>
+            <div class="rec-body">
+              <div class="blk">
+                <span class="lbl">수행</span>
+                <ul class="acts">
+                  <li>
+                    <h4>다국어 파이프라인을 입주민 앱 구조 그대로 운영툴로 이관</h4>
+                    <p>운영툴은 한국어 문구가 코드에 흩어져 있었고, 번역 담당자의 스프레드시트와 코드의 JSON 사전이 따로 놀았습니다. 폴더 구조까지 동일하게 맞추고 시트 다운로드 → 변환 → 반영을 스크립트 한 줄로 묶었습니다.</p>
+                  </li>
+                  <li>
+                    <h4>번역 시트 ↔ JSON 왕복 무손실 동기화 구현</h4>
+                    <p>어느 방향으로 변환해도 데이터가 유실되지 않도록 보정하고, 키 충돌·누락 키·시트 결함을 반영 전에 자동 검출합니다.</p>
+                  </li>
+                  <li>
+                    <h4>CI/CD 이관과 개인 액세스 토큰(PAT) 제거</h4>
+                    <p>AWS 배포를 Jenkins로 이관하고 이슈 트래커 ↔ Git ↔ Jenkins ↔ 사내 메신저 파이프라인을 설계했습니다. 워크플로가 개인 토큰에 의존하던 구조는 조직 GitHub App 설치 토큰(실행 시점 발급 · 1시간 만료)으로 전환해 9개 저장소에 확산했습니다.</p>
+                  </li>
+                </ul>
+              </div>
+              
+              <div class="blk blk--out">
+                <span class="lbl">결과</span>
+                <p>번역 반영이 “담당자가 파일을 잘 옮겼는가”에서 정형화된 파이프라인의 실행 결과로 바뀌었습니다.</p>
+              </div>
+            </div>
+          </article>
+
+        </div>
+      </section>
+
+      <!-- ── 제품 개발 ─────────────────────────────── -->
+      <section class="sect" id="work">
+        <header>
+          <h2>제품 개발</h2>
+          <p>담당 제품 중 규모와 성격이 드러나는 다섯 건을 선별했습니다.</p>
+        </header>
+        <div class="recs">
+
+          <article class="rec">
+            <header>
+              <h3>디지털 사이니지 CMS 신규 구축 — 프론트엔드 전담</h3>
+              <dl class="rec-meta">
+                <div><dt>기간</dt><dd>2025.01 – 2025.11</dd></div>
+                <div><dt>역할</dt><dd>프론트엔드 단독</dd></div>
+                <div><dt>규모</dt><dd>234건 (에픽 하위 전량)</dd></div>
+              </dl>
+            </header>
+            <div class="rec-body">
+              <div class="blk">
+                <span class="lbl">문제</span>
+                <p>단지 내 사이니지 기기(광고·공지 송출)를 관리할 도구가 없어 현장 방문·수동 조작에 의존했습니다.</p>
+              </div>
+              <div class="blk">
+                <span class="lbl">수행</span>
+                <ul class="acts">
+                  <li>
+                    <h4>앱 셸·라우팅·인증 골격과 공통 컴포넌트 세트를 먼저 세우고 도메인 화면을 얹는 순서로 진행</h4>
+                    <p>테이블 · 버튼 · 인풋 · 셀렉트 · 모달 · 주소입력 · 검색필터. 이탈 방지(Blocker) 공통 컴포넌트, 로그인 CAPTCHA, 에이전시 권한 UI 분리도 함께 구축했습니다.</p>
+                  </li>
+                  <li>
+                    <h4>광고 운영 전 화면 개발 — 매체 · 소재 · 캠페인 · 콘텐츠 송출 · 게시판 · 자동 편성</h4>
+                    <p>설치 단지·브랜드 관리 및 일괄 제어, 기기 일괄 제어와 앱 재실행·기기 재시작 원격 제어, APK 버전 업로드·배포 관리까지 담당했습니다.</p>
+                  </li>
+                  <li>
+                    <h4>운영 대시보드 구축과 품질 정비</h4>
+                    <p>매출 차트(기간 필터·옵션)와 통계 그래프. Ant Design 전역 테마 오버라이드, 맥·윈도우 폰트 통일, 리렌더 성능 개선 리팩토링, Sentry 연동.</p>
+                  </li>
+                </ul>
+              </div>
+              <div class="blk blk--out">
+                <span class="lbl">결과</span>
+                <p>약 10개월에 걸쳐 신규 제품을 0에서 운영 투입 수준까지 완성했습니다. (초기 구축 → 도메인 화면 확장 → 알파 안정화·고도화)</p>
+              </div>
+            </div>
+          </article>
+
+          <article class="rec">
+            <header>
+              <h3>현장 지원 데스크톱 앱 (Electron, 단독 개발)</h3>
+              <dl class="rec-meta">
+                <div><dt>기간</dt><dd>2026.07 – 2026.08</dd></div>
+                <div><dt>역할</dt><dd>기획 · 설계 · 개발 전담</dd></div>
+                <div><dt>규모</dt><dd>저장소 단독 저자 · v1.3.0</dd></div>
+              </dl>
+            </header>
+            <div class="rec-body">
+              <div class="blk">
+                <span class="lbl">문제</span>
+                <p>
+                  현장 단지 장비에 접속하려면 매번 bastion 서버 SSH 터널을 수동으로 열고 RDP를 실행해야 했고,
+                  다중 현장을 동시에 지원할 때 세션·포트 관리가 전적으로 사람 손에 의존했습니다.
+                </p>
+              </div>
+              <div class="blk">
+                <span class="lbl">수행</span>
+                <ul class="acts">
+                  <li>
+                    <h4>bastion 경유 다중 SSH 터널 관리와 RDP 자동 실행</h4>
+                    <p>Electron + React + TanStack Router 기반으로 단독 설계·구현했습니다. 포트 고정, 세션 대시보드, 잔여 시간 카운트다운을 제공합니다.</p>
+                  </li>
+                  <li>
+                    <h4>원격 로그 조회 — tail · 목록 · 다운로드 · grep, 압축(zip/gz) 로그 바로 보기</h4>
+                    <p>로그 탭을 다중화해 여러 현장을 동시에 확인할 수 있습니다.</p>
+                  </li>
+                  <li>
+                    <h4>“현장을 여는 것”과 “실제 접속”을 분리하는 정보 구조 재설계</h4>
+                    <p>조회만 필요한 작업이 SSH/OTP와 동시 접속 상한을 강제로 소모하던 문제를 해소했습니다. <code>safeStorage</code> 기반 비밀번호 암호화 저장, 외부 네비게이션 차단, 진단 로그 14일 자동 삭제 등 보안 처리와, 폐기된 대안까지 남기는 설계 기록 체계를 함께 운영했습니다.</p>
+                  </li>
+                </ul>
+              </div>
+              <div class="blk blk--out">
+                <span class="lbl">결과</span>
+                <p>v1.3.0까지 릴리즈해 사내 현장 지원 업무에 사용 중입니다.</p>
+              </div>
+            </div>
+          </article>
+
+          <article class="rec">
+            <header>
+              <h3>실시간 차량번호 인식(ANPR) 기반 단지 주차관리</h3>
+              <dl class="rec-meta">
+                <div><dt>기간</dt><dd>2026.06 – 2026.08</dd></div>
+                <div><dt>범위</dt><dd>운영툴 · 입주민 앱</dd></div>
+              </dl>
+            </header>
+            <div class="rec-body">
+              <div class="blk">
+                <span class="lbl">문제</span>
+                <p>
+                  기존 차량번호 인식은 번호판을 지정된 인식 영역에 맞춰야만 동작해, 관리자가 주차장을 돌며
+                  다수 차량을 빠르게 확인하기 어려웠습니다. 위반 차량 통제도 신고 이력이 흩어져 있어 수작업 판단에 의존했습니다.
+                </p>
+              </div>
+              <div class="blk">
+                <span class="lbl">수행</span>
+                <ul class="acts">
+                  <li>
+                    <h4>관리자 앱의 네이티브 번호판 인식 인터페이스를 운영툴 웹뷰와 연결</h4>
+                    <p>카메라를 비추면 시야에 들어온 차량 번호를 실시간으로 인식하고, 정기 · 방문 · 미등록 차량 타입을 즉시 판별해 표시합니다. 주차 신고 화면에 진입하면 인식된 번호판이 자동으로 채워집니다.</p>
+                  </li>
+                  <li>
+                    <h4>신고 차량 · 블랙리스트 관리 체계 구현</h4>
+                    <p>신고 누적 기준에 따른 자동 등록과 관리자 수동 해제 정책, 등록 사유·상태 변경 주체 표기, 필터·뱃지, 방문 등록 차단 안내를 담당했습니다.</p>
+                  </li>
+                  <li>
+                    <h4>모바일 웹뷰 최적화</h4>
+                    <p>차량 목록을 테이블에서 모바일 List + 무한스크롤로 전환하고, 신고 Drawer를 모바일 대응·자동 오픈하도록 했습니다. 주차 URL 하위에서는 LNB·헤더를 감춰 앱 내 화면처럼 보이게 처리했습니다. AI 주차 리포트는 입주민 앱 홈에서 바로 진입하는 동선을 추가하고 다운로드는 권한에 따라 노출을 분기했습니다.</p>
+                  </li>
+                </ul>
+              </div>
+              <div class="blk blk--out">
+                <span class="lbl">특징</span>
+                <p>
+                  하나의 도메인이 <strong>관리자 앱(네이티브) ↔ 운영툴(웹뷰) ↔ 입주민 앱</strong> 세 지점에 걸쳐 있어,
+                  네이티브 인터페이스 규약을 맞추고 웹·네이티브 경계에서의 화면 전환을 설계하는 일이 작업의 핵심이었습니다.
+                </p>
+              </div>
+            </div>
+          </article>
+
+          <article class="rec">
+            <header>
+              <h3>입주민 앱 전면 개편 · 멀티 브랜드 대응</h3>
+              <dl class="rec-meta">
+                <div><dt>기간</dt><dd>2024.04 – 2026.08</dd></div>
+                <div><dt>규모</dt><dd>커밋 1,062건 · 이슈 332건</dd></div>
+              </dl>
+            </header>
+            <div class="rec-body">
+              <div class="blk">
+                <span class="lbl">문제</span>
+                <p>
+                  하나의 코드베이스로 다수 건설사·브랜드의 단지 앱을 동시에 서비스해야 했고, 브랜드마다
+                  노출 메뉴·레이아웃·정책이 달랐습니다. 노후화된 메뉴 관리 시스템과 UI 숨김에만 의존하던
+                  권한 처리는 한계에 도달한 상태였습니다.
+                </p>
+              </div>
+              <div class="blk">
+                <span class="lbl">수행</span>
+                <ul class="acts">
+                  <li>
+                    <h4>서브도메인 기반 브랜드별 레이아웃 분기 구조 설계</h4>
+                    <p>하나의 코드베이스로 다수 건설사·브랜드의 단지 앱을 동시에 서비스합니다. 신규 브랜드 전환 프로젝트를 다수 대응했습니다.</p>
+                  </li>
+                  <li>
+                    <h4>차세대 버전 전면 개편 — 3계층 권한 체계 적용과 메뉴 관리 이관</h4>
+                    <p>계약사 · 단지 · 사용자 권한을 계약사가 구독하는 기능 묶음(상품) 단위로 반영하고, 메뉴 관리를 구 시스템에서 신규 운영 콘솔로 완전 이관했습니다. 홈 화면 및 전체 UI/UX 재설계와 다크 모드 도입을 포함하며, 6차에 걸친 통합 개발 테스트 라운드에 대응했습니다.</p>
+                  </li>
+                  <li>
+                    <h4>스마트홈(홈넷) OAuth 콜백 구조 재설계</h4>
+                    <p>계정 ID 길이 제약으로 일부 사용자가 스마트홈을 이용할 수 없던 문제와, 개발·알파 환경에서 테스트가 불가하던 문제를 함께 해결했습니다. 이 밖에 전기차 충전 상태 조회, 방문차량 알림, 알림센터, 국제화, PDF·서명·카메라 등 디바이스 연동을 담당했습니다.</p>
+                  </li>
+                </ul>
+              </div>
+              <div class="blk blk--out">
+                <span class="lbl">결과</span>
+                <p>정해진 출시 일정에 맞춰 전면 개편 버전을 출시했습니다. 커밋 1,062건 · 이슈 332건으로 담당 제품 가운데 가장 큰 비중입니다.</p>
+              </div>
+            </div>
+          </article>
+
+          <article class="rec">
+            <header>
+              <h3>POS · 키오스크 · 단지 시설 기기 연동 — 3개 클라이언트 동시 대응</h3>
+              <dl class="rec-meta">
+                <div><dt>기간</dt><dd>2025.01 – 2026.08</dd></div>
+                <div><dt>범위</dt><dd>앱 · 키오스크 · 운영툴</dd></div>
+              </dl>
+            </header>
+            <div class="rec-body">
+              <div class="blk">
+                <span class="lbl">문제</span>
+                <p>
+                  단지 내 매장 주문(픽업오더)이 앱–POS–관리자 3개 클라이언트에 걸쳐 있어 상태 불일치와
+                  결제 오류가 반복 발생했습니다. 단지 시설 기기 연동도 단일 도메인이 3개 저장소에 동시에 걸쳐 있었습니다.
+                </p>
+              </div>
+              <div class="blk">
+                <span class="lbl">수행</span>
+                <ul class="acts">
+                  <li>
+                    <h4>픽업오더 주문 상태 머신을 앱·POS 양쪽에서 정합하게 맞춤</h4>
+                    <p>접수 · 거부 · 자동거부 · 부분취소. 영수증 출력 로직(주방용·고객용)과 출력 누락·순서 밀림을 해결하고, 주변기기(카드리더·안면인식기) 포트 예외 처리를 담당했습니다.</p>
+                  </li>
+                  <li>
+                    <h4>단지 시설 기기 연동을 앱 · 키오스크 · 운영툴 3개 클라이언트에 동시 대응</h4>
+                    <p>코인세탁기는 입주민 인증(안면인식·카드) → 세탁 이력 조회 → 상품 선택 → 결제 → 기기 제어까지 전 구간을 담당했습니다. 세대 호출 엘리베이터는 단지 오픈 시 수작업이던 설정을, 필수 정보만 입력받고 나머지는 제조사 API로 자동 연결하는 흐름으로 전환했습니다. 독서실 전등 제어·골프타석·사우나 정책도 함께 담당했습니다.</p>
+                  </li>
+                  <li>
+                    <h4>쿠폰 시스템 전 구간과 단지 온보딩(초기화) 자동화</h4>
+                    <p>앱 쿠폰함 신설, 시설 예약·결제 시 쿠폰 적용과 최종 금액 자동 계산, 결제 취소 시 쿠폰 복구, 관리자 발급 정책 UI. 단지 온보딩은 카드·세대·시설·예약 타겟·기기 설정을 콘솔에서 일괄 수행하는 워크플로우로 만들고, 콘솔 설정을 단지 엣지 서버로 내려보낼 때 비밀번호 재확인·엣지 서버 버전 제한 등 안전장치를 설계했습니다.</p>
+                  </li>
+                </ul>
+              </div>
+              <div class="blk blk--out">
+                <span class="lbl">특징</span>
+                <p>단일 도메인이 앱·키오스크·운영툴에 동시에 걸쳐 있어, 3개 저장소를 함께 수정하고 배포 순서를 맞추는 작업을 반복 수행했습니다.</p>
+              </div>
+            </div>
+          </article>
+
+        </div>
+      </section>
+
+      <!-- ── 정량 지표 ─────────────────────────────── -->
+      <section class="sect" id="metrics">
+        <header>
+          <h2>정량 지표</h2>
+          <p>사내 이슈 트래커 이력과 Git 저장소 커밋 이력을 근거로 집계했습니다. (2024.01 – 2026.08)</p>
+        </header>
+
+        <div class="grid2">
+          <div>
+            <div class="tablewrap">
+              <table>
+                <caption>처리 이슈 · 담당자 기준</caption>
+                <thead>
+                  <tr>
+                    <th scope="col">구분</th>
+                    <th scope="col">전체 대비 비중</th>
+                    <th scope="col" class="num">건수</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr><th scope="row">기능 개발</th><td class="barcell"><span class="bar" aria-hidden="true"><span style="width:62.9%"></span></span></td><td class="num">792</td></tr>
+                  <tr><th scope="row">결함 수정</th><td class="barcell"><span class="bar" aria-hidden="true"><span style="width:19.0%"></span></span></td><td class="num">240</td></tr>
+                  <tr><th scope="row">기술 부채 · DX · 인프라</th><td class="barcell"><span class="bar" aria-hidden="true"><span style="width:11.4%"></span></span></td><td class="num">144</td></tr>
+                  <tr><th scope="row">통합 테스트 라운드 대응</th><td class="barcell"><span class="bar" aria-hidden="true"><span style="width:6.7%"></span></span></td><td class="num">84</td></tr>
+                  <tr class="total"><th scope="row">합계</th><td class="barcell"></td><td class="num">1,260</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <p class="tnote">
+              하위 작업을 포함한 수치이며, 분류는 제목·라벨 기준의 자동 분류입니다.
+              이와 별도로, 본인이 등록했으나 타 담당자가 맡았거나 미배정 상태인 이슈가 63건 있습니다(주로 기술 부채·개선 제기).
+            </p>
+          </div>
+
+          <div>
+            <div class="tablewrap">
+              <table>
+                <caption>Git 커밋 · 본인 작성 기준</caption>
+                <thead>
+                  <tr>
+                    <th scope="col">저장소</th>
+                    <th scope="col">상대 규모</th>
+                    <th scope="col" class="num">커밋</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr><th scope="row">입주민 앱</th><td class="barcell"><span class="bar" aria-hidden="true"><span style="width:100.0%"></span></span></td><td class="num">1,062</td></tr>
+                  <tr><th scope="row">내부 운영 콘솔 (모노레포)</th><td class="barcell"><span class="bar" aria-hidden="true"><span style="width:68.7%"></span></span></td><td class="num">730</td></tr>
+                  <tr><th scope="row">관리자 운영툴</th><td class="barcell"><span class="bar" aria-hidden="true"><span style="width:25.5%"></span></span></td><td class="num">271</td></tr>
+                  <tr><th scope="row">POS · 주문 키오스크</th><td class="barcell"><span class="bar" aria-hidden="true"><span style="width:17.8%"></span></span></td><td class="num">189</td></tr>
+                  <tr><th scope="row">CS 대시보드 웹앱</th><td class="barcell"><span class="bar" aria-hidden="true"><span style="width:4.0%"></span></span></td><td class="num">43</td></tr>
+                  <tr><th scope="row">현장 지원 데스크톱 앱</th><td class="barcell"><span class="bar" aria-hidden="true"><span style="width:2.2%"></span></span></td><td class="num">23</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <p class="tnote">전체 브랜치 기준 실측값입니다. POS는 결제 단말(32건)과 주문 키오스크(157건) 두 저장소의 합이며, 현장 지원 데스크톱 앱은 저장소 전체 커밋이 본인 단독입니다.</p>
+          </div>
+        </div>
+
+        <div class="tablewrap" style="margin-top: 26px;">
+          <table>
+            <caption>코드리뷰 참여 · PR 리드타임</caption>
+            <thead>
+              <tr><th scope="col">항목</th><th scope="col" class="num">수치</th></tr>
+            </thead>
+            <tbody>
+              <tr><th scope="row">동료가 올린 PR 리뷰 (본인 작성분 제외)</th><td class="num">1,501건</td></tr>
+              <tr><th scope="row">본인이 올린 PR</th><td class="num">629건</td></tr>
+              <tr><th scope="row">본인 PR 생성 → 머지 리드타임 · 2024년</th><td class="num">23.6시간</td></tr>
+              <tr><th scope="row">본인 PR 생성 → 머지 리드타임 · 2026년</th><td class="num">13.9시간</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="tnote">
+          리드타임은 머지된 본인 PR 561건의 중앙값이며 30일 초과 이상치는 제외했습니다.
+          같은 기간 CI 타입 검증 비차단 전환 · 자동 라벨링 · AI 코드리뷰를 함께 도입했으나,
+          각 조치의 기여도를 분리해 측정하지는 않았습니다.
+        </p>
+
+        <div class="tablewrap" style="margin-top: 26px;">
+          <table>
+              <caption>자동화 · AI 개발 환경 기여도</caption>
+              <thead>
+                <tr>
+                  <th scope="col">항목</th>
+                  <th scope="col" class="num">본인</th>
+                  <th scope="col" class="num">전체</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><th scope="row">아키텍처 결정 기록(ADR) 최초 작성</th><td class="num">31</td><td class="num">34</td></tr>
+                <tr><th scope="row">에이전트 규칙(AGENTS.md · Cursor Rules 등) 최초 작성</th><td class="num">18</td><td class="num">21</td></tr>
+                <tr><th scope="row">에이전트 규칙 · 설계 문서 커밋 (입주민 앱)</th><td class="num">277</td><td class="num">393</td></tr>
+                <tr><th scope="row">에이전트 규칙 · 설계 문서 커밋 (내부 운영 콘솔)</th><td class="num">63</td><td class="num">81</td></tr>
+                <tr><th scope="row">LLM Wiki 문서 최초 작성 (내부 운영 콘솔)</th><td class="num">11</td><td class="num">35</td></tr>
+                <tr><th scope="row">LLM Wiki 자동 재생성 파이프라인 커밋 (유닛 저장소)</th><td class="num">23</td><td class="num">371</td></tr>
+              </tbody>
+            </table>
+        </div>
+        <p class="tnote">
+          이와 별도로 API 타입 자동 생성 파이프라인은 4개 제품에 적용했습니다.
+        </p>
+      </section>
+
+      <!-- ── 기술 스택 ─────────────────────────────── -->
+      <section class="sect" id="stack">
+        <header>
+          <h2>기술 스택</h2>
+        </header>
+        <div class="stack">
+          <div class="stack-row">
+            <h3>언어 · 프레임워크</h3>
+            <p class="chips">
+              <span class="key">TypeScript</span><span class="key">React</span><span>JavaScript</span>
+              <span>React Native (Expo)</span><span>Electron</span>
+            </p>
+          </div>
+          <div class="stack-row">
+            <h3>라우팅 · 상태 · 폼</h3>
+            <p class="chips">
+              <span class="key">TanStack Router</span><span class="key">TanStack Query</span>
+              <span>TanStack Table</span><span>Recoil</span><span>react-hook-form</span><span>zod</span>
+            </p>
+          </div>
+          <div class="stack-row">
+            <h3>API</h3>
+            <p class="chips">
+              <span class="key">OpenAPI</span><span>openapi-typescript</span><span>openapi-fetch</span>
+              <span>openapi-react-query</span><span>Axios</span>
+            </p>
+          </div>
+          <div class="stack-row">
+            <h3>스타일 · UI</h3>
+            <p class="chips">
+              <span class="key">Tailwind CSS</span><span>shadcn/ui</span><span>Ant Design</span>
+              <span>class-variance-authority</span><span>Storybook</span><span>styled-components</span>
+            </p>
+          </div>
+          <div class="stack-row">
+            <h3>빌드 · 모노레포</h3>
+            <p class="chips">
+              <span class="key">Vite</span><span class="key">Turborepo</span><span>pnpm workspace</span>
+              <span>Knip</span><span>ESLint</span><span>Prettier</span>
+            </p>
+          </div>
+          <div class="stack-row">
+            <h3>인프라 · 운영</h3>
+            <p class="chips">
+              <span class="key">Sentry</span><span>Jenkins</span><span>GitHub Actions</span>
+              <span>AWS S3 · Cognito · Amplify</span><span>Microsoft Clarity</span><span>GA</span>
+            </p>
+          </div>
+          <div class="stack-row">
+            <h3>국제화 · 테스트</h3>
+            <p class="chips">
+              <span>i18next</span><span>react-i18next</span><span>Vitest</span><span>Playwright</span>
+            </p>
+          </div>
+          <div class="stack-row">
+            <h3>AI 개발 환경</h3>
+            <p class="chips">
+              <span class="key">Claude Code</span><span class="key">MCP</span><span>Cursor</span>
+              <span>AGENTS.md · CLAUDE.md 규칙 설계</span><span>ADR</span><span>LLM Wiki</span><span>Figma Code Connect</span>
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── 이전 경력 ─────────────────────────────── -->
+      <section class="sect" id="previous">
+        <header>
+          <h2>이전 경력</h2>
+          <p>주요 항목만 정리했습니다.</p>
+        </header>
+        <div class="prev">
+
+          <div class="prev-item">
+            <div class="prev-when">
+              <b>주식회사 클레온</b>
+              2021.06 – 2023.04 · 1년 11개월<br>
+              프로덕트 센터 웹팀 리드
+            </div>
+            <div class="prev-body">
+              <h4>Klone V2 · KLling · Klone V1</h4>
+              <p>가상인간·목소리를 선택해 슬라이드 단위로 영상을 제작하는 플랫폼, 영상 번역 플랫폼, 영상 챗봇 플랫폼을 순차 런칭했습니다.</p>
+              <ul>
+                <li>AWS Amplify 기반 CI/CD 구축 — PR 연동으로 빌드를 자동화하고 머지 전 코드 리뷰를 강제</li>
+                <li>React 기반 Konva 에디터 래퍼 개발 — 영상 내 스티커 기능</li>
+                <li>영상 챗봇(Klone V1) — HLS(m3u8) 실시간 스트리밍 재생 적용, 챗봇 응답에 대응하는 사전 제작 영상을 선택·재생하도록 연동</li>
+                <li>전시·투자 유치용 사이트는 성격을 고려해 전역 상태관리와 CSS-in-JS를 의도적으로 생략</li>
+              </ul>
+              <p class="prev-stack">React · Redux Toolkit · React Query · Storybook · i18next · webpack · Vue.js</p>
+            </div>
+          </div>
+
+          <div class="prev-item">
+            <div class="prev-when">
+              <b>주식회사 씨와이</b>
+              2020.01 – 2020.12 · 1년<br>
+              NPD 사원
+            </div>
+            <div class="prev-body">
+              <h4>COS247</h4>
+              <p>화장품 위탁 생산을 중개하고 제조 공정의 진행 상황을 단계별로 추적하는 B2B 플랫폼입니다.</p>
+              <ul>
+                <li>Nuxt.js 기반 웹 개발 — 로그인·메인과, 제조 공정을 단계별 테이블로 추적하는 화면 구현</li>
+                <li>Ant Design Vue를 활용해 개발 속도를 우선한 기술 구성</li>
+              </ul>
+              <p class="prev-stack">Nuxt.js · Vue.js · Ant Design Vue</p>
+            </div>
+          </div>
+
+          <div class="prev-item">
+            <div class="prev-when">
+              <b>아이디스트</b>
+              2017.03 – 2017.09 · 7개월
+            </div>
+            <div class="prev-body">
+              <h4>IDIST</h4>
+              <p>특허·실용신안 외의 아이디어를 자산화해 보호받도록 돕는 플랫폼입니다. 학생 창업 팀으로 기획·디자인·개발에 전원이 참여했습니다.</p>
+              <ul>
+                <li>AngularJS 기반 랜딩 및 프로덕트 소개 페이지 개발</li>
+                <li>Django 기반 결제 서비스 개발, Figma를 이용한 웹 디자인</li>
+              </ul>
+              <p class="prev-stack">AngularJS · Django · Figma</p>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+    </main>
+  </div>
+</div>
+
+<footer class="colophon">
+  <div class="wrap">
+    <p>
+      본 문서는 사내 이슈 트래커 이력과 Git 저장소 커밋 이력을 근거로 작성했습니다.
+      이슈·커밋 수치는 2026.08.31 조회 기준이며, 집계 시점에 따라 ±1건 차이가 날 수 있습니다.
+    </p>
+    <p>
+      고객사·건설사명, 내부 저장소명, 현장 식별 코드는 제외하고 도메인 표현만 남겼습니다.
+    </p>
+    <p style="margin-top:16px;padding-top:14px;border-top:1px solid var(--rule-2);">
+      이 문서는 <strong style="color:var(--ink-2);font-weight:500;">담당 범위와 정량 지표의 기록</strong>입니다.
+      작업 사례와 판단 근거는 포트폴리오에 따로 정리했습니다 —
+      <a href="./index.html">포트폴리오 보기 →</a>
+    </p>
+  </div>
+</footer>
+
+<script>
+  (function () {
+    var links = Array.prototype.slice.call(document.querySelectorAll('.rail a'));
+    if (!links.length || !('IntersectionObserver' in window)) return;
+
+    var byId = {};
+    var sections = [];
+    links.forEach(function (a) {
+      var id = a.getAttribute('href').slice(1);
+      var el = document.getElementById(id);
+      if (!el) return;
+      byId[id] = a;
+      sections.push(el);
+    });
+
+    var visible = new Set();
+
+    function paint() {
+      var current = null;
+      for (var i = 0; i < sections.length; i++) {
+        if (visible.has(sections[i].id)) { current = sections[i].id; break; }
+      }
+      links.forEach(function (a) {
+        var on = a.getAttribute('href') === '#' + current;
+        if (on) a.setAttribute('aria-current', 'true');
+        else a.removeAttribute('aria-current');
+      });
+    }
+
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) visible.add(e.target.id);
+        else visible.delete(e.target.id);
+      });
+      paint();
+    }, { rootMargin: '-12% 0px -70% 0px', threshold: 0 });
+
+    sections.forEach(function (s) { io.observe(s); });
+  })();
+</script>
+</body>
+</html>
