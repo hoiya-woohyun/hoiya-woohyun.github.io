@@ -348,6 +348,62 @@
   .sitenav nav a:hover { color: var(--ink); border-color: var(--rule); }
   .sitenav nav a[aria-current="page"] { color: var(--accent); border-color: var(--rule); background: var(--wash); font-weight: 600; }
 </style>
+<style>
+/* ── 인쇄(PDF 저장) ──────────────────────────────────────────
+   글자를 이미지로 굽지 않는다. 브라우저 인쇄를 그대로 쓰므로
+   PDF 안에서 복사·검색이 되고 채용 사이트의 파서가 읽을 수 있다. */
+@media print {
+  @page { margin: 14mm 12mm; }
+
+  /* 화면 전용 요소 — 고정 내비는 인쇄하면 매 장 상단에 반복된다 */
+  .sitenav, .rail, .printbtn { display: none !important; }
+
+  /* 시스템이 다크 모드여도 흰 바탕으로 인쇄되도록 팔레트를 라이트로 고정 */
+  :root, :root[data-theme="dark"] {
+    color-scheme: light;
+    --ground: #FFFFFF; --surface: #FFFFFF; --surface-2: #FFFFFF; --sunken: #F4F6FA;
+    --ink: #111827; --ink-2: #33405A; --ink-3: #56637C;
+    --rule: #C7D0DD; --rule-2: #DFE5EE;
+    --accent: #14448F; --accent-2: #14448F;
+    --wash: #EEF3FB; --accent-wash: #EEF3FB;
+    --shadow: none;
+  }
+  body { background: #FFFFFF !important; }
+
+  /* 화면 폭 제약을 풀고 한 단으로 — 지면 폭은 용지가 정한다 */
+  .wrap { max-width: none !important; padding-inline: 0 !important; }
+  .page-grid { display: block !important; }
+
+  /* 장 경계에서 갈리면 안 되는 것 */
+  .rec, .cap, .case, .tool, .prev-item, .cv > div, .fact, .metrics > div,
+  .stack-row, .shift, .trace, .built, .blk, .abil > li, .cat > div, .ratio,
+  .tablewrap, .scroll, table, tr { break-inside: avoid; page-break-inside: avoid; }
+  h1, h2, h3, h4 { break-after: avoid; page-break-after: avoid; }
+
+  /* 화면용 여백은 지면에서 낭비다 */
+  section.band, .sect { padding-block: 16px !important; }
+  .sect + .sect { margin-top: 22px !important; }
+  .hero { padding-block: 0 22px !important; }
+  .hero-in, .page { padding-block: 0 !important; }
+  .facts { margin-top: 24px !important; }
+  .rec { box-shadow: none !important; }
+
+  /* 가로 스크롤 컨테이너는 지면에서 펼친다 — 안 그러면 표 오른쪽이 잘린다 */
+  .tablewrap, .scroll { overflow: visible !important; }
+  table { min-width: 0 !important; }
+
+  a { text-decoration: none; }
+}
+
+/* 내비의 인쇄 버튼 */
+.printbtn {
+  font: inherit; font-size: 12.5px; line-height: inherit;
+  color: var(--ink-3); background: transparent;
+  border: 1px solid var(--rule); padding: 5px 12px;
+  margin-left: 4px; cursor: pointer; white-space: nowrap;
+}
+.printbtn:hover { color: var(--accent); border-color: var(--accent); }
+</style>
 </head>
 <body>
 <header class="sitenav">
@@ -357,6 +413,8 @@
     <nav>
       <a href="./index.html" aria-current="page">포트폴리오</a>
       <a href="./career.html">경력기술서</a>
+      <button type="button" class="printbtn" onclick="window.print()"
+        title="인쇄 대화상자에서 대상을 &quot;PDF로 저장&quot;으로 선택하세요">PDF 저장</button>
     </nav>
   </div>
 </header>
