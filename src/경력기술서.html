@@ -1,21 +1,5 @@
-<!doctype html>
-<html lang="ko">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>배우현 경력기술서</title>
-<meta name="description" content="배우현 · 프론트엔드 개발자 경력기술서 — 담당 범위와 정량 지표의 기록.">
-<meta property="og:title" content="배우현 경력기술서">
-<meta property="og:description" content="배우현 · 프론트엔드 개발자 경력기술서 — 담당 범위와 정량 지표의 기록.">
-<meta property="og:type" content="profile">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hahmlet:wght@400;500;600;700&family=IBM+Plex+Sans+KR:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
-<meta name="robots" content="noindex, nofollow">
-<style>
-  :root { color-scheme: light dark; }
-  body { margin: 0; padding: 0; }
-  img { max-width: 100%; }
-  [hidden] { display: none !important; }
-</style>
 <style>
   :root {
     --ground:      #ECF1F7;
@@ -472,74 +456,15 @@
   .sitenav nav a[aria-current="page"] { color: var(--accent); border-color: var(--rule); background: var(--accent-wash); font-weight: 600; }
 
 </style>
-<style>
-/* ── 인쇄(PDF 저장) ──────────────────────────────────────────
-   글자를 이미지로 굽지 않는다. 브라우저 인쇄를 그대로 쓰므로
-   PDF 안에서 복사·검색이 되고 채용 사이트의 파서가 읽을 수 있다. */
-@media print {
-  @page { margin: 14mm 12mm; }
 
-  /* 화면 전용 요소 — 고정 내비는 인쇄하면 매 장 상단에 반복된다 */
-  .sitenav, .rail, .printbtn { display: none !important; }
-
-  /* 시스템이 다크 모드여도 흰 바탕으로 인쇄되도록 팔레트를 라이트로 고정 */
-  :root, :root[data-theme="dark"] {
-    color-scheme: light;
-    --ground: #FFFFFF; --surface: #FFFFFF; --surface-2: #FFFFFF; --sunken: #F4F6FA;
-    --ink: #111827; --ink-2: #33405A; --ink-3: #56637C;
-    --rule: #C7D0DD; --rule-2: #DFE5EE;
-    --accent: #14448F; --accent-2: #14448F;
-    --wash: #EEF3FB; --accent-wash: #EEF3FB;
-    --shadow: none;
-  }
-  body { background: #FFFFFF !important; }
-
-  /* 화면 폭 제약을 풀고 한 단으로 — 지면 폭은 용지가 정한다 */
-  .wrap { max-width: none !important; padding-inline: 0 !important; }
-  .page-grid { display: block !important; }
-
-  /* 장 경계에서 갈리면 안 되는 것 */
-  .rec, .cap, .case, .tool, .prev-item, .cv > div, .fact, .metrics > div,
-  .stack-row, .shift, .trace, .built, .blk, .abil > li, .cat > div, .ratio,
-  .tablewrap, .scroll, table, tr { break-inside: avoid; page-break-inside: avoid; }
-  h1, h2, h3, h4 { break-after: avoid; page-break-after: avoid; }
-
-  /* 화면용 여백은 지면에서 낭비다 */
-  section.band, .sect { padding-block: 16px !important; }
-  .sect + .sect { margin-top: 22px !important; }
-  .hero { padding-block: 0 22px !important; }
-  .hero-in, .page { padding-block: 0 !important; }
-  .facts { margin-top: 24px !important; }
-  .rec { box-shadow: none !important; }
-
-  /* 가로 스크롤 컨테이너는 지면에서 펼친다 — 안 그러면 표 오른쪽이 잘린다 */
-  .tablewrap, .scroll { overflow: visible !important; }
-  table { min-width: 0 !important; }
-
-  a { text-decoration: none; }
-}
-
-/* 내비의 인쇄 버튼 */
-.printbtn {
-  font: inherit; font-size: 12.5px; line-height: inherit;
-  color: var(--ink-3); background: transparent;
-  border: 1px solid var(--rule); padding: 5px 12px;
-  margin-left: 4px; cursor: pointer; white-space: nowrap;
-}
-.printbtn:hover { color: var(--accent); border-color: var(--accent); }
-</style>
-</head>
-<body>
 <header class="sitenav">
   <div class="wrap sitenav-in">
     <span class="sitenav-who">배우현</span>
     <span class="sitenav-role">프론트엔드 개발자</span>
     <nav>
-      <a href="./index.html">이력서</a>
-      <a href="./portfolio.html">포트폴리오</a>
-      <a href="./career.html" aria-current="page">경력기술서</a>
-      <button type="button" class="printbtn" onclick="window.print()"
-        title="인쇄 대화상자에서 대상을 &quot;PDF로 저장&quot;으로 선택하세요">PDF 저장</button>
+      <a href="https://hoiya-woohyun.github.io/">이력서</a>
+      <a href="https://hoiya-woohyun.github.io/portfolio.html">포트폴리오</a>
+      <a href="https://hoiya-woohyun.github.io/career.html" aria-current="page">경력기술서</a>
     </nav>
   </div>
 </header>
@@ -1452,7 +1377,7 @@
     <p style="margin-top:16px;padding-top:14px;border-top:1px solid var(--rule-2);">
       이 문서는 <strong style="color:var(--ink-2);font-weight:500;">담당 범위와 정량 지표의 기록</strong>입니다.
       작업 사례와 판단 근거는 포트폴리오에 따로 정리했습니다 —
-      <a href="./portfolio.html">포트폴리오 보기 →</a>
+      <a href="https://claude.ai/code/artifact/1b96a19e-728a-4bcc-9131-1453bb39a6bf">포트폴리오 보기 →</a>
     </p>
   </div>
 </footer>
@@ -1497,5 +1422,3 @@
     sections.forEach(function (s) { io.observe(s); });
   })();
 </script>
-</body>
-</html>

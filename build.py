@@ -14,8 +14,15 @@ SRC = pathlib.Path(sys.argv[1] if len(sys.argv) > 1 else ".")
 DST = pathlib.Path(__file__).parent
 
 # 아티팩트 URL → 사이트 내부 경로
+# 내비의 정본은 GitHub Pages 절대 URL 이다 — 아티팩트에서 눌러도 claude.ai 뷰어가 아니라
+# 사이트로 간다(사이트가 아티팩트와 같은 HTML 을 낸다). 빌드에서만 상대 경로로 바꾼다.
+# 긴 경로를 먼저 치환해야 루트 규칙이 앞을 잘라먹지 않는다.
 ROUTES = {
-    r"https://claude\.ai/code/artifact/1b96a19e[0-9a-f\-]*": "./index.html",
+    r"https://hoiya-woohyun\.github\.io/portfolio\.html": "./portfolio.html",
+    r"https://hoiya-woohyun\.github\.io/career\.html": "./career.html",
+    r"https://hoiya-woohyun\.github\.io/(?![\w.])": "./index.html",
+    # 과거 본문에 남아 있을 수 있는 아티팩트 URL 도 함께 흡수한다
+    r"https://claude\.ai/code/artifact/1b96a19e[0-9a-f\-]*": "./portfolio.html",
     r"https://claude\.ai/code/artifact/16434158[0-9a-f\-]*": "./career.html",
 }
 
@@ -89,7 +96,9 @@ PRINT_BTN = """      <button type="button" class="printbtn" onclick="window.prin
 """
 
 PAGES = [
-    ("포트폴리오.html", "index.html",
+    ("이력서.html", "index.html",
+     "배우현 · 프론트엔드 개발자 이력서 — 6개 제품 병행 담당, 규칙을 도구가 검증하게 만듭니다."),
+    ("포트폴리오.html", "portfolio.html",
      "배우현 · 프론트엔드 개발자 포트폴리오 — 사람이 기억하던 규칙을 도구가 검증하게 만듭니다."),
     ("경력기술서.html", "career.html",
      "배우현 · 프론트엔드 개발자 경력기술서 — 담당 범위와 정량 지표의 기록."),

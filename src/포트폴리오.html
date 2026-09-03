@@ -1,0 +1,1191 @@
+<title>배우현 포트폴리오</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@300;400;500;600;800&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+  :root {
+    --ground:    #ECF1F7;
+    --surface:   #FBFCFE;
+    --sunken:    #E3EAF3;
+    --ink:       #111827;
+    --ink-2:     #45536B;
+    --ink-3:     #66738C;
+    --rule:      #D2DBE7;
+    --rule-2:    #E4EAF3;
+    --accent:    #1B4DA0;
+    --accent-2:  #2A6BC4;
+    --wash:      #E1EBFA;
+
+    --f-sans: 'Gothic A1', 'Apple SD Gothic Neo', 'Malgun Gothic', system-ui, sans-serif;
+    --f-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --ground:   #0C1119;
+      --surface:  #141B25;
+      --sunken:   #080C12;
+      --ink:      #E6EDF7;
+      --ink-2:    #A3B0C4;
+      --ink-3:    #7F8CA1;
+      --rule:     #26303D;
+      --rule-2:   #1B242F;
+      --accent:   #6BA6F5;
+      --accent-2: #8FBEFF;
+      --wash:     #14263F;
+    }
+  }
+  :root[data-theme="dark"] {
+    --ground:   #0C1119;
+    --surface:  #141B25;
+    --sunken:   #080C12;
+    --ink:      #E6EDF7;
+    --ink-2:    #A3B0C4;
+    --ink-3:    #7F8CA1;
+    --rule:     #26303D;
+    --rule-2:   #1B242F;
+    --accent:   #6BA6F5;
+    --accent-2: #8FBEFF;
+    --wash:     #14263F;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    background: var(--ground);
+    color: var(--ink);
+    font-family: var(--f-sans);
+    font-size: 15px; font-weight: 400; line-height: 1.75;
+    word-break: keep-all; overflow-wrap: break-word;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: var(--accent); text-underline-offset: 3px; }
+  a:focus-visible { outline: 2px solid var(--accent-2); outline-offset: 3px; }
+
+  .wrap { max-width: 860px; margin: 0 auto; padding: 0 26px; }
+
+  /* ── 히어로 ──────────────────────────────────── */
+  .hero { padding-block: 78px 66px; border-bottom: 1px solid var(--rule); }
+  .kicker {
+    font-family: var(--f-mono); font-size: 11px; font-weight: 500;
+    letter-spacing: .16em; text-transform: uppercase; color: var(--accent);
+    margin: 0 0 24px;
+  }
+  .hero h1 {
+    font-size: clamp(30px, 5.6vw, 50px); font-weight: 800;
+    line-height: 1.26; letter-spacing: -.032em;
+    margin: 0 0 26px; max-width: 15em; text-wrap: balance;
+  }
+  .hero h1 span { color: var(--accent); }
+  .hero > .wrap > p {
+    max-width: 40em; font-size: 16px; color: var(--ink-2);
+    line-height: 1.85; margin: 0; text-wrap: pretty;
+  }
+  .hero > .wrap > p + p { margin-top: 15px; }
+  .hero strong { font-weight: 600; color: var(--ink); }
+
+  .whois {
+    margin-top: 42px; padding-top: 22px; border-top: 1px solid var(--rule-2);
+    display: flex; flex-wrap: wrap; gap: 8px 26px;
+    font-family: var(--f-mono); font-size: 11.5px; color: var(--ink-3);
+  }
+  .whois b { color: var(--ink-2); font-weight: 500; }
+  .whois a { color: var(--accent); }
+
+  /* ── 섹션 ────────────────────────────────────── */
+  section.band { padding-block: 64px; border-bottom: 1px solid var(--rule); }
+  section.band.alt { background: var(--surface); }
+  .shead { margin-bottom: 34px; }
+  .shead h2 {
+    font-size: 13px; font-weight: 600; letter-spacing: .12em;
+    color: var(--accent); margin: 0 0 12px; font-family: var(--f-mono);
+    text-transform: uppercase;
+  }
+  .shead p {
+    margin: 0; max-width: 40em; font-size: 15px; color: var(--ink-2);
+    text-wrap: pretty;
+  }
+  .shead p b { color: var(--ink); font-weight: 600; }
+
+  /* ── 능력 ────────────────────────────────────── */
+  .abil { display: grid; gap: 24px; }
+  .abil > li { list-style: none; display: grid; gap: 8px; }
+  .abil h3 {
+    margin: 0; font-size: 18px; font-weight: 600; letter-spacing: -.018em;
+    line-height: 1.5; text-wrap: balance;
+  }
+  .abil h3::before {
+    content: ""; display: inline-block; vertical-align: .18em;
+    width: 18px; height: 2px; background: var(--accent); margin-right: 11px;
+  }
+  .abil p { margin: 0 0 0 29px; max-width: 40em; font-size: 14px; color: var(--ink-2); text-wrap: pretty; }
+
+  /* ── 사례 ────────────────────────────────────── */
+  .cases { display: grid; gap: 44px; }
+  .case { display: grid; gap: 18px; }
+  .case > header h3 {
+    margin: 0 0 8px; font-size: 21px; font-weight: 700;
+    letter-spacing: -.024em; line-height: 1.42; text-wrap: balance;
+  }
+  .case > header p { margin: 0; max-width: 40em; font-size: 14px; color: var(--ink-2); text-wrap: pretty; }
+
+  .shift {
+    display: grid; gap: 1px; background: var(--rule);
+    border: 1px solid var(--rule);
+  }
+  @media (min-width: 720px) { .shift { grid-template-columns: 1fr 1fr; } }
+  .shift > div { background: var(--surface); padding: 18px 20px 20px; display: grid; gap: 9px; align-content: start; }
+  .shift > div.after { background: var(--wash); }
+  .shift h4 {
+    margin: 0; font-family: var(--f-mono); font-size: 10px; font-weight: 500;
+    letter-spacing: .12em; text-transform: uppercase; color: var(--ink-3);
+  }
+  .shift .after h4 { color: var(--accent); }
+  .shift ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 8px; }
+  .shift li { font-size: 13.5px; color: var(--ink-2); line-height: 1.68; padding-left: 14px; position: relative; }
+  .shift li::before { content: ""; position: absolute; left: 0; top: .68em; width: 5px; height: 1px; background: var(--ink-3); }
+  .shift .after li { color: var(--ink); }
+  .shift .after li::before { background: var(--accent); height: 2px; top: .62em; }
+
+  .built { display: grid; gap: 7px; }
+  .built h4 {
+    margin: 0; font-size: 12.5px; font-weight: 600; letter-spacing: .04em; color: var(--ink-3);
+  }
+  .built p { margin: 0; max-width: 42em; font-size: 14px; color: var(--ink-2); text-wrap: pretty; }
+  .built p strong { color: var(--ink); font-weight: 600; }
+
+  .trace {
+    border-left: 2px solid var(--accent); background: var(--sunken);
+    padding: 13px 16px; display: grid; gap: 7px;
+  }
+  .trace b {
+    font-family: var(--f-mono); font-size: 9.5px; font-weight: 500;
+    letter-spacing: .13em; text-transform: uppercase; color: var(--ink-3);
+  }
+  .trace code {
+    font-family: var(--f-mono); font-size: 12px; color: var(--ink);
+    line-height: 1.65; display: block; overflow-x: auto;
+  }
+  .trace span { font-size: 12.5px; color: var(--ink-3); line-height: 1.68; }
+
+  .case > header h3 em {
+    font-style: normal; font-weight: 400; font-size: .68em;
+    color: var(--ink-3); letter-spacing: -.01em;
+  }
+  .case .note {
+    margin: 0; max-width: 42em; font-size: 13.5px; color: var(--ink-3);
+    line-height: 1.78; padding-left: 14px; border-left: 2px solid var(--rule);
+    text-wrap: pretty;
+  }
+
+  /* ── 협업 지표 ───────────────────────────────── */
+  .metrics {
+    display: grid; gap: 1px; background: var(--rule);
+    border: 1px solid var(--rule); margin-bottom: 14px;
+  }
+  @media (min-width: 640px) { .metrics { grid-template-columns: repeat(3, 1fr); } }
+  .metrics > div { background: var(--surface); padding: 20px 20px 22px; }
+  .metrics dt {
+    font-family: var(--f-mono); font-size: 10px; font-weight: 500;
+    letter-spacing: .1em; text-transform: uppercase; color: var(--ink-3);
+    margin-bottom: 9px;
+  }
+  .metrics dd {
+    margin: 0; font-size: 24px; font-weight: 800; letter-spacing: -.026em;
+    line-height: 1.2; font-variant-numeric: tabular-nums;
+  }
+  .metrics dd small { font-size: 13px; font-weight: 500; color: var(--ink-2); margin-left: 3px; }
+  .metrics dd + p {
+    margin: 8px 0 0; font-size: 12px; color: var(--ink-3); line-height: 1.65;
+  }
+  .caveat {
+    margin: 0 0 30px; max-width: 44em; font-size: 12.5px; color: var(--ink-3);
+    line-height: 1.75; text-wrap: pretty;
+  }
+
+  /* ── 작업 목록 ───────────────────────────────── */
+  .cat { display: grid; }
+  .cat > div {
+    padding: 17px 0; border-bottom: 1px solid var(--rule-2);
+    display: grid; gap: 7px 26px;
+  }
+  @media (min-width: 780px) { .cat > div { grid-template-columns: 206px minmax(0,1fr); } }
+  .cat > div:last-child { border-bottom: 0; }
+  .cat h3 { margin: 0; font-size: 14px; font-weight: 600; letter-spacing: -.012em; line-height: 1.5; }
+  .cat h3 em {
+    display: block; font-style: normal; margin-top: 4px;
+    font-family: var(--f-mono); font-size: 10.5px; font-weight: 400; color: var(--ink-3);
+    font-variant-numeric: tabular-nums;
+  }
+  .cat p { margin: 0; font-size: 13.5px; color: var(--ink-2); line-height: 1.92; text-wrap: pretty; }
+  .cat p b { color: var(--ink); font-weight: 600; }
+
+  /* ── 규모 · 표 ───────────────────────────────── */
+  .scroll { overflow-x: auto; border: 1px solid var(--rule); background: var(--surface); }
+  table.tbl { border-collapse: collapse; width: 100%; min-width: 560px; }
+  table.tbl th, table.tbl td { text-align: left; padding: 11px 16px; border-bottom: 1px solid var(--rule-2); }
+  table.tbl thead th {
+    font-family: var(--f-mono); font-size: 10px; font-weight: 500;
+    letter-spacing: .1em; text-transform: uppercase; color: var(--ink-3);
+    border-bottom: 1px solid var(--rule); white-space: nowrap;
+  }
+  table.tbl tbody th { font-size: 13.5px; font-weight: 600; color: var(--ink); white-space: nowrap; }
+  table.tbl td { font-size: 13px; color: var(--ink-2); }
+  table.tbl td.n { text-align: right; font-variant-numeric: tabular-nums; font-family: var(--f-mono); font-size: 12.5px; white-space: nowrap; }
+  table.tbl td.p { font-family: var(--f-mono); font-size: 11.5px; color: var(--ink-3); white-space: nowrap; font-variant-numeric: tabular-nums; }
+  table.tbl tbody tr:last-child th, table.tbl tbody tr:last-child td { border-bottom: 0; }
+  table.tbl tr.sum th, table.tbl tr.sum td { background: var(--sunken); color: var(--ink); font-weight: 600; }
+
+  .ratios { display: grid; gap: 16px; margin-top: 30px; }
+  .ratio { display: grid; gap: 7px; }
+  .ratio > .top { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; }
+  .ratio .lab { font-size: 13.5px; color: var(--ink-2); text-wrap: pretty; }
+  .ratio .lab b { color: var(--ink); font-weight: 600; }
+  .ratio .num {
+    font-family: var(--f-mono); font-size: 12px; color: var(--accent);
+    font-variant-numeric: tabular-nums; white-space: nowrap;
+  }
+  .ratio .bar { height: 3px; background: var(--rule); position: relative; }
+  .ratio .bar > i { position: absolute; inset: 0 auto 0 0; background: var(--accent); display: block; }
+
+  /* ── 개인 도구 ───────────────────────────────── */
+  .tools { display: grid; gap: 1px; background: var(--rule); border: 1px solid var(--rule); }
+  .tool { background: var(--surface); padding: 22px 22px 24px; display: grid; gap: 10px; }
+  @media (min-width: 760px) { .tool { grid-template-columns: 190px minmax(0,1fr); gap: 26px; align-items: start; } }
+  .tool > h3 { margin: 0; font-size: 15px; font-weight: 600; letter-spacing: -.012em; line-height: 1.55; }
+  .tool > h3 em {
+    display: block; font-style: normal; margin-top: 5px;
+    font-family: var(--f-mono); font-size: 11px; font-weight: 400; color: var(--ink-3);
+  }
+  .tool > div { display: grid; gap: 9px; }
+  .tool p { margin: 0; font-size: 14px; color: var(--ink-2); max-width: 40em; text-wrap: pretty; }
+  .tool p strong { color: var(--ink); font-weight: 600; }
+  .tool .chips { display: flex; flex-wrap: wrap; gap: 5px; }
+  .tool .chips span {
+    font-family: var(--f-mono); font-size: 10.5px; color: var(--ink-3);
+    border: 1px solid var(--rule); padding: 2px 7px;
+  }
+
+  /* ── 경력 ────────────────────────────────────── */
+  .cv { display: grid; gap: 0; }
+  .cv > div {
+    display: grid; gap: 10px 26px; padding: 26px 0;
+    border-bottom: 1px solid var(--rule-2);
+  }
+  .cv > div:first-child { padding-top: 0; }
+  .cv > div:last-child { border-bottom: 0; padding-bottom: 0; }
+  @media (min-width: 720px) { .cv > div { grid-template-columns: 168px minmax(0,1fr); } }
+  .cv dt {
+    margin: 0; font-family: var(--f-mono); font-size: 12px; color: var(--ink-3);
+    font-variant-numeric: tabular-nums; line-height: 1.6;
+  }
+  .cv dt em { display: block; font-style: normal; margin-top: 3px; font-size: 10.5px; color: var(--ink-3); opacity: .8; }
+  .cv dd { margin: 0; display: grid; gap: 9px; }
+  .cv .org { font-size: 16px; font-weight: 700; letter-spacing: -.018em; line-height: 1.45; }
+  .cv .org small { font-size: 12.5px; font-weight: 500; color: var(--ink-3); letter-spacing: 0; margin-left: 8px; }
+  .cv .proj { display: grid; gap: 4px; }
+  .cv .proj > h4 {
+    margin: 0; font-size: 13.5px; font-weight: 600; color: var(--ink); line-height: 1.55;
+  }
+  .cv .proj > h4 em { font-style: normal; font-weight: 400; color: var(--ink-3); font-family: var(--f-mono); font-size: 10.5px; margin-left: 8px; }
+  .cv .proj > p { margin: 0; font-size: 13.5px; color: var(--ink-2); line-height: 1.85; max-width: 42em; text-wrap: pretty; }
+  .cv .proj > p b { color: var(--ink); font-weight: 600; }
+  .cv .st { font-family: var(--f-mono); font-size: 11px; color: var(--ink-3); line-height: 1.75; }
+
+  .edu { margin-top: 34px; padding-top: 20px; border-top: 1px solid var(--rule); display: grid; gap: 4px 26px; }
+  @media (min-width: 720px) { .edu { grid-template-columns: 168px minmax(0,1fr); } }
+  .edu .yr { font-family: var(--f-mono); font-size: 12px; color: var(--ink-3); font-variant-numeric: tabular-nums; }
+  .edu .sc { font-size: 14px; color: var(--ink-2); }
+  .edu .sc b { color: var(--ink); font-weight: 600; }
+
+  /* ── 스택 ────────────────────────────────────── */
+  .stack { display: grid; gap: 18px; }
+  .stack > div { display: grid; gap: 9px; }
+  @media (min-width: 700px) { .stack > div { grid-template-columns: 132px minmax(0,1fr); gap: 22px; align-items: baseline; } }
+  .stack h3 { margin: 0; font-family: var(--f-mono); font-size: 11px; font-weight: 500; letter-spacing: .08em; color: var(--ink-3); text-transform: uppercase; }
+  .stack p { margin: 0; font-size: 14px; color: var(--ink-2); line-height: 1.9; }
+  .stack p b { color: var(--ink); font-weight: 600; }
+
+  /* ── 푸터 ────────────────────────────────────── */
+  footer.end { padding-block: 40px 56px; }
+  footer.end p { margin: 0; font-size: 12.5px; color: var(--ink-3); max-width: 46em; line-height: 1.8; text-wrap: pretty; }
+  footer.end p + p { margin-top: 9px; }
+
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
+
+  /* ── 사이트 내비 ─────────────────────────────── */
+  .sitenav {
+    position: sticky; top: 0; z-index: 50;
+    background: var(--surface); border-bottom: 1px solid var(--rule);
+  }
+  /* 본문 폭(.wrap)은 문서마다 다르다 — 내비는 거기서 떼어내 두 페이지에서 같은 폭으로 고정한다 */
+  .sitenav-in {
+    display: flex; align-items: center; flex-wrap: wrap; gap: 6px 18px;
+    max-width: 1180px; margin-inline: auto;
+    padding-block: 12px; padding-inline: 28px;
+  }
+  .sitenav-who { font-size: 15px; font-weight: 700; letter-spacing: -.02em; color: var(--ink); }
+  .sitenav-role { font-size: 12.5px; color: var(--ink-3); }
+  .sitenav nav { margin-left: auto; display: flex; gap: 4px; }
+  .sitenav nav a {
+    font-size: 12.5px; text-decoration: none; color: var(--ink-3);
+    padding: 5px 12px; border: 1px solid transparent; white-space: nowrap;
+  }
+  .sitenav nav a:hover { color: var(--ink); border-color: var(--rule); }
+  .sitenav nav a[aria-current="page"] { color: var(--accent); border-color: var(--rule); background: var(--wash); font-weight: 600; }
+</style>
+
+<style>
+  /* ══ 기술 표기 · 다이어그램 · 모션 ═══════════════
+     이 블록은 시각 표현만 담당한다. 색은 전부 위 블록의 변수를 쓴다. */
+
+  /* ── 사례별 기술 배지 ────────────────────────── */
+  .techs {
+    margin: 0; padding: 0; list-style: none;
+    display: flex; flex-wrap: wrap; gap: 5px;
+  }
+  .techs > li {
+    font-family: var(--f-mono); font-size: 10.5px; line-height: 1.8;
+    color: var(--ink-3); border: 1px solid var(--rule);
+    padding: 2px 8px; white-space: nowrap;
+    transition: color .24s cubic-bezier(.22,.61,.36,1),
+                border-color .24s cubic-bezier(.22,.61,.36,1);
+  }
+  .techs > li:hover { color: var(--accent); border-color: var(--accent); }
+
+  /* ── 흐름 다이어그램 ─────────────────────────── */
+  .diagram {
+    overflow-x: auto; border: 1px solid var(--rule);
+    background: var(--surface); padding: 16px 18px;
+    color: var(--ink-3); /* SVG currentColor 기준 */
+  }
+  .diagram svg { display: block; width: 100%; min-width: 620px; height: auto; }
+  .diagram .cap {
+    margin: 0 0 12px; font-family: var(--f-mono); font-size: 9.5px;
+    font-weight: 500; letter-spacing: .13em; text-transform: uppercase;
+    color: var(--ink-3);
+  }
+  .dg-box { fill: var(--surface); stroke: var(--rule); }
+  .dg-box.on { fill: var(--wash); stroke: var(--accent); }
+  .dg-t { font-family: var(--f-sans); font-size: 11.5px; fill: var(--ink-2); }
+  .dg-t.on { fill: var(--ink); font-weight: 600; }
+  .dg-line { stroke: currentColor; fill: none; }
+  .dg-mine { stroke: var(--accent); fill: none; }
+  .dg-lab {
+    font-family: var(--f-mono); font-size: 10px; letter-spacing: .06em;
+    fill: var(--accent);
+  }
+  .dg-sub { font-family: var(--f-mono); font-size: 9.5px; fill: var(--ink-3); }
+
+  /* ── 스택 위계 ───────────────────────────────── */
+  .stack > div { border-left: 2px solid var(--rule); padding-left: 16px; }
+  .stack > div.t1 { border-left-color: var(--accent); }
+  .stack > div.t2 { border-left-color: var(--accent-2); }
+  .stack > div.t3 { border-left-color: var(--rule); }
+  .stack > div.t4 { border-left-color: var(--accent-2); }
+  .stack > div.t1 h3 { color: var(--accent); }
+  .stack ul.tk {
+    margin: 0; padding: 0; list-style: none;
+    display: flex; flex-wrap: wrap; gap: 6px;
+  }
+  .stack ul.tk > li {
+    font-family: var(--f-mono); font-size: 11.5px; line-height: 1.65;
+    color: var(--ink-2); border: 1px solid var(--rule-2);
+    padding: 3px 9px; max-width: 100%;
+    /* 긴 토큰 하나(OpenAPI 묶음) 때문에 좁은 화면에서 가로 스크롤이 생기지 않게 — nowrap 안 씀 */
+  }
+  .stack ul.tk > li.k { color: var(--ink); border-color: var(--rule); font-weight: 500; }
+  .stack ul.tk.lead > li { font-size: 12.5px; padding: 4px 11px; }
+  .stack ul.tk.lead > li.k { color: var(--accent); border-color: var(--accent); background: var(--wash); }
+  .stack ul.tk.wide > li.k { color: var(--ink); border-color: var(--accent-2); }
+  .stack ul.tk.quiet > li { font-size: 11px; color: var(--ink-3); }
+  .stack ul.tk.quiet > li.k { color: var(--ink-2); }
+
+  /* ── 호버 ────────────────────────────────────── */
+  .tool, .metrics > div { transition: box-shadow .28s cubic-bezier(.22,.61,.36,1); }
+  .tool:hover, .metrics > div:hover { box-shadow: inset 0 0 0 1px var(--accent); }
+
+  /* ── 스크롤 진입 ─────────────────────────────
+     초기 상태는 html.anim 아래에만 둔다. JS가 안 돌면(또는 reduced-motion이면)
+     클래스가 붙지 않으므로 아무것도 숨겨지지 않는다. */
+  .rv {
+    transition: opacity .38s cubic-bezier(.22,.61,.36,1),
+                transform .38s cubic-bezier(.22,.61,.36,1);
+    transition-delay: var(--d, 0ms);
+  }
+  html.anim .rv { opacity: 0; transform: translateY(14px); }
+  html.anim .rv.in { opacity: 1; transform: none; }
+
+  /* ── 히어로 진입 ─────────────────────────────── */
+  @keyframes hero-up { to { opacity: 1; transform: none; } }
+  html.anim .hero .kicker,
+  html.anim .hero h1,
+  html.anim .hero > .wrap > p:not(.kicker),
+  html.anim .hero .whois {
+    opacity: 0; transform: translateY(12px);
+    animation: hero-up .55s cubic-bezier(.22,.61,.36,1) forwards;
+  }
+  html.anim .hero .kicker                       { animation-delay: .04s; }
+  html.anim .hero h1                            { animation-delay: .12s; }
+  html.anim .hero > .wrap > p:nth-of-type(2)    { animation-delay: .20s; }
+  html.anim .hero > .wrap > p:nth-of-type(3)    { animation-delay: .26s; }
+  html.anim .hero > .wrap > p:nth-of-type(4)    { animation-delay: .32s; }
+  html.anim .hero .whois                        { animation-delay: .40s; }
+
+  /* ── 비율 막대 차오르기 ──────────────────────
+     목표 폭은 인라인 style="width:..%"가 그대로 갖고 있고,
+     scaleX만 0 → 1로 움직인다. 인쇄에서 transform:none이면 목표 폭 그대로 남는다. */
+  .ratio .bar > i {
+    transform-origin: left center;
+    transition: transform .62s cubic-bezier(.22,.61,.36,1) .14s;
+  }
+  html.anim .ratio .bar > i { transform: scaleX(0); }
+  html.anim .ratio.in .bar > i { transform: scaleX(1); }
+
+  /* ── 인쇄(PDF) — 모션 흔적을 전부 무효화 ─────── */
+  @media print {
+    * { opacity: 1 !important; transform: none !important; animation: none !important; }
+  }
+</style>
+
+<header class="sitenav">
+  <div class="wrap sitenav-in">
+    <span class="sitenav-who">배우현</span>
+    <span class="sitenav-role">프론트엔드 개발자</span>
+    <nav>
+      <a href="https://hoiya-woohyun.github.io/">이력서</a>
+      <a href="https://hoiya-woohyun.github.io/portfolio.html" aria-current="page">포트폴리오</a>
+      <a href="https://hoiya-woohyun.github.io/career.html">경력기술서</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <p class="kicker">배우현 · 프론트엔드 개발자</p>
+    <h1>사람이 기억하던 규칙을 <span>도구가 검증하게</span> 만듭니다.</h1>
+    <p>
+      규칙을 문서로만 적어두면 아는 사람만 지키게 됩니다. 그래서 규칙은
+      <strong>지키지 않았을 때 바로 드러나는 곳</strong>에 둡니다 — 타입 시스템, PR 리뷰 코멘트, 자동 PR, push 훅.
+    </p>
+    <p>
+      React·TypeScript로 아파트 커뮤니티 플랫폼의 프론트엔드를 담당하고 있습니다.
+      입주민 앱부터 매장 POS·사이니지 CMS까지 6개 제품을 병행하면서,
+      화면을 만드는 일과 <strong>그 화면이 효율적으로 만들어지는 기반을 만드는 일</strong>을 함께 해왔습니다.
+    </p>
+    <p>
+      AngularJS로 시작해 Vue·Nuxt 기반 B2B 플랫폼을 거쳐 React로 주력 기술을 옮겼습니다.
+      직전 회사에서는 웹팀 리드로 제품 3개의 런칭을 담당하며
+      CI/CD와 머지 전 코드 리뷰 프로세스를 함께 세웠습니다.
+    </p>
+    <div class="whois">
+      <span><b>7년차</b> · 프론트엔드</span>
+      <span>현 <b>HT Beyond</b> · 2024.01~</span>
+      <span>신규 제품 <b>2건</b> 단독 구축</span>
+      <span>동료 PR <b>1,501건</b> 리뷰</span>
+      <span><a href="mailto:bwh1224@gmail.com">bwh1224@gmail.com</a></span>
+    </div>
+  </div>
+</section>
+
+<section class="band">
+  <div class="wrap">
+    <div class="shead">
+      <h2>일하는 방식</h2>
+      <p>아래 사례는 모두 이 세 가지 중 하나에서 나왔습니다.</p>
+    </div>
+    <ul class="abil">
+      <li>
+        <h3>반복되는 판단을 사람이 아니라 도구가 하게 만듭니다</h3>
+        <p>6개 제품을 병행하면 같은 판단을 제품마다 다시 하게 됩니다. 그 판단을 먼저 찾아 생성·검증·갱신하는 장치로 옮깁니다 — 타입은 스키마에서 생성해 손으로 다시 쓰지 않고, 이 PR로 새로 죽은 파일은 원인이 된 줄에 코멘트가 달립니다. <strong>막을 수 없는 것은 규격으로 남깁니다</strong> — 결정·명세·버그 분석을 <code>docs/</code> 다섯 축에 같은 형식으로 쌓고, 어떤 코드를 고치면 어떤 문서를 갱신할지 파일별·행위별 트리거 표로 규정해 에이전트 규칙에 넣었습니다. 버그 분석 97건 중 58건을 직접 썼고, 나머지는 팀원 4명이 같은 규격으로 이어 썼습니다.</p>
+      </li>
+      <li>
+        <h3>기능 하나를 끝내기보다, 다음 기능이 효율적으로 만들어지는 구조를 남깁니다</h3>
+        <p>제품마다 흩어진 설정·컴포넌트·라우팅에서 공통 축을 찾아 단일 소스로 묶습니다. 새 화면을 추가하면 권한 가드와 컨벤션이 자동으로 따라오게 만듭니다.</p>
+      </li>
+      <li>
+        <h3>여러 클라이언트에 걸친 도메인을 한쪽 기준으로만 맞추지 않습니다</h3>
+        <p>하나의 정책이 앱·웹뷰·POS·네이티브에 동시에 걸칠 때 상태 머신과 인터페이스 규약을 맞추고 배포 순서를 통제합니다. 제품 하나를 골격부터 운영 투입까지 단독으로 완성한 경험이 그 판단의 바탕입니다.</p>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<section class="band alt">
+  <div class="wrap">
+    <div class="shead">
+      <h2>사례</h2>
+      <p><b>어떤 일이 사람 손에 있었고, 지금은 무엇이 그 일을 대신하는지</b>로 정리했습니다. 아래 일곱 건은 모두 커밋 이력으로 확인할 수 있는 작업입니다.</p>
+    </div>
+
+    <div class="cases">
+
+      <article class="case">
+        <header>
+          <h3>PR이 죽인 파일을, 그 원인이 된 줄에서 알려주게 만들기</h3>
+          <p>리뷰어가 “이 파일 이제 안 쓰이는 것 같은데요”를 눈으로 찾아야 했습니다. 놓치면 죽은 코드가 그대로 쌓입니다.</p>
+        </header>
+        <ul class="techs" aria-label="사용 기술">
+          <li>Knip</li><li>GitHub Actions</li>
+        </ul>
+        <div class="shift">
+          <div>
+            <h4>이전 — 사람이 한다</h4>
+            <ul>
+              <li>리뷰어가 diff를 읽다가 미사용이 된 파일을 알아채야 함</li>
+              <li>놓치면 아무도 모른 채 축적. 나중에 “이거 쓰나요?” 를 다시 물음</li>
+            </ul>
+          </div>
+          <div class="after">
+            <h4>지금 — 도구가 한다</h4>
+            <ul>
+              <li>CI가 이 PR로 <em>새로</em> 죽은 파일을 계산</li>
+              <li>죽게 만든 바로 그 줄에 리뷰 코멘트가 달림</li>
+            </ul>
+          </div>
+        </div>
+        <div class="built">
+          <h4>만든 것</h4>
+          <p>Knip 정적 분석을 도입하고, 그 결과를 PR 리뷰 코멘트로 바꾸는 가드를 붙였습니다. 운영에서 걸린 것들을 이어서 잡았습니다 — <strong>머지 예정 트리 기준으로 분석해 오탐 보정</strong>, 확장자 포함 상대 경로 미탐지 수정, 리뷰 배치 API 오류 대응, 무관 파일 경고를 코멘트 표로 통합.</p>
+        </div>
+        <div class="trace">
+          <b>확인 가능한 흔적</b>
+          <code>[PL-28754] feat - PR로 인해 새로 dead 파일이 된 경우 원인 줄에 리뷰 코멘트 남기기</code>
+          <span>2026-07-09, 입주민 앱 저장소. 이후 PL-28621에서 오탐을 보정하고, PL-28781로 내부 운영 콘솔에 확산했습니다. 현재 Knip이 걸려 있는 곳은 이 두 저장소입니다.</span>
+        </div>
+      </article>
+
+      <article class="case">
+        <header>
+          <h3>서버 스펙 변경을 런타임 장애가 아니라 컴파일 에러로 만들기</h3>
+          <p>서버 응답 타입을 프론트엔드에서 손으로 다시 정의하고 있었습니다. 같은 API의 타입이 화면마다 조금씩 다르게 복사돼 있었고, 서버가 필드를 바꿔도 터지기 전까지 알 수 없었습니다.</p>
+        </header>
+        <ul class="techs" aria-label="사용 기술">
+          <li>OpenAPI</li><li>openapi-typescript</li><li>openapi-fetch</li><li>openapi-react-query</li><li>TypeScript</li>
+        </ul>
+        <div class="shift">
+          <div>
+            <h4>이전 — 사람이 한다</h4>
+            <ul>
+              <li>응답 타입을 화면마다 수기로 선언. 조금씩 어긋남</li>
+              <li>스펙 변경을 사람이 전파. 놓치면 운영에서 터짐</li>
+              <li>스키마 파일을 커밋해 팀원 간 충돌이 상시 발생</li>
+            </ul>
+          </div>
+          <div class="after">
+            <h4>지금 — 도구가 한다</h4>
+            <ul>
+              <li>OpenAPI 스펙에서 타입과 쿼리 훅을 생성</li>
+              <li>스펙이 바뀌면 타입 체크가 먼저 실패</li>
+              <li>산출물은 Git 밖. 로컬·CI에서 그때그때 생성</li>
+            </ul>
+          </div>
+        </div>
+        <div class="built">
+          <h4>만든 것</h4>
+          <p><code>openapi-typescript</code> → <code>openapi-fetch</code> → <code>openapi-react-query</code>로 이어지는 생성 파이프라인. 여기에 규칙을 하나 더 걸었습니다 — <strong>파생 타입은 스키마 컴포넌트 이름이 아니라 URL 경로로만 참조한다.</strong> 서버가 스키마 이름을 바꿔도 프론트엔드 타입이 조용히 깨지지 않습니다. 환경별로 갈리던 스펙 출처는 환경 변수 하나로 묶고, 결정 배경을 ADR로 남겼습니다. 제품마다 조금씩 달랐던 생성 절차는 입주민 앱 기준으로 통일해, 저장소를 옮겨 다녀도 같은 스크립트·같은 폴더 구조가 통하게 정리했습니다.</p>
+        </div>
+        <div class="trace">
+          <b>확인 가능한 흔적</b>
+          <code>4개 제품 적용 — 입주민 앱 · 관리자 운영툴 · 내부 운영 콘솔 · 주문 키오스크</code>
+          <span>부수 효과가 하나 있었습니다. 생성된 타입이 단일 정답이 되면서, AI 에이전트가 API 타입을 추측할 여지 자체가 사라졌습니다.</span>
+        </div>
+      </article>
+
+      <article class="case">
+        <header>
+          <h3>문서가 낡으면, 문서가 스스로 갱신 PR을 열게 만들기</h3>
+          <p>정산·쿠폰·시설 예약·인증 같은 도메인 정책은 코드에만 있어 개발자만 접근할 수 있었습니다. 사람이 쓴 문서는 코드가 바뀌는 순간부터 낡기 시작합니다.</p>
+        </header>
+        <ul class="techs" aria-label="사용 기술">
+          <li>LLM</li><li>dispatch</li>
+        </ul>
+        <div class="shift">
+          <div>
+            <h4>이전 — 사람이 한다</h4>
+            <ul>
+              <li>정책을 알려면 코드를 읽거나 담당자에게 물어봐야 함</li>
+              <li>문서 갱신이 담당자의 성실성에 달려 있음</li>
+              <li>리뷰어가 기계도 확인할 수 있는 사실까지 눈으로 재확인</li>
+            </ul>
+          </div>
+          <div class="after">
+            <h4>지금 — 도구가 한다</h4>
+            <ul>
+              <li>LLM이 인덱스를 먼저 읽고 관련 페이지를 인용해 답함</li>
+              <li>드리프트가 감지되면 재생성 PR이 열리고 담당자가 지정됨</li>
+              <li>체크리스트가 “사실 확인”이 아니라 “해석 확인” 중심</li>
+            </ul>
+          </div>
+        </div>
+        <div class="built">
+          <h4>만든 것</h4>
+          <p>내부 운영 콘솔 저장소에 <strong>도메인 · 엔티티 · 기능 · 용어사전 · 플레이북 · 결정기록</strong>으로 구성된 위키 체계를 설계·정착시켰습니다. 드리프트 <em>감지</em> 엔진은 백엔드 유닛이 만들었고, 제가 담당한 구간은 <strong>감지된 드리프트를 받아 재생성 PR을 열고 담당자를 지정해 리뷰를 요청</strong>하는 흐름과 그 운영 품질입니다 — 리뷰 체크리스트를 해석 확인 중심으로 개정, 에이전트 실패 시 원인 진단 스텝 추가, 야간 배치 알림 카드를 일상어·커밋·담당자 정보 포함으로 개편, dispatch 방식 교체.</p>
+        </div>
+        <div class="diagram">
+          <p class="cap">흐름</p>
+          <svg viewBox="0 0 802 124" role="img" aria-label="코드 변경에서 드리프트 감지, 재생성 PR 생성, 담당자 지정과 리뷰 요청, 위키 갱신을 거쳐 LLM 인용 답변으로 이어지는 흐름. 가운데 세 단계가 제가 담당한 구간이고, 드리프트 감지는 백엔드 유닛 담당입니다.">
+            <defs>
+              <marker id="dgar" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+                <path d="M0,1 L7,4 L0,7 Z" fill="currentColor" stroke="none"/>
+              </marker>
+            </defs>
+
+            <path class="dg-mine" d="M276,42 L276,34 L660,34 L660,42" stroke-width="1"/>
+            <text class="dg-lab" x="468" y="25" text-anchor="middle">제가 담당한 구간</text>
+
+            <path class="dg-line" d="M124,72 L138,72" stroke-width="1" marker-end="url(#dgar)"/>
+            <path class="dg-line" d="M258,72 L272,72" stroke-width="1" marker-end="url(#dgar)"/>
+            <path class="dg-line" d="M392,72 L406,72" stroke-width="1" marker-end="url(#dgar)"/>
+            <path class="dg-line" d="M526,72 L540,72" stroke-width="1" marker-end="url(#dgar)"/>
+            <path class="dg-line" d="M660,72 L674,72" stroke-width="1" marker-end="url(#dgar)"/>
+
+            <rect class="dg-box" x="8" y="48" width="116" height="48"/>
+            <text class="dg-t" x="66" y="77" text-anchor="middle">코드 변경</text>
+
+            <rect class="dg-box" x="142" y="48" width="116" height="48"/>
+            <text class="dg-t" x="200" y="69" text-anchor="middle">드리프트</text>
+            <text class="dg-t" x="200" y="85" text-anchor="middle">감지</text>
+            <text class="dg-sub" x="200" y="112" text-anchor="middle">백엔드 유닛</text>
+
+            <rect class="dg-box on" x="276" y="48" width="116" height="48"/>
+            <text class="dg-t on" x="334" y="69" text-anchor="middle">재생성 PR</text>
+            <text class="dg-t on" x="334" y="85" text-anchor="middle">생성</text>
+
+            <rect class="dg-box on" x="410" y="48" width="116" height="48"/>
+            <text class="dg-t on" x="468" y="69" text-anchor="middle">담당자 지정</text>
+            <text class="dg-t on" x="468" y="85" text-anchor="middle">리뷰 요청</text>
+
+            <rect class="dg-box on" x="544" y="48" width="116" height="48"/>
+            <text class="dg-t on" x="602" y="69" text-anchor="middle">위키</text>
+            <text class="dg-t on" x="602" y="85" text-anchor="middle">갱신</text>
+
+            <rect class="dg-box" x="678" y="48" width="116" height="48"/>
+            <text class="dg-t" x="736" y="69" text-anchor="middle">LLM 인용</text>
+            <text class="dg-t" x="736" y="85" text-anchor="middle">답변</text>
+          </svg>
+        </div>
+        <div class="trace">
+          <b>확인 가능한 흔적</b>
+          <code>내부 운영 콘솔 위키 — 문서 11 / 35 최초 작성 · 디렉터리 커밋 43 / 53 · 유닛 위키 저장소 23 / 371 커밋</code>
+          <span>문서 자체는 백엔드 유닛과 공동으로 축적한 것입니다. 위 숫자가 공유 저장소 기준의 제 기여 범위입니다.</span>
+        </div>
+      </article>
+
+      <article class="case">
+        <header>
+          <h3>제품마다 갈라진 설정을 하나로 묶고, 권한 가드를 라우팅으로 내리기</h3>
+          <p>저장소마다 번들러(CRA)·린트·타입 설정이 달라 컨벤션이 파편화돼 있었습니다. 라우팅도 수동 등록이라 권한 체크가 화면마다 흩어져 있었습니다.</p>
+        </header>
+        <ul class="techs" aria-label="사용 기술">
+          <li>Vite</li><li>Turborepo</li><li>pnpm workspace</li><li>ESLint</li><li>shadcn/ui</li><li>Storybook</li>
+        </ul>
+        <div class="shift">
+          <div>
+            <h4>이전 — 사람이 한다</h4>
+            <ul>
+              <li>저장소를 옮길 때마다 다른 설정·다른 규칙에 적응</li>
+              <li>새 페이지를 만들면 라우트를 손으로 등록</li>
+              <li>권한 체크를 화면 안에서 각자 처리. 빠뜨리면 UI만 숨겨짐</li>
+            </ul>
+          </div>
+          <div class="after">
+            <h4>지금 — 도구가 한다</h4>
+            <ul>
+              <li>공용 config 패키지를 가져다 씀. 규칙은 한 곳에서 바뀜</li>
+              <li>파일을 만들면 라우트가 생김</li>
+              <li>AuthGuard가 라우팅 레이어에서 일괄 적용</li>
+            </ul>
+          </div>
+        </div>
+        <div class="built">
+          <h4>만든 것</h4>
+          <p><strong>CRA → Vite 마이그레이션을 3개 제품</strong>(입주민 앱 · 관리자 운영툴 · 디자인 시스템)에 적용하고, Turborepo · pnpm workspace 위에 공용 config 패키지(<code>config-typescript</code> · <code>config-tailwind</code> · <code>config-prettier</code> · <code>eslint-config</code>)를 분리했습니다. 파일시스템 라우팅으로 전환하면서 <code>useNavigate</code> 사용 규칙과 <code>src</code> 직접 import 차단을 ESLint 규칙으로 강제하고, 라우터 구조는 README에 자동 생성되게 했습니다. shadcn/ui 전체는 사내 디자인 시스템 패키지로 편입해 Storybook으로 문서화했습니다.</p>
+        </div>
+        <p class="note">개인 작업이 아니라 팀 전환이었기 때문에, 코드보다 <b>기존 라우터와의 구조 비교 문서</b>를 먼저 써서 공유했습니다. 바꾸자고 설득하는 것과 바꾸는 것은 다른 일입니다. 같은 에픽에서 계획했던 전 제품 물리적 모노레포 이관은 우선순위 조정으로 종료됐고, 현재 모노레포에 들어가 있는 것은 내부 운영 콘솔입니다.</p>
+      </article>
+
+      <article class="case">
+        <header>
+          <h3>장애를 고객 문의가 아니라 알림으로 알게 만들기</h3>
+          <p>운영 중 나는 프론트엔드 오류를 CS 접수로만 인지할 수 있었습니다. 어느 단지, 어느 사용자에게서 났는지 추적이 불가능했습니다.</p>
+        </header>
+        <ul class="techs" aria-label="사용 기술">
+          <li>Sentry</li><li>에러 바운더리</li><li>핑거프린트</li><li>샘플 레이트</li>
+        </ul>
+        <div class="shift">
+          <div>
+            <h4>이전 — 사람이 한다</h4>
+            <ul>
+              <li>사용자가 문의해야 장애를 앎</li>
+              <li>재현 조건을 사용자에게 되물음</li>
+              <li>어느 단지에서 나는 문제인지 모름</li>
+            </ul>
+          </div>
+          <div class="after">
+            <h4>지금 — 도구가 한다</h4>
+            <ul>
+              <li>모니터링 알림이 먼저 옴</li>
+              <li>단지 ID · 사용자 태그가 이벤트에 붙어 있음</li>
+              <li>의미 없는 오류는 걸러진 상태로 도착</li>
+            </ul>
+          </div>
+        </div>
+        <div class="built">
+          <h4>만든 것</h4>
+          <p>Sentry를 도입하고 릴리즈 버전 네이밍을 정리한 뒤, <strong>에러 바운더리에서 리포팅 로직을 분리</strong>해 오류 유형별 수집 경로를 나눴습니다. 운영상 의미 없는 노이즈(홈넷 연동 오류 · 401 인증 오류)를 필터링하고 401은 핑거프린트를 분리해 별도 집계했습니다. 샘플 레이트를 조정해 비용과 신호의 균형을 잡고, 같은 체계를 사이니지 CMS에 확산했습니다.</p>
+        </div>
+        <p class="note">도입 자체보다 <b>노이즈를 걷어내는 일</b>이 실제 작업의 대부분이었습니다. 모든 오류가 올라오는 대시보드는 아무도 안 봅니다.</p>
+      </article>
+
+      <article class="case">
+        <header>
+          <h3>하나의 번호판 인식이 앱 · 웹뷰 · 네이티브 세 지점에 걸칠 때</h3>
+          <p>기존 차량번호 인식은 번호판을 지정된 인식 영역에 맞춰야만 동작했습니다. 관리자가 주차장을 돌며 여러 대를 빠르게 확인할 수 없었고, 위반 차량 통제도 신고 이력이 흩어져 수작업 판단에 의존했습니다.</p>
+        </header>
+        <ul class="techs" aria-label="사용 기술">
+          <li>웹뷰</li><li>네이티브 인터페이스</li><li>무한스크롤</li>
+        </ul>
+        <div class="shift">
+          <div>
+            <h4>이전 — 사람이 한다</h4>
+            <ul>
+              <li>번호판을 인식 영역에 맞춰 한 대씩</li>
+              <li>신고 화면에 차량 번호를 손으로 입력</li>
+              <li>상습 위반 여부를 이력을 뒤져 판단</li>
+            </ul>
+          </div>
+          <div class="after">
+            <h4>지금 — 도구가 한다</h4>
+            <ul>
+              <li>카메라를 비추면 시야의 차량을 실시간 인식</li>
+              <li>정기 · 방문 · 미등록 타입을 즉시 판별해 표시</li>
+              <li>신고 화면에 번호판 자동 입력, 누적 기준으로 블랙리스트 자동 등록</li>
+            </ul>
+          </div>
+        </div>
+        <div class="built">
+          <h4>만든 것</h4>
+          <p><strong>관리자 앱의 네이티브 인식 인터페이스를 운영툴 웹뷰와 연결</strong>했습니다. 신고 차량 · 블랙리스트 관리 화면(자동 등록과 관리자 수동 해제 정책, 등록 사유 · 상태 변경 주체 표기, 방문 등록 차단 안내)을 구현하고, AI 주차 리포트 진입 동선과 권한별 다운로드 분기를 붙였습니다. 모바일 웹뷰에 맞춰 차량 목록을 테이블에서 List + 무한스크롤로 바꾸고, 주차 URL 하위에서는 LNB · 헤더를 감춰 앱 내 화면처럼 보이게 처리했습니다.</p>
+        </div>
+        <p class="note">어려웠던 건 인식이 아니라 <b>경계</b>였습니다. 네이티브가 넘겨주는 값의 규약을 정하고, 웹뷰가 앱 화면인 척하게 만드는 일이 작업의 대부분이었습니다.</p>
+      </article>
+
+      <article class="case">
+        <header>
+          <h3>현장 접속을 사람의 기억에서 앱으로 옮기기 <em>(기획부터 릴리즈까지 단독)</em></h3>
+          <p>현장 단지 장비에 붙으려면 bastion 서버 SSH 터널을 매번 손으로 열고 RDP를 실행해야 했습니다. 여러 현장을 동시에 지원할 때 세션과 포트를 사람이 기억하고 있어야 했습니다.</p>
+        </header>
+        <ul class="techs" aria-label="사용 기술">
+          <li>Electron</li><li>React</li><li>TanStack Router</li><li>SSH 터널</li><li>safeStorage</li><li>RDP</li>
+        </ul>
+        <div class="shift">
+          <div>
+            <h4>이전 — 사람이 한다</h4>
+            <ul>
+              <li>터널 명령을 매번 조립. 포트 충돌은 겪고 나서 앎</li>
+              <li>세션 만료 시점을 기억에 의존</li>
+              <li>로그만 보면 되는 작업도 동시 접속 상한을 소모</li>
+            </ul>
+          </div>
+          <div class="after">
+            <h4>지금 — 도구가 한다</h4>
+            <ul>
+              <li>현장을 고르면 터널·포트 고정·RDP까지 자동</li>
+              <li>세션 대시보드에 잔여 시간이 보임</li>
+              <li>조회 전용 경로를 접속에서 분리</li>
+            </ul>
+          </div>
+        </div>
+        <div class="built">
+          <h4>만든 것</h4>
+          <p>Electron + React + TanStack Router 기반 현장 지원 런처를 <strong>기획·설계·개발 전부 혼자</strong> 만들었습니다. 다중 SSH 터널 관리, 원격 로그 조회(tail·grep·다운로드와 <strong>압축 로그 바로 보기</strong>), <code>safeStorage</code> 기반 자격증명 암호화, 외부 네비게이션 차단, 진단 로그 14일 자동 삭제. 설계 근거와 폐기한 대안까지 문서로 남겼습니다.</p>
+        </div>
+        <div class="trace">
+          <b>확인 가능한 흔적</b>
+          <code>저장소 전체 23 커밋 = 본인 단독 · v1.3.0 릴리즈</code>
+          <span>가장 중요한 결정은 기능이 아니라 정보 구조였습니다. “현장을 여는 것”과 “실제 접속”을 분리하자, 조회만 필요한 작업이 접속 상한을 잡아먹던 문제가 함께 사라졌습니다.</span>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<section class="band">
+  <div class="wrap">
+    <div class="shead">
+      <h2>혼자 만들지 않습니다</h2>
+      <p>자동화는 <b>팀이 함께 쓸 때만 의미가 있습니다.</b> 그래서 코드를 바꾸기 전에 먼저 설득하고, 바꾼 다음에는 동료의 코드를 읽는 데 시간을 씁니다.</p>
+    </div>
+
+    <dl class="metrics" style="grid-template-columns:1fr;">
+      <div>
+        <dt>동료 PR 리뷰</dt>
+        <dd>1,501<small>건</small></dd>
+        <p>본인이 올린 PR 629건의 약 2.4배 — 내 코드를 올린 것보다 남의 코드를 읽은 쪽이 많습니다.</p>
+      </div>
+    </dl>
+
+    <ul class="abil">
+      <li>
+        <h3>바꾸자고 설득하는 것과 바꾸는 것은 다른 일입니다</h3>
+        <p>라우팅 구조를 전환할 때 코드보다 <strong>기존 구조와의 비교 문서·가이드라인을 먼저 써서 팀에 공유</strong>했습니다. 개인 작업이 아니라 팀 전환이었기 때문입니다. 에픽 단위로 기술 과제를 정의하고 목표·성과 지표·마일스톤까지 포함한 계획을 세웠고, 분기 회고에서는 코드베이스 헬스 개선안을 제안해 리팩토링을 상시 업무 프로세스에 편입했습니다.</p>
+      </li>
+      <li>
+        <h3>리뷰어의 시간을 아끼는 방향으로 규약을 고칩니다</h3>
+        <p>문서 재생성 PR의 체크리스트가 리뷰어에게 <strong>grep을 대신 시키고</strong> 있었습니다. 한 PR에서 세어보니 7개 항목 중 3개가 “응답 필드명이 X 맞나요?” 같은 사실 확인이었는데, 아니라고 답해도 틀린 건 위키가 아니라 코드 독해라 사람에게 물을 값이 아니었습니다. 그래서 <strong>항목 자격 시험</strong>을 뒀습니다 — “리뷰어가 아니오라고 답하면 위키의 무엇이 틀리는가”를 말할 수 없으면 항목이 아닙니다. 묻는 것도 바꿨습니다. 코드가 무엇으로 바뀌었는지가 아니라 <strong>그 변화를 무슨 의도로 읽어 문서를 어느 방향으로 서술했는지</strong>를 묻습니다. 다만 근거 제시 의무는 유지했습니다 — 완화했을 때 병렬 에이전트가 항목을 지어내는 실패를 이미 겪었기 때문입니다.</p>
+      </li>
+      <li>
+        <h3>백엔드·기획·QA·현장 운영팀과 상시 협업합니다</h3>
+        <p>도메인 지식 위키 체계는 백엔드 조직과 공동으로 설계·정착시켰습니다. 기획 요구사항에서 정책 충돌을 발견하면 임의로 해석하지 않고 상위 스토리 담당자에게 확인한 뒤 진행합니다. 설계 근거와 <strong>폐기한 대안까지</strong> 문서로 남기는 것도, 나중에 이 결정을 읽을 사람을 위한 것입니다.</p>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<section class="band alt">
+  <div class="wrap">
+    <div class="shead">
+      <h2>그 밖에 한 일</h2>
+      <p>위 일곱 건이 깊게 판 사례라면, 아래는 <b>실제로 시간을 쓴 작업의 전체 목록</b>입니다.</p>
+    </div>
+    <div class="cat">
+      <div>
+        <h3>입주민 모바일 웹앱<em>2024.04 – 2026.08</em></h3>
+        <p>멀티 브랜드 레이아웃 분기 · <b>차세대 전면 개편</b>(계약사·단지·사용자 3계층 권한, 메뉴 관리 이관, 다크 모드) · 6차 통합 개발 테스트 라운드 대응 · 스마트홈(홈넷) OAuth 콜백 재설계 · 아파트 홈페이지 생성·관리 · 데스크톱 랜딩 · 전기차 충전 상태 조회 · 방문차량 알림 · 알림센터 · 지도 기반 위치 · 국제화 · PDF·서명·카메라 디바이스 연동</p>
+      </div>
+      <div>
+        <h3>내부 운영 콘솔<em>2024.02 – 2026.08</em></h3>
+        <p>앱 셸 구축 및 <b>재사용 공통 컴포넌트 세트</b>(TanStack Table 데이터 그리드 · DateRangePicker · S3 파일 업로드 · <code>useQueryString</code>) — 이후 사이니지 CMS·운영툴로 확산 · <b>단지 온보딩 자동화</b>(카드·세대·시설·예약 타겟·기기 일괄 설정, 현장 동기화 안전장치) · 시설 관계도 시각화(시설 단위 / 기기 단위 보기) · NFC 태그 · 전기차 충전기 · 프로모션 관리</p>
+      </div>
+      <div>
+        <h3>디지털 사이니지 CMS<em>2025.01 – 2025.11 · 전담</em></h3>
+        <p>앱 셸·라우팅·인증 골격과 공통 컴포넌트 세트 선행 구축 · 매체·소재·캠페인·콘텐츠 송출·게시판·전단 등 <b>광고 운영 전 화면</b> · 자동 편성 · 설치 단지·브랜드 관리 · 기기 일괄 제어와 앱 재실행·기기 재시작 원격 제어 · APK 버전 업로드·배포 · <b>운영 대시보드</b>(매출 차트·통계) · 로그인 CAPTCHA · 에이전시 권한 UI 분리 · 이탈 방지 공통 컴포넌트 · 리렌더 성능 개선 · Ant Design 전역 테마 오버라이드와 맥·윈도우 폰트 통일</p>
+      </div>
+      <div>
+        <h3>관리자 운영툴<em>2024.01 – 2026.08</em></h3>
+        <p><b>식당 예약 상품 관리</b>(월 캘린더 편성 · 시간대 슬롯 단위 설정 · 일괄 등록 · 기본 정책 카드 + 예외 덮어쓰기 구조) · 다국어 파이프라인 이관과 <b>번역 시트 ↔ JSON 무손실 동기화</b>(키 충돌·누락 키 자동 검출) · <b>개인정보보호 점검 대응</b>(접속기록 관리, 마스킹, 권한 분리) · 주차 신고·블랙리스트</p>
+      </div>
+      <div>
+        <h3>매장 POS · 주문 키오스크<em>2025.01 – 2026.07</em></h3>
+        <p>픽업오더 <b>주문 상태 머신을 앱·POS 양쪽에서 정합하게</b> 맞춤(접수·거부·자동거부·부분취소) · 영수증 출력 로직(주방용·고객용)과 출력 누락·순서 밀림 해결 · 주변기기(카드리더·안면인식기) 포트 예외 처리 · 결제 카운트다운·장바구니 로직 · 신규 주문 알림음, 새로고침 시 알림 중복 방지</p>
+      </div>
+      <div>
+        <h3>단지 시설 기기 연동<em>2025.10 – 2026.08 · 앱·키오스크·운영툴</em></h3>
+        <p><b>코인세탁기 전 구간</b> — 입주민 인증(안면인식·카드) → 세탁 이력 조회 → 상품 선택 → 결제 → 기기 제어 · <b>세대 호출 엘리베이터 연동 자동화</b>(필수 정보만 입력받고 나머지는 제조사 API로 자동 연결) · 독서실 전등 제어 · 골프타석 · 사우나 운영 정책 · 기기 타입별 필터링과 대기 인원 정책</p>
+      </div>
+      <div>
+        <h3>쿠폰 시스템<em>2026.05 – 2026.07 · 전 구간</em></h3>
+        <p>앱 <b>쿠폰함 신설</b>(유효기간·잔여 횟수·사용처·썸네일) · 시설 예약·결제 시 쿠폰 적용과 최종 금액 자동 계산 · <b>결제 취소 시 쿠폰 복구</b> · 키오스크·POS 결제 적용과 픽업오더 기본 적용 정책 · 관리자 발급 유형(무료 교환권 / 정액·정률 할인)·대상·정기 자동 발급 스케줄 · 만료 알림</p>
+      </div>
+      <div>
+        <h3>커뮤니티 앱 (React Native)<em>2024.08 – 2025.10</em></h3>
+        <p>비공개 회원제 커뮤니티 앱 전면 리뉴얼 — 회원 명부(프로필·소속·분과·기수 검색) · 공지사항 · 일정 캘린더 · Expo SDK 업그레이드 · Google Play 16KB 페이지 크기 요구 대응 · <b>스토어 배포까지 담당</b></p>
+      </div>
+      <div>
+        <h3>지식 계층 · 개발 환경<em>2024.02 – 2026.08 · 상시</em></h3>
+        <p><b>저장소 문서 체계 설계</b> — <code>docs/</code>를 architecture(구조 설계) · decisions(ADR) · features(기능 명세) · specs(화면 스펙) · bugs(원인 분석) 다섯 축으로 나누고, <b>관련 코드를 고치면 해당 문서도 함께 갱신하도록 에이전트 규칙으로 강제</b>했습니다. 맥락이 개인의 기억이 아니라 저장소에 남습니다.</p>
+        <p><b>ADR 체계</b> 도입·운영(34건 중 31건 최초 작성) · <b>에이전트 규칙</b> 파일 체계(21개 중 18개) · <b>LLM Wiki</b> 설계·정착(35개 문서 중 11개)과 감지된 드리프트를 받아 재생성 PR을 여는 자동화 · Figma MCP 연동과 Code Connect 매핑 · 규칙 파일 경량화로 에이전트 컨텍스트 비용 관리 · 타입 검증 파이프라인 정비 · 자동 라벨링 워크플로 자가치유 · 조직 공통 AI 코드리뷰 워크플로 통합 참여</p>
+      </div>
+      <div>
+        <h3>CI/CD · 보안<em>2024.02 – 2026.08 · 상시</em></h3>
+        <p>AWS 배포의 <b>Jenkins 이관</b>과 이슈 트래커 ↔ Git ↔ Jenkins ↔ 사내 메신저 파이프라인 설계 · GitHub Actions 실행 조건 정비와 hotfix 브랜치 자동 배포 스크립트 · <b>개인 PAT 제거</b> — 조직 GitHub App 설치 토큰(실행 시점 발급·1시간 만료)으로 9개 저장소 전환 · 소스맵 hidden 설정, S3 버킷 직접 접근 제한</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band">
+  <div class="wrap">
+    <div class="shead">
+      <h2>규모</h2>
+      <p>담당 범위가 넓다고 쓰는 대신 <b>실제로 세어본 값</b>을 둡니다. 사내 이슈 트래커와 Git 커밋 이력을 <code>2026.08.31</code> 기준으로 집계했습니다.</p>
+    </div>
+
+    <div class="scroll">
+      <table class="tbl">
+        <thead>
+          <tr>
+            <th scope="col">제품</th>
+            <th scope="col">담당 기간</th>
+            <th scope="col" style="text-align:right">담당 이슈</th>
+            <th scope="col" style="text-align:right">커밋</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><th scope="row">입주민 모바일 웹앱</th><td class="p">2024.04 – 2026.08</td><td class="n">332</td><td class="n">1,062</td></tr>
+          <tr><th scope="row">내부 운영 콘솔</th><td class="p">2024.02 – 2026.08</td><td class="n">200</td><td class="n">730</td></tr>
+          <tr><th scope="row">디지털 사이니지 CMS</th><td class="p">2025.01 – 2025.11</td><td class="n">234</td><td class="n">별도 저장소</td></tr>
+          <tr><th scope="row">관리자 운영툴</th><td class="p">2024.01 – 2026.08</td><td class="n">132</td><td class="n">271</td></tr>
+          <tr><th scope="row">매장 POS · 주문 키오스크</th><td class="p">2025.01 – 2026.07</td><td class="n">53</td><td class="n">189</td></tr>
+          <tr><th scope="row">커뮤니티 앱 (React Native)</th><td class="p">2024.08 – 2025.10</td><td class="n">49</td><td class="n">별도 저장소</td></tr>
+          <tr><th scope="row">현장 지원 데스크톱 앱</th><td class="p">2026.07 – 2026.08</td><td class="n">단독</td><td class="n">23</td></tr>
+          <tr><th scope="row">CS 대시보드</th><td class="p">상시</td><td class="n">—</td><td class="n">43</td></tr>
+          <tr class="sum"><th scope="row">합계 <span style="font-weight:400;color:var(--ink-3);">(대조 가능 저장소)</span></th><td class="p">2024.01 – 2026.08 · 2년 7개월</td><td class="n">1,000</td><td class="n">2,318</td></tr>
+        </tbody>
+        <tfoot>
+          <tr><td colspan="4" class="p" style="white-space:normal;color:var(--ink-3);font-family:var(--f-sans);font-size:12px;line-height:1.7;">위 합계는 각 열을 그대로 더한 값입니다. 재직 기간 전체 담당 이슈는 <b style="color:var(--ink-2);">1,260건</b>이고, 차이는 특정 제품 컴포넌트로 분류되지 않은 플랫폼·자동화·인프라 이슈입니다. 커밋 합계에는 로컬 클론이 없어 대조하지 못한 사이니지 CMS·커뮤니티 앱 저장소가 빠져 있습니다.</td></tr>
+        </tfoot>
+      </table>
+    </div>
+
+    <div class="ratios">
+      <div class="ratio">
+        <div class="top">
+          <span class="lab"><b>아키텍처 결정 기록(ADR)</b> 최초 작성</span>
+          <span class="num">31 / 34</span>
+        </div>
+        <div class="bar"><i style="width:91%"></i></div>
+      </div>
+      <div class="ratio">
+        <div class="top">
+          <span class="lab"><b>에이전트 규칙</b>(AGENTS.md · CLAUDE.md · Cursor Rules) 최초 작성</span>
+          <span class="num">18 / 21</span>
+        </div>
+        <div class="bar"><i style="width:86%"></i></div>
+      </div>
+      <div class="ratio">
+        <div class="top">
+          <span class="lab"><b>LLM Wiki 문서</b> 최초 작성</span>
+          <span class="num">11 / 35</span>
+        </div>
+        <div class="bar"><i style="width:31%"></i></div>
+      </div>
+    </div>
+
+    <dl class="metrics" style="grid-template-columns:repeat(2,1fr);margin-top:30px;margin-bottom:0;">
+      <div>
+        <dt>PR 리드타임 · 2024</dt>
+        <dd>23.6<small>시간</small></dd>
+        <p>본인 PR 생성에서 머지까지 중앙값</p>
+      </div>
+      <div>
+        <dt>PR 리드타임 · 2026</dt>
+        <dd>13.9<small>시간</small></dd>
+        <p>머지된 본인 PR 561건 기준 · 41% 감소</p>
+      </div>
+    </dl>
+    <p class="caveat" style="margin-top:14px;margin-bottom:0;">
+      리드타임이 줄어든 원인을 하나로 단정하지 않습니다. 같은 기간에 CI 타입 검증 비차단 전환·자동 라벨링·AI 코드리뷰·정적 분석 가드를 함께 넣었고, 각 조치의 기여도를 분리해 측정하지는 않았습니다.
+    </p>
+
+  </div>
+</section>
+
+<section class="band alt">
+  <div class="wrap">
+    <div class="shead">
+      <h2>매일 쓰려고 직접 만든 것</h2>
+      <p>회사 산출물이 아니라 <b>제 작업 환경입니다.</b> 사내 코드 바깥에서도 같은 방식으로 일합니다 — 규칙을 기억하지 않아도 되게 만듭니다.</p>
+    </div>
+    <div class="tools">
+
+      <div class="tool">
+        <h3>Claude Code 스킬 · 훅 체계<em>스킬 13 · 훅 8 · 6,643줄</em></h3>
+        <div>
+          <p>작업은 <strong><code>/task</code></strong>에서 시작합니다. Jira 티켓과 <strong>상위 이슈의 설명까지 읽어 무엇을 만들려는 작업인지 복원</strong>한 뒤, 티켓 하나를 격리된 worktree로 떼어냅니다.</p>
+          <p>여기서 <strong>권한 경계를 코드로 그었습니다.</strong> 커밋까지는 승인 없이 진행하되, <strong>push는 사용자 승인을 요구</strong>하고 <strong>브랜치 최초 push</strong> 직전에는 <strong><code>self-cr</code> 하드 게이트</strong>가 걸려 셀프 코드리뷰를 통과해야 나갑니다. 어디까지 에이전트에게 맡기고 어디서 사람이 개입할지를 — “푸시 전에 한 번 보자”를 — 규율이 아니라 훅이 지킵니다.</p>
+          <p>나머지는 반복 작업을 지웁니다. PR 생성과 본문 동기화, 리뷰 코멘트 일괄 반영, 자리를 비우는 동안 리뷰 요청을 처리하는 봇, 컨텍스트가 커지면 알려주는 훅, 편집한 파일에 eslint를 자동 적용하는 훅.</p>
+          <div class="chips"><span>Python</span><span>Bash</span><span>Git worktree</span><span>GitHub CLI</span><span>launchd</span></div>
+        </div>
+      </div>
+
+      <div class="tool">
+        <h3>team-wiki — 기획 문서를 LLM이 읽는 형태로<em>수집기 + MCP 서버</em></h3>
+        <div>
+          <p>Confluence·Jira·<strong>Figma 기획서</strong>를 마크다운 원본으로 추출해 구조화된 위키로 합성하고, 정기 갱신을 스케줄러에 걸어둔 개인 도구입니다. 위키를 “파일 묶음”이 아니라 <strong>질의 가능한 지식 소스</strong>로 노출하는 로컬 MCP 서버를 붙여, LLM이 저장소를 클론하지 않고도 인용과 함께 답하게 했습니다.</p>
+          <p>이 프로토타입이 이후 사내 위키 파이프라인 작업의 밑그림이 됐습니다.</p>
+          <div class="chips"><span>Python</span><span>MCP</span><span>Figma API</span><span>Jira API</span><span>launchd</span></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section class="band">
+  <div class="wrap">
+    <div class="shead">
+      <h2>경력</h2>
+      <p>제품별 담당 범위와 이슈·커밋의 상세 근거는 <a href="https://claude.ai/code/artifact/16434158-6fcf-4aa3-9eaf-0953465547d9">경력기술서</a>에 따로 정리했습니다.</p>
+    </div>
+    <dl class="cv">
+
+      <div>
+        <dt>2024.01 – 재직 중<em>2년 7개월 · 정규직</em></dt>
+        <dd>
+          <p class="org">주식회사 에이치티비욘드<small>프론트엔드 웹팀</small></p>
+          <div class="proj">
+            <h4>아파트·오피스텔 커뮤니티 플랫폼 — 6개 프론트엔드 제품 병행</h4>
+            <p>입주민 모바일 웹앱, 단지 관리사무소용 운영툴, 사내 운영 콘솔, 매장 POS·주문 키오스크, 디지털 사이니지 CMS, 커뮤니티 앱(React Native)을 함께 담당했습니다. <b>사이니지 CMS와 현장 지원 데스크톱 앱은 단독으로 구축</b>했고, 화면 구현과 별개로 Vite 전환·Turborepo 공용 설정·디자인 시스템 패키지화·Sentry 관측성 같은 <b>프론트엔드 기반</b>과 OpenAPI 타입 생성·ADR·LLM Wiki·정적 분석 가드 같은 <b>자동화·AI 개발 환경</b>을 함께 만들었습니다.</p>
+          </div>
+          <p class="st">React · TypeScript · Vite · TanStack Router / Query / Table · Tailwind CSS · Turborepo · pnpm workspace · Electron · React Native · OpenAPI · Sentry · Jenkins · GitHub Actions</p>
+        </dd>
+      </div>
+
+      <div>
+        <dt>2023.04 – 2023.07<em>4개월 · 정규직</em></dt>
+        <dd>
+          <p class="org">주식회사 러너스</p>
+          <div class="proj">
+            <h4>superClub 프로젝트 리팩토링</h4>
+            <p>짧은 기간 안에 결과가 필요한 과제여서 <b>다국어 처리와 번들러 전환 두 가지로 범위를 좁혀</b> 진행했습니다. i18n을 적용하고 번역 데이터를 스프레드시트와 연동해 관리하도록 바꿨으며, webpack에서 Vite(Rollup)로 번들러를 전환하면서 JavaScript 코드를 TypeScript로 옮겼습니다. 정규직 계약 종료 후 같은 프로젝트를 <b>2개월간 프리랜서로 이어서 수행</b>했습니다.</p>
+          </div>
+          <p class="st">React · TypeScript · Tailwind CSS · styled-components · React Query · react-hook-form · i18next · Redux · Storybook · webpack · Vite</p>
+        </dd>
+      </div>
+
+      <div>
+        <dt>2021.06 – 2023.04<em>1년 11개월 · 정규직</em></dt>
+        <dd>
+          <p class="org">주식회사 클레온<small>프로덕트 센터 웹팀 리드</small></p>
+          <div class="proj">
+            <h4>Klone V2<em>2022.05 – 2023.04</em></h4>
+            <p>가상인간과 목소리를 선택해 슬라이드 단위로 영상을 제작하는 플랫폼을 런칭했습니다. AWS Amplify 기반 CI/CD를 구축하면서 <b>PR 연동으로 머지 전 코드 리뷰를 강제</b>하는 프로세스를 확립했고, Konva 에디터 래퍼를 개발해 영상 내 스티커 기능을 구현했습니다. 웹팀 리드로 프론트엔드 개발 전반과 컨벤션 정비를 담당했습니다.</p>
+          </div>
+          <div class="proj">
+            <h4>KLling<em>2022.05 – 2022.10</em></h4>
+            <p>영상 일부만으로 음성을 추출·학습해 다른 언어로 재현하는 번역 플랫폼을 런칭했습니다. 전시·투자 유치용이라는 제품 성격과 퍼블리싱 HTML이 선행 제공되는 조건을 고려해 <b>전역 상태관리와 CSS-in-JS를 의도적으로 배제한 경량 구성</b>으로 설계했습니다. 메인·음성 관리·서비스 소개·로그인 화면을 개발했습니다.</p>
+          </div>
+          <div class="proj">
+            <h4>Klone V1<em>2021.06 – 2022.10</em></h4>
+            <p>챗봇 API와 연동해 질문에 대한 답변을 영상으로 재생하는 영상 챗봇 플랫폼입니다. <b>HLS(m3u8) 기반 실시간 영상 스트리밍 재생</b>을 적용하고, 챗봇 응답에 대응하는 <b>사전 제작 영상을 선택해 재생</b>하도록 연동했습니다. 메인·로그인·마이페이지 등 주요 화면도 함께 개발했습니다.</p>
+          </div>
+          <p class="st">React · React Query · Redux Toolkit · Vue.js · Vuex · Storybook · i18next · webpack · AWS Amplify · ESLint · Prettier · Husky</p>
+        </dd>
+      </div>
+
+      <div>
+        <dt>2021.05 – 2021.06<em>2개월 · 정규직</em></dt>
+        <dd>
+          <p class="org">주식회사 집펀드</p>
+          <div class="proj">
+            <h4>집비서 모바일 — 부동산 매물 검색 플랫폼</h4>
+            <p>React Native 기반 앱 개발에 참여했습니다. Atomic Design 패턴을 적용해 Button·Input·Text 등 <b>low-level 컴포넌트 체계</b>를 구성했습니다.</p>
+          </div>
+          <p class="st">React Native · MobX · react-native-reanimated</p>
+        </dd>
+      </div>
+
+      <div>
+        <dt>2020.01 – 2020.12<em>1년 · 정규직</em></dt>
+        <dd>
+          <p class="org">주식회사 씨와이<small>NPD</small></p>
+          <div class="proj">
+            <h4>COS247 — 화장품 위탁 생산 중개 B2B 플랫폼</h4>
+            <p>제조 공정의 진행 상황을 단계별로 추적하는 플랫폼의 초기 개발을 담당했습니다. 로그인·메인과 함께 <b>제조 공정을 단계별 테이블로 추적하는 화면</b>을 구축했고, 메인 플랫폼과 함께 <b>공급사·제조사용 어드민</b>을 개발했습니다. Ant Design Vue를 활용해 빠른 구현에 초점을 맞춘 구성을 택했습니다.</p>
+          </div>
+          <p class="st">Nuxt.js · Vue.js · Ant Design Vue</p>
+        </dd>
+      </div>
+
+      <div>
+        <dt>2019.04 – 2019.11<em>8개월 · 정규직</em></dt>
+        <dd>
+          <p class="org">(주)이글루코퍼레이션</p>
+          <div class="proj">
+            <h4>AEGIS — 보안 관제 관리자 플랫폼</h4>
+            <p>KT와 협업해 국내외 전산망의 로그를 분석하고 사전 위험에 대응·차단하는 <b>보안 관제 시각화 플랫폼</b>을 개발했습니다. AntDesign Table Wrapper, 로그 수집 Table 커스텀, 공통 코드 관리 Table 커스텀을 개발했습니다.</p>
+          </div>
+          <p class="st">React · Redux · Ant Design</p>
+        </dd>
+      </div>
+
+      <div>
+        <dt>2017.03 – 2017.09<em>7개월 · 인턴</em></dt>
+        <dd>
+          <p class="org">아이디스트(idist)</p>
+          <div class="proj">
+            <h4>IDIST — 아이디어 자산화 플랫폼</h4>
+            <p>특허·실용신안 외의 아이디어를 자산화해 보호받도록 돕는 플랫폼을 학생 창업 팀에서 개발했습니다. <b>기획·디자인·개발에 모두 참여</b>해, AngularJS로 랜딩 및 프로덕트 소개 페이지를 만들고 Django 기반 결제 서비스를 개발했으며 Figma로 웹 디자인을 진행했습니다.</p>
+          </div>
+          <p class="st">AngularJS · Django · Figma</p>
+        </dd>
+      </div>
+
+    </dl>
+
+    <div class="edu">
+      <span class="yr">2011.03 – 2020.02</span>
+      <span class="sc"><b>가천대학교</b> 산업경영공학 학사 · 졸업</span>
+    </div>
+  </div>
+</section>
+
+<section class="band alt">
+  <div class="wrap">
+    <div class="shead">
+      <h2>스택</h2>
+    </div>
+    <div class="stack">
+      <div class="t1">
+        <h3>주력</h3>
+        <ul class="tk lead">
+          <li class="k">TypeScript</li><li class="k">React</li><li class="k">Vite</li><li>TanStack Router</li><li>TanStack Query</li><li>TanStack Table</li><li>Tailwind CSS</li><li>react-hook-form</li><li>zod</li>
+        </ul>
+      </div>
+      <div class="t2">
+        <h3>기반 · 자동화</h3>
+        <ul class="tk wide">
+          <li class="k">Turborepo</li><li>pnpm workspace</li><li class="k">OpenAPI(openapi-typescript · fetch · react-query)</li><li>Knip</li><li>ESLint</li><li>GitHub Actions</li><li>Jenkins</li><li class="k">Sentry</li>
+        </ul>
+      </div>
+      <div class="t3">
+        <h3>확장</h3>
+        <ul class="tk quiet">
+          <li>Electron</li><li>React Native(Expo)</li><li>shadcn/ui</li><li>Storybook</li><li>Ant Design</li><li>styled-components</li><li>i18next</li><li>Recoil</li><li>Redux</li><li>Vue.js</li><li>Nuxt.js</li><li>Vitest</li><li>Playwright</li><li>AWS S3</li><li>Cognito</li><li>Amplify</li>
+        </ul>
+      </div>
+      <div class="t4">
+        <h3>AI 개발 환경</h3>
+        <ul class="tk wide">
+          <li class="k">Claude Code</li><li class="k">MCP</li><li>Cursor</li><li>AGENTS.md / CLAUDE.md 규칙 설계</li><li>ADR</li><li>LLM Wiki</li><li>Figma Code Connect</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="end">
+  <div class="wrap">
+    <p>이 페이지의 사례와 수치는 사내 저장소의 커밋 이력과 이슈 트래커로 대조해 확인한 것만 실었습니다. 대조하지 못한 항목은 숫자 없이 적거나 넣지 않았습니다.</p>
+    <p>고객사·건설사명, 내부 저장소명, 현장 식별 코드는 제외하고 도메인 표현만 남겼습니다.</p>
+    <p style="margin-top:16px;padding-top:14px;border-top:1px solid var(--rule-2);">
+      제품별 담당 범위와 이슈·커밋의 상세 근거가 필요하시면 —
+      <a href="https://claude.ai/code/artifact/16434158-6fcf-4aa3-9eaf-0953465547d9">경력기술서 보기 →</a>
+      　·　연락은 <a href="mailto:bwh1224@gmail.com">bwh1224@gmail.com</a>
+    </p>
+  </div>
+</footer>
+
+<script>
+  (function () {
+    var root = document.documentElement;
+    if (!('IntersectionObserver' in window)) return;
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    var targets = Array.prototype.slice.call(document.querySelectorAll(
+      '.abil > li, .case, .metrics > div, .caveat, .cat > div, .scroll, .ratio,' +
+      '.tool, .cv > div, .edu, .stack > div, footer.end p'
+    ));
+    if (!targets.length) return;
+
+    /* 초기 상태(opacity:0)는 이 클래스 아래에만 걸려 있다.
+       여기까지 왔다는 건 IO도 있고 reduced-motion도 아니라는 뜻. */
+    root.classList.add('anim');
+    targets.forEach(function (el) { el.classList.add('rv'); });
+
+    var io = new IntersectionObserver(function (entries) {
+      var n = 0;
+      entries.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        /* 한 번에 여러 개가 들어오면 앞 네 개만 살짝 어긋나게. 긴 목록이 늘어지지 않게 */
+        e.target.style.setProperty('--d', (n < 4 ? n * 60 : 0) + 'ms');
+        n++;
+        e.target.classList.add('in');
+        io.unobserve(e.target);
+      });
+    }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
+
+    targets.forEach(function (el) { io.observe(el); });
+  })();
+</script>
