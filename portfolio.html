@@ -374,11 +374,21 @@
   .wrap { max-width: none !important; padding-inline: 0 !important; }
   .page-grid { display: block !important; }
 
-  /* 장 경계에서 갈리면 안 되는 것 */
-  .rec, .cap, .case, .tool, .prev-item, .cv > div, .fact, .metrics > div,
-  .stack-row, .shift, .trace, .built, .blk, .abil > li, .cat > div, .ratio,
-  .tablewrap, .scroll, table, tr { break-inside: avoid; page-break-inside: avoid; }
-  h1, h2, h3, h4 { break-after: avoid; page-break-after: avoid; }
+  /* 장 경계에서 갈리면 안 되는 것 — 작은 단위만 묶는다.
+     큰 블록까지 묶으면 남은 자리에 못 들어가 통째로 다음 장으로 밀리고,
+     밀린 만큼이 빈칸으로 남는다(21쪽짜리에서 4~5쪽 분량이 이렇게 버려졌다). */
+  .fact, .metrics > div, .stack-row, .ratio, .cat > div, .abil > li,
+  .blk, .rec-meta, .acts > li, .prev-item, .tnote, tr
+  { break-inside: avoid; page-break-inside: avoid; }
+
+  /* 반대로 큰 컨테이너는 갈려도 된다 — 갈리는 지점은 위 규칙이 잡아준다 */
+  .rec, .recs, .rec-body, .cap, .case, .tool, .cv > div, .shift, .trace,
+  .built, .sect, .tablewrap, .scroll, table
+  { break-inside: auto; page-break-inside: auto; }
+
+  h1, h2, h3, h4, h5 { break-after: avoid; page-break-after: avoid; }
+  /* 한 줄만 남기고 갈리는 것도 빈칸만큼 보기 나쁘다 */
+  p, li { orphans: 2; widows: 2; }
 
   /* 화면용 여백은 지면에서 낭비다 */
   section.band, .sect { padding-block: 16px !important; }
