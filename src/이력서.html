@@ -1,79 +1,92 @@
 <title>배우현 이력서</title>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hahmlet:wght@400;500;600;700&family=IBM+Plex+Sans+KR:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap">
 <style>
+  /* 이 페이지는 제출용 A4 이력서(이력서-배우현.html)와 같은 양식이다.
+     문서 자체는 그대로 두고 사이트에 필요한 것만 얹는다 — 상단 내비, 다크 모드, 좁은 화면 대응. */
   :root {
-    --ground:      #ECF1F7;
-    --surface:     #FFFFFF;
-    --surface-2:   #F5F8FC;
-    --ink:         #111827;
-    --ink-2:       #45536B;
-    --ink-3:       #66738C;
-    --rule:        #D2DBE7;
-    --rule-2:      #E4EAF3;
-    --accent:      #1B4DA0;
-    --accent-2:    #2A6BC4;
-    --accent-wash: #E1EBFA;
-    --shadow:      0 1px 2px rgba(17, 24, 39, .04), 0 8px 24px -16px rgba(17, 24, 39, .18);
+    --ground:  #E9EEF5;
+    --surface: #FFFFFF;
+    --ink:     #080C14;
+    --ink-2:   #232D3E;
+    --ink-3:   #515D70;
+    --rule:    #C9D4E2;
+    --rule-2:  #E7ECF3;
+    --accent:  #1B4DA0;
+    --wash:    #EEF3FA;
+    --sheet-shadow: 0 2px 18px rgba(17, 24, 39, .13);
 
-    --f-display: 'Hahmlet', 'Apple SD Gothic Neo', 'Malgun Gothic', Georgia, serif;
-    --f-body:    'IBM Plex Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', system-ui, sans-serif;
-    --f-mono:    'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+    --f: 'Apple SD Gothic Neo', 'Malgun Gothic', 'Noto Sans KR', system-ui, sans-serif;
+    --f-mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
   }
 
   @media (prefers-color-scheme: dark) {
     :root:not([data-theme="light"]) {
-      --ground:      #0C1119;
-      --surface:     #141B25;
-      --surface-2:   #19222E;
-      --ink:         #E6EDF7;
-      --ink-2:       #A3B0C4;
-      --ink-3:       #7F8CA1;
-      --rule:        #26303D;
-      --rule-2:      #1B242F;
-      --accent:      #6BA6F5;
-      --accent-2:    #8FBEFF;
-      --accent-wash: #14263F;
-      --shadow:      0 1px 2px rgba(0, 0, 0, .3), 0 8px 24px -16px rgba(0, 0, 0, .6);
+      --ground:  #0C1119;
+      --surface: #141B25;
+      --ink:     #E6EDF7;
+      --ink-2:   #B3BFD1;
+      --ink-3:   #8592A6;
+      --rule:    #2C3746;
+      --rule-2:  #212B37;
+      --accent:  #6BA6F5;
+      --wash:    #172333;
+      --sheet-shadow: 0 2px 18px rgba(0, 0, 0, .5);
     }
   }
   :root[data-theme="dark"] {
-    --ground:      #0C1119;
-    --surface:     #141B25;
-    --surface-2:   #19222E;
-    --ink:         #E6EDF7;
-    --ink-2:       #A3B0C4;
-    --ink-3:       #7F8CA1;
-    --rule:        #26303D;
-    --rule-2:      #1B242F;
-    --accent:      #6BA6F5;
-    --accent-2:    #8FBEFF;
-    --accent-wash: #14263F;
-    --shadow:      0 1px 2px rgba(0, 0, 0, .3), 0 8px 24px -16px rgba(0, 0, 0, .6);
+    --ground:  #0C1119;
+    --surface: #141B25;
+    --ink:     #E6EDF7;
+    --ink-2:   #B3BFD1;
+    --ink-3:   #8592A6;
+    --rule:    #2C3746;
+    --rule-2:  #212B37;
+    --accent:  #6BA6F5;
+    --wash:    #172333;
+    --sheet-shadow: 0 2px 18px rgba(0, 0, 0, .5);
   }
+
+  @page { size: A4; margin: 14mm 13mm 15mm; }
 
   * { box-sizing: border-box; }
+  html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
 
   body {
-    background: var(--ground);
+    margin: 0;
+    font-family: var(--f);
+    font-size: 10pt;
+    line-height: 1.66;
     color: var(--ink);
-    font-family: var(--f-body);
-    font-size: 15px; font-weight: 400; line-height: 1.72;
+    background: var(--ground);
+    word-break: keep-all;
+    overflow-wrap: break-word;
     -webkit-font-smoothing: antialiased;
-    word-break: keep-all; overflow-wrap: break-word;
-  }
-  a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 3px; }
-  a:focus-visible, button:focus-visible {
-    outline: 2px solid var(--accent-2); outline-offset: 3px; border-radius: 2px;
   }
 
-  .wrap { max-width: 1180px; margin: 0 auto; padding: 0 28px; }
+  @media screen {
+    .sheet {
+      width: 210mm; margin: 28px auto;
+      padding: 14mm 13mm 15mm; background: var(--surface);
+      box-shadow: var(--sheet-shadow);
+    }
+  }
+  /* A4 폭이 안 들어가는 화면에서는 종이 흉내를 포기하고 폭을 내준다 */
+  @media screen and (max-width: 840px) {
+    .sheet { width: auto; margin: 0; padding: 26px 18px 36px; box-shadow: none; }
+  }
 
-  /* ── 사이트 내비 ─────────────────────────────── */
+  code {
+    font-family: var(--f-mono);
+    font-size: .86em; letter-spacing: -.01em;
+    background: var(--wash); border: 1px solid var(--rule-2);
+    border-radius: 2px; padding: 0 3px;
+  }
+
+  /* ── 사이트 내비 — 세 페이지 공통 ─────────── */
   .sitenav {
     position: sticky; top: 0; z-index: 50;
     background: var(--surface); border-bottom: 1px solid var(--rule);
   }
-  /* 본문 폭(.wrap)은 문서마다 다르다 — 내비는 거기서 떼어내 세 페이지에서 같은 폭으로 고정한다 */
   .sitenav-in {
     display: flex; align-items: center; flex-wrap: wrap; gap: 6px 18px;
     max-width: 1180px; margin-inline: auto;
@@ -89,141 +102,168 @@
   .sitenav nav a:hover { color: var(--ink); border-color: var(--rule); }
   .sitenav nav a[aria-current="page"] {
     color: var(--accent); border-color: var(--rule);
-    background: var(--accent-wash); font-weight: 600;
+    background: var(--wash); font-weight: 600;
+  }
+  a:focus-visible, button:focus-visible {
+    outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 2px;
   }
 
-  /* ── 헤드 ────────────────────────────────────── */
-  .head { border-bottom: 1px solid var(--rule); background: var(--surface); }
-  .head-in { padding-block: 66px 52px; }
-  .eyebrow {
-    font-family: var(--f-mono); font-size: 11px; font-weight: 500;
-    letter-spacing: .14em; text-transform: uppercase; color: var(--accent);
-    display: flex; align-items: center; gap: 12px; margin: 0 0 24px;
-  }
-  .eyebrow::after { content: ""; flex: 1; height: 1px; background: var(--rule); max-width: 180px; }
+  /* ── 헤더 ─────────────────────────────────── */
+  .head { border-bottom: 2.5px solid var(--ink); padding-bottom: 13px; }
   .head h1 {
-    font-family: var(--f-display);
-    font-size: clamp(27px, 4.4vw, 44px); font-weight: 600;
-    line-height: 1.32; letter-spacing: -.022em;
-    margin: 0 0 26px; max-width: 17em; text-wrap: balance;
+    margin: 0; font-size: 26pt; font-weight: 800;
+    letter-spacing: -.035em; line-height: 1.1;
   }
-  .head h1 em { font-style: normal; color: var(--accent); }
-  .intro { margin: 0; max-width: 44em; display: grid; gap: 9px; }
-  .intro p {
-    margin: 0; font-size: 15px; color: var(--ink-2); line-height: 1.8;
-    padding-left: 15px; position: relative; text-wrap: pretty;
+  .tagline {
+    margin: 9px 0 0; font-size: 11.5pt; font-weight: 600;
+    color: var(--accent); letter-spacing: -.022em; line-height: 1.45;
   }
-  .intro p::before {
-    content: ""; position: absolute; left: 0; top: .72em;
-    width: 6px; height: 1px; background: var(--ink-3);
-  }
-  .intro strong { color: var(--ink); font-weight: 500; }
   .contact {
-    margin-top: 34px; padding-top: 20px; border-top: 1px solid var(--rule-2);
-    display: flex; flex-wrap: wrap; gap: 8px 26px;
-    font-family: var(--f-mono); font-size: 11.5px; color: var(--ink-3);
+    margin: 12px 0 0; display: flex; flex-wrap: wrap; gap: 3px 20px;
+    font-size: 9.5pt; color: var(--ink-2);
   }
-  .contact b { color: var(--ink-2); font-weight: 500; }
+  .contact span { white-space: nowrap; }
+  .contact b { font-weight: 600; color: var(--ink-3); font-size: 8.8pt; margin-right: 5px; }
 
-  /* ── 섹션 ────────────────────────────────────── */
-  .page { padding-block: 56px 88px; }
-  .sect + .sect { margin-top: 62px; }
-  .sect > h2 {
-    font-family: var(--f-display);
-    font-size: 21px; font-weight: 600; letter-spacing: -.02em;
-    margin: 0 0 26px; padding-bottom: 13px; border-bottom: 2px solid var(--ink);
+  .facts {
+    margin: 12px 0 0; padding: 11px 14px;
+    background: var(--wash); border: 1px solid var(--rule-2);
+    display: grid; grid-template-columns: max-content 1fr max-content 1fr;
+    gap: 4px 14px;
   }
-
-  /* ── 핵심 강점 ───────────────────────────────── */
-  .streng { display: grid; gap: 1px; background: var(--rule); border: 1px solid var(--rule); }
-  @media (min-width: 900px) { .streng { grid-template-columns: repeat(3, 1fr); } }
-  .streng > article {
-    background: var(--surface); padding: 24px 22px 26px;
-    display: flex; flex-direction: column; gap: 12px;
+  .facts dt {
+    color: var(--ink-3); font-weight: 600; font-size: 9pt; letter-spacing: .02em;
   }
-  .streng .no {
-    font-family: var(--f-mono); font-size: 10.5px; font-weight: 500;
-    letter-spacing: .14em; color: var(--accent); margin: 0;
-  }
-  .streng h3 {
-    font-family: var(--f-display); margin: 0;
-    font-size: 17px; font-weight: 600; line-height: 1.45; letter-spacing: -.015em;
-    text-wrap: balance;
-  }
-  .streng p { margin: 0; font-size: 13.5px; color: var(--ink-2); line-height: 1.75; text-wrap: pretty; }
-  .streng .ev {
-    margin-top: auto; padding-top: 14px; border-top: 1px solid var(--rule-2);
-    font-family: var(--f-mono); font-size: 11px; color: var(--ink-3); line-height: 1.7;
+  .facts dd { margin: 0; font-weight: 500; }
+  .facts dd b { font-weight: 700; }
+  @media screen and (max-width: 640px) {
+    .facts { grid-template-columns: max-content 1fr; }
   }
 
-  /* ── 경력 ────────────────────────────────────── */
-  .career { display: grid; gap: 0; }
-  .career > div {
-    display: grid; gap: 6px 26px; padding: 20px 0;
-    border-bottom: 1px solid var(--rule-2);
-  }
-  .career > div:first-child { padding-top: 0; }
-  .career > div:last-child { border-bottom: 0; padding-bottom: 0; }
-  @media (min-width: 760px) { .career > div { grid-template-columns: 188px minmax(0,1fr); } }
-  .career .when {
-    font-family: var(--f-mono); font-size: 11.5px; color: var(--ink-3);
-    font-variant-numeric: tabular-nums; line-height: 1.65;
-  }
-  .career .when em { display: block; font-style: normal; opacity: .82; margin-top: 2px; }
-  .career .org { font-size: 15px; font-weight: 600; letter-spacing: -.015em; margin: 0 0 3px; }
-  .career .org small { font-size: 12.5px; font-weight: 400; color: var(--ink-3); margin-left: 8px; }
-  .career .what { margin: 0; font-size: 13.5px; color: var(--ink-2); line-height: 1.78; text-wrap: pretty; }
-  .career .what b { color: var(--ink); font-weight: 600; }
-
-  /* ── 스킬 ────────────────────────────────────── */
-  .skills { display: grid; gap: 1px; background: var(--rule); border: 1px solid var(--rule); }
-  .skills > div { background: var(--surface); padding: 16px 20px; display: grid; gap: 11px; }
-  @media (min-width: 760px) {
-    .skills > div { grid-template-columns: 132px minmax(0,1fr); gap: 22px; align-items: baseline; }
-  }
-  .skills h3 {
-    margin: 0; font-family: var(--f-mono); font-size: 11px; font-weight: 500;
-    letter-spacing: .1em; text-transform: uppercase; color: var(--ink-3);
-  }
-  .chips { display: flex; flex-wrap: wrap; gap: 6px; margin: 0; }
-  .chips span {
-    font-family: var(--f-mono); font-size: 11.5px;
-    border: 1px solid var(--rule); padding: 3px 9px; color: var(--ink-2);
-    background: var(--surface-2);
-  }
-  .chips span.key {
-    border-color: var(--accent); color: var(--accent);
-    background: var(--accent-wash); font-weight: 500;
+  /* ── 섹션 ─────────────────────────────────── */
+  section { margin-top: 26px; }
+  h2 {
+    margin: 0 0 13px; font-size: 9.5pt; font-weight: 700;
+    letter-spacing: .15em; color: var(--accent);
+    padding-bottom: 6px; border-bottom: 1.5px solid var(--rule);
+    break-after: avoid;
   }
 
-  /* ── 학력 · 더 보기 ──────────────────────────── */
-  .edu { display: grid; gap: 4px 26px; font-size: 14px; color: var(--ink-2); }
-  @media (min-width: 760px) { .edu { grid-template-columns: 188px minmax(0,1fr); } }
-  .edu .yr { font-family: var(--f-mono); font-size: 11.5px; color: var(--ink-3); font-variant-numeric: tabular-nums; }
-  .edu b { color: var(--ink); font-weight: 600; }
-
-  .more {
-    display: grid; gap: 1px; background: var(--rule);
-    border: 1px solid var(--rule); margin-top: 12px;
+  /* 자기소개 */
+  .intro { margin: 0; padding: 0; list-style: none; display: grid; gap: 6px; }
+  .intro li { position: relative; padding-left: 14px; color: var(--ink-2); }
+  .intro li::before {
+    content: ""; position: absolute; left: 0; top: .66em;
+    width: 5px; height: 5px; border-radius: 50%; background: var(--rule);
   }
-  @media (min-width: 700px) { .more { grid-template-columns: 1fr 1fr; } }
-  .more a {
-    background: var(--surface); padding: 20px 22px; text-decoration: none;
-    display: grid; gap: 5px; color: inherit;
+  .intro b { color: var(--ink); font-weight: 700; }
+
+  /* 핵심 역량 */
+  .skills { margin: 0; padding: 0; list-style: none; display: grid; gap: 10px; }
+  .skills li { break-inside: avoid; }
+  .skills h3 { margin: 0; font-size: 10.2pt; font-weight: 700; letter-spacing: -.018em; }
+  .skills h3::before {
+    content: ""; display: inline-block; vertical-align: .18em;
+    width: 14px; height: 2px; background: var(--accent); margin-right: 9px;
   }
-  .more a:hover { background: var(--accent-wash); }
-  .more .t { font-size: 15px; font-weight: 600; color: var(--accent); letter-spacing: -.015em; }
-  .more .d { font-size: 13px; color: var(--ink-2); line-height: 1.7; }
+  .skills p { margin: 1px 0 0 23px; color: var(--ink-2); }
 
-  footer.end { border-top: 1px solid var(--rule); background: var(--surface); padding-block: 30px 44px; }
-  footer.end p { margin: 0; max-width: 48em; font-size: 12.5px; color: var(--ink-3); line-height: 1.8; text-wrap: pretty; }
-  footer.end p + p { margin-top: 9px; }
+  /* ── 경력 요약 표 ─────────────────────────── */
+  .tablewrap { overflow-x: auto; }
+  table.sum { width: 100%; border-collapse: collapse; font-size: 9.3pt; }
+  h2.free { break-after: auto; }
+  table.sum thead { display: table-header-group; }
+  table.sum tr { break-inside: avoid; }
+  table.sum th {
+    text-align: left; font-size: 8.6pt; font-weight: 700;
+    letter-spacing: .06em; color: var(--ink-3);
+    padding: 0 9px 6px 0; border-bottom: 1.5px solid var(--rule);
+    white-space: nowrap;
+  }
+  table.sum th:last-child, table.sum td:last-child { padding-right: 0; }
+  table.sum td {
+    padding: 8px 9px 8px 0; border-bottom: 1px solid var(--rule-2);
+    vertical-align: top; color: var(--ink-2); line-height: 1.5;
+  }
+  table.sum td.co-name { font-weight: 700; color: var(--ink); white-space: nowrap; }
+  table.sum td.co-term { white-space: nowrap; color: var(--ink); font-weight: 500; }
+  table.sum td.co-term small {
+    display: block; font-size: 8.4pt; font-weight: 400; color: var(--ink-3);
+  }
+  table.sum td.co-role { white-space: nowrap; }
+  table.sum tr:last-child td { border-bottom: none; }
 
-  @media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
+  /* ── 회사 블록 ────────────────────────────── */
+  .co {
+    margin-top: 26px; padding: 10px 13px;
+    background: var(--wash); border-left: 3px solid var(--accent);
+    break-inside: avoid; break-after: avoid;
+  }
+  .co:first-of-type { margin-top: 0; }
+  .co-head { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+  .co-head h3 { margin: 0; font-size: 13pt; font-weight: 800; letter-spacing: -.028em; }
+  .co-head .role { font-size: 9.2pt; font-weight: 600; color: var(--ink-3); }
+  .co-head .term {
+    margin-left: auto; font-size: 9.4pt; font-weight: 700;
+    color: var(--accent); white-space: nowrap;
+  }
+  .co-desc { margin: 5px 0 0; color: var(--ink-2); font-size: 9.5pt; line-height: 1.55; }
+
+  /* ── 프로젝트 ─────────────────────────────── */
+  .proj { margin-top: 14px; padding-left: 13px; border-left: 1.5px solid var(--rule-2); }
+  .proj-head {
+    display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap;
+    break-after: avoid; margin-bottom: 5px;
+  }
+  .proj-head h4 { margin: 0; font-size: 10.8pt; font-weight: 700; letter-spacing: -.022em; }
+  .proj-head .term { margin-left: auto; font-size: 8.8pt; color: var(--ink-3); white-space: nowrap; }
+  .proj-head .note { font-size: 8.8pt; font-weight: 500; color: var(--ink-3); }
+
+  .block {
+    display: grid; grid-template-columns: 48px 1fr; gap: 0 11px;
+    margin-top: 6px; break-inside: avoid;
+  }
+  .block > .label {
+    font-size: 8.4pt; font-weight: 700; letter-spacing: .04em;
+    color: var(--ink-3); padding-top: .22em;
+  }
+  .block p { margin: 0; color: var(--ink-2); }
+
+  ul.lines { margin: 0; padding: 0; list-style: none; }
+  ul.lines li { position: relative; padding-left: 12px; color: var(--ink-2); }
+  ul.lines li::before { content: "–"; position: absolute; left: 0; color: var(--rule); }
+
+  .stack { color: var(--ink-2); font-size: 9.2pt; line-height: 1.5; }
+
+  ol.contrib { margin: 0; padding: 0; list-style: none; counter-reset: c; }
+  ol.contrib > li {
+    counter-increment: c; position: relative;
+    padding-left: 19px; break-inside: avoid;
+  }
+  ol.contrib > li + li { margin-top: 6px; }
+  ol.contrib > li::before {
+    content: counter(c) "."; position: absolute; left: 0; top: 0;
+    font-size: 8.8pt; font-weight: 700; color: var(--accent);
+  }
+  ol.contrib h5 { margin: 0; font-size: 9.8pt; font-weight: 700; letter-spacing: -.015em; }
+  ol.contrib p { margin: 0; color: var(--ink-2); font-size: 9.5pt; line-height: 1.55; }
+
+  /* ── 보유 기술 ────────────────────────────── */
+  .tags { display: grid; grid-template-columns: max-content 1fr; gap: 8px 16px; }
+  .tags dt {
+    font-size: 8.6pt; font-weight: 700; letter-spacing: .05em;
+    color: var(--ink-3); padding-top: 2px; white-space: nowrap;
+  }
+  .tags dd { margin: 0; color: var(--ink-2); font-size: 9.5pt; line-height: 1.55; }
+
+  /* 인쇄 — 화면용 종이 흉내를 걷어내고 용지에 그대로 앉힌다 */
+  @media print {
+    .sheet { width: auto; margin: 0; padding: 0; box-shadow: none; background: #FFF; }
+  }
 </style>
 
 <header class="sitenav">
-  <div class="wrap sitenav-in">
+  <div class="sitenav-in">
     <span class="sitenav-who">배우현</span>
     <span class="sitenav-role">프론트엔드 개발자</span>
     <nav>
@@ -234,181 +274,811 @@
   </div>
 </header>
 
-<section class="head">
-  <div class="wrap head-in">
-    <p class="eyebrow">Frontend Engineer · 7 years</p>
-    <h1>규칙을 문서로 적어두기보다, <em>어겼을 때 도구가 알려주도록</em> 만듭니다.</h1>
+<div class="sheet">
 
-    <div class="intro">
-      <p>규칙을 문서로 적어두기보다, 어겼을 때 도구가 알려주도록 만드는 <strong>7년차 프론트엔드 개발자</strong>입니다.</p>
-      <p>현재 아파트·오피스텔 커뮤니티 플랫폼에서 입주민 앱·운영툴·POS·사이니지 CMS 등 <strong>6개 제품을 병행 담당</strong>합니다.</p>
-      <p>사이니지 CMS와 현장 지원 데스크톱 앱은 <strong>기획부터 운영 투입까지 단독 구축</strong>했고, 팀이 지켜야 할 규칙은 스키마에서 생성되는 타입과 <code>docs/</code> 다섯 축의 문서 규격으로 옮겼습니다.</p>
-      <p>직전 회사에서는 <strong>웹팀 리드로 3개 제품을 런칭</strong>하며 CI/CD와 코드 리뷰 프로세스를 세웠습니다.</p>
-    </div>
+  <header class="head">
+    <h1>배우현</h1>
+    <p class="tagline">문서가 스스로 갱신되는 코드베이스를 만든 7년차 프론트엔드 개발자</p>
 
     <div class="contact">
-      <span><b>총 경력</b> 7년 4개월</span>
-      <span><b>현직</b> 주식회사 에이치티비욘드 · 2024.01~</span>
-      <span><b>단독 구축 신규 제품</b> 2건</span>
-      <span><a href="mailto:bwh1224@gmail.com">bwh1224@gmail.com</a></span>
+      <span><b>생년</b>1991년생</span>
+      <span><b>이메일</b>bwh1224@gmail.com</span>
+      <span><b>휴대폰</b>010-4456-6716</span>
+      <span><b>주소</b>(05335) 서울 강동구 천호동</span>
+      <span><b>포트폴리오</b>https://hoiya-woohyun.github.io</span>
     </div>
-  </div>
-</section>
 
-<div class="wrap page">
+    <dl class="facts">
+      <dt>학력</dt>
+      <dd>가천대학교 글로벌캠퍼스 (4년제) 졸업</dd>
+      <dt>총 경력</dt>
+      <dd>7년 5개월 · (주)에이치티비욘드 재직 중</dd>
+      <dt>병역</dt>
+      <dd>육군 만기전역 (2012.10.14 ~ 2014.07.13)</dd>
+    </dl>
+  </header>
 
-  <section class="sect">
-    <h2>핵심 강점</h2>
-    <div class="streng">
-      <article>
-        <p class="no">01</p>
+  <section>
+    <h2>자기소개</h2>
+    <ul class="intro">
+      <li>규칙을 문서로 적어두기보다, <b>어겼을 때 도구가 알려주도록</b> 만드는 7년차 프론트엔드 개발자입니다.</li>
+      <li>현재 아파트·오피스텔 커뮤니티 플랫폼에서 입주민 앱·운영툴·POS·사이니지 CMS 등 <b>6개 제품을 병행 담당</b>합니다.</li>
+      <li>사이니지 CMS와 현장 지원 데스크톱 앱은 <b>기획부터 운영 투입까지 단독 구축</b>했고, 팀이 지켜야 할 규칙은 스키마에서 생성되는 타입과 <code>docs/</code> 다섯 축의 문서 규격으로 옮겼습니다.</li>
+      <li>직전 회사에서는 <b>웹팀 리드로 3개 제품을 런칭</b>하며 CI/CD와 코드 리뷰 프로세스를 세웠습니다.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>핵심 역량</h2>
+    <ul class="skills">
+      <li>
         <h3>멀티 브랜드·멀티 클라이언트 구조 설계</h3>
-        <p>앱·웹·POS·사이니지 등 6개 제품을, 건설사 브랜드마다 다른 단지 앱을 코드 한 벌로 서비스하는 구조 설계.</p>
-        <p class="ev">6개 제품 병행 · 서브도메인 기반 브랜드 분기 · CRA→Vite 전환 3개 제품(빌드 262초 → 13초)</p>
-      </article>
-      <article>
-        <p class="no">02</p>
-        <h3>개발 품질 검증 자동화 프로세스 확립</h3>
-        <p>API 명세에서 타입을 자동 생성하는 체계를 4개 제품에 도입. 신규 미사용 파일이 생기면 그 원인이 된 줄을 CI가 짚어주는 검사 직접 구현.</p>
-        <p class="ev">OpenAPI 타입 생성 4개 제품 · Knip 기반 미사용 파일 리포트 · 머지 차단과 비차단 리포트 분리</p>
-      </article>
-      <article>
-        <p class="no">03</p>
+        <p>앱·웹·POS·사이니지 등 6개 제품을 병행 담당하며, 건설사 브랜드마다 다른 단지 앱을 코드 한 벌로 서비스하는 구조를 설계했습니다.</p>
+      </li>
+      <li>
+        <h3>개발 품질 검증 자동화</h3>
+        <p>API 명세에서 타입을 자동 생성하는 체계를 4개 제품에 도입하고, 신규 미사용 파일이 생기면 그 원인이 된 줄을 CI가 짚어주는 검사를 직접 구현해 <b>DeadCode 발생률을 11.54%에서 1% 미만</b>으로 낮췄습니다.</p>
+      </li>
+      <li>
         <h3>AI 기반 바이브 코딩 인프라 구성</h3>
-        <p><code>docs/</code> 결정·명세·버그 분석 규격과 갱신 트리거 표 설계. 코드를 고치면 어떤 문서를 갱신할지 에이전트 규칙에 명시.</p>
-        <p class="ev">ADR 31/34 · 에이전트 규칙 18/21 · 버그 원인 분석 58/97(나머지 팀원 4명이 같은 규격으로 이어 작성)</p>
-      </article>
+        <p><code>docs/</code>의 결정·명세·버그 분석 규격과, 코드를 고칠 때 어떤 문서를 갱신할지 파일별·행위별로 규정한 트리거 표를 설계했습니다. 저장소별 에이전트 규칙 21건 중 18건을 최초 작성해 규칙을 사람의 기억이 아니라 도구가 읽는 자리에 뒀습니다.</p>
+      </li>
+      <li>
+        <h3>팀 리딩 — 규격 수립과 팀 확산</h3>
+        <p>웹팀 리드로 3개 제품을 런칭하며 CI/CD와 머지 전 코드 리뷰 프로세스를 세웠습니다. 현 조직에서는 <b>동료 PR 1,501건</b>을 리뷰했고(본인 PR 629건의 약 2.4배), ADR 34건 중 31건, 버그 원인 분석 97건 중 58건을 먼저 써서 규격의 본을 만들고, 팀원 4명이 같은 형식으로 이어 갱신하도록 제안해 정착시켰습니다.</p>
+      </li>
+    </ul>
+  </section>
+
+  <section>
+    <h2 class="free">경력 요약</h2>
+    <table class="sum">
+      <thead>
+        <tr>
+          <th>회사</th>
+          <th>재직 기간</th>
+          <th>직무·역할</th>
+          <th>담당 제품 및 성과</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="co-name">(주)에이치티비욘드</td>
+          <td class="co-term">2024.01 ~ 재직 중<small>2년 7개월</small></td>
+          <td class="co-role">프론트엔드 개발</td>
+          <td>입주민 앱·운영 콘솔·사이니지 CMS·POS 등 6개 제품 병행 담당. 타입 파이프라인·CI 검증·관측성 등 프론트엔드 기반 구축</td>
+        </tr>
+        <tr>
+          <td class="co-name">(주)러너스</td>
+          <td class="co-term">2023.04 ~ 2023.07<small>4개월 (+프리랜서 2개월)</small></td>
+          <td class="co-role">개발팀 · 웹팀 팀장</td>
+          <td>수퍼클럽 — 다국어(i18n) 체계 적용, webpack에서 Vite로 번들러 전환</td>
+        </tr>
+        <tr>
+          <td class="co-name">주식회사 클레온</td>
+          <td class="co-term">2021.06 ~ 2023.04<small>1년 11개월</small></td>
+          <td class="co-role">프로덕트 센터<br>웹팀 리드</td>
+          <td>영상 생성 플랫폼 3종 런칭. PR 연동 CI/CD를 구축해 머지 전 코드 리뷰를 강제하는 프로세스 확립</td>
+        </tr>
+        <tr>
+          <td class="co-name">주식회사 집펀드</td>
+          <td class="co-term">2021.05 ~ 2021.06<small>2개월</small></td>
+          <td class="co-role">React Native<br>앱 개발</td>
+          <td>집비서 모바일 — 부동산 매물 검색 앱의 공통 컴포넌트 작업</td>
+        </tr>
+        <tr>
+          <td class="co-name">주식회사 씨와이</td>
+          <td class="co-term">2020.01 ~ 2020.12<small>1년</small></td>
+          <td class="co-role">프론트엔드 개발<br>(NPD)</td>
+          <td>COS247 — 화장품 위탁 생산 중개 B2B 플랫폼 초기 구축 및 어드민 개발</td>
+        </tr>
+        <tr>
+          <td class="co-name">(주)이글루코퍼레이션</td>
+          <td class="co-term">2019.04 ~ 2019.11<small>8개월</small></td>
+          <td class="co-role">프론트엔드 개발</td>
+          <td>AEGIS — 공통 코드 관리 화면 개발 및 UI 유지보수</td>
+        </tr>
+        <tr>
+          <td class="co-name">아이디스트</td>
+          <td class="co-term">2017.03 ~ 2017.09<small>7개월</small></td>
+          <td class="co-role">기획·디자인·개발</td>
+          <td>IDIST — 특허·실용신안 외의 아이디어를 자산화하는 플랫폼 개발</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>경력 상세</h2>
+
+    <!-- ① HT Beyond -->
+    <div class="co">
+      <div class="co-head">
+        <h3>(주)에이치티비욘드</h3>
+        <span class="role">프론트엔드 개발</span>
+        <span class="term">2024.01 ~ 재직 중</span>
+      </div>
+      <p class="co-desc">
+        아파트·오피스텔 커뮤니티 플랫폼. 입주민 앱부터 운영툴·POS·사이니지 CMS까지
+        6개 프론트엔드 제품을 병행 담당하며, 제품 개발과 함께 프론트엔드 플랫폼·개발 자동화 기반을 구축했습니다.
+      </p>
+    </div>
+
+    <div class="proj">
+      <div class="proj-head">
+        <h4>입주민 모바일 웹앱</h4>
+        <span class="term">2024.04 ~ 2026.08</span>
+      </div>
+
+      <div class="block">
+        <div class="label">역할</div>
+        <p>프론트엔드 개발 — 멀티 브랜드 대응 구조 설계 및 차세대 전면 개편 담당</p>
+      </div>
+
+      <div class="block">
+        <div class="label">성과</div>
+        <ul class="lines">
+          <li>건설사·브랜드마다 개별 구축하던 단지 앱을 단일 코드베이스로 동시 서비스하도록 구조 설계</li>
+          <li>차세대 버전을 클라이언트·단지·사용자 3계층 권한 체계로 전면 개편하고, 6차 통합 테스트를 거쳐 예정 일정에 출시</li>
+          <li>계정 ID 길이 제약으로 스마트홈 연동이 불가하던 사용자군을 OAuth 콜백 구조 재설계로 해소</li>
+          <li>개발·알파 환경에서 불가하던 연동 테스트를 전 환경에서 가능하도록 개선</li>
+        </ul>
+      </div>
+
+      <div class="block">
+        <div class="label">기여</div>
+        <ol class="contrib">
+          <li>
+            <h5>멀티 브랜드 대응 구조 설계</h5>
+            <p>서브도메인으로 단지 정보를 조회하고 브랜드별 레이아웃을 분기하는 구조를 설계했고, 이후 신규 브랜드 전환 프로젝트를 다수 대응했습니다.</p>
+          </li>
+          <li>
+            <h5>차세대 버전 전면 개편</h5>
+            <p>클라이언트·단지·사용자 3계층 권한 체계를 상품(구독) 단위 관리 체계로 반영하고, 메뉴 관리 체계를 구 시스템에서 신규 운영 콘솔로 완전히 이관했습니다. 홈 화면과 전체 UI/UX를 재설계하며 다크 모드를 도입했고, 6차에 걸친 통합 개발 테스트에서 라운드별로 도출된 결함 약 70건을 처리했습니다.</p>
+          </li>
+          <li>
+            <h5>스마트홈(홈넷) OAuth 콜백 구조 재설계</h5>
+          </li>
+          <li>
+            <h5>도메인 기능 개발</h5>
+            <p>전기차 충전 상태 조회, 방문차량 알림, 알림센터, 지도 기반 위치 기능을 개발했습니다. 국제화(i18n)와 시스템 설정에 연동되는 다크 테마, PDF·전자서명·카메라 등 디바이스 연동을 담당했습니다.</p>
+          </li>
+        </ol>
+      </div>
+
+      <div class="block">
+        <div class="label">스택</div>
+        <p class="stack">React · TypeScript · TanStack Router · TanStack Query · Recoil · Tailwind CSS · Vite · i18next · Sentry</p>
+      </div>
+    </div>
+
+    <div class="proj">
+      <div class="proj-head">
+        <h4>사내 운영 콘솔 · 단지 관리자 운영툴</h4>
+        <span class="term">2024.01 ~ 2026.08</span>
+      </div>
+
+      <div class="block">
+        <div class="label">역할</div>
+        <p>프론트엔드 개발 — 앱 셸·공통 컴포넌트 기반 설계와 운영 도메인 화면 담당</p>
+      </div>
+
+      <div class="block">
+        <div class="label">성과</div>
+        <ul class="lines">
+          <li>현장 오픈마다 수작업으로 진행하던 단지 온보딩을 콘솔에서 일괄 수행하도록 전환</li>
+          <li>직접 설계한 앱 셸과 공통 컴포넌트 세트를 사이니지 CMS·운영툴로 확산 적용</li>
+          <li>번역 반영 후에야 발견되던 키 충돌·미싱키를 반영 전 자동 검출로 전환</li>
+        </ul>
+      </div>
+
+      <div class="block">
+        <div class="label">기여</div>
+        <ol class="contrib">
+          <li>
+            <h5>앱 셸 구축 및 공통 컴포넌트 세트 설계</h5>
+            <p>TanStack Table 기반 데이터 그리드, DateRangePicker, S3 파일 업로드, useQueryString 훅을 설계했습니다.</p>
+          </li>
+          <li>
+            <h5>단지 온보딩(초기화) 자동화</h5>
+            <p>카드·세대·시설·예약 타겟·기기 설정을 콘솔에서 일괄 수행하는 워크플로우를 구축했습니다. 현장 동기화 시 비밀번호를 요구하고, 엣지 서버 버전을 기준으로 동기화를 제한하는 안전장치를 설계했습니다.</p>
+          </li>
+          <li>
+            <h5>실시간 차량번호 인식(ANPR) 기반 주차관리</h5>
+            <p>관리자 앱의 네이티브 인식 인터페이스를 운영툴 웹뷰와 연결해, 카메라에 잡힌 차량을 정기·방문·미등록으로 즉시 판별하도록 구현했습니다. 신고 누적 기준 블랙리스트 자동 등록 정책과 AI 주차 리포트까지 프론트엔드 전 구간을 담당했습니다.</p>
+          </li>
+          <li>
+            <h5>식당 예약 상품 관리 체계 구축</h5>
+            <p>매장 기본 정책을 먼저 설정하고 개별 날짜·시간대는 예외만 덮어쓰는 구조로 설계했습니다. 월 캘린더 편성 뷰, 시간대 슬롯 설정, 대량 일괄 등록을 구현했습니다.</p>
+          </li>
+          <li>
+            <h5>다국어(i18n) 파이프라인 이관</h5>
+            <p>번역 시트와 JSON 사전을 무손실로 왕복 동기화하도록 구현하고, 키 충돌·미싱키를 반영 전에 자동 검출하도록 했습니다.</p>
+          </li>
+          <li>
+            <h5>개인정보보호 점검 대응</h5>
+            <p>접속기록 관리, 회원 정보 마스킹, 권한 분리를 담당했습니다.</p>
+          </li>
+        </ol>
+      </div>
+
+      <div class="block">
+        <div class="label">스택</div>
+        <p class="stack">React · TypeScript · Turborepo · pnpm workspace · TanStack Router · Query · Table · react-hook-form · zod · Tailwind CSS · i18next · Knip</p>
+      </div>
+    </div>
+
+    <div class="proj">
+      <div class="proj-head">
+        <h4>디지털 사이니지 CMS 신규 구축</h4>
+        <span class="note">프론트엔드 단독</span>
+        <span class="term">2025.01 ~ 2025.11</span>
+      </div>
+
+      <div class="block">
+        <div class="label">성과</div>
+        <ul class="lines">
+          <li>신규 제품의 프론트엔드를 단독으로 담당해, 약 10개월 만에 초기 골격에서 운영 투입 수준까지 완성</li>
+          <li>단지에 설치된 기기를 원격으로 일괄 제어·재시작하고 APK를 배포하는 경로를 콘솔 안에 구축</li>
+        </ul>
+      </div>
+
+      <div class="block">
+        <div class="label">기여</div>
+        <ol class="contrib">
+          <li>
+            <h5>골격 우선 구축</h5>
+            <p>앱 셸·라우팅·인증 골격과 공통 컴포넌트 세트를 먼저 구축한 뒤 도메인 화면을 얹는 순서로 진행했습니다.</p>
+          </li>
+          <li>
+            <h5>광고 운영 화면 전 구간 개발</h5>
+            <p>매체·소재·캠페인·콘텐츠 송출·게시판·전단·자동 편성을 구현했습니다.</p>
+          </li>
+          <li>
+            <h5>기기 관리 및 원격 제어</h5>
+            <p>거점(단지)·브랜드 관리, 기기 일괄 제어, 앱 재실행·기기 재시작 원격 제어, APK 버전 업로드·배포를 담당했습니다.</p>
+          </li>
+          <li>
+            <h5>운영 대시보드 구축</h5>
+            <p>기간 필터를 적용한 매출 차트와 통계 그래프를 구현했습니다.</p>
+          </li>
+          <li>
+            <h5>크로스 플랫폼 UI 일관성 확보</h5>
+            <p>Ant Design 전역 테마를 오버라이드하고 맥·윈도우 폰트를 통일해 운영체제 간 화면을 정합했습니다.</p>
+          </li>
+          <li>
+            <h5>성능 개선 및 관측성 연동</h5>
+            <p>리렌더 성능 개선 리팩토링을 수행하고 Sentry를 연동했습니다.</p>
+          </li>
+        </ol>
+      </div>
+
+      <div class="block">
+        <div class="label">스택</div>
+        <p class="stack">React · TypeScript · Ant Design · TanStack Query · Vite · Sentry</p>
+      </div>
+    </div>
+
+    <div class="proj">
+      <div class="proj-head">
+        <h4>프론트엔드 플랫폼 · 자동화 · AI 개발 환경</h4>
+        <span class="term">2024.02 ~ 2026.08</span>
+      </div>
+
+      <div class="block">
+        <div class="label">범위</div>
+        <p>제품 담당과 병행한 공통 기반 작업 — 타입 파이프라인, CI 검증 배치, 관측성, AI 개발 환경</p>
+      </div>
+
+      <div class="block">
+        <div class="label">성과</div>
+        <ul class="lines">
+          <li>서버 스펙이 바뀌면 런타임 장애가 아니라 컴파일 에러로 드러나도록 타입 파이프라인 구축</li>
+          <li>장애 인지 경로를 고객 문의 접수에서 모니터링 알림으로 전환</li>
+          <li>CRA에서 Vite로 3개 제품을 전환해 같은 장비 기준 빌드 <b>262초 → 13초</b>, 의존성 설치 230초 → 4초로 단축 (npm에서 pnpm으로 동시 전환)</li>
+          <li>리뷰 대기 구간을 정비한 기간에 본인 PR의 생성에서 머지까지 리드타임 중앙값이 23.6시간에서 13.9시간으로 단축 (561건 기준, 41%)</li>
+        </ul>
+      </div>
+
+      <div class="block">
+        <div class="label">기여</div>
+        <ol class="contrib">
+          <li>
+            <h5>API 타입 자동 생성 파이프라인 도입 (4개 제품)</h5>
+            <p>OpenAPI 스펙에서 타입과 쿼리 훅을 생성해 수기 타입 정의를 제거했습니다. 파생 타입을 스키마 이름이 아니라 URL 경로 기준으로만 참조하는 컨벤션을 정립해 서버가 스키마명을 바꿔도 타입이 유지되도록 했고, 생성 산출물을 Git에서 분리해 스키마 충돌을 구조적으로 제거했습니다.</p>
+          </li>
+          <li>
+            <h5>AI가 읽을 수 있는 코드베이스 구축</h5>
+            <p>저장소별 에이전트 규칙 21건 중 18건, 아키텍처 결정 기록(ADR) 34건 중 31건을 최초 작성했습니다.</p>
+          </li>
+          <li>
+            <h5>도메인 지식의 LLM Wiki화</h5>
+            <p>암묵지로 존재하던 도메인 정책을 인용 가능한 마크다운 위키로 구조화했습니다(35개 문서 중 11개 최초 작성). 감지된 문서 드리프트를 수신해 재생성 PR을 열고 담당자 지정·리뷰 요청까지 자동화했으며, 위키 조회용 로컬 MCP 서버를 제작했습니다.</p>
+          </li>
+          <li>
+            <h5>CI 검증 배치 — 막을 것과 막지 않을 것의 분리</h5>
+            <p>Knip을 도입하고, PR로 인해 새로 죽은 파일이 생기면 원인이 된 줄에 리뷰 코멘트를 남기는 가드를 직접 구현했습니다.</p>
+          </li>
+          <li>
+            <h5>리뷰 대기 구간 개선</h5>
+            <p>CI 타입 검증을 비차단 리포팅 전용으로 전환하고, 자동 라벨링과 AI 코드리뷰를 도입했습니다.</p>
+          </li>
+          <li>
+            <h5>Sentry 관측성 체계 구축</h5>
+            <p>에러 바운더리에서 리포팅 로직을 분리하고 노이즈를 필터링했습니다. 단지·사용자 태깅과 샘플 레이트 튜닝으로 오류가 발생한 현장을 즉시 식별할 수 있도록 했습니다.</p>
+          </li>
+          <li>
+            <h5>CI/CD 및 보안 인프라 개선</h5>
+            <p>AWS 배포를 Jenkins로 이관하고, 이슈 트래커·Git·Jenkins·사내 메신저를 잇는 파이프라인을 설계했습니다. 개인 액세스 토큰을 조직 GitHub App 설치 토큰 체계로 9개 저장소에 걸쳐 일괄 전환했습니다.</p>
+          </li>
+        </ol>
+      </div>
+
+      <div class="block">
+        <div class="label">스택</div>
+        <p class="stack">openapi-typescript · openapi-fetch · openapi-react-query · Turborepo · Vite · Knip · GitHub Actions · Jenkins · Sentry · Claude Code · MCP · Figma Code Connect</p>
+      </div>
+    </div>
+
+    <div class="proj">
+      <div class="proj-head">
+        <h4>매장 POS · 주문 키오스크 / 현장 지원 데스크톱 앱</h4>
+        <span class="term">2025.01 ~ 2026.08</span>
+      </div>
+
+      <div class="block">
+        <div class="label">역할</div>
+        <p>앱·키오스크·운영툴 3개 클라이언트 프론트엔드 담당 / 데스크톱 앱은 기획부터 릴리즈까지 단독</p>
+      </div>
+
+      <div class="block">
+        <div class="label">성과</div>
+        <ul class="lines">
+          <li>단일 주문·기기 도메인이 3개 클라이언트에 걸친 구조에서, 앱과 POS 사이의 주문 상태 불일치와 영수증 출력 누락·순서 밀림을 해소</li>
+          <li>단지 오픈 시 수작업으로 진행하던 세대 엘리베이터 연동을 제조사 API 자동 연결 흐름으로 전환</li>
+          <li>현장 지원 데스크톱 앱을 단독 개발해 사내 업무에 투입</li>
+        </ul>
+      </div>
+
+      <div class="block">
+        <div class="label">기여</div>
+        <ol class="contrib">
+          <li>
+            <h5>픽업오더 주문 상태 머신 정합</h5>
+            <p>접수·거부·자동거부·부분취소 상태를 앱과 POS 양쪽에서 일치시키고, 주방용·고객용 영수증 출력 로직을 구현해 출력 누락과 순서 밀림을 해결했습니다. 카드리더·안면인식기 등 주변기기 포트 예외를 처리했습니다.</p>
+          </li>
+          <li>
+            <h5>IoT 기기 연동 — 3개 클라이언트 동시 대응</h5>
+            <p>코인세탁기·독서실 전등·골프타석·세대 엘리베이터 연동을 앱·키오스크·운영툴에 동시 대응했습니다. 3개 저장소를 동시에 수정하고 배포 순서를 통제하는 작업을 반복 수행했으며, 엘리베이터 콜은 제조사 API 자동 연결 흐름까지 설계했습니다.</p>
+          </li>
+          <li>
+            <h5>쿠폰 시스템 전 구간 구현</h5>
+            <p>앱 쿠폰함을 신설하고, 시설 예약·결제 시 쿠폰 적용과 최종 금액 자동 계산, 결제 취소 시 쿠폰 원복을 구현했습니다. 관리자 발급 유형·대상과 정기 자동 발급 스케줄 UI까지 담당했습니다.</p>
+          </li>
+          <li>
+            <h5>현장 지원 데스크톱 앱 단독 개발 (Electron)</h5>
+            <p>bastion을 경유하는 다중 SSH 터널 관리와 RDP 자동 실행, 원격 로그 조회(압축 로그 바로 보기 포함), safeStorage 기반 자격증명 암호화를 구현했습니다. 로그 조회 전용 작업이 동시 접속 상한을 소모하던 문제는 접속과 조회를 분리하는 구조 재설계로 해소했습니다.</p>
+          </li>
+        </ol>
+      </div>
+
+      <div class="block">
+        <div class="label">스택</div>
+        <p class="stack">React · TypeScript · Electron · TanStack Router · Tailwind CSS</p>
+      </div>
+    </div>
+
+    <div class="proj">
+      <div class="proj-head">
+        <h4>협회 회원용 커뮤니티 앱 전면 리뉴얼</h4>
+        <span class="note">React Native</span>
+        <span class="term">2024.08 ~ 2025.10</span>
+      </div>
+
+      <div class="block">
+        <div class="label">역할</div>
+        <p>React Native / Expo 앱 개발 — 기능 개발 및 스토어 배포·플랫폼 정책 대응</p>
+      </div>
+
+      <div class="block">
+        <div class="label">성과</div>
+        <ul class="lines">
+          <li>협회 회원용 모바일 앱을 전면 리뉴얼</li>
+          <li>웹 중심 경력에서 네이티브 앱 개발과 스토어 배포까지 담당 범위 확장</li>
+        </ul>
+      </div>
+
+      <div class="block">
+        <div class="label">기여</div>
+        <ol class="contrib">
+          <li>
+            <h5>React Native / Expo 기반 앱 개발</h5>
+            <p>회원 명부(프로필·소속·분과·기수 검색), 공지사항, 일정(캘린더) 기능을 개발했습니다.</p>
+          </li>
+          <li>
+            <h5>스토어 배포 및 플랫폼 정책 대응</h5>
+            <p>Expo SDK를 업그레이드하고 Google Play의 16KB 페이지 크기 요구사항에 대응했습니다.</p>
+          </li>
+        </ol>
+      </div>
+
+      <div class="block">
+        <div class="label">스택</div>
+        <p class="stack">React Native · Expo · TypeScript · TanStack Query</p>
+      </div>
+    </div>
+
+    <!-- ② 러너스 -->
+    <div class="co">
+      <div class="co-head">
+        <h3>(주)러너스</h3>
+        <span class="role">개발팀 · 웹팀 팀장</span>
+        <span class="term">2023.04 ~ 2023.07</span>
+      </div>
+      <p class="co-desc">정규직 계약 종료 후 동일 프로젝트를 2개월간 프리랜서로 이어서 수행했습니다.</p>
+    </div>
+
+    <div class="proj">
+      <div class="proj-head">
+        <h4>수퍼클럽</h4>
+        <span class="term">2023.04 ~ 2023.07</span>
+      </div>
+
+      <div class="block">
+        <div class="label">역할</div>
+        <p>프론트엔드 개발 — 다국어 처리 및 번들러·타입 전환 담당</p>
+      </div>
+
+      <div class="block">
+        <div class="label">성과</div>
+        <ul class="lines">
+          <li>번들러를 webpack에서 Vite(Rollup)로, 언어를 JavaScript에서 TypeScript로 전환</li>
+          <li>번역 데이터를 Google Spreadsheet와 연동해 관리하는 다국어(i18n) 체계 적용</li>
+          <li>짧은 기간에 결과가 필요한 과제 성격에 맞춰 두 기술 과제로 범위 한정</li>
+        </ul>
+      </div>
+
+      <div class="block">
+        <div class="label">기여</div>
+        <ol class="contrib">
+          <li>
+            <h5>다국어(i18n) 처리</h5>
+            <p>i18n을 적용하고, 번역 데이터를 Google Spreadsheet와 연동해 관리하는 체계를 구성했습니다.</p>
+          </li>
+          <li>
+            <h5>Vite 마이그레이션</h5>
+            <p>webpack에서 Vite(Rollup)로 번들러를 전환하고, JavaScript를 TypeScript로 전환했습니다.</p>
+          </li>
+        </ol>
+      </div>
+
+      <div class="block">
+        <div class="label">스택</div>
+        <p class="stack">React · TypeScript · Tailwind CSS · styled-components · React Query · react-hook-form · i18next · Redux · Storybook · webpack · ESLint · Prettier</p>
+      </div>
+    </div>
+
+    <!-- ③ 클레온 -->
+    <div class="co">
+      <div class="co-head">
+        <h3>주식회사 클레온</h3>
+        <span class="role">프로덕트 센터 웹팀 리드</span>
+        <span class="term">2021.06 ~ 2023.04</span>
+      </div>
+      <p class="co-desc">가상인간·음성 합성 기반 영상 생성 플랫폼. 웹팀 리드로 세 개 제품의 런칭을 담당했습니다.</p>
+    </div>
+
+    <div class="proj">
+      <div class="proj-head">
+        <h4>Klone V2 런칭</h4>
+        <span class="term">2022.05 ~ 2023.04</span>
+      </div>
+
+      <div class="block">
+        <div class="label">역할</div>
+        <p>웹팀 리드 — 프론트엔드 개발 전반, 개발 프로세스·컨벤션 수립</p>
+      </div>
+
+      <div class="block">
+        <div class="label">성과</div>
+        <ul class="lines">
+          <li>가상인간과 목소리를 선택해 슬라이드 단위로 영상을 제작하는 플랫폼 런칭</li>
+          <li>PR 연동 CI/CD를 구축해 머지 전 코드 리뷰를 강제하는 프로세스를 확립하고 충돌을 구조적으로 방지</li>
+        </ul>
+      </div>
+
+      <div class="block">
+        <div class="label">기여</div>
+        <ol class="contrib">
+          <li>
+            <h5>AWS Amplify 기반 CI/CD 구축</h5>
+            <p>PR과 연동해 머지 전 코드 리뷰를 강제하도록 구성했습니다.</p>
+          </li>
+          <li>
+            <h5>React 기반 Konva 에디터 래퍼 개발</h5>
+            <p>영상 내 스티커 기능을 구현했습니다.</p>
+          </li>
+          <li>
+            <h5>웹팀 리드 역할 수행</h5>
+            <p>프론트엔드 개발 전반과 컨벤션 정비를 담당했습니다.</p>
+          </li>
+        </ol>
+      </div>
+
+      <div class="block">
+        <div class="label">스택</div>
+        <p class="stack">React · React Query · Redux Toolkit · Storybook · i18next · ESLint · Prettier · Husky · webpack</p>
+      </div>
+    </div>
+
+    <div class="proj">
+      <div class="proj-head">
+        <h4>KLling 런칭</h4>
+        <span class="term">2022.05 ~ 2022.10</span>
+      </div>
+
+      <div class="block">
+        <div class="label">역할</div>
+        <p>웹팀 리드 — 기술 구성 판단 및 주요 화면 개발</p>
+      </div>
+
+      <div class="block">
+        <div class="label">성과</div>
+        <ul class="lines">
+          <li>영상 일부만으로 음성을 추출·학습해 다른 언어로 재현하는 번역 플랫폼 런칭</li>
+          <li>전시·투자 유치용이라는 제품 성격에 맞춰 전역 상태관리와 CSS-in-JS를 의도적으로 배제한 경량 구성 설계</li>
+        </ul>
+      </div>
+
+      <div class="block">
+        <div class="label">기여</div>
+        <ol class="contrib">
+          <li><h5>AWS Amplify 기반 CI/CD 구축</h5></li>
+          <li>
+            <h5>주요 화면 개발</h5>
+            <p>메인, 음성 관리, 서비스 소개, 로그인 페이지를 개발했습니다.</p>
+          </li>
+          <li>
+            <h5>제품 수명과 목적을 고려한 기술 선택</h5>
+            <p>퍼블리싱 HTML이 선행 제공되는 조건에서 불필요한 추상화를 배제하는 판단을 내렸습니다.</p>
+          </li>
+        </ol>
+      </div>
+
+      <div class="block">
+        <div class="label">스택</div>
+        <p class="stack">React · React Query · Redux · i18next · webpack · ESLint · Prettier · Husky</p>
+      </div>
+    </div>
+
+    <div class="proj">
+      <div class="proj-head">
+        <h4>Klone V1 런칭</h4>
+        <span class="term">2021.06 ~ 2022.10</span>
+      </div>
+
+      <div class="block">
+        <div class="label">성과</div>
+        <ul class="lines">
+          <li>챗봇 API와 연동해 질문에 대한 답변을 영상으로 재생하는 영상 챗봇 플랫폼의 주요 화면 개발</li>
+        </ul>
+      </div>
+
+      <div class="block">
+        <div class="label">기여</div>
+        <ol class="contrib">
+          <li>
+            <h5>Vue.js 기반 웹 개발</h5>
+            <p>메인, 로그인, 마이페이지 등 주요 화면을 담당했습니다.</p>
+          </li>
+        </ol>
+      </div>
+
+      <div class="block">
+        <div class="label">스택</div>
+        <p class="stack">Vue.js · Vuex</p>
+      </div>
+    </div>
+
+    <!-- ④ 집펀드 -->
+    <div class="co">
+      <div class="co-head">
+        <h3>주식회사 집펀드</h3>
+        <span class="role">React Native 앱 개발</span>
+        <span class="term">2021.05 ~ 2021.06</span>
+      </div>
+    </div>
+
+    <div class="proj">
+      <div class="proj-head">
+        <h4>집비서 모바일 — 부동산 매물 검색 플랫폼 앱</h4>
+        <span class="term">2021.05 ~ 2021.06</span>
+      </div>
+
+      <div class="block">
+        <div class="label">역할</div>
+        <p>React Native 앱 개발 — 공통 컴포넌트 작업 참여</p>
+      </div>
+
+      <div class="block">
+        <div class="label">성과</div>
+        <ul class="lines">
+          <li>매물 검색 플랫폼의 React Native 앱 개발</li>
+          <li>Atomic Design 패턴에 따라 low-level 컴포넌트화 작업 수행</li>
+        </ul>
+      </div>
+
+      <div class="block">
+        <div class="label">기여</div>
+        <ol class="contrib">
+          <li><h5>React Native 기반 앱 개발</h5></li>
+          <li>
+            <h5>Atomic Design 패턴 기반 컴포넌트 작업</h5>
+            <p>Button, Input, Text 등을 low-level 컴포넌트로 분리했습니다.</p>
+          </li>
+        </ol>
+      </div>
+
+      <div class="block">
+        <div class="label">스택</div>
+        <p class="stack">React Native · MobX · react-native-reanimated</p>
+      </div>
+    </div>
+
+    <!-- ⑤ 씨와이 -->
+    <div class="co">
+      <div class="co-head">
+        <h3>주식회사 씨와이</h3>
+        <span class="role">NPD · 프론트엔드 개발</span>
+        <span class="term">2020.01 ~ 2020.12</span>
+      </div>
+    </div>
+
+    <div class="proj">
+      <div class="proj-head">
+        <h4>COS247</h4>
+        <span class="term">2020.01 ~ 2020.12</span>
+      </div>
+
+      <div class="block">
+        <div class="label">역할</div>
+        <p>프론트엔드 개발 — 플랫폼 초기 구축 및 어드민 개발</p>
+      </div>
+
+      <div class="block">
+        <div class="label">성과</div>
+        <ul class="lines">
+          <li>화장품 위탁 생산을 중개하고 제조사·공급사의 제작 현황을 시각화하는 B2B 플랫폼의 초기 개발 담당</li>
+        </ul>
+      </div>
+
+      <div class="block">
+        <div class="label">기여</div>
+        <ol class="contrib">
+          <li>
+            <h5>Nuxt.js 기반 웹 개발</h5>
+            <p>로그인, 메인, 제작 프로세스 등 초기 화면을 구축했습니다.</p>
+          </li>
+          <li>
+            <h5>개발 퍼포먼스 중심 구성</h5>
+            <p>Ant Design Vue를 활용해 빠른 구현에 초점을 맞췄습니다.</p>
+          </li>
+          <li>
+            <h5>어드민 개발</h5>
+            <p>메인 플랫폼과 함께 공급사·제조사용 어드민을 개발했습니다.</p>
+          </li>
+        </ol>
+      </div>
+
+      <div class="block">
+        <div class="label">스택</div>
+        <p class="stack">Nuxt.js · Vue.js · Ant Design Vue</p>
+      </div>
+    </div>
+
+    <!-- ⑥ 이글루코퍼레이션 -->
+    <div class="co">
+      <div class="co-head">
+        <h3>(주)이글루코퍼레이션</h3>
+        <span class="role">프론트엔드 개발</span>
+        <span class="term">2019.04 ~ 2019.11</span>
+      </div>
+    </div>
+
+    <div class="proj">
+      <div class="proj-head">
+        <h4>AEGIS — 공통 코드 관리 Table 커스텀</h4>
+        <span class="term">2019.04 ~ 2019.11</span>
+      </div>
+
+      <div class="block">
+        <div class="label">역할</div>
+        <p>프론트엔드 개발 — 공통 코드 관리 화면 개발 및 UI 유지보수 담당</p>
+      </div>
+
+      <div class="block">
+        <div class="label">성과</div>
+        <ul class="lines">
+          <li>공통 코드 관리 Table 커스텀 개발</li>
+          <li>기존 Atomic 패턴 컴포넌트를 세부 커스터마이징하고 UI 유지보수 수행</li>
+        </ul>
+      </div>
+
+      <div class="block">
+        <div class="label">기여</div>
+        <ol class="contrib">
+          <li><h5>공통 코드 관리 Table 커스텀 개발</h5></li>
+          <li>
+            <h5>UI 유지보수</h5>
+            <p>기존 Atomic 패턴 컴포넌트를 세부 커스터마이징하고 UI 버그에 대응했습니다.</p>
+          </li>
+        </ol>
+      </div>
+
+      <div class="block">
+        <div class="label">스택</div>
+        <p class="stack">React · Redux</p>
+      </div>
+    </div>
+
+    <!-- ⑦ 아이디스트 -->
+    <div class="co">
+      <div class="co-head">
+        <h3>아이디스트</h3>
+        <span class="role">기획·디자인·개발</span>
+        <span class="term">2017.03 ~ 2017.09</span>
+      </div>
+    </div>
+
+    <div class="proj">
+      <div class="proj-head">
+        <h4>IDIST</h4>
+        <span class="term">2016.10 ~ 2017.09</span>
+      </div>
+
+      <div class="block">
+        <div class="label">역할</div>
+        <p>학생 창업 팀에서 기획·디자인·개발 전반에 참여</p>
+      </div>
+
+      <div class="block">
+        <div class="label">성과</div>
+        <ul class="lines">
+          <li>특허·실용신안 외의 아이디어를 자산화해 보호받도록 돕는 플랫폼 개발</li>
+        </ul>
+      </div>
+
+      <div class="block">
+        <div class="label">기여</div>
+        <ol class="contrib">
+          <li>
+            <h5>AngularJS 기반 웹 개발</h5>
+            <p>랜딩 및 프로덕트 소개 페이지를 개발했습니다.</p>
+          </li>
+          <li><h5>Django 기반 결제 서비스 개발</h5></li>
+          <li><h5>Figma를 이용한 웹 디자인</h5></li>
+        </ol>
+      </div>
+
+      <div class="block">
+        <div class="label">스택</div>
+        <p class="stack">AngularJS · Django · Figma</p>
+      </div>
     </div>
   </section>
 
-  <section class="sect">
-    <h2>경력</h2>
-    <div class="career">
-
-      <div>
-        <div class="when">2024.01 – 재직 중<em>2년 7개월 · 정규직</em></div>
-        <div>
-          <p class="org">주식회사 에이치티비욘드<small>프론트엔드 웹팀</small></p>
-          <p class="what">아파트·오피스텔 커뮤니티 플랫폼의 <b>프론트엔드 제품 6개 병행 담당</b> — 입주민 모바일 웹앱, 관리자 운영툴, 사내 운영 콘솔, 매장 POS·주문 키오스크, 디지털 사이니지 CMS, 커뮤니티 앱(React Native). 화면 구현과 별개로 <b>Vite 전환·Turborepo 공용 설정·디자인 시스템 패키지화·Sentry 관측성</b> 같은 프론트엔드 기반과, <b>OpenAPI 타입 생성·ADR·LLM Wiki·정적 분석 가드</b> 같은 자동화·AI 개발 환경을 함께 구축했습니다.</p>
-        </div>
-      </div>
-
-      <div>
-        <div class="when">2023.04 – 2023.07<em>4개월 · 정규직</em></div>
-        <div>
-          <p class="org">주식회사 러너스</p>
-          <p class="what">superClub 프로젝트 리팩토링 — 다국어 처리와 번들러 전환으로 범위를 좁혀 진행했습니다. i18n 적용과 번역 데이터 스프레드시트 연동, <b>webpack에서 Vite(Rollup)로 번들러 전환</b>과 JavaScript 코드베이스의 TypeScript 이관. 정규직 계약 종료 후 같은 프로젝트를 2개월간 프리랜서로 이어 수행했습니다.</p>
-        </div>
-      </div>
-
-      <div>
-        <div class="when">2021.06 – 2023.04<em>1년 11개월 · 정규직</em></div>
-        <div>
-          <p class="org">주식회사 클레온<small>프로덕트 센터 웹팀 리드</small></p>
-          <p class="what">영상 생성 플랫폼 <b>3개 런칭</b>(Klone V2 · KLling · Klone V1). <b>AWS Amplify 기반 CI/CD를 구축해 머지 전 코드 리뷰를 강제</b>하는 프로세스를 정착시켰고, Konva 에디터 래퍼로 영상 내 스티커 기능을, HLS(m3u8) 기반 실시간 스트리밍 재생을 구현했습니다. 웹팀 리드로 프론트엔드 개발 전반과 컨벤션 정비를 담당했습니다.</p>
-        </div>
-      </div>
-
-      <div>
-        <div class="when">2021.05 – 2021.06<em>2개월 · 정규직</em></div>
-        <div>
-          <p class="org">주식회사 집펀드</p>
-          <p class="what">집비서 모바일 — 부동산 매물 검색 플랫폼. React Native 기반 앱 개발에 참여해 Atomic Design 패턴으로 <b>low-level 컴포넌트 체계</b>를 구성했습니다.</p>
-        </div>
-      </div>
-
-      <div>
-        <div class="when">2020.01 – 2020.12<em>1년 · 정규직</em></div>
-        <div>
-          <p class="org">주식회사 씨와이<small>NPD</small></p>
-          <p class="what">COS247 — 화장품 위탁 생산 중개 B2B 플랫폼의 초기 개발. <b>제조 공정을 단계별 테이블로 추적하는 화면</b>과 공급사·제조사용 어드민을 구축했습니다.</p>
-        </div>
-      </div>
-
-      <div>
-        <div class="when">2019.04 – 2019.11<em>8개월 · 정규직</em></div>
-        <div>
-          <p class="org">(주)이글루코퍼레이션</p>
-          <p class="what">AEGIS — KT와 협업한 <b>보안 관제 시각화 플랫폼</b>. 국내외 전산망 로그를 분석해 사전 위험에 대응·차단하는 관리자 화면에서 로그 수집 테이블과 공통 코드 관리 테이블을 개발했습니다.</p>
-        </div>
-      </div>
-
-      <div>
-        <div class="when">2017.03 – 2017.09<em>7개월 · 인턴</em></div>
-        <div>
-          <p class="org">아이디스트</p>
-          <p class="what">IDIST — 아이디어 자산화 플랫폼. 학생 창업 팀에서 <b>기획·디자인·개발에 모두 참여</b>해 AngularJS 랜딩 페이지와 Django 결제 서비스를 개발했습니다.</p>
-        </div>
-      </div>
-
-    </div>
-  </section>
-
-  <section class="sect">
-    <h2>기술 스택</h2>
-    <div class="skills">
-      <div>
-        <h3>핵심</h3>
-        <p class="chips">
-          <span class="key">React</span><span class="key">TypeScript</span><span class="key">Vite</span>
-          <span>TanStack Query</span><span>TanStack Router</span><span>TanStack Table</span>
-          <span>Tailwind CSS</span><span>Turborepo</span><span>pnpm workspace</span>
-        </p>
-      </div>
-      <div>
-        <h3>확장</h3>
-        <p class="chips">
-          <span>React Native (Expo)</span><span>Electron</span><span>react-hook-form</span><span>zod</span>
-          <span>shadcn/ui</span><span>Storybook</span><span>Ant Design</span><span>styled-components</span>
-          <span>i18next</span><span>Recoil</span><span>Redux</span><span>Vue.js</span><span>Nuxt.js</span>
-        </p>
-      </div>
-      <div>
-        <h3>인프라 · 운영</h3>
-        <p class="chips">
-          <span class="key">Sentry</span><span>GitHub Actions</span><span>Jenkins</span>
-          <span>AWS S3</span><span>AWS Cognito</span><span>AWS Amplify</span>
-          <span>Vitest</span><span>Playwright</span><span>ESLint</span><span>Prettier</span><span>Knip</span>
-        </p>
-      </div>
-      <div>
-        <h3>API · AI 개발 환경</h3>
-        <p class="chips">
-          <span class="key">OpenAPI</span><span>openapi-typescript</span><span>openapi-fetch</span>
-          <span>openapi-react-query</span><span class="key">MCP</span><span>Claude Code</span>
-          <span>Cursor</span><span>ADR</span><span>Figma Code Connect</span>
-        </p>
-      </div>
-    </div>
-  </section>
-
-  <section class="sect">
-    <h2>학력</h2>
-    <div class="edu">
-      <span class="yr">2011.03 – 2020.02</span>
-      <span><b>가천대학교</b> 산업경영공학 학사 · 졸업</span>
-    </div>
-  </section>
-
-  <section class="sect">
-    <h2>더 보기</h2>
-    <div class="more">
-      <a href="./portfolio.html">
-        <span class="t">포트폴리오 →</span>
-        <span class="d">사람 손에 있던 일이 지금은 무엇으로 대체됐는지, 작업 사례와 그때의 판단 근거.</span>
-      </a>
-      <a href="./career.html">
-        <span class="t">경력기술서 →</span>
-        <span class="d">제품별 담당 범위와 문제 → 수행 → 결과 서사, 그리고 이슈·커밋의 상세 근거.</span>
-      </a>
-    </div>
+  <section>
+    <h2>보유 기술</h2>
+    <dl class="tags">
+      <dt>핵심</dt>
+      <dd>React · TypeScript · Vite · TanStack Query · TanStack Router · TanStack Table · Tailwind CSS · Turborepo · pnpm</dd>
+      <dt>함께</dt>
+      <dd>React Native · Electron · react-hook-form · zod · shadcn/ui · Storybook · Ant Design · styled-components · i18next · Recoil · Redux · Vue.js · Nuxt.js</dd>
+      <dt>인프라·운영</dt>
+      <dd>GitHub Actions · Jenkins · AWS S3 · AWS Cognito · AWS Amplify · Sentry · Vitest · Playwright · ESLint · Prettier · Knip</dd>
+      <dt>API·자동화</dt>
+      <dd>OpenAPI · openapi-typescript · MCP · Figma Code Connect</dd>
+    </dl>
   </section>
 
 </div>
-
-<footer class="end">
-  <div class="wrap">
-    <p>이 문서의 수치는 사내 이슈 트래커 이력과 Git 저장소 커밋 이력으로 대조해 확인한 것만 실었습니다. 대조하지 못한 항목은 숫자 없이 적거나 넣지 않았습니다.</p>
-    <p>고객사·건설사명, 내부 저장소명, 현장 식별 코드는 제외하고 도메인 표현만 남겼습니다.</p>
-  </div>
-</footer>
