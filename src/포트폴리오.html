@@ -692,13 +692,14 @@
             <ul>
               <li>공용 config 패키지를 가져다 씀. 규칙은 한 곳에서 바뀜</li>
               <li>파일을 만들면 라우트가 생김</li>
+              <li>같은 장비 기준 빌드 262초 → 13초, 의존성 설치 230초 → 4초</li>
               <li>AuthGuard가 라우팅 레이어에서 일괄 적용</li>
             </ul>
           </div>
         </div>
         <div class="built">
           <h4>만든 것</h4>
-          <p><strong>CRA → Vite 마이그레이션을 3개 제품</strong>(입주민 앱 · 관리자 운영툴 · 디자인 시스템)에 적용하고, Turborepo · pnpm workspace 위에 공용 config 패키지(<code>config-typescript</code> · <code>config-tailwind</code> · <code>config-prettier</code> · <code>eslint-config</code>)를 분리했습니다. 파일시스템 라우팅으로 전환하면서 <code>useNavigate</code> 사용 규칙과 <code>src</code> 직접 import 차단을 ESLint 규칙으로 강제하고, 라우터 구조는 README에 자동 생성되게 했습니다. shadcn/ui 전체는 사내 디자인 시스템 패키지로 편입해 Storybook으로 문서화했습니다.</p>
+          <p><strong>CRA → Vite 마이그레이션을 3개 제품</strong>(입주민 앱 · 관리자 운영툴 · 디자인 시스템)에 적용하고, Turborepo · pnpm workspace 위에 공용 config 패키지(<code>config-typescript</code> · <code>config-tailwind</code> · <code>config-prettier</code> · <code>eslint-config</code>)를 분리했습니다. 파일시스템 라우팅으로 전환하면서 <code>useNavigate</code> 사용 규칙과 <code>src</code> 직접 import 차단을 ESLint 규칙으로 강제하고, 라우터 구조는 README에 자동 생성되게 했습니다. shadcn/ui 전체는 사내 디자인 시스템 패키지로 편입해 Storybook으로 문서화했습니다. 전환 PR에 남긴 실측값으로 같은 장비 기준 <strong>빌드 262초 → 13초</strong>, 의존성 설치 230초 → 4초였습니다 — CRA→Vite 와 npm→pnpm 을 한 PR에서 함께 전환한 결과입니다.</p>
         </div>
         <p class="note">개인 작업이 아니라 팀 전환이었기 때문에, 코드보다 <b>기존 라우터와의 구조 비교 문서</b>를 먼저 써서 공유했습니다. 바꾸자고 설득하는 것과 바꾸는 것은 다른 일입니다. 같은 에픽에서 계획했던 전 제품 물리적 모노레포 이관은 우선순위 조정으로 종료됐고, 현재 모노레포에 들어가 있는 것은 내부 운영 콘솔입니다.</p>
       </article>
