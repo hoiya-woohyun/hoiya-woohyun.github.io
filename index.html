@@ -212,6 +212,12 @@
   table.sum tr:last-child td { border-bottom: none; }
 
   /* ── 회사 블록 ────────────────────────────── */
+  .sec-note {
+    margin: 0 0 11px; font-size: 9pt; line-height: 1.55; color: var(--ink-3);
+    padding-left: 10px; border-left: 2px solid var(--rule-2);
+  }
+  .sec-note b { color: var(--ink-2); font-weight: 600; }
+
   .co {
     margin-top: 26px; padding: 10px 13px;
     background: var(--wash); border-left: 3px solid var(--accent);
@@ -510,6 +516,7 @@
 
   <section>
     <h2>경력 상세</h2>
+    <p class="sec-note">회사별로 이룬 성과를 적었습니다. 프로젝트 단위의 문제·수행·지표 근거는 <b>경력기술서</b>에 따로 정리했습니다.</p>
 
     <!-- ① HT Beyond -->
     <div class="co">
@@ -519,331 +526,22 @@
         <span class="term">2024.01 ~ 재직 중</span>
       </div>
       <p class="co-desc">
-        아파트·오피스텔 커뮤니티 플랫폼. 입주민 앱부터 운영툴·POS·사이니지 CMS까지
-        6개 프론트엔드 제품을 병행 담당하며, 제품 개발과 함께 프론트엔드 플랫폼·개발 자동화 기반을 구축했습니다.
+        아파트·오피스텔 커뮤니티 플랫폼. 입주민 앱·사내 운영 콘솔·관리자 운영툴·디지털 사이니지 CMS·매장 POS·주문 키오스크 등
+        <b>6개 프론트엔드 제품을 병행 담당</b>하며, 제품 개발과 별개로 프론트엔드 플랫폼과 개발 자동화 기반을 만들었습니다.
       </p>
-    </div>
-
-    <div class="proj">
-      <div class="proj-head">
-        <h4>바이비 웹앱 개발 및 차세대 버전 전면 개편</h4>
-        <span class="term">2024.04 ~ 2026.08</span>
-      </div>
-
-      <div class="block">
-        <div class="label">제품</div>
-        <p>아파트·오피스텔 입주민 대상 모바일 웹뷰.<br>공지·시설 예약·주차·방문차량 등 단지 생활 기능을 단일 앱에서 제공</p>
-      </div>
-
-      <div class="block">
-        <div class="label">역할</div>
-        <p>프론트엔드 개발 — 브랜드별 대응 구조 설계 및 차세대 버전(기존 앱 리디자인) 개편 담당</p>
-      </div>
-
       <div class="block">
         <div class="label">성과</div>
         <ul class="lines">
-          <li>건설사·브랜드별 단지 앱을 단일 코드로 서비스하는 <b>멀티 브랜드 대응 구조 설계</b></li>
-          <li>계약사마다 제공 기능이 다르던 요구를, 계약사·단지·사용자 3계층 권한 체계와 상품 단위의 권한 기반 체계로 재설계</li>
-          <li>상용 환경에서만 가능하던 <b>스마트홈 연동을 전 환경에서 가능하도록</b> 환경 간 인증 방식 일원화</li>
+          <li>6개 제품을 병행 담당하면서 <b>디지털 사이니지 CMS와 현장 지원 데스크톱 앱은 초기 구축부터 운영 투입까지 단독</b>으로 수행했습니다.</li>
+          <li>단독 담당한 사이니지 CMS에서 운영 투입 후 4개월간 결함 87건을 처리하며
+            <b>결함 해결 리드타임 중앙값 26.4시간 → 2.3시간</b>, 결함 유입 <b>월 39건 → 16건</b>으로 줄였습니다.</li>
+          <li>self-hosted 러너에 직렬로 물려 있던 PR 검증 체인을 병렬로 분기하고 정적 분석 워크플로를 흡수해,
+            <b>검증 워크플로 완료 시간 중앙값 8.1분 → 2.8분</b>(상위 10% 구간 21.1분 → 4.0분)으로 단축했습니다.</li>
+          <li>주력 제품인 입주민 앱의 본인 PR 생성 → 머지 리드타임 중앙값이
+            <b>2024년 18.8시간에서 2026년 4.7시간</b>으로 줄었습니다.</li>
+          <li>배포 자격증명을 개인 액세스 토큰에서 <b>조직 GitHub App 설치 토큰 체계</b>로 9개 저장소에 일괄 적용해, 담당자 이탈과 무관하게 만들었습니다.</li>
+          <li>앱·웹뷰·POS·네이티브·현장 기기에 동시에 걸친 도메인에서 <b>상태 머신과 연동 규격을 맞추고 배포 순서를 통제</b>했습니다.</li>
         </ul>
-      </div>
-
-      <div class="block">
-        <div class="label">기여</div>
-        <ol class="contrib">
-          <li>
-            <h5>멀티 브랜드 대응 구조 설계</h5>
-            <p>서브도메인 기반 단지 식별 및 브랜드별 레이아웃 분기 구조 설계<br>신규 브랜드 전환 프로젝트 다수 수행</p>
-          </li>
-          <li>
-            <h5>차세대 버전 전면 개편</h5>
-            <p>계약사·단지·사용자 3계층 권한 체계와 상품 단위의 권한 기반 체계로 재설계 및 구현<br>메뉴 관리 체계를 신규 운영 콘솔의 권한 체계로 전면 이관 구현<br>홈 화면 및 전체 UI/UX 재설계, 네이티브 설정 연동 다크 테마 구현</p>
-          </li>
-          <li>
-            <h5>단지 생활 도메인 기능 개발</h5>
-            <p>전기차 충전 상태 조회, 방문차량 알림, 알림센터, 지도 기반 위치 안내<br>다국어(i18n) 적용<br>PDF 뷰어·전자서명·카메라 등 디바이스 연동</p>
-          </li>
-        </ol>
-      </div>
-
-      <div class="block">
-        <div class="label">스택</div>
-        <p class="stack">React · TypeScript · TanStack Router · TanStack Query · Recoil · Tailwind CSS · Vite · i18next · Sentry</p>
-      </div>
-    </div>
-
-    <div class="proj">
-      <div class="proj-head">
-        <h4>사내 운영 콘솔(웍스) 및 단지 관리자 운영툴 개발</h4>
-        <span class="term">2024.01 ~ 2026.08</span>
-      </div>
-
-      <div class="block">
-        <div class="label">제품</div>
-        <p>본사 운영팀용 사내 운영 콘솔과 단지 관리사무소용 관리자 운영툴.<br>단지·세대·입주민 등록, 시설 및 예약 운영, 현장 기기 관리, 주차 관리 담당</p>
-      </div>
-
-      <div class="block">
-        <div class="label">역할</div>
-        <p>프론트엔드 개발 — 앱 셸·공통 컴포넌트 기반 설계 및 운영 도메인 화면 개발</p>
-      </div>
-
-      <div class="block">
-        <div class="label">성과</div>
-        <ul class="lines">
-          <li>단지 오픈 시 <b>수작업이던 초기화 데이터 등록을 콘솔 일괄 처리로</b> 전환</li>
-          <li>ExcelGrid 컴포넌트를 만들어 엑셀 기본 기능 기반의 일괄 처리 지원</li>
-          <li>차량번호 자동 인식(ANPR)을 운영툴 웹뷰에 걸쳐 연동</li>
-          <li>운영 도구 공통 기반(앱 셸, 데이터 그리드, 검색 조건 URL 동기화)을 설계해 <b>사이니지 CMS 등 후속 제품에 확산 적용</b></li>
-          <li>다국어(i18n) 적용 및 스프레드시트 변환 CI 프로세스 적용</li>
-        </ul>
-      </div>
-
-      <div class="block">
-        <div class="label">기여</div>
-        <ol class="contrib">
-          <li>
-            <h5>앱 셸 구축 및 공통 컴포넌트 세트 설계</h5>
-            <p>TanStack Table 기반 데이터 그리드, 기간 선택기, S3 파일 업로드, 검색 조건 URL 동기화 훅 설계</p>
-          </li>
-          <li>
-            <h5>단지 초기 설정(온보딩) 자동화</h5>
-            <p>출입카드·세대·시설·예약 대상·현장 기기 설정을 콘솔에서 순차 일괄 수행하는 워크플로우 구축<br>콘솔 설정을 단지 엣지 서버로 내려보낼 때 비밀번호 재확인, 엣지 서버 버전 미달 시 동기화 차단 안전장치 설계</p>
-          </li>
-          <li>
-            <h5>차량번호 자동 인식(ANPR) 기반 주차 관리</h5>
-            <p>관리자 앱의 네이티브 인식 인터페이스를 운영툴 웹뷰와 연동, 인식된 차량을 정기·방문·미등록으로 즉시 판별<br>신고 누적 기준 블랙리스트 자동 등록 정책 및 AI 주차 리포트까지 프론트엔드 전 구간 담당</p>
-          </li>
-          <li>
-            <h5>식당 예약 상품 관리 체계 구축</h5>
-            <p>매장 기본 운영 정책을 선 정의하고 개별 날짜·시간대는 예외만 덮어쓰는 구조 설계<br>월 캘린더 편성 뷰, 시간대 슬롯 설정, 대량 일괄 등록 구현</p>
-          </li>
-          <li>
-            <h5>다국어(i18n) 파이프라인 이관</h5>
-            <p>번역 시트와 JSON 사전 간 양방향 무손실 동기화 구현<br>키 충돌·누락 키를 반영 전 자동 검출</p>
-          </li>
-        </ol>
-      </div>
-
-      <div class="block">
-        <div class="label">스택</div>
-        <p class="stack">React · TypeScript · Turborepo · pnpm workspace · TanStack Router · Query · Table · react-hook-form · zod · Tailwind CSS · i18next · Knip</p>
-      </div>
-    </div>
-
-    <div class="proj">
-      <div class="proj-head">
-        <h4>디지털 사이니지 CMS 신규 구축</h4>
-        <span class="note">프론트엔드 단독</span>
-        <span class="term">2025.01 ~ 2025.11</span>
-      </div>
-
-      <div class="block">
-        <div class="label">제품</div>
-        <p>단지 내 디스플레이 기기에 광고·공지를 송출하는 관리 시스템(CMS).<br>매체·소재·캠페인 등록부터 송출 편성, 설치 기기 원격 관리까지 담당</p>
-      </div>
-
-      <div class="block">
-        <div class="label">역할</div>
-        <p>신규 제품 프론트엔드 단독 담당</p>
-      </div>
-
-      <div class="block">
-        <div class="label">성과</div>
-        <ul class="lines">
-          <li><b>프론트엔드 단독 인력으로 신규 제품을 초기 구축부터 런칭</b></li>
-          <li>매체·소재·캠페인 등록부터 콘텐츠 송출 편성까지 광고 운영 전 과정을 단일 콘솔로 통합</li>
-          <li><b>현장 방문 없이</b> 단지 설치 기기를 원격 일괄 제어·재시작하고 APK를 배포하는 원격 관리 기능 구축</li>
-        </ul>
-      </div>
-
-      <div class="block">
-        <div class="label">기여</div>
-        <ol class="contrib">
-          <li>
-            <h5>앱 셸 및 공통 컴포넌트 세트 구축</h5>
-            <p>라우팅·인증 게이트 및 테이블·폼·모달·주소 입력·검색 필터 공통 컴포넌트 구축<br>로그인 CAPTCHA, 광고 대행사 계정 권한별 UI 분리 구현</p>
-          </li>
-          <li>
-            <h5>광고 운영 화면 전체 개발</h5>
-            <p>매체·소재·캠페인·콘텐츠 송출·게시판·전단·자동 편성 구현</p>
-          </li>
-          <li>
-            <h5>기기 관리 및 원격 제어</h5>
-            <p>설치 단지·브랜드 관리, 기기 일괄 제어, 앱 재실행·기기 재시작 원격 제어, APK 버전 업로드·배포 담당</p>
-          </li>
-          <li>
-            <h5>운영 대시보드 구축</h5>
-            <p>기간 필터 기반 매출 차트 및 통계 그래프 구현</p>
-          </li>
-          <li>
-            <h5>크로스 플랫폼 UI 정합성 확보</h5>
-            <p>Ant Design 전역 테마 오버라이드, 맥·윈도우 폰트 통일로 운영체제 간 렌더링 편차 제거</p>
-          </li>
-        </ol>
-      </div>
-
-      <div class="block">
-        <div class="label">스택</div>
-        <p class="stack">React · TypeScript · Ant Design · TanStack Query · Vite · Sentry</p>
-      </div>
-    </div>
-
-    <div class="proj">
-      <div class="proj-head">
-        <h4>프론트엔드 플랫폼 구축 — 모노레포·타입 자동화·관측성·CI/CD</h4>
-        <span class="term">2024.02 ~ 2026.08</span>
-      </div>
-
-      <div class="block">
-        <div class="label">범위</div>
-        <p>API 타입 파이프라인, CI 게이트, 관측성, AI 개발 환경 및 도메인 개발</p>
-      </div>
-
-      <div class="block">
-        <div class="label">성과</div>
-        <ul class="lines">
-          <li>openapi-typescript를 도입해 <b>CI 컴파일 검증 프로세스 구축</b></li>
-          <li>Sentry 모니터링 기반 사전 대응 프로세스 구축</li>
-          <li>도메인 정책을 LLM 출처 기반 문서로 구조화하고, 코드 변경 시 자동 갱신되는 파이프라인 구성</li>
-          <li>CI 파이프라인 효율성 개선 — API 타입 체크·빌드·린트·테스트 워크플로 처리 방식 개선</li>
-          <li>PR 리드타임 중앙값 <b>23.6시간 → 13.9시간</b> (561건 기준, 41% 감소)</li>
-        </ul>
-      </div>
-
-      <div class="block">
-        <div class="label">기여</div>
-        <ol class="contrib">
-          <li>
-            <h5>API 타입 자동 생성 파이프라인 도입 (4개 제품)</h5>
-            <p>OpenAPI 스펙에서 타입·쿼리 훅을 생성해 수기 타입 정의 제거<br>파생 타입을 스키마 명이 아닌 URL 경로 기준으로 참조하는 컨벤션 정립<br>생성 산출물을 Git 추적에서 제외하고 로컬·CI 생성으로 전환해 팀원 간 스키마 파일 충돌 구조적 제거</p>
-          </li>
-          <li>
-            <h5>라우팅·공용 설정 표준화 및 팀 확산</h5>
-            <p>제품별로 다르던 번들러·린트·타입 설정을 공용 config 패키지로 분리해 단일 소스화<br>CRA에서 Vite로, npm에서 pnpm으로 3개 제품 동시 전환 — 같은 장비 기준 <b>빌드 262초 → 13초</b>, 의존성 설치 230초 → 4초<br>TanStack Router 기반 파일시스템 라우팅으로 전환하고 권한 가드를 라우팅 레이어에 통합</p>
-          </li>
-          <li>
-            <h5>도메인 지식 LLM Wiki화 및 AI 참조 기준 정비</h5>
-            <p>도메인 정책을 LLM이 인용할 수 있는 마크다운 위키로 구조화 (35개 문서 중 11개 최초 작성)<br>문서 드리프트 감지 시 재생성 PR 생성 및 담당자 지정·리뷰 요청 자동화 구현<br>저장소별 에이전트 규칙·아키텍처 결정 기록(ADR) 최초 작성, 위키 질의용 로컬 MCP 서버 제작</p>
-          </li>
-          <li>
-            <h5>CI 게이트 조율 — 막을 것과 막지 않을 것의 분리</h5>
-            <p>Knip 도입, PR로 인해 신규 미사용 파일 발생 시 원인 라인에 자동 리뷰 코멘트를 게시하는 가드 직접 구현<br>반대로 CI 타입 검증은 비차단 리포팅 전용으로 전환, 자동 라벨링·AI 코드리뷰 도입</p>
-          </li>
-          <li>
-            <h5>Sentry 기반 관측성 체계 구축</h5>
-            <p>에러 바운더리에서 리포팅 로직 분리, 운영상 무의미한 오류 필터링<br>단지·사용자 태깅 및 샘플 레이트 조정으로 오류 발생 지점 즉시 식별</p>
-          </li>
-          <li>
-            <h5>CI/CD 및 보안 인프라 개선</h5>
-            <p>AWS 배포 Jenkins 이관, 이슈 트래커 · Git · Jenkins · 사내 메신저 파이프라인 설계<br>개인 액세스 토큰을 조직 GitHub App 설치 토큰 체계로 전환해 9개 저장소 일괄 적용</p>
-          </li>
-        </ol>
-      </div>
-
-      <div class="block">
-        <div class="label">스택</div>
-        <p class="stack">openapi-typescript · openapi-fetch · openapi-react-query · Turborepo · Vite · Knip · GitHub Actions · Jenkins · Sentry · Claude Code · MCP · Figma Code Connect</p>
-      </div>
-    </div>
-
-    <div class="proj">
-      <div class="proj-head">
-        <h4>매장 POS·주문 키오스크 및 IoT 기기 연동, 현장 지원 데스크톱 앱</h4>
-        <span class="term">2025.01 ~ 2026.08</span>
-      </div>
-
-      <div class="block">
-        <div class="label">제품</div>
-        <p>단지 상가 매장용 POS와 고객 주문 키오스크, 현장 단지 장비에 원격 접속하는 사내 지원 인력용 데스크톱 앱.<br>입주민 앱에서 생성된 주문이 POS·운영툴까지 연계되는 구조</p>
-      </div>
-
-      <div class="block">
-        <div class="label">역할</div>
-        <p>프론트엔드 개발 — 매장 POS·주문 키오스크 웹 개발 담당<br>현장 지원 데스크톱 앱은 기획부터 릴리즈까지 단독 수행</p>
-      </div>
-
-      <div class="block">
-        <div class="label">성과</div>
-        <ul class="lines">
-          <li>양 팀이 따로 관리하던 <b>윈도우 에이전트 연동 규격을 OpenAPI 스펙으로 단일화</b> — 규격 불일치로 반복되던 연동 오류 해소</li>
-          <li>단일 주문 도메인이 3개 클라이언트에 걸친 구조에서 <b>앱·POS 간 주문 상태 불일치와 영수증 출력 누락·순서 밀림 해소</b></li>
-          <li>단지 오픈 시 수작업으로 개별 설정하던 세대 호출 엘리베이터 연동을 제조사 API 자동 연결 흐름으로 전환</li>
-          <li>현장 지원 데스크톱 앱을 <b>단독 개발해 사내 업무에 투입</b> (v1.3.0 릴리즈)</li>
-        </ul>
-      </div>
-
-      <div class="block">
-        <div class="label">기여</div>
-        <ol class="contrib">
-          <li>
-            <h5>윈도우 에이전트 연동 규격 정비</h5>
-            <p>POS·키오스크가 매장 PC에 설치된 에이전트와 <code>localhost:5000</code>으로 통신해 주변기기 포트·상태 정보를 받는 구조<br>에이전트 팀과 프론트엔드가 각각 관리하던 수기 API 문서를 OpenAPI 스펙으로 단일화<br>openapi-typescript로 타입·클라이언트를 생성해 규격 불일치를 컴파일 단계에서 검출</p>
-          </li>
-          <li>
-            <h5>픽업 주문 상태 머신 정합</h5>
-            <p>접수·거부·자동거부·부분취소 상태를 앱·POS 양측에서 정합<br>주방용·고객용 영수증 출력 로직 구현 및 출력 누락·순서 밀림 해소<br>카드리더·안면인식기 등 주변기기 포트 예외 처리</p>
-          </li>
-          <li>
-            <h5>단지 시설 기기 연동 — 단일 도메인의 3개 클라이언트 동시 대응</h5>
-            <p>하나의 기기 도메인이 앱·키오스크·운영툴에 걸친 구조에서 저장소 3개 동시 수정 및 배포 순서 통제<br>코인세탁기는 입주민 인증(안면인식·카드) · 세탁 이력 조회 · 상품 선택 · 결제 · 기기 제어까지 전 구간 담당<br>세대 엘리베이터 호출은 필수 정보만 입력받고 나머지 설정은 제조사 API로 자동 연결하도록 설계<br>이 밖에 독서실 전등 제어, 골프타석 등 시설 기기 연동 담당</p>
-          </li>
-          <li>
-            <h5>쿠폰 시스템 전 구간 구현</h5>
-            <p>앱 쿠폰함 신설, 시설 예약·결제 시 쿠폰 적용 및 최종 금액 자동 산출<br>결제 취소 시 쿠폰 원복 처리<br>관리자 발급 유형·대상·정기 자동 발급 스케줄 UI까지 담당</p>
-          </li>
-          <li>
-            <h5>현장 지원 데스크톱 앱 단독 개발 (Electron)</h5>
-            <p>bastion 경유 다중 SSH 터널 관리 및 RDP 자동 실행<br>원격 로그 조회 구현 (압축 로그 직접 열람 포함)<br>safeStorage 기반 자격증명 암호화<br>로그 조회 전용 작업이 동시 접속 상한을 소모하던 구조를 접속·조회 분리 재설계로 해소</p>
-          </li>
-        </ol>
-      </div>
-
-      <div class="block">
-        <div class="label">스택</div>
-        <p class="stack">React · TypeScript · Electron · TanStack Router · Tailwind CSS · openapi-typescript</p>
-      </div>
-    </div>
-
-    <div class="proj">
-      <div class="proj-head">
-        <h4>협회 회원용 커뮤니티 앱 전면 리뉴얼</h4>
-        <span class="note">React Native / Expo</span>
-        <span class="term">2024.08 ~ 2025.10</span>
-      </div>
-
-      <div class="block">
-        <div class="label">제품</div>
-        <p>회원 대상으로만 운영되는 비공개 커뮤니티 앱.<br>소속·분과·기수 기반 회원 검색, 공지사항, 일정 공유 제공</p>
-      </div>
-
-      <div class="block">
-        <div class="label">역할</div>
-        <p>React Native / Expo 앱 개발 — 기능 개발 및 스토어 배포·플랫폼 정책 대응</p>
-      </div>
-
-      <div class="block">
-        <div class="label">성과</div>
-        <ul class="lines">
-          <li>비공개 회원제 커뮤니티 앱 전면 리뉴얼 — 회원 명부·공지·일정 기능 재구축</li>
-          <li>Google Play 16KB 페이지 크기 요구사항 대응 및 Expo SDK 업그레이드</li>
-        </ul>
-      </div>
-
-      <div class="block">
-        <div class="label">기여</div>
-        <ol class="contrib">
-          <li>
-            <h5>React Native / Expo 앱 개발</h5>
-            <p>회원 명부(프로필·소속·분과·기수 검색), 공지사항, 일정 캘린더 개발</p>
-          </li>
-        </ol>
-      </div>
-
-      <div class="block">
-        <div class="label">스택</div>
-        <p class="stack">React Native · Expo · TypeScript · TanStack Query</p>
       </div>
     </div>
 
@@ -852,47 +550,15 @@
       <div class="co-head">
         <h3>(주)러너스</h3>
         <span class="role">개발팀 · 웹팀 팀장</span>
-        <span class="term">2023.04 ~ 2023.07</span>
+        <span class="term">2023.04 ~ 2023.07 <small>(+프리랜서 2개월)</small></span>
       </div>
-      <p class="co-desc">정규직 계약 종료 후 동일 프로젝트를 2개월간 프리랜서로 이어서 수행했습니다.</p>
-    </div>
-
-    <div class="proj">
-      <div class="proj-head">
-        <h4>수퍼클럽</h4>
-        <span class="term">2023.04 ~ 2023.07</span>
-      </div>
-
-      <div class="block">
-        <div class="label">역할</div>
-        <p>프론트엔드 개발 — 다국어 처리 및 번들러·타입 전환 담당</p>
-      </div>
-
+      <p class="co-desc">수퍼클럽 — 커머스 서비스의 프론트엔드 개선을 담당했습니다.</p>
       <div class="block">
         <div class="label">성과</div>
         <ul class="lines">
-          <li>번들러를 webpack에서 Vite(Rollup)로, 언어를 JavaScript에서 TypeScript로 전환</li>
-          <li>번역 데이터를 Google Spreadsheet와 연동해 관리하는 다국어(i18n) 체계 적용</li>
+          <li>번들러를 <b>webpack에서 Vite(Rollup)로 전환</b>하고, JavaScript 코드베이스를 TypeScript로 옮겼습니다.</li>
+          <li>다국어(i18n) 체계를 적용했습니다.</li>
         </ul>
-      </div>
-
-      <div class="block">
-        <div class="label">기여</div>
-        <ol class="contrib">
-          <li>
-            <h5>다국어(i18n) 처리</h5>
-            <p>i18n 적용<br>번역 데이터 Google Spreadsheet 연동 관리 체계 구성</p>
-          </li>
-          <li>
-            <h5>Vite 마이그레이션</h5>
-            <p>webpack → Vite(Rollup) 번들러 전환<br>JavaScript → TypeScript 전환</p>
-          </li>
-        </ol>
-      </div>
-
-      <div class="block">
-        <div class="label">스택</div>
-        <p class="stack">React · TypeScript · Tailwind CSS · styled-components · React Query · react-hook-form · i18next · Redux · Storybook · webpack · ESLint · Prettier</p>
       </div>
     </div>
 
@@ -900,339 +566,59 @@
     <div class="co">
       <div class="co-head">
         <h3>주식회사 클레온</h3>
-        <span class="role">프로덕트 센터 웹팀 리드</span>
+        <span class="role">프로덕트 센터 · 웹팀 리드</span>
         <span class="term">2021.06 ~ 2023.04</span>
       </div>
-      <p class="co-desc">가상인간·음성 합성 기반 영상 생성 플랫폼. 웹팀 리드로 세 개 제품의 런칭을 담당했습니다.</p>
-    </div>
-
-    <div class="proj">
-      <div class="proj-head">
-        <h4>Klone V2 런칭</h4>
-        <span class="term">2022.05 ~ 2023.04</span>
-      </div>
-
-      <div class="block">
-        <div class="label">제품</div>
-        <p>가상인간과 목소리를 선택해 슬라이드 단위로 영상을 제작하는 플랫폼</p>
-      </div>
-
-      <div class="block">
-        <div class="label">역할</div>
-        <p>웹팀 리드 — 프론트엔드 개발 전반, 개발 프로세스·컨벤션 수립</p>
-      </div>
-
+      <p class="co-desc">영상 생성 AI 플랫폼. 웹팀을 이끌며 제품 런칭과 개발 프로세스를 함께 담당했습니다.</p>
       <div class="block">
         <div class="label">성과</div>
         <ul class="lines">
-          <li>슬라이드 단위 영상 제작 플랫폼 <b>런칭</b></li>
-          <li>PR 연동 CI/CD를 구축해 머지 전 코드 리뷰를 강제하는 프로세스를 확립하고 충돌을 구조적으로 방지</li>
+          <li>영상 생성 플랫폼 <b>3개 제품(Klone V2 · KLling · Klone V1)을 런칭</b>했습니다.</li>
+          <li>AWS Amplify 기반 <b>PR 연동 CI/CD를 구축</b>해 코드 리뷰를 머지 조건으로 만들고, 수동 배포를 파이프라인 실행으로 바꿨습니다.</li>
         </ul>
-      </div>
-
-      <div class="block">
-        <div class="label">기여</div>
-        <ol class="contrib">
-          <li>
-            <h5>AWS Amplify 기반 CI/CD 구축</h5>
-            <p>PR 연동으로 머지 전 코드 리뷰를 강제하도록 구성</p>
-          </li>
-          <li>
-            <h5>React 기반 Konva 에디터 래퍼 개발</h5>
-            <p>영상 내 스티커 기능 구현</p>
-          </li>
-          <li>
-            <h5>웹팀 리드 역할 수행</h5>
-            <p>프론트엔드 개발 전반 및 컨벤션 정비 담당</p>
-          </li>
-        </ol>
-      </div>
-
-      <div class="block">
-        <div class="label">스택</div>
-        <p class="stack">React · React Query · Redux Toolkit · Storybook · i18next · ESLint · Prettier · Husky · webpack</p>
       </div>
     </div>
 
-    <div class="proj">
-      <div class="proj-head">
-        <h4>KLling 런칭</h4>
-        <span class="term">2022.05 ~ 2022.10</span>
-      </div>
-
-      <div class="block">
-        <div class="label">제품</div>
-        <p>영상 일부만으로 음성을 추출·학습해 다른 언어로 재현하는 번역 플랫폼</p>
-      </div>
-
-      <div class="block">
-        <div class="label">역할</div>
-        <p>웹팀 리드 — 기술 구성 판단 및 주요 화면 개발</p>
-      </div>
-
-      <div class="block">
-        <div class="label">성과</div>
-        <ul class="lines">
-          <li>음성 추출·학습 기반 영상 번역 플랫폼 <b>런칭</b></li>
-          <li>전시·투자 유치용이라는 제품 성격에 맞춰 전역 상태관리와 CSS-in-JS를 의도적으로 배제한 경량 구성 설계</li>
-        </ul>
-      </div>
-
-      <div class="block">
-        <div class="label">기여</div>
-        <ol class="contrib">
-          <li><h5>AWS Amplify 기반 CI/CD 구축</h5></li>
-          <li>
-            <h5>주요 화면 개발</h5>
-            <p>메인·음성 관리·서비스 소개·로그인 페이지 개발</p>
-          </li>
-          <li>
-            <h5>제품 수명과 목적을 고려한 기술 선택</h5>
-            <p>퍼블리싱 HTML 선행 제공 조건에서 불필요한 추상화를 배제하는 판단</p>
-          </li>
-        </ol>
-      </div>
-
-      <div class="block">
-        <div class="label">스택</div>
-        <p class="stack">React · React Query · Redux · i18next · webpack · ESLint · Prettier · Husky</p>
-      </div>
-    </div>
-
-    <div class="proj">
-      <div class="proj-head">
-        <h4>Klone V1 런칭</h4>
-        <span class="term">2021.06 ~ 2022.10</span>
-      </div>
-
-      <div class="block">
-        <div class="label">제품</div>
-        <p>챗봇 API와 연동해 질문에 대한 답변을 영상으로 재생하는 영상 챗봇 플랫폼</p>
-      </div>
-
-      <div class="block">
-        <div class="label">성과</div>
-        <ul class="lines">
-          <li>영상 챗봇 플랫폼 주요 화면 개발</li>
-        </ul>
-      </div>
-
-      <div class="block">
-        <div class="label">기여</div>
-        <ol class="contrib">
-          <li>
-            <h5>Vue.js 기반 웹 개발</h5>
-            <p>메인·로그인·마이페이지 등 주요 화면 담당</p>
-          </li>
-        </ol>
-      </div>
-
-      <div class="block">
-        <div class="label">스택</div>
-        <p class="stack">Vue.js · Vuex</p>
-      </div>
-    </div>
-
-    <!-- ④ 집펀드 -->
+    <!-- ④ 이전 -->
     <div class="co">
       <div class="co-head">
         <h3>주식회사 집펀드</h3>
         <span class="role">React Native 앱 개발</span>
         <span class="term">2021.05 ~ 2021.06</span>
       </div>
+      <p class="co-desc">집비서 모바일 — 부동산 매물 검색 앱의 공통 컴포넌트를 담당했습니다.</p>
     </div>
 
-    <div class="proj">
-      <div class="proj-head">
-        <h4>집비서 모바일 — 부동산 매물 검색 플랫폼 앱</h4>
-        <span class="term">2021.05 ~ 2021.06</span>
-      </div>
-
-      <div class="block">
-        <div class="label">제품</div>
-        <p>부동산 매물을 검색·비교하는 모바일 앱</p>
-      </div>
-
-      <div class="block">
-        <div class="label">역할</div>
-        <p>React Native 앱 개발 — 공통 컴포넌트 작업 참여</p>
-      </div>
-
-      <div class="block">
-        <div class="label">성과</div>
-        <ul class="lines">
-          <li>매물 검색 플랫폼의 React Native 앱 개발</li>
-          <li>Atomic Design 패턴에 따라 low-level 컴포넌트화 작업 수행</li>
-        </ul>
-      </div>
-
-      <div class="block">
-        <div class="label">기여</div>
-        <ol class="contrib">
-          <li><h5>React Native 기반 앱 개발</h5></li>
-          <li>
-            <h5>Atomic Design 패턴 기반 컴포넌트 작업</h5>
-            <p>Button · Input · Text 등 low-level 컴포넌트화</p>
-          </li>
-        </ol>
-      </div>
-
-      <div class="block">
-        <div class="label">스택</div>
-        <p class="stack">React Native · MobX · react-native-reanimated</p>
-      </div>
-    </div>
-
-    <!-- ⑤ 씨와이 -->
     <div class="co">
       <div class="co-head">
         <h3>주식회사 씨와이</h3>
-        <span class="role">NPD · 프론트엔드 개발</span>
+        <span class="role">프론트엔드 개발 (NPD)</span>
         <span class="term">2020.01 ~ 2020.12</span>
       </div>
+      <p class="co-desc">
+        COS247 — 화장품 위탁 생산 중개 B2B 플랫폼을 초기 구축하고 어드민을 개발했습니다.
+        제조 공정을 <b>단계별 테이블로 추적하는 화면</b>을 설계했습니다.
+      </p>
     </div>
 
-    <div class="proj">
-      <div class="proj-head">
-        <h4>COS247</h4>
-        <span class="term">2020.01 ~ 2020.12</span>
-      </div>
-
-      <div class="block">
-        <div class="label">제품</div>
-        <p>화장품 위탁 생산을 중개하고 제조사·공급사의 제작 현황을 시각화하는 B2B 플랫폼</p>
-      </div>
-
-      <div class="block">
-        <div class="label">역할</div>
-        <p>프론트엔드 개발 — 플랫폼 초기 구축 및 어드민 개발</p>
-      </div>
-
-      <div class="block">
-        <div class="label">성과</div>
-        <ul class="lines">
-          <li>B2B 플랫폼 초기 구축 및 공급사·제조사용 어드민 개발 담당</li>
-        </ul>
-      </div>
-
-      <div class="block">
-        <div class="label">기여</div>
-        <ol class="contrib">
-          <li>
-            <h5>Nuxt.js 기반 웹 개발</h5>
-            <p>로그인·메인·제작 프로세스 등 초기 화면 구축</p>
-          </li>
-          <li>
-            <h5>개발 퍼포먼스 중심 구성</h5>
-            <p>Ant Design Vue 활용으로 빠른 구현에 초점</p>
-          </li>
-          <li>
-            <h5>어드민 개발</h5>
-            <p>메인 플랫폼과 함께 공급사·제조사용 어드민 개발</p>
-          </li>
-        </ol>
-      </div>
-
-      <div class="block">
-        <div class="label">스택</div>
-        <p class="stack">Nuxt.js · Vue.js · Ant Design Vue</p>
-      </div>
-    </div>
-
-    <!-- ⑥ 이글루코퍼레이션 -->
     <div class="co">
       <div class="co-head">
         <h3>(주)이글루코퍼레이션</h3>
         <span class="role">프론트엔드 개발</span>
         <span class="term">2019.04 ~ 2019.11</span>
       </div>
+      <p class="co-desc">AEGIS — 공통 코드 관리 화면 개발 및 UI 유지보수를 담당했습니다.</p>
     </div>
 
-    <div class="proj">
-      <div class="proj-head">
-        <h4>AEGIS — 공통 코드 관리 Table 커스텀</h4>
-        <span class="term">2019.04 ~ 2019.11</span>
-      </div>
-
-      <div class="block">
-        <div class="label">역할</div>
-        <p>프론트엔드 개발 — 공통 코드 관리 화면 개발 및 UI 유지보수 담당</p>
-      </div>
-
-      <div class="block">
-        <div class="label">성과</div>
-        <ul class="lines">
-          <li>공통 코드 관리 Table 커스텀 개발</li>
-          <li>기존 Atomic 패턴 컴포넌트를 세부 커스터마이징하고 UI 유지보수 수행</li>
-        </ul>
-      </div>
-
-      <div class="block">
-        <div class="label">기여</div>
-        <ol class="contrib">
-          <li><h5>공통 코드 관리 Table 커스텀 개발</h5></li>
-          <li>
-            <h5>UI 유지보수</h5>
-            <p>기존 Atomic 패턴 컴포넌트 세부 커스터마이징<br>UI 버그 대응</p>
-          </li>
-        </ol>
-      </div>
-
-      <div class="block">
-        <div class="label">스택</div>
-        <p class="stack">React · Redux</p>
-      </div>
-    </div>
-
-    <!-- ⑦ 아이디스트 -->
     <div class="co">
       <div class="co-head">
         <h3>아이디스트</h3>
-        <span class="role">기획·디자인·개발</span>
+        <span class="role">기획 · 디자인 · 개발</span>
         <span class="term">2017.03 ~ 2017.09</span>
       </div>
+      <p class="co-desc">IDIST — 특허·실용신안 외의 아이디어를 자산화하는 플랫폼을 개발했습니다.</p>
     </div>
 
-    <div class="proj">
-      <div class="proj-head">
-        <h4>IDIST</h4>
-        <span class="term">2016.10 ~ 2017.09</span>
-      </div>
-
-      <div class="block">
-        <div class="label">제품</div>
-        <p>특허·실용신안 외의 아이디어를 자산화해 보호받도록 돕는 플랫폼</p>
-      </div>
-
-      <div class="block">
-        <div class="label">역할</div>
-        <p>학생 창업 팀에서 기획·디자인·개발 전반에 참여</p>
-      </div>
-
-      <div class="block">
-        <div class="label">성과</div>
-        <ul class="lines">
-          <li>학생 창업 팀에서 기획·디자인·개발 전반을 맡아 플랫폼 개발</li>
-        </ul>
-      </div>
-
-      <div class="block">
-        <div class="label">기여</div>
-        <ol class="contrib">
-          <li>
-            <h5>AngularJS 기반 웹 개발</h5>
-            <p>랜딩 및 프로덕트 소개 페이지 개발</p>
-          </li>
-          <li><h5>Django 기반 결제 서비스 개발</h5></li>
-          <li><h5>Figma를 이용한 웹 디자인</h5></li>
-        </ol>
-      </div>
-
-      <div class="block">
-        <div class="label">스택</div>
-        <p class="stack">AngularJS · Django · Figma</p>
-      </div>
-    </div>
   </section>
 
   <section>
