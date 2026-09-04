@@ -101,6 +101,51 @@ PRINT_CSS = """<style>
 .printbtn:hover { color: var(--accent); border-color: var(--accent); }
 </style>"""
 
+NAV_CSS = """<style>
+/* ── 사이트 내비 — 세 페이지에서 픽셀 단위로 같아야 한다 ──────────────
+   각 문서의 본문 폰트가 다르다(A4 문서는 Apple SD Gothic Neo 10pt,
+   포트폴리오는 Gothic A1 15px). 내비가 본문에서 폰트를 상속하면 페이지를
+   옮길 때마다 글자 폭이 달라져 헤더가 흔들린다 — 그래서 여기서 자기 값을 고정한다.
+   현재 페이지 링크를 굵게 하는 것도 같은 이유로 하지 않는다(볼드 폭만큼 내비가 밀린다).
+   현재 위치는 굵기가 아니라 색·배경·테두리로 표시한다.
+   이 블록은 각 문서의 <style> 뒤에 주입되므로 문서 쪽 .sitenav 규칙을 덮는다. */
+.sitenav {
+  position: sticky; top: 0; z-index: 50;
+  background: var(--surface); border-bottom: 1px solid var(--rule);
+  font-family: 'Apple SD Gothic Neo', 'Malgun Gothic', 'Noto Sans KR', system-ui, sans-serif;
+  font-size: 12.5px; line-height: 1.4; letter-spacing: normal;
+}
+.sitenav .sitenav-in {
+  display: flex; align-items: center; flex-wrap: wrap; gap: 6px 18px;
+  max-width: 1180px; margin-inline: auto; padding: 12px 28px;
+}
+.sitenav .sitenav-who {
+  font-size: 15px; font-weight: 700; letter-spacing: -.02em;
+  color: var(--ink); line-height: 1.4;
+}
+.sitenav .sitenav-role {
+  font-size: 12.5px; font-weight: 400; letter-spacing: normal;
+  color: var(--ink-3); line-height: 1.4;
+}
+.sitenav nav { margin-left: auto; display: flex; align-items: center; gap: 4px; }
+.sitenav nav a, .sitenav .printbtn {
+  display: inline-flex; align-items: center; box-sizing: border-box; height: 28px;
+  margin: 0; padding: 0 12px;
+  font-family: inherit; font-size: 12.5px; font-weight: 500;
+  line-height: 1; letter-spacing: normal;
+  text-decoration: none; white-space: nowrap;
+  color: var(--ink-3); background: transparent;
+  border: 1px solid transparent; border-radius: 0; cursor: pointer;
+}
+.sitenav nav a:hover, .sitenav .printbtn:hover { color: var(--ink); border-color: var(--rule); }
+.sitenav nav a[aria-current="page"] {
+  color: var(--accent); border-color: var(--rule);
+  background: var(--wash); font-weight: 500;
+}
+.sitenav .printbtn { margin-left: 4px; border-color: var(--rule); }
+.sitenav .printbtn:hover { color: var(--accent); border-color: var(--accent); }
+</style>"""
+
 PRINT_BTN = """      <button type="button" class="printbtn" onclick="window.print()"
         title="인쇄 대화상자에서 대상을 &quot;PDF로 저장&quot;으로 선택하세요">PDF 저장</button>
 """
@@ -143,6 +188,7 @@ for src, out, desc in PAGES:
 {link}
 {HEAD_EXTRA}
 {style}
+{NAV_CSS}
 {PRINT_CSS}
 </head>
 <body>

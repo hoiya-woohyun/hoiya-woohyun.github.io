@@ -129,7 +129,7 @@
     margin: 12px 0 0; padding: 11px 14px;
     background: var(--wash); border: 1px solid var(--rule-2);
     display: grid; grid-template-columns: max-content 1fr max-content 1fr;
-    gap: 4px 14px;
+    gap: 4px 14px; align-items: baseline;
   }
   .facts dt {
     color: var(--ink-3); font-weight: 600; font-size: 9pt; letter-spacing: .02em;
@@ -185,7 +185,7 @@
   table.sum th:last-child, table.sum td:last-child { padding-right: 0; }
   table.sum td {
     padding: 8px 9px 8px 0; border-bottom: 1px solid var(--rule-2);
-    vertical-align: top; color: var(--ink-2); line-height: 1.5;
+    vertical-align: baseline; color: var(--ink-2); line-height: 1.5;
   }
   table.sum td.co-name { font-weight: 700; color: var(--ink); white-space: nowrap; }
   table.sum td.co-term { white-space: nowrap; color: var(--ink); font-weight: 500; }
@@ -229,11 +229,11 @@
 
   .block {
     display: grid; grid-template-columns: 48px 1fr; gap: 0 11px;
-    margin-top: 6px; break-inside: avoid;
+    margin-top: 6px; break-inside: avoid; align-items: baseline;
   }
   .block > .label {
     font-size: 8.4pt; font-weight: 700; letter-spacing: .04em;
-    color: var(--ink-3); padding-top: .22em;
+    color: var(--ink-3);
   }
   .block p { margin: 0; color: var(--ink-2); }
 
@@ -362,9 +362,8 @@
       <li>
         <h3>브라우저 밖 런타임과의 통신 경계 — 웹뷰 · 로컬 에이전트 · 현장 기기</h3>
         <ul class="lines">
-          <li>입주민 앱은 모바일 웹뷰 — 카메라·PDF 뷰어·전자서명·다크 테마를 <b>네이티브 브릿지</b>로 연동하고, 상용 환경에서만 가능하던 스마트홈 연동을 환경 간 인증 방식 일원화로 전 환경에서 가능하도록 전환</li>
-          <li>브라우저가 직접 접근할 수 없는 카드리더·영수증 프린터·안면인식기를, 매장 PC에 상주하는 윈도우 에이전트가 <code>localhost:5000</code> <b>로컬 루프백 HTTP로 노출</b>하는 구조 — 양 팀이 각자 수기 문서로 들고 있던 이 경계의 규격을 OpenAPI 스펙으로 단일화해 <b>불일치를 컴파일 단계에서 검출</b></li>
-          <li>관리자 앱의 네이티브 번호판 인식(ANPR) 결과를 운영툴 웹뷰와 연동 — 하나의 인식 이벤트가 네이티브·웹뷰·앱 세 지점에 걸치는 흐름을 정합</li>
+          <li>카메라·PDF 뷰어·전자서명·다크 테마 등 네이티브 기능을 <b>웹뷰 브릿지로 연동</b>. 상용 환경에서만 가능하던 스마트홈 연동은 <b>환경 간 인증 방식 일원화</b>로 전 환경에 개방</li>
+          <li>브라우저가 직접 접근할 수 없는 카드리더·영수증 프린터·안면인식기는 매장 PC의 윈도우 에이전트를 거칩니다 — 양 팀이 수기 문서로 나눠 들고 있던 이 경계의 규격을 <b>OpenAPI 스펙으로 단일화해 불일치를 컴파일 단계에서 검출</b></li>
           <li>코인세탁기·세대 호출 엘리베이터 등 현장 기기 제어와 Electron 데스크톱 앱(bastion 경유 SSH 터널·RDP 실행)까지 담당</li>
         </ul>
       </li>
@@ -452,8 +451,6 @@
             <b>결함 해결 리드타임 중앙값 26.4시간 → 2.3시간</b>, 결함 유입 <b>월 39건 → 16건</b>으로 줄였습니다.</li>
           <li>self-hosted 러너에 직렬로 물려 있던 PR 검증 체인을 병렬로 분기하고 정적 분석 워크플로를 흡수해,
             <b>검증 워크플로 완료 시간 중앙값 8.1분 → 2.8분</b>(상위 10% 구간 21.1분 → 4.0분)으로 단축했습니다.</li>
-          <li>주력 제품인 입주민 앱의 본인 PR 생성 → 머지 리드타임 중앙값이
-            <b>2024년 18.8시간에서 2026년 4.7시간</b>으로 줄었습니다.</li>
           <li>배포 자격증명을 개인 액세스 토큰에서 <b>조직 GitHub App 설치 토큰 체계</b>로 9개 저장소에 일괄 적용해, 담당자 이탈과 무관하게 만들었습니다.</li>
           <li>앱·웹뷰·POS·네이티브·현장 기기에 동시에 걸친 도메인에서 <b>상태 머신과 연동 규격을 맞추고 배포 순서를 통제</b>했습니다.</li>
         </ul>
