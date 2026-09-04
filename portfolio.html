@@ -223,7 +223,10 @@
     padding: 17px 0; border-bottom: 1px solid var(--rule-2);
     display: grid; gap: 7px 26px;
   }
-  @media (min-width: 780px) { .cat > div { grid-template-columns: 206px minmax(0,1fr); } }
+  @media (min-width: 780px) {
+    .cat > div { grid-template-columns: 206px minmax(0,1fr); }
+    .cat > div > p + p { grid-column: 2; }
+  }
   .cat > div:last-child { border-bottom: 0; }
   .cat h3 { margin: 0; font-size: 14px; font-weight: 600; letter-spacing: -.012em; line-height: 1.5; }
   .cat h3 em {
@@ -562,7 +565,7 @@
       CI/CD와 머지 전 코드 리뷰 프로세스를 함께 세웠습니다.
     </p>
     <div class="whois">
-      <span><b>7년차</b> · 프론트엔드</span>
+      <span><b>8년차</b> · 프론트엔드</span>
       <span>현 <b>HT Beyond</b> · 2024.01~</span>
       <span>신규 제품 <b>2건</b> 단독 구축</span>
       <span>동료 PR <b>1,501건</b> 리뷰</span>
@@ -792,7 +795,7 @@
       <article class="case">
         <header>
           <h3>장애를 고객 문의가 아니라 알림으로 알게 만들기</h3>
-          <p>운영 중 나는 프론트엔드 오류를 CS 접수로만 인지할 수 있었습니다. 어느 단지, 어느 사용자에게서 났는지 추적이 불가능했습니다.</p>
+          <p>운영 중 발생한 프론트엔드 오류는 CS 접수로만 인지할 수 있었습니다. 어느 단지, 어느 사용자에게서 발생했는지 추적할 수단이 없었습니다.</p>
         </header>
         <ul class="techs" aria-label="사용 기술">
           <li>Sentry</li><li>에러 바운더리</li><li>핑거프린트</li><li>샘플 레이트</li>
@@ -803,7 +806,7 @@
             <ul>
               <li>사용자가 문의해야 장애를 앎</li>
               <li>재현 조건을 사용자에게 되물음</li>
-              <li>어느 단지에서 나는 문제인지 모름</li>
+              <li>어느 단지에서 발생한 문제인지 모름</li>
             </ul>
           </div>
           <div class="after">
@@ -907,7 +910,7 @@
       <div>
         <dt>동료 PR 리뷰</dt>
         <dd>1,501<small>건</small></dd>
-        <p>본인이 올린 PR 629건의 약 2.4배 — 내 코드를 올린 것보다 남의 코드를 읽은 쪽이 많습니다.</p>
+        <p>제가 올린 PR 629건의 약 2.4배 — 제 코드를 올린 것보다 남의 코드를 읽은 쪽이 많습니다.</p>
       </div>
     </dl>
 
@@ -953,7 +956,7 @@
       </div>
       <div>
         <h3>매장 POS · 주문 키오스크<em>2025.01 – 2026.07</em></h3>
-        <p>픽업오더 <b>주문 상태 머신을 앱·POS 양쪽에서 정합하게</b> 맞춤(접수·거부·자동거부·부분취소) · 영수증 출력 로직(주방용·고객용)과 출력 누락·순서 밀림 해결 · 주변기기(카드리더·안면인식기) 포트 예외 처리 · 결제 카운트다운·장바구니 로직 · 신규 주문 알림음, 새로고침 시 알림 중복 방지</p>
+        <p><b>윈도우 에이전트 연동 규격을 OpenAPI 스펙으로 단일화</b> — 에이전트 팀과 프론트엔드가 각자 들고 있던 수기 API 문서를 스펙 한 벌로 모으고 <code>openapi-typescript</code>로 타입·클라이언트 생성, 규격 불일치를 컴파일 단계에서 검출 · 픽업오더 <b>주문 상태 머신을 앱·POS 양쪽에서 정합하게</b> 맞춤(접수·거부·자동거부·부분취소) · 영수증 출력 로직(주방용·고객용)과 출력 누락·순서 밀림 해결 · 주변기기(카드리더·안면인식기) 포트 예외 처리 · 결제 카운트다운·장바구니 로직 · 신규 주문 알림음, 새로고침 시 알림 중복 방지</p>
       </div>
       <div>
         <h3>단지 시설 기기 연동<em>2025.10 – 2026.08 · 앱·키오스크·운영툴</em></h3>
@@ -1097,7 +1100,7 @@
     <dl class="cv">
 
       <div>
-        <dt>2024.01 – 재직 중<em>2년 7개월 · 정규직</em></dt>
+        <dt>2024.01 – 재직 중<em>2년 8개월 · 정규직</em></dt>
         <dd>
           <p class="org">주식회사 에이치티비욘드<small>프론트엔드 웹팀</small></p>
           <div class="proj">
