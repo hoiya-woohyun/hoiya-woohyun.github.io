@@ -280,7 +280,7 @@
 
   <header class="head">
     <h1>배우현</h1>
-    <p class="tagline">문서가 스스로 갱신되는 코드베이스를 만든 7년차 프론트엔드 개발자</p>
+    <p class="tagline">문서가 스스로 갱신되는 코드베이스를 만든 8년차 프론트엔드 개발자</p>
 
     <div class="contact">
       <span><b>생년</b>1991년생</span>
@@ -294,7 +294,7 @@
       <dt>학력</dt>
       <dd>가천대학교 글로벌캠퍼스 (4년제) 졸업</dd>
       <dt>총 경력</dt>
-      <dd>7년 5개월 · (주)에이치티비욘드 재직 중</dd>
+      <dd>7년 6개월 · (주)에이치티비욘드 재직 중</dd>
       <dt>병역</dt>
       <dd>육군 만기전역 (2012.10.14 ~ 2014.07.13)</dd>
     </dl>
@@ -378,7 +378,7 @@
       <tbody>
         <tr>
           <td class="co-name">(주)에이치티비욘드</td>
-          <td class="co-term">2024.01 ~ 재직 중<small>2년 7개월</small></td>
+          <td class="co-term">2024.01 ~ 재직 중<small>2년 8개월</small></td>
           <td class="co-role">프론트엔드 개발</td>
           <td>바이비 입주민 앱·사내 운영 콘솔·관리자 운영툴·사이니지 CMS·매장 POS 등 6개 제품 병행 담당. 타입 파이프라인·CI 게이트·관측성 등 프론트엔드 플랫폼 구축</td>
         </tr>
@@ -675,12 +675,13 @@
 
       <div class="block">
         <div class="label">역할</div>
-        <p>프론트엔드 개발 — 앱·키오스크·운영툴 3개 클라이언트 담당, 데스크톱 앱은 기획부터 릴리즈까지 단독 수행</p>
+        <p>프론트엔드 개발 — 매장 POS·주문 키오스크 웹 개발 담당<br>현장 지원 데스크톱 앱은 기획부터 릴리즈까지 단독 수행</p>
       </div>
 
       <div class="block">
         <div class="label">성과</div>
         <ul class="lines">
+          <li>양 팀이 따로 관리하던 <b>윈도우 에이전트 연동 규격을 OpenAPI 스펙으로 단일화</b> — 규격 불일치로 반복되던 연동 오류 해소</li>
           <li>단일 주문 도메인이 3개 클라이언트에 걸친 구조에서 <b>앱·POS 간 주문 상태 불일치와 영수증 출력 누락·순서 밀림 해소</b></li>
           <li>단지 오픈 시 수작업으로 개별 설정하던 세대 호출 엘리베이터 연동을 제조사 API 자동 연결 흐름으로 전환</li>
           <li>현장 지원 데스크톱 앱을 <b>단독 개발해 사내 업무에 투입</b> (v1.3.0 릴리즈)</li>
@@ -690,6 +691,10 @@
       <div class="block">
         <div class="label">기여</div>
         <ol class="contrib">
+          <li>
+            <h5>윈도우 에이전트 연동 규격 정비</h5>
+            <p>POS·키오스크가 매장 PC에 설치된 에이전트와 <code>localhost:5000</code>으로 통신해 주변기기 포트·상태 정보를 받는 구조<br>에이전트 팀과 프론트엔드가 각각 관리하던 수기 API 문서를 OpenAPI 스펙으로 단일화<br>openapi-typescript로 타입·클라이언트를 생성해 규격 불일치를 컴파일 단계에서 검출</p>
+          </li>
           <li>
             <h5>픽업 주문 상태 머신 정합</h5>
             <p>접수·거부·자동거부·부분취소 상태를 앱·POS 양측에서 정합<br>주방용·고객용 영수증 출력 로직 구현 및 출력 누락·순서 밀림 해소<br>카드리더·안면인식기 등 주변기기 포트 예외 처리</p>
@@ -711,7 +716,7 @@
 
       <div class="block">
         <div class="label">스택</div>
-        <p class="stack">React · TypeScript · Electron · TanStack Router · Tailwind CSS</p>
+        <p class="stack">React · TypeScript · Electron · TanStack Router · Tailwind CSS · openapi-typescript</p>
       </div>
     </div>
 
