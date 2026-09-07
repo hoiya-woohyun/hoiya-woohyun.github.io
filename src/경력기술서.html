@@ -395,7 +395,7 @@
       <div class="block">
         <div class="label">성과</div>
         <ul class="lines">
-          <li class="metric-li">ADR <b class="metric">34건 중 31건</b>, 에이전트 규칙 <b class="metric">21건 중 18건</b>, LLM Wiki 문서 <b class="metric">35건 중 11건</b>을 최초 작성. 버그 분석 97건 중 58건을 직접 쓰고 나머지를 팀원 4명이 같은 규격으로 이어 씀
+          <li class="metric-li">ADR <b class="metric">34건 중 31건</b>, 에이전트 규칙 <b class="metric">21건 중 18건</b>, LLM Wiki 문서 <b class="metric">35건 중 11건</b>을 최초 작성. 버그 분석 규격을 <b>팀 표준으로 정착</b> — 97건 중 58건 직접 작성
             <span class="src">(로컬 클론 git 이력 대조 · 파일 추가 최초 커밋의 저자 기준)</span></li>
           <li>서버가 스키마 명을 바꿔도 프론트엔드 타입이 깨지지 않는 구조 확보 — <b>서버 스펙 변경을 런타임 장애가 아니라 컴파일 에러로</b> 검출</li>
           <li>도메인 지식을 "물어봐야 아는 것"에서 <b>"AI에게 물으면 근거와 함께 답이 나오는 것"</b>으로 전환 — 문서 갱신을 사람의 성실성이 아니라 파이프라인의 기능으로 이관</li>
@@ -490,8 +490,8 @@
       <div class="block">
         <div class="label">성과</div>
         <ul class="lines">
-          <li>신규 제품을 <b>0에서 운영 투입까지 프론트엔드 단독으로 완성</b> — 광고 운영 전 과정을 단일 콘솔로 통합</li>
-          <li class="metric-li">운영 투입 후 4개월간 결함 87건 단독 처리 — <b class="metric">결함 해결 리드타임 중앙값 26.4시간 → 2.3시간</b>, 결함 유입 <b class="metric">월 39건 → 16건</b>
+          <li>흩어져 있던 <b>광고 운영·기기 관리·정산을 단일 콘솔로 통합</b> — 0에서 운영 투입까지</li>
+          <li class="metric-li">운영 투입 후 4개월간 결함 87건 단독 처리 — <b class="metric">결함 해결 리드타임 중앙값 26.4시간 → 2.3시간(91% 단축)</b>, 결함 유입 <b class="metric">월 39건 → 16건(59% 감소)</b>
             <span class="src">(2025.05 ~ 08 · 해당 기간 이 제품 결함 102건 중 99건이 본인 담당 · 종료 단계인 2025.09 이후는 잔여 과제 위주라 이 구간과 분리)</span></li>
         </ul>
       </div>
@@ -585,7 +585,7 @@
         <div class="label">성과</div>
         <ul class="lines">
           <li>로그 조회 전용 작업을 접속 세션에서 분리 — <b>동시 접속 상한을 소모하지 않도록</b> 재설계</li>
-          <li>저장소 전체 커밋 23건 단독 작성, 약 2주 만에 <b>v1.3.0 릴리즈 — 사내 현장 지원 업무에 사용 중</b></li>
+          <li>기획부터 릴리즈까지 <b>약 2주 만에 사내 현장 지원 업무에 투입</b> — v1.3.0</li>
         </ul>
       </div>
     </div>
@@ -609,7 +609,7 @@
       <div class="block">
         <div class="label">성과</div>
         <ul class="lines">
-          <li>웹 외 런타임(React Native)으로 담당 범위 확장 — <b>스토어 심사·배포까지 직접 수행</b></li>
+          <li>전면 리뉴얼한 앱을 <b>Google Play 16KB 페이지 크기 요구에 맞춰 스토어 배포까지 완료</b></li>
         </ul>
       </div>
     </div>
@@ -637,7 +637,7 @@
       <div class="block">
         <div class="label">성과</div>
         <ul class="lines">
-          <li class="metric-li">같은 장비 기준 <b class="metric">빌드 262초 → 13초</b>, <b class="metric">의존성 설치 230초 → 4초</b> <span class="src">(전환 PR에 남긴 실측값 · CRA→Vite 와 npm→pnpm 동시 전환)</span></li>
+          <li class="metric-li">같은 장비 기준 <b class="metric">빌드 262초 → 13초(95% 단축)</b>, <b class="metric">의존성 설치 230초 → 4초(98% 단축)</b> <span class="src">(전환 PR에 남긴 실측값 · CRA→Vite 와 npm→pnpm 동시 전환)</span></li>
           <li>새 화면을 추가하면 <b>라우트 등록과 권한 가드가 자동으로 따라오는</b> 구조를 확보</li>
         </ul>
       </div>
@@ -664,7 +664,7 @@
       <div class="block">
         <div class="label">성과</div>
         <ul class="lines">
-          <li class="metric-li">PR 검증 워크플로 완료 시간 중앙값 <b class="metric">8.1분 → 2.8분</b>, 상위 10% 구간 <b class="metric">21.1분 → 4.0분</b>
+          <li class="metric-li">PR 검증 워크플로 완료 시간 중앙값 <b class="metric">8.1분 → 2.8분(66% 단축)</b>, 상위 10% 구간 <b class="metric">21.1분 → 4.0분(81% 단축)</b>
             <span class="src">(입주민 앱 · 성공 실행 215건 → 229건 · 2026.07까지 유지)</span></li>
           <li>정적 분석을 흡수해 <b>잡이 3~4개에서 5개로 늘었는데도</b> 완료 시간 단축 — 작업을 다른 곳으로 옮긴 결과가 아님</li>
         </ul>
@@ -857,9 +857,9 @@
         <p>특허·실용신안으로 등록되지 않는 아이디어를 기록·거래 가능한 자산으로 다루는 플랫폼. 기획·디자인·개발을 함께 담당</p>
       </div>
       <div class="block">
-        <div class="label">성과</div>
+        <div class="label">수행</div>
         <ul class="lines">
-          <li>제품 정의부터 화면 구현까지 <b>한 사람이 전 공정을 수행</b>한 첫 경험</li>
+          <li>랜딩·프로덕트 소개 페이지(AngularJS)와 <b>Django 기반 결제 서비스</b> 개발, 웹 디자인(Figma)까지 담당</li>
         </ul>
       </div>
     </div>
@@ -879,22 +879,22 @@
       <tbody>
         <tr>
           <th scope="row">사이니지 CMS 결함 해결 리드타임</th>
-          <td>26.4시간 → 2.3시간</td>
+          <td>26.4시간 → 2.3시간(91% 단축)</td>
           <td>Jira 이슈 생성 → 해결. 2025.05 / 2025.08 월별 중앙값. 해당 기간 이 제품 결함 102건 중 99건이 본인 담당</td>
         </tr>
         <tr>
           <th scope="row">사이니지 CMS 결함 유입</th>
-          <td>월 39건 → 16건</td>
+          <td>월 39건 → 16건(59% 감소)</td>
           <td>같은 구간. 오픈 첫 달 39건에는 출시 직후 집중 검수분이 포함</td>
         </tr>
         <tr>
           <th scope="row">PR 검증 워크플로 소요</th>
-          <td>8.1분 → 2.8분 <small>(p90 21.1 → 4.0분)</small></td>
+          <td>8.1분 → 2.8분(66% 단축) <small>(p90 21.1 → 4.0분)</small></td>
           <td>입주민 앱 <code>pre_build</code>. 성공 실행 215건(2025.10~12.14) / 229건(2025.12.15~2026.02) 중앙값</td>
         </tr>
         <tr>
           <th scope="row">빌드 · 의존성 설치</th>
-          <td>262초 → 13초<br>230초 → 4초</td>
+          <td>262초 → 13초(95% 단축)<br>230초 → 4초(98% 단축)</td>
           <td>같은 장비 기준. 전환 PR에 남긴 실측값. CRA→Vite 와 npm→pnpm 동시 전환</td>
         </tr>
         <tr>
