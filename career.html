@@ -292,6 +292,12 @@
     font-variant-numeric: tabular-nums; white-space: nowrap;
   }
   li.metric-li { color: var(--ink); }
+  /* 하위 지표 — 주장과 근거를 한 줄에 뭉치면 어디서 끊어 읽을지 알 수 없다 */
+  ul.lines li ul.ev { margin: 3px 0 1px; padding: 0; list-style: none; }
+  ul.lines li ul.ev > li { position: relative; padding-left: 13px; color: var(--ink); }
+  ul.lines li ul.ev > li::before {
+    content: "\203A"; position: absolute; left: 2px; color: var(--accent); font-weight: 700;
+  }
   .src {
     display: block; margin-top: 1px;
     font-size: 8.6pt; line-height: 1.5; color: var(--ink-3);
@@ -620,7 +626,11 @@
         <div class="label">성과</div>
         <ul class="lines">
           <li>흩어져 있던 <b>광고 운영·기기 관리·정산을 단일 콘솔로 통합</b> — 0에서 운영 투입까지</li>
-          <li class="metric-li">운영 투입 후 4개월간 결함 87건 단독 처리 — <b class="metric">결함 해결 리드타임 중앙값 26.4시간 → 2.3시간(91% 단축)</b>, 결함 유입 <b class="metric">월 39건 → 16건(59% 감소)</b>
+          <li class="metric-li">운영 투입 후 4개월간 결함 87건 단독 처리
+            <ul class="ev">
+              <li>결함 해결 리드타임 중앙값 <b class="metric">26.4시간 → 2.3시간 (91% 단축)</b></li>
+              <li>결함 유입 <b class="metric">월 39건 → 16건 (59% 감소)</b></li>
+            </ul>
             <span class="src">(2025.05 ~ 08 · 해당 기간 이 제품 결함 102건 중 99건이 본인 담당 · 종료 단계인 2025.09 이후는 잔여 과제 위주라 이 구간과 분리)</span></li>
         </ul>
       </div>
@@ -766,7 +776,12 @@
       <div class="block">
         <div class="label">성과</div>
         <ul class="lines">
-          <li class="metric-li">같은 장비 기준 <b class="metric">빌드 262초 → 13초(95% 단축)</b>, <b class="metric">의존성 설치 230초 → 4초(98% 단축)</b> <span class="src">(전환 PR에 남긴 실측값 · CRA→Vite 와 npm→pnpm 동시 전환)</span></li>
+          <li class="metric-li">CRA→Vite 와 npm→pnpm 을 함께 전환한 뒤 같은 장비에서 측정
+            <ul class="ev">
+              <li>빌드 <b class="metric">262초 → 13초 (95% 단축)</b></li>
+              <li>의존성 설치 <b class="metric">230초 → 4초 (98% 단축)</b></li>
+            </ul>
+            <span class="src">(전환 PR에 남긴 실측값)</span></li>
           <li>새 화면을 추가하면 <b>라우트 등록과 권한 가드가 자동으로 따라오는</b> 구조를 확보</li>
         </ul>
       </div>
@@ -793,7 +808,11 @@
       <div class="block">
         <div class="label">성과</div>
         <ul class="lines">
-          <li class="metric-li">PR 검증 워크플로 완료 시간 중앙값 <b class="metric">8.1분 → 2.8분(66% 단축)</b>, 상위 10% 구간 <b class="metric">21.1분 → 4.0분(81% 단축)</b>
+          <li class="metric-li">PR 검증 워크플로 완료 시간 단축
+            <ul class="ev">
+              <li>중앙값 <b class="metric">8.1분 → 2.8분 (66% 단축)</b></li>
+              <li>상위 10% 구간 <b class="metric">21.1분 → 4.0분 (81% 단축)</b></li>
+            </ul>
             <span class="src">(입주민 앱 · 성공 실행 215건 → 229건 · 2026.07까지 유지)</span></li>
           <li>정적 분석을 흡수해 <b>잡이 3~4개에서 5개로 늘었는데도</b> 완료 시간 단축 — 작업을 다른 곳으로 옮긴 결과가 아님</li>
         </ul>

@@ -259,6 +259,12 @@
   /* 항목 라벨 — 한 줄에 정보가 둘 이상이면 라벨 없이는 스캔이 안 된다 */
   ul.lines li b.k { color: var(--accent); font-weight: 700; }
   ul.lines li b.k::after { content: "·"; color: var(--rule); font-weight: 400; margin: 0 5px 0 6px; }
+  /* 하위 지표 — 주장과 근거를 한 줄에 뭉치면 어디서 끊어 읽을지 알 수 없다 */
+  ul.lines li ul.ev { margin: 3px 0 1px; padding: 0; list-style: none; }
+  ul.lines li ul.ev > li { position: relative; padding-left: 13px; color: var(--ink-3); }
+  ul.lines li ul.ev > li::before {
+    content: "\203A"; position: absolute; left: 2px; color: var(--accent); font-weight: 700;
+  }
 
   .stack { color: var(--ink-2); font-size: 9.2pt; line-height: 1.5; }
 
@@ -469,7 +475,12 @@
       <li>
         <h3>개발 품질 검증 자동화 프로세스 확립</h3>
         <ul class="lines">
-          <li><b class="k">타입 생성</b>OpenAPI 스펙에서 타입·클라이언트·쿼리 훅 생성, 4개 제품 — <b>수기 선언 100% 제거</b>, API 1건당 수기 코드 <b>평균 35줄 → 4줄(88% 감소)</b></li>
+          <li><b class="k">타입 생성</b>OpenAPI 스펙에서 타입·클라이언트·쿼리 훅 생성 — 4개 제품
+            <ul class="ev">
+              <li>응답 타입 수기 선언 <b>100% 제거</b></li>
+              <li>API 1건당 수기 작성 코드 <b>평균 35줄 → 4줄 (88% 감소)</b></li>
+            </ul>
+          </li>
           <li><b class="k">미사용 코드</b>이 PR로 새로 죽은 파일을 CI가 검출해 원인이 된 줄에 리뷰 코멘트 자동 게시(Knip) — DeadCode 발생률 <b>11.54% → 1% 미만</b></li>
         </ul>
       </li>
@@ -477,7 +488,12 @@
         <h3>AI 기반 개발 환경 구성</h3>
         <ul class="lines">
           <li><b class="k">참조 범위</b>에이전트가 저장소 전체를 훑어야 알던 도메인 정책을 <code>docs/</code> 다섯 축과 인덱스로 특정 — 참조 대상 <b>3,820개 → 159개(96% 축소)</b></li>
-          <li><b class="k">규격 작성</b>저장소별 에이전트 규칙 <b>21건 중 18건</b>, ADR <b>34건 중 31건</b> 최초 작성</li>
+          <li><b class="k">규격 작성</b>에이전트 규칙과 아키텍처 결정 기록을 직접 씀
+            <ul class="ev">
+              <li>저장소별 에이전트 규칙 <b>21건 중 18건</b> 최초 작성</li>
+              <li>아키텍처 결정 기록(ADR) <b>34건 중 31건</b> 최초 작성</li>
+            </ul>
+          </li>
           <li><b class="k">갱신 자동화</b>암묵지를 LLM이 출처를 짚어 인용하는 위키로 구조화 — 드리프트 감지 시 재생성 PR 자동 생성·담당자 지정</li>
           <li><b class="k">권한 분리</b>AI 접근 권한 세분화, 민감 정보를 저장소에서 CD 파이프라인으로 이관</li>
           <li><b class="k">개인 환경</b><b>사내와 별개로</b> PreToolUse 훅 기반 셀프 코드리뷰 게이트를 만들어, 브랜치 최초 push 전 리뷰 통과를 강제</li>
@@ -486,7 +502,12 @@
       <li>
         <h3>빌드·공용 설정 체계와 관측성</h3>
         <ul class="lines">
-          <li><b class="k">번들러 전환</b>CRA → Vite, npm → pnpm 3개 제품 동시 — 같은 장비 기준 <b>빌드 262초 → 13초(95% 단축)</b>, 의존성 설치 230초 → 4초(98% 단축)</li>
+          <li><b class="k">번들러 전환</b>CRA → Vite, npm → pnpm 3개 제품 동시 전환
+            <ul class="ev">
+              <li>빌드 <b>262초 → 13초 (95% 단축)</b> · 같은 장비 기준</li>
+              <li>의존성 설치 <b>230초 → 4초 (98% 단축)</b></li>
+            </ul>
+          </li>
           <li><b class="k">공용 설정</b>번들러·린트·타입 설정을 공용 config 패키지로 분리해 단일 소스화</li>
           <li><b class="k">관측성</b>에러 바운더리에서 리포팅 로직을 분리하고 단지·사용자 태깅 — <b>장애 인지 경로를 고객 문의 접수에서 모니터링 알림으로</b> 전환</li>
         </ul>
@@ -571,10 +592,18 @@
         <div class="label">성과</div>
         <ul class="lines">
           <li>6개 제품 병행 담당. <b>디지털 사이니지 CMS와 현장 지원 데스크톱 앱은 초기 구축부터 운영 투입까지 단독 수행</b></li>
-          <li>단독 담당 사이니지 CMS 운영 투입 후 4개월간 결함 87건 처리 —
-            <b>결함 해결 리드타임 중앙값 26.4시간 → 2.3시간(91% 단축)</b>, 결함 유입 <b>월 39건 → 16건(59% 감소)</b></li>
-          <li>self-hosted 러너의 직렬 PR 검증 체인 병렬 분기 및 정적 분석 워크플로 흡수 —
-            <b>검증 완료 시간 중앙값 8.1분 → 2.8분(66% 단축)</b>(상위 10% 구간 21.1분 → 4.0분(81% 단축))</li>
+          <li>단독 담당 사이니지 CMS 운영 투입 후 4개월간 결함 87건 처리
+            <ul class="ev">
+              <li>결함 해결 리드타임 중앙값 <b>26.4시간 → 2.3시간 (91% 단축)</b></li>
+              <li>결함 유입 <b>월 39건 → 16건 (59% 감소)</b></li>
+            </ul>
+          </li>
+          <li>self-hosted 러너의 직렬 PR 검증 체인 병렬 분기 및 정적 분석 워크플로 흡수
+            <ul class="ev">
+              <li>검증 완료 시간 중앙값 <b>8.1분 → 2.8분 (66% 단축)</b></li>
+              <li>상위 10% 구간 <b>21.1분 → 4.0분 (81% 단축)</b></li>
+            </ul>
+          </li>
           <li>배포 자격증명을 개인 액세스 토큰에서 <b>조직 GitHub App 설치 토큰 체계</b>로 9개 저장소 일괄 전환 — 담당자 이탈과 무관한 배포 체계 확보</li>
         </ul>
       </div>
