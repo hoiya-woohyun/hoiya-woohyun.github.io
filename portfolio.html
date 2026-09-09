@@ -121,6 +121,26 @@
   }
   .shead p b { color: var(--ink); font-weight: 600; }
 
+  /* ── 나열 ────────────────────────────────────── */
+  /* 대시 뒤에 매달리던 나열을 받는다. pts = 서술형, chips = 짧은 명사형 */
+  ul.pts { margin: 9px 0 0; padding: 0; list-style: none; display: grid; gap: 7px; }
+  ul.pts > li {
+    font-size: 13.5px; color: var(--ink-2); line-height: 1.68;
+    padding-left: 14px; position: relative; max-width: 42em;
+  }
+  ul.pts > li::before {
+    content: ""; position: absolute; left: 0; top: .68em;
+    width: 5px; height: 1px; background: var(--ink-3);
+  }
+  ul.pts > li :is(strong, b) { color: var(--ink); font-weight: 600; }
+  ul.chips { margin: 13px 0 0; padding: 0; list-style: none; display: flex; flex-wrap: wrap; gap: 8px; }
+  ul.chips > li {
+    font-family: var(--f-mono); font-size: 12px; color: var(--ink-2);
+    background: var(--surface); border: 1px solid var(--rule); padding: 5px 11px;
+  }
+  /* 칩이 앞 문단에 속한 나열이므로 뒤 문단과의 간격을 더 벌린다 */
+  .hero > .wrap > ul.chips + p { margin-top: 24px; }
+
   /* ── 능력 ────────────────────────────────────── */
   .abil { display: grid; gap: 24px; }
   .abil > li { list-style: none; display: grid; gap: 8px; }
@@ -133,6 +153,7 @@
     width: 18px; height: 2px; background: var(--accent); margin-right: 11px;
   }
   .abil p { margin: 0 0 0 29px; max-width: 40em; font-size: 14px; color: var(--ink-2); text-wrap: pretty; }
+  .abil ul.pts { margin-left: 29px; }
 
   /* ── 사례 ────────────────────────────────────── */
   .cases { display: grid; gap: 44px; }
@@ -613,8 +634,14 @@
     <h1>사람이 기억하던 규칙을 <span>도구가 검증하게</span> 만듭니다.</h1>
     <p>
       규칙을 문서로만 적어두면 아는 사람만 지키게 됩니다. 그래서 규칙은
-      <strong>지키지 않았을 때 바로 드러나는 곳</strong>에 둡니다 — 타입 시스템, PR 리뷰 코멘트, 자동 PR, push 훅.
+      <strong>지키지 않았을 때 바로 드러나는 곳</strong>에 둡니다.
     </p>
+    <ul class="chips">
+      <li>타입 시스템</li>
+      <li>PR 리뷰 코멘트</li>
+      <li>자동 PR</li>
+      <li>push 훅</li>
+    </ul>
     <p>
       React·TypeScript로 아파트 커뮤니티 플랫폼의 프론트엔드를 담당하고 있습니다.
       입주민 앱부터 매장 POS·사이니지 CMS까지 6개 제품을 병행하면서,
@@ -644,7 +671,12 @@
     <ul class="abil">
       <li>
         <h3>반복되는 판단을 사람이 아니라 도구가 하게 만듭니다</h3>
-        <p>6개 제품을 병행하면 같은 판단을 제품마다 다시 하게 됩니다. 그 판단을 먼저 찾아 생성·검증·갱신하는 장치로 옮깁니다 — 타입은 스키마에서 생성해 손으로 다시 쓰지 않고, 이 PR로 새로 죽은 파일은 원인이 된 줄에 코멘트가 달립니다. <strong>막을 수 없는 것은 규격으로 남깁니다</strong> — 결정·명세·버그 분석을 <code>docs/</code> 다섯 축에 같은 형식으로 쌓고, 어떤 코드를 고치면 어떤 문서를 갱신할지 파일별·행위별 트리거 표로 규정해 에이전트 규칙에 넣었습니다. 버그 분석 규격은 팀 표준으로 정착했습니다 — 97건 중 58건을 썼습니다.</p>
+        <p>6개 제품을 병행하면 같은 판단을 제품마다 다시 하게 됩니다. 그 판단을 먼저 찾아 <strong>생성·검증·갱신하는 장치로 옮깁니다.</strong></p>
+        <ul class="pts">
+          <li>타입은 스키마에서 생성해 손으로 다시 쓰지 않습니다</li>
+          <li>이 PR로 새로 죽은 파일은 원인이 된 줄에 코멘트가 달립니다</li>
+          <li><strong>막을 수 없는 것은 규격으로 남깁니다.</strong> 결정·명세·버그 분석을 <code>docs/</code> 다섯 축에 같은 형식으로 쌓고, 어떤 코드를 고치면 어떤 문서를 갱신할지 파일별·행위별 트리거 표로 규정해 에이전트 규칙에 넣었습니다. 버그 분석 규격은 팀 표준으로 정착해 97건 중 58건을 썼습니다</li>
+        </ul>
       </li>
       <li>
         <h3>기능 하나를 끝내기보다, 다음 기능이 효율적으로 만들어지는 구조를 남깁니다</h3>
@@ -697,11 +729,20 @@
         </div>
         <div class="built">
           <h4>해결</h4>
-          <p>Knip 정적 분석을 도입하고, 그 결과를 PR 리뷰 코멘트로 바꾸는 가드를 붙였습니다. 운영에서 걸린 것들을 이어서 잡았습니다 — <strong>머지 예정 트리 기준으로 분석해 오탐 보정</strong>, 확장자 포함 상대 경로 미탐지 수정, 리뷰 배치 API 오류 대응, 무관 파일 경고를 코멘트 표로 통합.</p>
+          <p>Knip 정적 분석을 도입하고, 그 결과를 PR 리뷰 코멘트로 바꾸는 가드를 붙였습니다. 운영에서 걸린 것들을 이어서 잡았습니다.</p>
+          <ul class="pts">
+            <li><strong>머지 예정 트리 기준으로 분석</strong>해 오탐 보정</li>
+            <li>확장자 포함 상대 경로 미탐지 수정</li>
+            <li>리뷰 배치 API 오류 대응</li>
+            <li>무관 파일 경고를 코멘트 표로 통합</li>
+          </ul>
         </div>
         <div class="built">
           <h4>성과</h4>
-          <p>미사용 파일 검출을 리뷰어의 눈에서 CI로 이관 — <strong>DeadCode 발생률 11.54% → 1% 미만</strong>. 놓친 죽은 코드가 축적되던 경로 차단.</p>
+          <p>미사용 파일 검출을 리뷰어의 눈에서 CI로 이관. 놓친 죽은 코드가 축적되던 경로를 차단했습니다.</p>
+          <ul class="pts">
+            <li><strong>DeadCode 발생률 11.54% → 1% 미만</strong></li>
+          </ul>
         </div>
         <div class="trace">
           <b>확인 가능한 흔적</b>
@@ -787,7 +828,13 @@
         </div>
         <div class="built">
           <h4>해결</h4>
-          <p>내부 운영 콘솔 저장소에 <strong>도메인 · 엔티티 · 기능 · 용어사전 · 플레이북 · 결정기록</strong>으로 구성된 위키 체계를 설계·정착시켰습니다. 드리프트 <em>감지</em> 엔진은 백엔드 유닛이 만들었고, 제가 담당한 구간은 <strong>감지된 드리프트를 받아 재생성 PR을 열고 담당자를 지정해 리뷰를 요청</strong>하는 흐름과 그 운영 품질입니다 — 리뷰 체크리스트에서 코드 대조 항목을 걷어내고 서술 해석을 묻도록 개정, 에이전트 실패 시 원인 진단 스텝 추가, 야간 배치 알림 카드를 일상어·커밋·담당자 정보 포함으로 개편, dispatch 방식 교체.</p>
+          <p>내부 운영 콘솔 저장소에 <strong>도메인 · 엔티티 · 기능 · 용어사전 · 플레이북 · 결정기록</strong>으로 구성된 위키 체계를 설계·정착시켰습니다. 드리프트 <em>감지</em> 엔진은 백엔드 유닛이 만들었고, 제가 담당한 구간은 <strong>감지된 드리프트를 받아 재생성 PR을 열고 담당자를 지정해 리뷰를 요청</strong>하는 흐름과 그 운영 품질입니다.</p>
+          <ul class="pts">
+            <li>리뷰 체크리스트에서 <strong>코드 대조 항목을 걷어내고 서술 해석을 묻도록</strong> 개정</li>
+            <li>에이전트 실패 시 원인 진단 스텝 추가</li>
+            <li>야간 배치 알림 카드를 일상어·커밋·담당자 정보 포함으로 개편</li>
+            <li>dispatch 방식 교체</li>
+          </ul>
         </div>
         <div class="diagram">
           <p class="cap">흐름</p>
