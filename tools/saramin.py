@@ -27,7 +27,7 @@ def build(src):
     total = txt(re.search(r'<dt>총 경력</dt>\s*<dd>(.*?)</dd>', s, re.S).group(1))
 
     o += [rule('='), '채용 사이트 폼 붙여넣기용 — 배우현',
-          '자동 생성 · 원본 portfolio-site/src/이력서.html · 총 경력 %s' % total, rule('='), '',
+          '자동 생성 · 원본 src/이력서.html · 총 경력 %s' % total, rule('='), '',
           '· 각 칸의 내용을 같은 이름 칸에 그대로 붙여넣으세요. 서식은 없습니다.',
           '· 「=」「-」 선은 구분용이니 붙여넣지 마세요.',
           '· 이 파일은 재생성됩니다. 손으로 고치면 다음 make 에 사라집니다.']
