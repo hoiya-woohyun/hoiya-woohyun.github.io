@@ -19,6 +19,15 @@
     --accent-2:  #DEDBD0;
     --wash:      #F5F2E614;
 
+    /* alt 밴드는 불투명 #211F1C(=--surface) 대신 '땅 위에 얇게 깐 크림' 으로 둔다.
+       보이는 색은 같지만(실측 #211F1C 에 수렴) 불투명하지 않으므로 뒤의 배경 겹이
+       죽지 않는다 — 불투명 밴드를 두면 시차가 섹션마다 끊긴다.
+       --surface 는 내비·카드가 쓰므로 건드리지 않는다. */
+    --band-alt:  #F5F2E606;
+    /* 배경 격자선 — 본문 hairline(--rule)과 같은 색이되 더 묽다 */
+    --bg-line:   #35322B99;
+    --bg-glow:   #F5F2E60A;
+
     --f-sans: 'Pretendard Variable', Pretendard, 'Apple SD Gothic Neo', 'Malgun Gothic', system-ui, sans-serif;
     --f-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
   }
@@ -27,7 +36,9 @@
   * { box-sizing: border-box; }
 
   body {
-    background: var(--ground);
+    /* 배경색은 html 이 들고 있다(위 html 규칙). 여기서 칠하면 .bg(z-index:-1)를 덮는다.
+       html·body 에 transform/filter/opacity 를 주면 스택 문맥이 생겨 .bg 가 사라진다 — 주지 않는다. */
+    background: transparent;
     color: var(--ink);
     font-family: var(--f-sans);
     font-size: 15px; font-weight: 400; line-height: 1.75;
@@ -85,7 +96,7 @@
 
   /* ── 섹션 ────────────────────────────────────── */
   section.band { padding-block: 64px; border-bottom: 1px solid var(--rule); }
-  section.band.alt { background: var(--surface); }
+  section.band.alt { background: var(--band-alt); }
   .shead { margin-bottom: 34px; }
   /* 번호 · 영문 라벨 · 한국어 제목이 한 줄에 오되, 좁은 화면에서는 제목만 다음 줄로 */
   .shead h2 {
@@ -545,6 +556,75 @@
   html.anim .ratio .bar > i { transform: scaleX(0); }
   html.anim .ratio.in .bar > i { transform: scaleX(1); }
 
+  /* ── 배경 깊이 — 스크롤 타임라인 시차(parallax) ─────────────
+     두 겹이 서로 '다른 속도' 로 흐른다. 깊이는 속도 차에서 나오므로 한 겹만
+     움직이면 시차가 아니라 그냥 떠다니는 분위기다.
+       .bg-glow  먼 겹 — 따뜻한 광원. 느리게.
+       .bg-grid  가까운 겹 — 이 문서의 hairline 어휘를 그대로 깐 격자. 빠르게.
+
+     scroll listener 도 rAF 도 쓰지 않는다. animation-timeline: scroll() 은
+     시간 대신 스크롤바를 진행도로 삼으므로 컴포지터가 직접 굴린다 —
+     스크롤 중 main thread 를 전혀 건드리지 않는다.
+     perspective+translateZ 방식을 쓰지 않은 이유: 그건 html 에 스크롤 문맥을
+     만들어 sticky 내비·fixed 레일·scroll-margin-top 을 전부 깨뜨린다. */
+  .bg {
+    position: fixed; inset: -15% 0; z-index: -1;
+    pointer-events: none; overflow: hidden;
+    /* 위아래로 흘러넘치게 둔다 — iOS 주소창이 접힐 때 겹의 끝이 드러나지 않게 */
+
+    /* 비네트는 '겹' 이 아니라 여기(화면에 고정된 상자)에 건다.
+       겹에 걸면 마스크가 겹과 함께 떠올라 밝은 가운데가 화면 밖으로 빠져나가고,
+       스크롤할수록 격자가 통째로 지워진다. 여기 걸면 창은 제자리에 있고
+       그 창 너머로 겹이 흐른다 — 원래 의도한 그림이 이쪽이다. */
+    mask-image: radial-gradient(ellipse 84% 64% at 50% 42%,
+                #000 0%, #000 34%, transparent 84%);
+  }
+  .bg > i {
+    position: absolute; display: block;
+    /* 겹은 자기가 올라갈 거리(--travel)만큼 아래로 더 길어야 한다.
+       transform 은 무늬가 아니라 '상자째' 옮기는 것이라, 상자가 이동거리보다
+       짧으면 상자의 아랫변이 화면 위로 올라가 아래쪽이 빈 바탕으로 남는다.
+       --travel 이 음수이므로 bottom 에 그대로 넣으면 그만큼 아래로 늘어난다.
+       미지원 브라우저에서는 --travel 이 없다 — 그때는 움직이지도 않으므로 0. */
+    inset: 0 0 var(--travel, 0px) 0;
+  }
+
+  .bg-glow {
+    /* 광원은 비네트가 살아 있는 안쪽에 둔다 — 바깥에 두면 위 마스크가 그대로 지워버린다.
+       (86% 74% 에 뒀을 때 실측 마스크 알파 0.00 — 아예 안 보였다) */
+    background:
+      radial-gradient(ellipse 58% 40% at 30% 22%, var(--bg-glow) 0%, transparent 70%),
+      radial-gradient(ellipse 50% 36% at 72% 58%, var(--bg-glow) 0%, transparent 72%);
+  }
+  .bg-grid {
+    /* 타일이라 많이 움직여도 끝이 드러나지 않는다 — 이게 긴 문서에서 시차를
+       '국소적으로도' 느껴지게 하는 장치다. 고정 이미지면 전체 스크롤에 걸쳐
+       조금 움직이는 꼴이라 아무 변화도 안 보인다. */
+    background-image:
+      linear-gradient(to right,  var(--bg-line) 0 1px, transparent 1px 100%),
+      linear-gradient(to bottom, var(--bg-line) 0 1px, transparent 1px 100%);
+    background-size: 64px 64px;
+  }
+
+  @supports (animation-timeline: scroll()) {
+    @media (prefers-reduced-motion: no-preference) {
+      @keyframes bg-drift { to { transform: translate3d(0, var(--travel), 0); } }
+      /* animation 단축 속성을 쓰면 animation-timeline 이 auto 로 되돌아가 조용히
+         아무것도 안 움직인다 — 그래서 전부 개별 속성으로만 쓴다. */
+      .bg > i {
+        animation-name: bg-drift;
+        animation-duration: auto;          /* 길이는 스크롤 가능 거리가 정한다 */
+        animation-timing-function: linear;
+        animation-fill-mode: both;
+        animation-timeline: scroll(root block);
+      }
+      /* 시차의 세기 — 문서 전체를 끝까지 스크롤하는 동안 각 겹이 움직이는 거리.
+         둘의 '비' 가 깊이감을, 절대값이 움직임의 존재감을 정한다. */
+      .bg-grid { --travel: -1100px; }
+      .bg-glow { --travel: -300px;  }
+    }
+  }
+
   /* ── 인쇄(PDF) — 모션 흔적을 전부 무효화 ─────── */
   @media print {
     /* transition 까지 꺼야 한다. opacity:1 만 주면 목표값일 뿐이라
@@ -555,8 +635,17 @@
     .hero { min-height: 0 !important; }
     .hero > .wrap { padding-block: 0 !important; }
     .scrollcue { display: none !important; }
+    /* 위 * 규칙이 opacity:1 · transform:none 을 강제하므로 투명도로는 숨을 수 없다 */
+    .bg { display: none !important; }
+    /* 지면은 흰 바탕이다 — 얇게 깐 크림이 남으면 밴드마다 얼룩으로 찍힌다 */
+    section.band.alt { background: transparent !important; }
   }
 </style>
+
+<div class="bg" aria-hidden="true">
+  <i class="bg-glow"></i>
+  <i class="bg-grid"></i>
+</div>
 
 <header class="sitenav">
   <div class="wrap sitenav-in">
