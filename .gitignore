@@ -5,3 +5,6 @@
 
 .DS_Store
 /.omc/
+
+# Playwright MCP 로 화면을 확인할 때 생기는 산출물
+/.playwright-mcp/
