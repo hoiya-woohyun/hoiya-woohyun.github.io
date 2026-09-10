@@ -253,6 +253,12 @@
     line-height: 1.75; text-wrap: pretty;
   }
 
+  /* 수치 뒤에 붙는 측정 기준·출처 한 줄. 경력기술서의 .src 와 같은 역할이다. */
+  .src {
+    display: block; margin-top: 2px;
+    font-size: 11.5px; line-height: 1.6; color: var(--ink-3); font-weight: 400;
+  }
+
   /* ── 작업 목록 ───────────────────────────────── */
   .cat { display: grid; }
   .cat > div {
@@ -264,6 +270,17 @@
     .cat > div > :is(p, ul) + :is(p, ul) { grid-column: 2; }
   }
   .cat > div:last-child { border-bottom: 0; }
+  .cat > .catlab {
+    margin: 0; padding: 30px 0 10px; display: flex; flex-wrap: wrap;
+    align-items: baseline; gap: 4px 12px;
+    font-family: var(--f-mono); font-size: 11px; font-weight: 500;
+    letter-spacing: .16em; text-transform: uppercase; color: var(--ink-2);
+  }
+  .cat > .catlab:first-child { padding-top: 0; }
+  .cat > .catlab span {
+    font-family: var(--f-sans); font-size: 12px; font-weight: 400;
+    letter-spacing: normal; text-transform: none; color: var(--ink-3);
+  }
   .cat h3 { margin: 0; font-size: 14px; font-weight: 600; letter-spacing: -.012em; line-height: 1.5; }
   .cat h3 em {
     display: block; font-style: normal; margin-top: 4px;
@@ -582,6 +599,38 @@
   .stack ul.tk.quiet > li { font-size: 11px; color: var(--ink-3); }
   .stack ul.tk.quiet > li.k { color: var(--ink-2); }
 
+  /* ── 섹션 색인 레일 ──────────────────────────
+     화면 우측 고정. 번호만 떠 있다가 hover·focus 에서 라벨이 나온다.
+     인쇄에서는 build.py 의 PRINT_CSS 가 .rail 을 통째로 숨긴다. */
+  .rail { position: fixed; right: 20px; top: 50%; transform: translateY(-50%); z-index: 40; }
+  .rail ol { list-style: none; margin: 0; padding: 0; display: grid; gap: 1px; }
+  .rail a {
+    display: flex; align-items: center; gap: 9px; padding: 4px 7px;
+    font-family: var(--f-mono); font-size: 10.5px; font-weight: 500;
+    letter-spacing: .12em; text-transform: uppercase;
+    color: var(--ink-3); text-decoration: none; border-radius: 2px;
+    transition: color .2s ease, background-color .2s ease;
+  }
+  .rail a::before {
+    content: ""; width: 14px; height: 1px; background: currentColor;
+    opacity: .45; transition: width .24s cubic-bezier(.22,.61,.36,1), opacity .2s ease;
+  }
+  .rail li.on a { color: var(--ink); }
+  .rail li.on a::before { width: 26px; opacity: 1; }
+  .rail a:hover, .rail a:focus-visible { color: var(--ink); background: var(--surface); }
+  .rail .lb {
+    max-width: 0; overflow: hidden; white-space: nowrap; opacity: 0;
+    transition: max-width .26s cubic-bezier(.22,.61,.36,1), opacity .2s ease;
+  }
+  .rail:hover .lb, .rail a:focus-visible .lb { max-width: 130px; opacity: 1; }
+  /* 본문 폭(960+패딩=1012) 옆에 레일 자리가 안 나오면 접는다.
+     실측: 레일 61px + 우측 여백 20px 이라 1175px 부터 본문과 겹치지 않는다. */
+  @media (max-width: 1180px) { .rail { display: none; } }
+
+  /* 앵커로 이동했을 때 sticky 헤더 아래로 숨지 않게 */
+  section[id] { scroll-margin-top: 64px; }
+  @media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
+
   /* ── 호버 ────────────────────────────────────── */
   .tool, .metrics > div { transition: box-shadow .28s cubic-bezier(.22,.61,.36,1); }
   .tool:hover, .metrics > div:hover { box-shadow: inset 0 0 0 1px var(--accent); }
@@ -625,7 +674,10 @@
 
   /* ── 인쇄(PDF) — 모션 흔적을 전부 무효화 ─────── */
   @media print {
-    * { opacity: 1 !important; transform: none !important; animation: none !important; }
+    /* transition 까지 꺼야 한다. opacity:1 만 주면 목표값일 뿐이라
+       .rv 의 .38s 전환을 타고 서서히 올라가고, 그 사이에 인쇄되면 본문이 흐리게 찍힌다. */
+    * { opacity: 1 !important; transform: none !important; animation: none !important;
+        transition: none !important; }
     /* 화면 전용 장치 — 종이에서는 첫 화면을 통째로 쓸 이유도, 스크롤 안내도 없다 */
     .hero { min-height: 0 !important; }
     .hero > .wrap { padding-block: 0 !important; }
@@ -647,7 +699,21 @@
   </div>
 </header>
 
-<section class="hero">
+<nav class="rail" aria-label="섹션 색인">
+  <ol>
+    <li data-sec="about"><a href="#about"><b>01</b><span class="lb">About</span></a></li>
+    <li data-sec="skills"><a href="#skills"><b>02</b><span class="lb">Skills</span></a></li>
+    <li data-sec="career"><a href="#career"><b>03</b><span class="lb">Career</span></a></li>
+    <li data-sec="projects"><a href="#projects"><b>04</b><span class="lb">Projects</span></a></li>
+    <li data-sec="products"><a href="#products"><b>05</b><span class="lb">Products</span></a></li>
+    <li data-sec="numbers"><a href="#numbers"><b>06</b><span class="lb">Numbers</span></a></li>
+    <li data-sec="experience"><a href="#experience"><b>07</b><span class="lb">Experience</span></a></li>
+    <li data-sec="teamwork"><a href="#teamwork"><b>08</b><span class="lb">Teamwork</span></a></li>
+    <li data-sec="contact"><a href="#contact"><b>09</b><span class="lb">Contact</span></a></li>
+  </ol>
+</nav>
+
+<section class="hero" id="top">
   <div class="wrap">
     <p class="kicker">Front-end Developer</p>
     <div class="hero-btm">
@@ -656,8 +722,8 @@
       <ul class="whois">
         <li><b>8년차</b> 프론트엔드</li>
         <li>현 <b>HT Beyond</b> · 2024.01~</li>
-        <li>신규 제품 <b>2건</b> 단독 구축</li>
-        <li>PR 검증 <b>8.1분 → 2.8분</b></li>
+        <li>제품 <b>6개</b> 병행 · 담당 이슈 <b>1,260건</b></li>
+        <li>건설사 브랜드 <b>7종</b>을 코드베이스 <b>1개</b>로</li>
         <li><a href="mailto:bwh1224@gmail.com">bwh1224@gmail.com</a></li>
       </ul>
     </div>
@@ -665,7 +731,7 @@
   </div>
 </section>
 
-<section class="band">
+<section id="about" class="band">
   <div class="wrap">
     <div class="shead">
       <h2><b class="num">01</b> About <em>일하는 방식</em></h2>
@@ -687,7 +753,7 @@
         <ul class="pts">
           <li>타입은 스키마에서 생성해 손으로 다시 쓰지 않습니다</li>
           <li>이 PR로 새로 죽은 파일은 원인이 된 줄에 코멘트가 달립니다</li>
-          <li><strong>막을 수 없는 것은 규격으로 남깁니다.</strong> 결정·명세·버그 분석을 <code>docs/</code> 다섯 축에 같은 형식으로 쌓고, 어떤 코드를 고치면 어떤 문서를 갱신할지 파일별·행위별 트리거 표로 규정해 에이전트 규칙에 넣었습니다. 버그 분석 규격은 팀 표준으로 정착해 97건 중 58건을 썼습니다</li>
+          <li><strong>막을 수 없는 것은 규격으로 남깁니다.</strong> 결정·명세·버그 분석을 <code>docs/</code> 다섯 축에 같은 형식으로 쌓고, 어떤 코드를 고치면 어떤 문서를 갱신할지 파일별·행위별 트리거 표로 규정해 에이전트 규칙에 넣었습니다. 버그 분석 규격은 팀 표준으로 정착해 <b>문서 102건 중 59건</b>을 직접 썼고, 나머지 43건은 팀원 4명이 같은 규격으로 이어 쓰고 있습니다</li>
         </ul>
       </li>
       <li>
@@ -701,7 +767,7 @@
     </ul>
   </div>
 </section>
-<section class="band alt">
+<section id="skills" class="band alt">
   <div class="wrap">
     <div class="shead">
       <h2><b class="num">02</b> Skills <em>스택</em></h2>
@@ -734,7 +800,7 @@
     </div>
   </div>
 </section>
-<section class="band">
+<section id="career" class="band">
   <div class="wrap">
     <div class="shead">
       <h2><b class="num">03</b> Career <em>경력</em></h2>
@@ -748,7 +814,7 @@
           <p class="org">주식회사 에이치티비욘드<small>프론트엔드 웹팀</small></p>
           <div class="proj">
             <h4>아파트·오피스텔 커뮤니티 플랫폼 — 6개 프론트엔드 제품 병행</h4>
-            <p>입주민 모바일 웹앱, 단지 관리사무소용 운영툴, 사내 운영 콘솔, 매장 POS·주문 키오스크, 디지털 사이니지 CMS, 커뮤니티 앱(React Native)을 함께 담당했습니다. <b>사이니지 CMS와 현장 지원 데스크톱 앱은 단독으로 구축</b>했고, 화면 구현과 별개로 Vite 전환·Turborepo 공용 설정·디자인 시스템 패키지화·Sentry 관측성 같은 <b>프론트엔드 기반</b>과 OpenAPI 타입 생성·ADR·LLM Wiki·정적 분석 가드 같은 <b>자동화·AI 개발 환경</b>을 함께 만들었습니다.</p>
+            <p>입주민 모바일 웹앱, 단지 관리사무소용 운영툴, 사내 운영 콘솔, 매장 POS·주문 키오스크, 디지털 사이니지 CMS, 커뮤니티 앱(React Native)을 함께 담당했습니다. <b>사이니지 CMS는 프론트엔드 1인으로, 현장 지원 데스크톱 앱은 단독으로 구축</b>했고, 화면 구현과 별개로 Vite 전환·Turborepo 공용 설정·디자인 시스템 패키지화·Sentry 관측성 같은 <b>프론트엔드 기반</b>과 OpenAPI 타입 생성·ADR·LLM Wiki·정적 분석 가드 같은 <b>자동화·AI 개발 환경</b>을 함께 만들었습니다.</p>
           </div>
           <p class="st">React · TypeScript · Vite · TanStack Router / Query / Table · Tailwind CSS · Turborepo · pnpm workspace · Electron · React Native · OpenAPI · Sentry · Jenkins · GitHub Actions</p>
         </dd>
@@ -838,14 +904,113 @@
 
   </div>
 </section>
-<section class="band alt">
+<section id="projects" class="band alt">
   <div class="wrap">
     <div class="shead">
       <h2><b class="num">04</b> Projects <em>사례</em></h2>
-      <p>각 건을 <b>문제 · 해결 · 성과</b>로 정리했습니다. 아래 일곱 건은 모두 커밋 이력으로 확인할 수 있는 작업입니다.</p>
+      <p>각 건을 <b>문제 · 해결 · 성과</b>로 정리했습니다. 아래 아홉 건은 모두 커밋 이력으로 확인할 수 있는 작업입니다.</p>
     </div>
 
     <div class="cases">
+
+      <article class="case">
+        <header>
+          <h3>건설사 7곳의 앱을 코드베이스 하나로 — 무엇을 공통으로 두고 무엇만 분기할지</h3>
+        </header>
+        <ul class="techs" aria-label="사용 기술">
+          <li>React</li><li>TypeScript</li>
+        </ul>
+
+        <div class="built">
+          <h4>문제</h4>
+          <p>건설사·브랜드마다 요구하는 화면과 제공 기능이 달랐습니다. 그대로 두면 <b>단지가 늘 때마다 코드베이스가 갈라집니다.</b> 계약사별로 다른 기능 구성을 권한 체계가 표현하지도 못했습니다.</p>
+        </div>
+        <div class="shift">
+          <div>
+            <h4>갈라지게 두면</h4>
+            <ul>
+              <li>브랜드가 늘 때마다 코드베이스가 하나씩 늘어남</li>
+              <li>공통 기능 수정이 브랜드 수만큼 반복됨</li>
+            </ul>
+          </div>
+          <div class="after">
+            <h4>지금 — 한 벌로 유지</h4>
+            <ul>
+              <li>도메인 로직·화면은 한 벌. <em>레이아웃만</em> 브랜드별로 분기</li>
+              <li>신규 브랜드는 레이아웃 분기 추가로 처리</li>
+            </ul>
+          </div>
+        </div>
+        <div class="built">
+          <h4>해결</h4>
+          <p>무엇을 공통으로 둘지부터 정했습니다. 브랜드마다 실제로 다른 것은 <b>보이는 레이아웃</b>이고, 단지 생활 기능 자체는 같습니다. 그래서 분기 지점을 레이아웃 한 층으로 좁혔습니다.</p>
+          <ul class="pts">
+            <li><strong>서브도메인으로 단지를 식별</strong>하고 브랜드별 레이아웃만 분기하는 구조를 설계해, 단일 코드베이스로 브랜드별 앱을 동시 서비스</li>
+            <li>계약사·단지·사용자 <strong>3계층 권한을 계약사가 구독하는 기능 묶음 단위</strong>로 재설계. 계약사마다 다른 기능 구성을 권한 체계 안에서 표현할 수 있게 했습니다</li>
+            <li>메뉴 관리 체계를 새로 만든 사내 운영 콘솔로 이관해, 브랜드 추가가 코드 변경이 아닌 운영 작업이 되는 범위를 넓혔습니다</li>
+          </ul>
+        </div>
+        <div class="built">
+          <h4>성과</h4>
+          <p>브랜드가 늘어도 코드베이스가 갈라지지 않는 구조로 차세대 버전을 출시했습니다.</p>
+          <ul class="pts">
+            <li><strong>건설사 브랜드 7종 → 코드베이스 1개</strong>
+                <span class="src">(앱은 브랜드마다 있고 웹은 한 벌 · 신규 브랜드는 레이아웃 분기 추가로 처리)</span></li>
+          </ul>
+        </div>
+        <div class="trace">
+          <b>확인 가능한 흔적</b>
+          <code>입주민 모바일 웹앱 · 2024.04 – 2026.08</code>
+          <span>브랜드 수는 Jira 컴포넌트에 등록된 브랜드 앱 기준입니다. 같은 기간 검증 체인 재구성·자동 라벨링을 함께 넣었으므로, 이 저장소의 리드타임 변화를 이 구조 하나의 성과로 돌리지 않습니다.</span>
+        </div>
+      </article>
+
+      <article class="case">
+        <header>
+          <h3>날짜마다 다시 정하던 예약 정책을, 기본값과 예외로 나누기</h3>
+        </header>
+        <ul class="techs" aria-label="사용 기술">
+          <li>React</li><li>TypeScript</li>
+        </ul>
+
+        <div class="built">
+          <h4>문제</h4>
+          <p>단지 운영에 필요한 설정이 화면마다 흩어져 있어, <b>운영팀이 단지·날짜·언어 단위로 매번 개별 등록</b>했습니다. 누락되면 오픈 후에야 드러났습니다.</p>
+        </div>
+        <div class="shift">
+          <div>
+            <h4>이전 — 날짜마다 전부</h4>
+            <ul>
+              <li>날짜·시간대 조합마다 값을 처음부터 다시 입력</li>
+              <li>대부분의 날이 같은 정책인데도 반복 입력</li>
+            </ul>
+          </div>
+          <div class="after">
+            <h4>지금 — 기본값 + 예외</h4>
+            <ul>
+              <li>매장 기본 운영 정책을 <em>한 번</em> 정의</li>
+              <li>개별 날짜·시간대는 <em>다른 것만</em> 덮어씀</li>
+            </ul>
+          </div>
+        </div>
+        <div class="built">
+          <h4>해결</h4>
+          <p>예약 상품을 날짜별 레코드의 나열이 아니라 <b>기본 정책 하나와 그에 대한 예외들</b>로 모델링했습니다. 대부분의 날은 기본값과 같다는 운영 실태에 자료 구조를 맞춘 것입니다.</p>
+          <ul class="pts">
+            <li>매장 기본 운영 정책을 먼저 정의하고 <strong>개별 날짜·시간대는 예외만 덮어쓰는 구조</strong>로 식당 예약 상품 관리를 재설계</li>
+            <li>월 캘린더 편성 · 시간대 슬롯 단위 설정 · 일괄 등록을 같은 모델 위에 얹어, 화면마다 흩어져 있던 설정을 한 곳으로 모았습니다</li>
+          </ul>
+        </div>
+        <div class="built">
+          <h4>성과</h4>
+          <p>반복 입력이 예외 입력으로 바뀌었습니다. 기본 정책이 정의돼 있으므로 <b>등록하지 않은 날에도 적용될 값이 존재</b>합니다 — 누락이 오픈 후에 드러나던 경로가 줄었습니다.</p>
+        </div>
+        <div class="trace">
+          <b>확인 가능한 흔적</b>
+          <code>단지 관리사무소용 운영툴 · 시설 예약 상품</code>
+          <span>같은 재설계에서 단지 온보딩 워크플로와 엑셀 붙여넣기 일괄 등록·검증을 함께 넣었습니다.</span>
+        </div>
+      </article>
 
       <article class="case">
         <header>
@@ -889,7 +1054,8 @@
           <h4>성과</h4>
           <p>미사용 파일 검출을 리뷰어의 눈에서 CI로 이관. 놓친 죽은 코드가 축적되던 경로를 차단했습니다.</p>
           <ul class="pts">
-            <li><strong>DeadCode 발생률 11.54% → 1% 미만</strong></li>
+            <li><strong>DeadCode 발생률 11.54% → 1% 미만</strong>
+                <span class="src">(knip 리포트 기준 · 가드 도입 직전 PR 과 도입 이후 PR 의 리포트 대조)</span></li>
           </ul>
         </div>
         <div class="trace">
@@ -983,6 +1149,7 @@
             <li>야간 배치 알림 카드를 일상어·커밋·담당자 정보 포함으로 개편</li>
             <li>dispatch 방식 교체</li>
           </ul>
+          <p class="note">체크리스트 개정의 기준은 <strong>항목 자격 시험</strong>이었습니다. 한 PR에서 세어보니 7개 항목 중 3개가 “응답 필드명이 X 맞나요?” 같은 사실 확인이었는데, 아니라고 답해도 틀린 건 위키가 아니라 코드 독해라 <b>사람에게 물을 값이 아니었습니다.</b> 그래서 “리뷰어가 아니오라고 답하면 위키의 무엇이 틀리는가”를 말할 수 없으면 항목이 아니게 했습니다. 묻는 것도 바꿨습니다 — 코드가 무엇으로 바뀌었는지가 아니라 <strong>그 변화를 무슨 의도로 읽어 문서를 어느 방향으로 서술했는지</strong>를 묻습니다. 다만 근거 제시 의무는 유지했습니다. <b>완화했을 때 병렬 에이전트가 항목을 지어내는 실패를 이미 겪었기 때문입니다.</b></p>
         </div>
         <div class="diagram">
           <p class="cap">흐름</p>
@@ -1033,7 +1200,7 @@
         </div>
         <div class="trace">
           <b>확인 가능한 흔적</b>
-          <code>내부 운영 콘솔 위키 — 문서 35건 중 11건 최초 작성</code>
+          <code>내부 운영 콘솔 위키 — 문서 40건 중 11건 최초 작성</code>
           <span>문서 자체는 백엔드 유닛과 공동으로 축적한 것입니다. 위 숫자가 공유 저장소 기준의 제 기여 범위입니다.</span>
         </div>
       </article>
@@ -1198,7 +1365,7 @@
         </div>
         <div class="built">
           <h4>성과</h4>
-          <p><strong>로그 조회 전용 작업을 접속 세션에서 분리</strong> — 동시 접속 상한을 소모하지 않도록 정보 구조 재설계.</p>
+          <p><strong>v1.3.0까지 릴리즈해 사내 현장 지원 업무에 쓰이고 있습니다.</strong> 조회만 필요한 작업이 더는 동시 접속 상한을 잡아먹지 않습니다 — 다른 사람이 실제로 접속해야 할 때 자리가 없던 문제가 사라졌습니다.</p>
         </div>
         <div class="trace">
           <b>확인 가능한 흔적</b>
@@ -1210,13 +1377,15 @@
     </div>
   </div>
 </section>
-<section class="band">
+<section id="products" class="band">
   <div class="wrap">
     <div class="shead">
       <h2><b class="num">05</b> Products <em>담당 제품</em></h2>
-      <p>제품이 무엇이고 그 안에서 무엇을 맡았는지입니다. 위 일곱 건이 <b>문제·해결·성과</b>를 깊게 판 사례라면, 여기는 <b>담당 범위의 전체</b>입니다.</p>
+      <p>제품이 무엇이고 그 안에서 무엇을 맡았는지입니다. 위 아홉 건이 <b>문제·해결·성과</b>를 깊게 판 사례라면, 여기는 <b>담당 범위의 전체</b>입니다.</p>
+      <p>축이 셋이라 나눠 적었습니다 — <b>제품 6개</b>, 하나의 정책이 여러 클라이언트에 동시에 걸치는 <b>도메인 2건</b>, 제품이 아니라 만드는 방식에 남는 <b>기반 2건</b>입니다.</p>
     </div>
     <div class="cat">
+      <h4 class="catlab">제품 <span>한 제품 안에서 화면과 기능을 담당</span></h4>
       <div>
         <h3>입주민 모바일 웹앱<em>2024.04 – 2026.08</em></h3>
         <p class="pi">아파트·오피스텔 입주민용 모바일 웹뷰. 공지·시설 예약·주차·방문차량 등 단지 생활 기능을 담당하는 주력 제품.</p>
@@ -1288,6 +1457,19 @@
         </ul>
       </div>
       <div>
+        <h3>커뮤니티 앱 (React Native)<em>2024.08 – 2025.10</em></h3>
+        <p class="pi">협회 회원용 비공개 커뮤니티 앱. 회원 명부·공지·일정.</p>
+        <ul class="scope">
+          <li>비공개 회원제 커뮤니티 앱 전면 리뉴얼 — 회원 명부(프로필·소속·분과·기수 검색)</li>
+          <li>공지사항</li>
+          <li>일정 캘린더</li>
+          <li>Expo SDK 업그레이드</li>
+          <li>Google Play 16KB 페이지 크기 요구 대응</li>
+          <li><b>스토어 배포까지 담당</b></li>
+        </ul>
+      </div>
+      <h4 class="catlab">제품에 걸친 도메인 <span>하나의 정책이 여러 클라이언트에 동시에 걸침</span></h4>
+      <div>
         <h3>단지 시설 기기 연동<em>2025.10 – 2026.08 · 앱·키오스크·운영툴</em></h3>
         <p class="pi">코인세탁기·엘리베이터·독서실·골프타석 등 단지 시설의 물리 기기 연동. 앱·키오스크·운영툴 <b>3개 저장소 동시 대응</b>.</p>
         <ul class="scope">
@@ -1311,24 +1493,13 @@
           <li>만료 알림</li>
         </ul>
       </div>
-      <div>
-        <h3>커뮤니티 앱 (React Native)<em>2024.08 – 2025.10</em></h3>
-        <p class="pi">협회 회원용 비공개 커뮤니티 앱. 회원 명부·공지·일정.</p>
-        <ul class="scope">
-          <li>비공개 회원제 커뮤니티 앱 전면 리뉴얼 — 회원 명부(프로필·소속·분과·기수 검색)</li>
-          <li>공지사항</li>
-          <li>일정 캘린더</li>
-          <li>Expo SDK 업그레이드</li>
-          <li>Google Play 16KB 페이지 크기 요구 대응</li>
-          <li><b>스토어 배포까지 담당</b></li>
-        </ul>
-      </div>
+      <h4 class="catlab">저장소를 가로지르는 기반 <span>제품이 아니라 만드는 방식에 남는 것</span></h4>
       <div>
         <h3>지식 계층 · 개발 환경<em>2024.02 – 2026.08 · 상시</em></h3>
         <p class="pi">제품이 아니라 <b>저장소를 가로지르는 기반 작업</b>입니다.</p>
         <p><b>저장소 문서 체계 설계</b> — <code>docs/</code>를 architecture(구조 설계) · decisions(ADR) · features(기능 명세) · specs(화면 스펙) · bugs(원인 분석) 다섯 축으로 나누고, <b>관련 코드를 고치면 해당 문서도 함께 갱신하도록 에이전트 규칙으로 강제</b>했습니다. 맥락이 개인의 기억이 아니라 저장소에 남습니다.</p>
         <ul class="scope">
-          <li><b>ADR 체계</b> 도입·운영(34건 중 31건 최초 작성)</li>
+          <li><b>ADR 체계</b> 도입·운영(36건 중 33건 최초 작성)</li>
           <li><b>에이전트 규칙</b> 파일 체계(21개 중 18개)</li>
           <li><b>LLM Wiki</b> 설계·정착(35개 문서 중 11개)과 감지된 드리프트를 받아 재생성 PR을 여는 자동화</li>
           <li>Figma MCP 연동과 Code Connect 매핑</li>
@@ -1351,7 +1522,7 @@
     </div>
   </div>
 </section>
-<section class="band alt">
+<section id="numbers" class="band alt">
   <div class="wrap">
     <div class="shead">
       <h2><b class="num">06</b> Numbers <em>규모</em></h2>
@@ -1383,13 +1554,14 @@
       </table>
     </div>
 
+    <p class="caveat" style="margin-top:30px;margin-bottom:14px;">아래 비율은 저장소 문서를 <code>2026.08.31</code> 기준으로 센 값입니다. 분모는 그 시점까지 쌓인 전체 문서 수이고, 분자는 제가 최초 작성한 건수입니다.</p>
     <div class="ratios">
       <div class="ratio">
         <div class="top">
           <span class="lab"><b>아키텍처 결정 기록(ADR)</b> 최초 작성</span>
-          <span class="num">31 / 34</span>
+          <span class="num">33 / 36</span>
         </div>
-        <div class="bar"><i style="width:91%"></i></div>
+        <div class="bar"><i style="width:92%"></i></div>
       </div>
       <div class="ratio">
         <div class="top">
@@ -1401,9 +1573,9 @@
       <div class="ratio">
         <div class="top">
           <span class="lab"><b>LLM Wiki 문서</b> 최초 작성</span>
-          <span class="num">11 / 35</span>
+          <span class="num">11 / 40</span>
         </div>
-        <div class="bar"><i style="width:31%"></i></div>
+        <div class="bar"><i style="width:28%"></i></div>
       </div>
     </div>
 
@@ -1452,12 +1624,12 @@
       </div>
     </dl>
     <p class="caveat" style="margin-top:14px;margin-bottom:0;">
-      제가 단독으로 담당한 제품이라 담당자 배정에 따른 왜곡이 없는 구간입니다(해당 기간 결함 102건 중 99건이 본인 담당). 오픈 첫 달 39건에는 출시 직후 집중 검수분이 포함돼 있고, 제품 종료 단계인 2025.09 이후 두 달(각 6건)은 잔여 과제 위주여서 이 추세와 분리해 봅니다.
+      제가 단독으로 담당한 제품이라 담당자 배정에 따른 왜곡이 없는 구간입니다(해당 기간 이 제품 결함 90건 중 87건이 본인 담당). 오픈 첫 달 39건에는 출시 직후 집중 검수분이 포함돼 있고, 제품 종료 단계인 2025.09 이후 두 달(각 6건)은 잔여 과제 위주여서 이 추세와 분리해 봅니다.
     </p>
 
   </div>
 </section>
-<section class="band">
+<section id="experience" class="band">
   <div class="wrap">
     <div class="shead">
       <h2><b class="num">07</b> Experience <em>매일 쓰려고 직접 만든 것</em></h2>
@@ -1466,7 +1638,7 @@
     <div class="tools">
 
       <div class="tool">
-        <h3>Claude Code 스킬 · 훅 체계<em>스킬 13 · 훅 8 · 6,643줄</em></h3>
+        <h3>Claude Code 스킬 · 훅 체계<em>스킬 13 · 훅 8 · 매일 사용 중</em></h3>
         <div>
           <p>작업은 <strong><code>/task</code></strong>에서 시작합니다. Jira 티켓과 <strong>상위 이슈의 설명까지 읽어 무엇을 만들려는 작업인지 복원</strong>한 뒤, 티켓 하나를 격리된 worktree로 떼어냅니다.</p>
           <p>여기서 <strong>권한 경계를 코드로 그었습니다.</strong> 커밋까지는 승인 없이 진행하되, <strong>push는 사용자 승인을 요구</strong>하고 <strong>브랜치 최초 push</strong> 직전에는 <strong><code>self-cr</code> 하드 게이트</strong>가 걸려 셀프 코드리뷰를 통과해야 나갑니다. 어디까지 에이전트에게 맡기고 어디서 사람이 개입할지를 — “푸시 전에 한 번 보자”를 — 규율이 아니라 훅이 지킵니다.</p>
@@ -1487,7 +1659,7 @@
     </div>
   </div>
 </section>
-<section class="band alt">
+<section id="teamwork" class="band alt">
   <div class="wrap">
     <div class="shead">
       <h2><b class="num">08</b> Teamwork <em>혼자 만들지 않습니다</em></h2>
@@ -1501,7 +1673,7 @@
       </li>
       <li>
         <h3>리뷰어의 시간을 아끼는 방향으로 규약을 고칩니다</h3>
-        <p>문서 재생성 PR의 체크리스트가 리뷰어에게 <strong>grep을 대신 시키고</strong> 있었습니다. 한 PR에서 세어보니 7개 항목 중 3개가 “응답 필드명이 X 맞나요?” 같은 사실 확인이었는데, 아니라고 답해도 틀린 건 위키가 아니라 코드 독해라 사람에게 물을 값이 아니었습니다. 그래서 <strong>항목 자격 시험</strong>을 뒀습니다 — “리뷰어가 아니오라고 답하면 위키의 무엇이 틀리는가”를 말할 수 없으면 항목이 아닙니다. 묻는 것도 바꿨습니다. 코드가 무엇으로 바뀌었는지가 아니라 <strong>그 변화를 무슨 의도로 읽어 문서를 어느 방향으로 서술했는지</strong>를 묻습니다. 다만 근거 제시 의무는 유지했습니다 — 완화했을 때 병렬 에이전트가 항목을 지어내는 실패를 이미 겪었기 때문입니다.</p>
+        <p>자동화가 만든 요청도 결국 사람이 받습니다. 문서 재생성 PR의 체크리스트가 리뷰어에게 <strong>grep을 대신 시키고</strong> 있는 것을 보고, 기계가 확인할 수 있는 항목을 걷어내 <b>사람이 판단할 값만 남도록</b> 규약을 고쳤습니다. 어떤 항목을 남기고 무엇을 버렸는지는 <b>04 사례</b>에 적었습니다.</p>
       </li>
       <li>
         <h3>백엔드·기획·QA·현장 운영팀과 상시 협업합니다</h3>
@@ -1510,7 +1682,7 @@
     </ul>
   </div>
 </section>
-<section class="band">
+<section id="contact" class="band">
   <div class="wrap">
     <div class="shead">
       <h2><b class="num">09</b> Contact <em>연락</em></h2>
@@ -1570,6 +1742,42 @@
     }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
 
     targets.forEach(function (el) { io.observe(el); });
+  })();
+
+  /* 섹션 색인 레일 — 지금 읽고 있는 섹션을 표시한다.
+     위 블록과 분리한 이유: 저쪽은 reduced-motion 이면 통째로 빠져나가는데,
+     색인 표시는 모션이 아니라 위치 안내라 그때도 살아 있어야 한다. */
+  (function () {
+    var rail = document.querySelector('.rail');
+    if (!rail || !('IntersectionObserver' in window)) return;
+
+    var items = {}, secs = [];
+    Array.prototype.forEach.call(rail.querySelectorAll('li[data-sec]'), function (li) {
+      var sec = document.getElementById(li.getAttribute('data-sec'));
+      if (sec) { items[li.getAttribute('data-sec')] = li; secs.push(sec); }
+    });
+    if (!secs.length) return;
+
+    var visible = {};
+    function paint() {
+      /* 걸쳐 있는 것 중 '가장 아래' 가 지금 읽는 섹션이다.
+         가장 위를 고르면 앞 섹션이 관찰 영역에 남아 있는 동안 계속 이겨서,
+         마지막 섹션(Contact)처럼 짧은 것은 영영 표시되지 않는다. */
+      var cur = null;
+      secs.forEach(function (sec) {
+        if (visible[sec.id] && (!cur || sec.offsetTop > cur.offsetTop)) cur = sec;
+      });
+      Object.keys(items).forEach(function (id) {
+        items[id].classList.toggle('on', !!cur && id === cur.id);
+      });
+    }
+
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) { visible[e.target.id] = e.isIntersecting; });
+      paint();
+    }, { rootMargin: '-64px 0px -55% 0px', threshold: 0 });
+
+    secs.forEach(function (sec) { io.observe(sec); });
   })();
 </script>
 </body>
