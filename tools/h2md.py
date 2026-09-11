@@ -7,7 +7,17 @@ def txt(x):
 
 def md(path):
     s = open(path, encoding='utf-8').read()
-    s = re.sub(r'<(style|script|svg)\b.*?</\1>', '', s, flags=re.S)
+    # 다이어그램 SVG 는 버리기 전에 라벨과 <text> 를 한 줄로 뽑는다 — 리뷰어가 읽는
+    # 추출본에 안 실리면 그 안의 사내 용어·약어가 리뷰 사각지대가 된다.
+    def svg(m):
+        lab = re.search(r'aria-label="([^"]*)"', m.group(0))
+        ts = [txt(t) for t in re.findall(r'<text\b[^>]*>(.*?)</text>', m.group(0), re.S)]
+        ts = [t for t in ts if t]
+        if not lab and not ts: return ''
+        head = '[다이어그램' + (': ' + H.unescape(lab.group(1)) if lab else '') + ']'
+        return '<p>' + head + (' ' + ' · '.join(ts) if ts else '') + '</p>'
+    s = re.sub(r'<svg\b.*?</svg>', svg, s, flags=re.S)
+    s = re.sub(r'<(style|script)\b.*?</\1>', '', s, flags=re.S)
     s = re.sub(r'<nav\b.*?</nav>', '', s, flags=re.S)
     s = re.sub(r'<(\w+)[^>]*class="sitenav"[^>]*>.*?</\1>', '', s, flags=re.S)
 
