@@ -27,6 +27,12 @@ def md(path):
     s = re.sub(r'<span class="note[^"]*">(.*?)</span>', lambda m: '<p>[배지: %s]</p>' % txt(m.group(1)), s, flags=re.S)
     s = re.sub(r'<div class="label">(.*?)</div>', lambda m: '<p>▸ %s</p>' % txt(m.group(1)), s, flags=re.S)
 
+    # 비율 카드(.ratio): 라벨과 분수를 한 줄로. 통째로 떨어지면 예고 문장만 남아 허위 지적을 낳는다.
+    s = re.sub(r'<div class="ratio">.*?<span class="lab">(.*?)</span>\s*<span class="num">(.*?)</span>.*?</div>\s*</div>\s*</div>',
+               lambda m: '<p>- %s: %s</p>' % (txt(m.group(1)), txt(m.group(2))), s, flags=re.S)
+    # 제목 안의 <em>(기간·부제)은 앞에 공백을 넣어 제목과 붙지 않게 한다
+    s = re.sub(r'(<h[1-4][^>]*>[^<]*?)<em>', r'\1 <em>', s, flags=re.S)
+
     # 표
     def tb(m):
         rows, out = re.findall(r'<tr\b[^>]*>(.*?)</tr>', m.group(0), re.S), []
