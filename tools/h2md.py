@@ -21,6 +21,12 @@ def md(path):
     s = re.sub(r'<nav\b.*?</nav>', '', s, flags=re.S)
     s = re.sub(r'<(\w+)[^>]*class="sitenav"[^>]*>.*?</\1>', '', s, flags=re.S)
 
+    # 기간·배지·블록 라벨은 span/div 라 태그 제거 때 본문에 묻히거나 사라진다.
+    # 리뷰어가 기간과 「문제/수행/성과」 구분을 못 보면 종결 규칙·도입부 대응을 검증할 수 없다.
+    s = re.sub(r'<span class="term">(.*?)</span>', lambda m: '<p>기간: %s</p>' % txt(m.group(1)), s, flags=re.S)
+    s = re.sub(r'<span class="note[^"]*">(.*?)</span>', lambda m: '<p>[배지: %s]</p>' % txt(m.group(1)), s, flags=re.S)
+    s = re.sub(r'<div class="label">(.*?)</div>', lambda m: '<p>▸ %s</p>' % txt(m.group(1)), s, flags=re.S)
+
     # 표
     def tb(m):
         rows, out = re.findall(r'<tr\b[^>]*>(.*?)</tr>', m.group(0), re.S), []
