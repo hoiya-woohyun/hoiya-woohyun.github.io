@@ -1,7 +1,7 @@
 # 이력서 문서군 — 한 번에 빌드
 #
 # 원본은 src/*.html 하나뿐이다. 나머지는 전부 여기서 나온다.
-#   src/*.html ──┬─> index/portfolio/career.html            (GitHub Pages)
+#   src/*.html ──┬─> index(포트폴리오)/resume/career.html     (GitHub Pages)
 #                ├─> private/현재본-md/*.md                (사람이 읽는 용)
 #                ├─> private/현재본-md/사람인-붙여넣기.txt  (채용 사이트 폼)
 #                └─> private/이력서-배우현.pdf             (지원처 첨부)
@@ -23,7 +23,7 @@ CHROME := /Applications/Google Chrome.app/Contents/MacOS/Google Chrome
 all: build md saramin		## 빌드 + md + 붙여넣기 텍스트 (기본)
 	@echo "\n✅ 완료. 원본은 $(SRC)/*.html — 산출물을 고치지 마세요."
 
-build:				## src/*.html → index/portfolio/career.html
+build:				## src/*.html → index(포트폴리오)/resume/career.html
 	@cd "$(SITE)" && python3 build.py src
 
 md:				## src/*.html → 현재본-md/*.md (읽기용)
@@ -34,10 +34,10 @@ saramin:			## 이력서 → 채용 사이트 폼 붙여넣기용 평문
 	@python3 "$(TOOL)/saramin.py" "$(SRC)/이력서.html" "$(MD)/사람인-붙여넣기.txt"
 	@echo "saramin → $(MD)/사람인-붙여넣기.txt"
 
-pdf: build			## index.html → 이력서-배우현.pdf (첨부용)
+pdf: build			## resume.html → 이력서-배우현.pdf (첨부용)
 	@"$(CHROME)" --headless --disable-gpu --no-pdf-header-footer \
-	  --print-to-pdf="$(PRIV)/이력서-배우현.pdf" "file://$(SITE)/index.html"
-	@echo "pdf     → $(PRIV)/이력서-배우현.pdf (원본이 index.html 로 바뀌었습니다)"
+	  --print-to-pdf="$(PRIV)/이력서-배우현.pdf" "file://$(SITE)/resume.html"
+	@echo "pdf     → $(PRIV)/이력서-배우현.pdf (원본은 resume.html)"
 
 check:				## 수치 중복·정직성 표지 검사
 	@python3 "$(TOOL)/check.py" "$(SITE)"

@@ -4,8 +4,8 @@
 
 | 페이지 | 내용 | 빌드 입력 |
 |---|---|---|
-| `index.html` | 이력서 | `src/이력서.html` |
-| `portfolio.html` | 포트폴리오 (작업 사례와 판단 근거) | `src/포트폴리오.html` |
+| `index.html` | 포트폴리오 (작업 사례와 판단 근거) | `src/포트폴리오.html` |
+| `resume.html` | 이력서 | `src/이력서.html` |
 | `career.html` | 경력기술서 (담당 범위와 정량 지표) | `src/경력기술서.html` |
 
 루트의 세 HTML 은 **산출물이라 직접 편집하지 않습니다.** `src/` 의 본문을 고친 뒤

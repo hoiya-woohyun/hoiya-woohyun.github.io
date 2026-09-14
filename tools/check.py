@@ -24,18 +24,18 @@ VARIANTS = {
 }
 
 MARKERS = {
-    'portfolio.html': ['대조하지 못한 항목은 숫자 없이', '고객사·건설사명',
+    'index.html': ['대조하지 못한 항목은 숫자 없이', '고객사·건설사명',
                        '백엔드 팀과 공동으로 축적', '제가 담당한 구간',
                        '회사 산출물이 아니라'],
-    'index.html': ['사내와 별개로'],
+    'resume.html': ['사내와 별개로'],
     'career.html': ['전후 비교가 가능한 지표가 없습니다'],
 }
 
 bad = 0
-for name in ('index.html', 'portfolio.html', 'career.html'):
+for name in ('index.html', 'resume.html', 'career.html'):
     t = plain(site / name)
-    # 중복 금지는 이력서(한 장 안)에만 적용. 나머지 둘은 서술 + 지표 표 반복이 설계다.
-    dup = [m for m in METRICS if t.count(m) > 1] if name == 'index.html' else []
+    # 중복 금지는 이력서 resume.html(한 장 안)에만 적용. 나머지 둘은 서술 + 지표 표 반복이 설계다.
+    dup = [m for m in METRICS if t.count(m) > 1] if name == 'resume.html' else []
     if dup:
         print('⚠️  %-15s 수치 중복 %s' % (name, dup)); bad += 1
     miss = [m for m in MARKERS.get(name, []) if m not in t]
@@ -47,6 +47,6 @@ for name in ('index.html', 'portfolio.html', 'career.html'):
             print('❌ %-15s 표기 불일치 %r → %r' % (name, v, canon))
         bad += 1
     if not dup and not miss and not var:
-        scope = '수치 중복 없음 · ' if name == 'index.html' else ''
+        scope = '수치 중복 없음 · ' if name == 'resume.html' else ''
         print('✅ %-15s %s표지 %d건 유지' % (name, scope, len(MARKERS.get(name, []))))
 sys.exit(1 if bad else 0)

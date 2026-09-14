@@ -18,11 +18,11 @@ DST = pathlib.Path(__file__).parent
 # 사이트로 간다(사이트가 아티팩트와 같은 HTML 을 낸다). 빌드에서만 상대 경로로 바꾼다.
 # 긴 경로를 먼저 치환해야 루트 규칙이 앞을 잘라먹지 않는다.
 ROUTES = {
-    r"https://hoiya-woohyun\.github\.io/portfolio\.html": "./portfolio.html",
+    r"https://hoiya-woohyun\.github\.io/resume\.html": "./resume.html",
     r"https://hoiya-woohyun\.github\.io/career\.html": "./career.html",
     r"https://hoiya-woohyun\.github\.io/(?![\w.])": "./index.html",
     # 과거 본문에 남아 있을 수 있는 아티팩트 URL 도 함께 흡수한다
-    r"https://claude\.ai/code/artifact/1b96a19e[0-9a-f\-]*": "./portfolio.html",
+    r"https://claude\.ai/code/artifact/1b96a19e[0-9a-f\-]*": "./index.html",
     r"https://claude\.ai/code/artifact/16434158[0-9a-f\-]*": "./career.html",
 }
 
@@ -151,10 +151,10 @@ PRINT_BTN = """      <button type="button" class="printbtn" onclick="window.prin
 """
 
 PAGES = [
-    ("이력서.html", "index.html",
-     "배우현 · 프론트엔드 개발자 이력서 — 6개 제품 병행 담당, 규칙을 도구가 검증하게 만듭니다."),
-    ("포트폴리오.html", "portfolio.html",
-     "배우현 · 프론트엔드 개발자 포트폴리오 — 사람이 기억하던 규칙을 도구가 검증하게 만듭니다."),
+    ("포트폴리오.html", "index.html",
+     "배우현 · 프론트엔드 개발자 포트폴리오 — 사람이 기억하던 규칙을 타입 체크와 CI가 검증하게 만듭니다."),
+    ("이력서.html", "resume.html",
+     "배우현 · 프론트엔드 개발자 이력서 — 6개 제품 병행 담당, 규칙을 타입 체크와 CI가 검증하게 만듭니다."),
     ("경력기술서.html", "career.html",
      "배우현 · 프론트엔드 개발자 경력기술서 — 담당 범위와 정량 지표의 기록."),
 ]
@@ -197,3 +197,14 @@ for src, out, desc in PAGES:
 </html>
 """)
     print(f"{out:14} {(DST / out).stat().st_size:>7,} bytes   {title}")
+
+# 옛 주소 — 포트폴리오가 index 로 옮겨가기 전에 공유된 링크가 살아 있도록 리다이렉트만 남긴다
+io.open(DST / "portfolio.html", "w", encoding="utf-8").write("""<!doctype html>
+<html lang="ko"><head><meta charset="utf-8">
+<meta http-equiv="refresh" content="0; url=./index.html">
+<link rel="canonical" href="https://hoiya-woohyun.github.io/">
+<meta name="robots" content="noindex">
+<title>배우현 포트폴리오</title></head>
+<body><p>포트폴리오는 <a href="./index.html">https://hoiya-woohyun.github.io/</a> 로 옮겼습니다.</p></body></html>
+""")
+print("portfolio.html  → index.html 리다이렉트")
