@@ -506,7 +506,7 @@
     <h2>이 문서에 대하여</h2>
     <p class="co-desc">
       아파트·오피스텔 커뮤니티 플랫폼에서 맡은 제품 프로젝트와 제품과 별개로 만든
-      기반 프로젝트를 중심으로, 앞서 일한 클레온에서 세운 배포·리뷰 프로세스까지
+      기반 프로젝트를 중심으로, 앞서 일한 회사의 프로젝트까지 같은 형식으로
       각 건의 문제·수행·성과 순으로 적었습니다.
       회사 단위 요약은 <b>이력서</b>, 구현 방식과 판단 근거는 <b>포트폴리오</b>에 있습니다.
     </p>
@@ -989,6 +989,38 @@
       </div>
     </div>
 
+    <!-- ═══ ② 러너스 ═══ -->
+    <div class="co">
+      <div class="co-head">
+        <h3>주식회사 러너스</h3>
+        <span class="role">개발팀 · 웹팀 팀장</span>
+        <span class="term">2023.04 ~ 2023.07 <small>(+프리랜서 2개월)</small></span>
+      </div>
+      <p class="co-desc">수퍼클럽 — 커머스 서비스 프론트엔드 개선.</p>
+    </div>
+    <div class="proj">
+      <div class="proj-head">
+        <h4>수퍼클럽 — 빌드 체계 전환과 TypeScript 이관</h4>
+        <span class="term">2023.04 ~ 2023.07</span>
+      </div>
+      <div class="block">
+        <div class="label">제품</div>
+        <p>커머스 서비스 웹 프론트엔드</p>
+      </div>
+      <div class="block">
+        <div class="label">수행</div>
+        <ul class="lines">
+          <li>번들러 <b>webpack → Vite(Rollup) 전환</b></li>
+          <li>JavaScript 코드베이스 TypeScript 이관</li>
+          <li>다국어(i18n) 체계 적용</li>
+        </ul>
+      </div>
+      <div class="block">
+        <div class="label">스택</div>
+        <p class="stack">TypeScript · Vite · webpack</p>
+      </div>
+    </div>
+
     <!-- ═══ ③ 클레온 ═══ -->
     <div class="co">
       <div class="co-head">
@@ -1000,32 +1032,242 @@
     </div>
     <div class="proj">
       <div class="proj-head">
-        <h4>Klone V2 · KLling · Klone V1 론칭</h4>
-        <span class="term">2021.06 ~ 2023.04</span>
+        <h4>Klone V2 — 슬라이드 기반 가상인간 영상 제작 플랫폼</h4>
+        <span class="term">2022.05 ~ 2023.04</span>
+      </div>
+      <div class="block">
+        <div class="label">제품</div>
+        <p>사용자가 가상인간과 목소리를 골라, PPT처럼 여러 장의 슬라이드 단위로 영상을 제작하는 플랫폼</p>
       </div>
       <div class="block">
         <div class="label">문제</div>
-        <p>리뷰 없이 머지되는 흐름이라 문제가 배포 후에 드러났고, 배포가 수동이었습니다.</p>
+        <p>리뷰 없이 머지되는 흐름이라 문제가 배포 후에 드러났고, 배포가 수동이었습니다. 기존 canvas 모듈은 이미지·가상인간의 위치와 각도를 자유롭게 다루지 못했고, 편집 중 Redux 객체 데이터가 어긋나는 버그가 있었습니다.</p>
       </div>
       <div class="block">
         <div class="label">수행</div>
         <ul class="lines">
-          <li>웹팀 리드로 배포·리뷰 프로세스 규격을 세우고 팀이 이어 씀</li>
-          <li>AWS Amplify 기반 <b>PR 연동 CI/CD 구축</b>, 머지 전 코드 리뷰를 강제하는 프로세스 확립</li>
-          <li>Klone V2 — 가상인간과 목소리를 골라 슬라이드 단위로 영상을 제작하는 플랫폼. <b>Konva 에디터 래퍼</b>를 개발해 영상 내 스티커 기능 구현, 프론트엔드 개발 전반과 컨벤션 정비 담당</li>
-          <li>KLling — 영상 일부만으로 음성을 추출·학습해 다른 언어로 재현하는 번역 플랫폼. 전시·투자 유치용 제품 성격과 선행 제공된 퍼블리싱 HTML 조건을 고려해 <b>전역 상태관리·CSS-in-JS를 배제한 경량 구성</b>으로 설계</li>
-          <li>Klone V1 — 챗봇 API와 연동해 질문에 대한 답변을 영상으로 재생하는 영상 챗봇 플랫폼. <b>HLS(m3u8) 기반 실시간 영상 스트리밍 재생</b> 적용, 챗봇 응답에 대응하는 사전 제작 영상을 선택해 재생하도록 연동</li>
+          <li>AWS Amplify 기반 <b>PR 연동 CI/CD 구축</b>, 머지 전 코드 리뷰를 강제하는 프로세스 확립
+            <ul class="ev">
+              <li>코드 리뷰를 선택이 아니라 머지 조건으로 규정</li>
+              <li>수동 배포를 파이프라인 실행으로 전환</li>
+            </ul>
+          </li>
+          <li>React 기반 <b>Konva 이미지 에디터 래퍼</b> 개발
+            <ul class="ev">
+              <li>영상 내 스티커 기능 추가</li>
+              <li>우클릭 복사·붙여넣기, 이미지·가상인간의 위치·각도 자유도 개선</li>
+              <li>PPT와 유사한 단축키 적용</li>
+              <li>Redux 객체 데이터 불일치 버그 개선</li>
+            </ul>
+          </li>
+          <li>메인·스튜디오(에디터 홈)·로그인 페이지 개발, 프론트엔드 컨벤션 정비</li>
         </ul>
       </div>
       <div class="block">
         <div class="label">성과</div>
         <ul class="lines">
           <li>리뷰 없이 머지되던 흐름과 수동 배포를 <b>파이프라인 하나로 전환</b>, 그 배포·리뷰 규격 위에서 <b>3개 제품이 차례로 론칭</b></li>
+          <li>기존 canvas 모듈 대비 에디터 렌더링 퍼포먼스·메모리 안정화</li>
         </ul>
       </div>
       <div class="block">
         <div class="label">스택</div>
-        <p class="stack">React · React Query · Redux Toolkit · Vue.js · Vuex · Konva · Storybook · i18next · webpack · AWS Amplify · ESLint · Prettier · Husky</p>
+        <p class="stack">React · React Query · Redux · Redux Toolkit · Konva · Storybook · i18next · webpack · AWS Amplify · ESLint · Prettier · Husky</p>
+      </div>
+    </div>
+
+    <div class="proj">
+      <div class="proj-head">
+        <h4>KLling — 음성 학습 기반 영상 번역 플랫폼</h4>
+        <span class="term">2022.05 ~ 2022.10</span>
+      </div>
+      <div class="block">
+        <div class="label">제품</div>
+        <p>영상 일부만으로 음성 데이터를 추출해 목소리를 학습하고, 학습한 목소리로 다른 언어를 재현하는 영상 번역 플랫폼</p>
+      </div>
+      <div class="block">
+        <div class="label">문제</div>
+        <p>투자 유치(VC)·CES 전시용 제품이라 일정이 짧았고, 퍼블리싱된 HTML이 먼저 제공된 조건이었습니다.</p>
+      </div>
+      <div class="block">
+        <div class="label">수행</div>
+        <ul class="lines">
+          <li>전시용 제품 성격과 선행 HTML 조건을 고려해 <b>전역 상태관리·CSS-in-JS를 배제한 경량 구성</b>으로 설계</li>
+          <li>AWS Amplify 기반 CI/CD 구축</li>
+          <li>메인·음성 관리·서비스 소개·로그인 페이지 개발</li>
+        </ul>
+      </div>
+      <div class="block">
+        <div class="label">스택</div>
+        <p class="stack">React · React Query · i18next · webpack · AWS Amplify · ESLint · Prettier · Husky</p>
+      </div>
+    </div>
+
+    <div class="proj">
+      <div class="proj-head">
+        <h4>Klone V1 — 챗봇 연동 영상 챗봇 플랫폼</h4>
+        <span class="term">2021.06 ~ 2022.10</span>
+      </div>
+      <div class="block">
+        <div class="label">제품</div>
+        <p>챗봇 API와 연동해 사용자의 질문에 대한 답변을 영상으로 재생하고 실시간으로 소통하는 영상 챗봇 플랫폼</p>
+      </div>
+      <div class="block">
+        <div class="label">문제</div>
+        <p>투자 유치(VC)·CES 전시용 제품이었고, 서버 인력이 없어 통상 서버가 맡는 챗봇 응답 처리와 영상 생성 요청 구간까지 프론트엔드가 담당해야 했습니다.</p>
+      </div>
+      <div class="block">
+        <div class="label">수행</div>
+        <ul class="lines">
+          <li>Vue.js 기반 메인·로그인·마이프로필·채팅·랜딩 페이지 전수 개발</li>
+          <li>SkelterLabs Chat API 챗봇 연동 — 챗봇 응답을 프론트엔드에서 받아 자사 영상 생성 API에 요청하고, 생성·캐싱된 영상을 재생하는 흐름을 프론트엔드에서 오케스트레이션</li>
+          <li><b>HLS(m3u8) 기반 실시간 영상 스트리밍 재생</b> 적용</li>
+          <li>Vue 3 마이그레이션 리팩토링</li>
+        </ul>
+      </div>
+      <div class="block">
+        <div class="label">스택</div>
+        <p class="stack">Vue.js · Vuex · vue-i18n · ESLint · Prettier</p>
+      </div>
+    </div>
+
+    <!-- ═══ ④ 집펀드 ═══ -->
+    <div class="co">
+      <div class="co-head">
+        <h3>주식회사 집펀드</h3>
+        <span class="role">React Native 앱 개발</span>
+        <span class="term">2021.05 ~ 2021.06</span>
+      </div>
+      <p class="co-desc">집비서 모바일 — 부동산 매물 검색 앱 공통 컴포넌트 담당.</p>
+    </div>
+    <div class="proj">
+      <div class="proj-head">
+        <h4>집비서 모바일 — 부동산 매물 검색 앱</h4>
+        <span class="term">2021.05 ~ 2021.06</span>
+      </div>
+      <div class="block">
+        <div class="label">제품</div>
+        <p>부동산 매물 검색을 돕는 모바일 앱</p>
+      </div>
+      <div class="block">
+        <div class="label">수행</div>
+        <ul class="lines">
+          <li>React Native 기반 앱 개발</li>
+          <li>Atomic Design 패턴으로 Button·Input·Text 등 <b>low-level 공통 컴포넌트화</b></li>
+        </ul>
+      </div>
+      <div class="block">
+        <div class="label">스택</div>
+        <p class="stack">React Native · MobX · react-native-reanimated</p>
+      </div>
+    </div>
+
+    <!-- ═══ ⑤ 씨와이 ═══ -->
+    <div class="co">
+      <div class="co-head">
+        <h3>주식회사 씨와이</h3>
+        <span class="role">프론트엔드 개발 (NPD)</span>
+        <span class="term">2020.01 ~ 2020.12</span>
+      </div>
+      <p class="co-desc">COS247 — 화장품 위탁 생산 중개 B2B 플랫폼 초기 구축 및 어드민 개발.</p>
+    </div>
+    <div class="proj">
+      <div class="proj-head">
+        <h4>COS247 — 화장품 위탁 생산 중개 플랫폼</h4>
+        <span class="term">2020.01 ~ 2020.12</span>
+      </div>
+      <div class="block">
+        <div class="label">제품</div>
+        <p>화장품을 위탁 생산하려는 고객과 제조사·공급사를 잇고, 제작 현황을 시각화하는 B2B 플랫폼</p>
+      </div>
+      <div class="block">
+        <div class="label">문제</div>
+        <p>검색 노출(SEO)이 필수 요건이었고, 인증은 사내 Keycloak을 거쳐야 했습니다.</p>
+      </div>
+      <div class="block">
+        <div class="label">수행</div>
+        <ul class="lines">
+          <li>Nuxt.js 기반으로 메인 플랫폼과 어드민(공급사용·사용자용) 일체 초기 개발
+            <ul class="ev">
+              <li>로그인·메인·제작 프로세스 페이지</li>
+              <li>Ant Design Vue로 개발 속도 확보</li>
+            </ul>
+          </li>
+          <li>제조 공정을 <b>단계별 테이블로 추적하는 화면</b> 설계</li>
+          <li>Nuxt-express와 Keycloak으로 인증 인터셉터 개발 — express는 요청·응답 검증 용도로만 사용</li>
+        </ul>
+      </div>
+      <div class="block">
+        <div class="label">스택</div>
+        <p class="stack">Nuxt.js · Vue.js · express · Keycloak · Ant Design Vue</p>
+      </div>
+    </div>
+
+    <!-- ═══ ⑥ 이글루코퍼레이션 ═══ -->
+    <div class="co">
+      <div class="co-head">
+        <h3>주식회사 이글루코퍼레이션</h3>
+        <span class="role">프론트엔드 개발</span>
+        <span class="term">2019.04 ~ 2019.11</span>
+      </div>
+      <p class="co-desc">AEGIS — 공통 코드 관리 화면 개발 및 UI 유지보수.</p>
+    </div>
+    <div class="proj">
+      <div class="proj-head">
+        <h4>AEGIS — 보안 로그 분석 관리자 플랫폼</h4>
+        <span class="term">2019.04 ~ 2019.11</span>
+      </div>
+      <div class="block">
+        <div class="label">제품</div>
+        <p>KT와 협업해 국내외 네트워크 로그를 분석하고, 사전 위험 대응·접근 차단 등 보안 현황을 시각화하는 관리자용 플랫폼</p>
+      </div>
+      <div class="block">
+        <div class="label">문제</div>
+        <p>공통 컴포넌트는 atomic 단위로 이미 구현돼 있어, 테이블 세부 커스텀과 유지보수가 담당 범위였습니다.</p>
+      </div>
+      <div class="block">
+        <div class="label">수행</div>
+        <ul class="lines">
+          <li>Ant Design 테이블 래퍼 개발</li>
+          <li>로그 수집 테이블·공통 코드 관리 테이블 커스텀 개발</li>
+          <li>UI 버그 유지보수</li>
+        </ul>
+      </div>
+      <div class="block">
+        <div class="label">스택</div>
+        <p class="stack">React · Redux · Ant Design</p>
+      </div>
+    </div>
+
+    <!-- ═══ ⑦ 아이디스트 ═══ -->
+    <div class="co">
+      <div class="co-head">
+        <h3>아이디스트</h3>
+        <span class="role">기획 · 디자인 · 개발</span>
+        <span class="term">2017.03 ~ 2017.09</span>
+      </div>
+      <p class="co-desc">IDIST — 특허·실용신안 외의 아이디어를 자산화하는 플랫폼 개발.</p>
+    </div>
+    <div class="proj">
+      <div class="proj-head">
+        <h4>IDIST — 아이디어 자산화 플랫폼</h4>
+        <span class="term">2016.10 ~ 2017.09</span>
+      </div>
+      <div class="block">
+        <div class="label">제품</div>
+        <p>특허·실용신안 이외의 아이디어를 자산화해 보호받도록 돕는 플랫폼. 학생 창업 팀으로 기획·디자인·개발에 전 인원이 참여</p>
+      </div>
+      <div class="block">
+        <div class="label">수행</div>
+        <ul class="lines">
+          <li>AngularJS 기반 랜딩·프로덕트 소개 페이지 개발</li>
+          <li>Django 기반 아임포트 결제 연동 개발</li>
+          <li>Figma로 웹 디자인</li>
+        </ul>
+      </div>
+      <div class="block">
+        <div class="label">스택</div>
+        <p class="stack">AngularJS · Django · Figma</p>
       </div>
     </div>
 
