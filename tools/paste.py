@@ -5,7 +5,6 @@
 자기소개와 회사·프로젝트별 설명만 뽑아 한 파일로 합친다. 이런 칸은 마크다운을
 렌더링하지 않으므로 서식 기호 없이, 프로젝트마다 같은 순서의 라벨 블록으로 낸다.
 
-  · · · 프로젝트 ① · · ·
   프로젝트명 / 기간 / [제품] / [역할] / [문제] / [핵심 성과] / [기술 스택] / [주요 기여]
 
   [핵심 성과]  한 줄에 하나. 하위 지표는 3칸 들여쓰기
@@ -20,7 +19,6 @@ import io, re, sys, html as H
 from html.parser import HTMLParser
 
 W = 64
-CIRCLED = '①②③④⑤⑥⑦⑧⑨⑩⑪⑫⑬⑭⑮⑯⑰⑱⑲⑳'
 
 
 def txt(x):
@@ -105,13 +103,12 @@ def blocks(p):
     return out
 
 
-def project(p, idx, role):
+def project(p, role):
     title = first(r'<h4>(.*?)</h4>', p)
     term = first(r'<span class="term">(.*?)</span>', p)
     note = first(r'<span class="note[^"]*">(.*?)</span>', p)
     b = blocks(p)
-    o = ['· · · 프로젝트 %s · · ·' % CIRCLED[idx - 1], '',
-         '프로젝트명', title, '',
+    o = ['프로젝트명', title, '',
          '기간', term, '']
     if '제품' in b:
         o += ['[제품]', txt(b['제품']), '']
@@ -133,7 +130,7 @@ def build(resume, career):
     total = first(r'<dt>총 경력</dt>\s*<dd>(.*?)</dd>', r)
     o = ['=' * W, '채용 플랫폼 붙여넣기용 — 배우현',
          '자동 생성 · 원본 src/이력서.html · src/경력기술서.html · 총 경력 %s' % total, '=' * W, '',
-         '· 자기소개 칸에는 [자기소개]를, 경력 칸에는 회사 블록을, 프로젝트 칸에는 「· · · 프로젝트 ① · · ·」 단위를 붙여넣으세요.',
+         '· 자기소개 칸에는 [자기소개]를, 경력 칸에는 회사 블록을, 프로젝트 칸에는 「프로젝트명」부터 다음 「프로젝트명」 전까지를 붙여넣으세요.',
          '· 서식 기호는 없습니다. 「=」 선은 구분용이니 붙여넣지 마세요.',
          '· 이 파일은 재생성됩니다. 손으로 고치면 다음 make 에 사라집니다.', '']
 
@@ -150,7 +147,7 @@ def build(resume, career):
         if name in career_by_name:
             _, _, cdesc, projs = career_by_name[name]
             o += [cdesc or desc, '', '']
-            for i, p in enumerate(projs, 1): o += project(p, i, role)
+            for p in projs: o += project(p, role)
         else:
             if desc: o += [desc, '']
             if ul: o += ['[주요 업무 및 성과]'] + plain_lines(ul) + ['']
