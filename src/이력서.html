@@ -209,7 +209,8 @@
     margin-top: 26px; padding: 10px 13px;
     background: var(--wash); border-left: 3px solid var(--accent);
     /* 카드 안에서는 갈리지 않되 카드끼리는 붙잡지 않는다 — break-after: avoid 를 두면
-       카드 사슬 전체가 다음 장으로 밀려 빈 장이 생겼다. 카드 하나는 한 장의 40% 이하라 통째로 옮겨도 공백이 작다 */
+       카드 사슬 전체가 다음 장으로 밀려 빈 장이 생겼다. 카드 하나는 한 장의 40% 이하라 통째로 옮겨도 공백이 작다.
+       (카드를 갈리게 두고 헤더만 묶는 방식은 Chrome 이 헤더 뒤에서 갈라 헤더만 장 끝에 남겼다) */
     break-inside: avoid;
   }
   .co:first-of-type { margin-top: 0; }
