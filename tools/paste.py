@@ -1,14 +1,18 @@
 #!/usr/bin/env python3
-"""src/이력서.html + src/경력기술서.html → 채용 플랫폼 붙여넣기용 마크다운.
+"""src/이력서.html + src/경력기술서.html → 채용 플랫폼 붙여넣기용 평문.
 
-사람인·원티드·잡코리아·링크드인의 자기소개·경력 칸에 그대로 붙일 수 있게, 두 문서에서
-자기소개와 회사·프로젝트별 설명만 뽑아 한 파일로 합친다. 붙여넣기 대상은 마크다운을
-렌더링하지 않는 곳이 대부분이라 굵게·코드 표기는 걷어내고, 구조는 제목과 `-` 목록만 쓴다.
+사람인·잡코리아·원티드의 자기소개·경력 칸에 그대로 붙일 수 있게, 두 문서에서
+자기소개와 회사·프로젝트별 설명만 뽑아 한 파일로 합친다. 이런 칸은 마크다운을
+렌더링하지 않으므로 서식 기호 없이 번호 체계로만 구조를 낸다.
+
+  절      1. / 1.1 / 1.1.1   (문서 절 · 회사 · 프로젝트)
+  항목    1) 2) 3)           (수행·성과 줄)
+  하위    (1) (2)            (지표·세부)
 
   자기소개 · 한 줄 소개 · 보유 기술  ← 이력서
   회사 설명 · 프로젝트(문제·수행·성과) ← 경력기술서 (없는 회사는 이력서 경력 상세로 대신)
 
-사용: python3 tools/paste.py src/이력서.html src/경력기술서.html <출력.md>
+사용: python3 tools/paste.py src/이력서.html src/경력기술서.html <출력.txt>
 """
 import io, re, sys, html as H
 from html.parser import HTMLParser
@@ -36,12 +40,20 @@ class Lines(HTMLParser):
     def handle_data(self, data):
         if self.open: self.items[self.open[-1]][1] += data
     def result(self):
-        return [(d, re.sub(r'[ \t\n]+', ' ', t).strip()) for d, t in self.items if t.strip()]
+        items = [(d, re.sub(r'[ \t\n]+', ' ', t).strip()) for d, t in self.items if t.strip()]
+        base = min((d for d, _ in items), default=0)      # 바깥 ul 없이 li 만 받아도 최상위는 깊이 0
+        return [(d - base, t) for d, t in items]
 
 
-def lines(block, indent=0):
-    p = Lines(); p.feed(block)
-    return ['%s- %s' % ('  ' * (d + indent), t) for d, t in p.result()]
+def lines(block):
+    """항목은 1) 2), 하위 항목은 (1) (2) — 상위 항목이 바뀌면 하위 번호를 다시 센다."""
+    p = Lines(); p.feed(block); o, n, m = [], 0, 0
+    for d, t in p.result():
+        if d == 0:
+            n += 1; m = 0; o.append('%d) %s' % (n, t))
+        else:
+            m += 1; o.append('   (%d) %s' % (m, t))
+    return o
 
 
 def section(s, name):
@@ -68,14 +80,13 @@ def companies(sec):
     return out
 
 
-def project(p):
+def project(p, num):
     o = []
     title = first(r'<h4>(.*?)</h4>', p)
     term = first(r'<span class="term">(.*?)</span>', p)
     note = first(r'<span class="note[^"]*">(.*?)</span>', p)
-    head = '#### %s' % title
     meta = ' · '.join(x for x in (term, note) if x)
-    o += [head, meta, ''] if meta else [head, '']
+    o += ['%s %s%s' % (num, title, ' (%s)' % meta if meta else ''), '']
     for piece in re.sub(r'<!--.*?-->', '', p, flags=re.S).split('<div class="block">')[1:]:
         label = first(r'<div class="label">(.*?)</div>', piece)
         body = piece.split('</div>', 1)[1]          # 라벨 뒤 전부 — 닫는 태그가 섞여도 txt/Lines 가 걷어낸다
@@ -92,34 +103,36 @@ def build(resume, career):
     o = []
 
     total = first(r'<dt>총 경력</dt>\s*<dd>(.*?)</dd>', r)
-    o += ['# 채용 플랫폼 붙여넣기 — 배우현', '',
-          '자동 생성 · 원본 src/이력서.html · src/경력기술서.html · 총 경력 %s' % total, '',
-          '- 자기소개 칸에는 「자기소개」를, 경력 칸에는 회사별 블록을 그대로 붙여넣으세요.',
-          '- 마크다운을 렌더링하지 않는 칸이면 `#` 제목 기호만 지우면 됩니다. 굵게·코드 표기는 이미 없습니다.',
-          '- 이 파일은 재생성됩니다. 손으로 고치면 다음 make 에 사라집니다.', '']
+    W = 64
+    o += ['=' * W, '채용 플랫폼 붙여넣기용 — 배우현',
+          '자동 생성 · 원본 src/이력서.html · src/경력기술서.html · 총 경력 %s' % total, '=' * W, '',
+          '· 자기소개 칸에는 「2. 자기소개」를, 경력 칸에는 회사 절(3.1, 3.2 …)을 통째로 붙여넣으세요.',
+          '· 서식 기호는 없습니다. 번호(1. / 1) / (1))가 곧 계층입니다.',
+          '· 「=」 선은 구분용이니 붙여넣지 마세요. 이 파일은 재생성됩니다 — 손으로 고치면 다음 make 에 사라집니다.', '']
 
-    o += ['## 한 줄 소개', '', first(r'<p class="tagline">(.*?)</p>', r), '']
+    o += ['1. 한 줄 소개', first(r'<p class="tagline">(.*?)</p>', r), '']
 
-    o += ['## 자기소개', '']
-    for _, t in Lines_of(section(r, '자기소개')):
-        o += [t, '']
+    o += ['2. 자기소개']
+    for i, (_, t) in enumerate(Lines_of(section(r, '자기소개')), 1):
+        o.append('%d) %s' % (i, t))
+    o.append('')
 
-    o += ['## 경력 · 프로젝트', '']
+    o += ['3. 경력 · 프로젝트', '']
     career_by_name = {n: (role, term, desc, projs)
                       for n, role, term, desc, _, projs in companies(section(c, '경력 상세'))}
-    for name, role, term, desc, ul, _ in companies(section(r, '경력 상세')):
-        o += ['### %s — %s (%s)' % (name, role, term), '']
+    for ci, (name, role, term, desc, ul, _) in enumerate(companies(section(r, '경력 상세')), 1):
+        o += ['=' * W, '3.%d %s | %s | %s' % (ci, name, role, term), '']
         if name in career_by_name:
             _, _, cdesc, projs = career_by_name[name]
             o += [cdesc or desc, '']
-            for p in projs: o += project(p)
+            for pi, p in enumerate(projs, 1): o += project(p, '3.%d.%d' % (ci, pi))
         else:
             if desc: o += [desc, '']
             if ul: o += ['[주요 업무 및 성과]'] + lines(ul) + ['']
 
-    o += ['## 보유 기술', '']
-    for m in re.finditer(r'<dt>(.*?)</dt>\s*<dd>(.*?)</dd>', section(r, '보유 기술'), re.S):
-        o.append('- %s: %s' % (txt(m.group(1)), txt(m.group(2))))
+    o += ['=' * W, '4. 보유 기술']
+    for i, m in enumerate(re.finditer(r'<dt>(.*?)</dt>\s*<dd>(.*?)</dd>', section(r, '보유 기술'), re.S), 1):
+        o.append('%d) %s: %s' % (i, txt(m.group(1)), txt(m.group(2))))
     return '\n'.join(o).rstrip() + '\n'
 
 
