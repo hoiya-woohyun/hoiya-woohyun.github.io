@@ -2,6 +2,12 @@ import re, sys, html as H
 A, B = '\x01', '\x02'
 
 def txt(x):
+    # 태그를 그냥 지우면 앞뒤 글자가 붙는다("프로덕트 센터웹팀 리드"). 줄바꿈과 배지는
+    # 지우기 전에 공백 자리를 남긴다. 단 숫자 바로 뒤의 <small> 은 단위 접미사(8.1<small>분)
+    # 이므로 띄우지 않는다 — 소속 배지(…클레온<small>프로덕트 센터)와 여기서 갈린다.
+    x = re.sub(r'<br\b[^>]*>', ' ', x)
+    x = re.sub(r'(?<![0-9])<small\b[^>]*>', ' ', x)
+    x = re.sub(r'<em\b[^>]*>', ' ', x)
     x = H.unescape(re.sub(r'<[^>]+>', '', x)).replace(A, '').replace(B, '')
     return re.sub(r'[ \t\n]+', ' ', x).strip()
 
@@ -30,8 +36,6 @@ def md(path):
     # 비율 카드(.ratio): 라벨과 분수를 한 줄로. 통째로 떨어지면 예고 문장만 남아 허위 지적을 낳는다.
     s = re.sub(r'<div class="ratio">.*?<span class="lab">(.*?)</span>\s*<span class="num">(.*?)</span>.*?</div>\s*</div>\s*</div>',
                lambda m: '<p>- %s: %s</p>' % (txt(m.group(1)), txt(m.group(2))), s, flags=re.S)
-    # 제목 안의 <em>(기간·부제)은 앞에 공백을 넣어 제목과 붙지 않게 한다
-    s = re.sub(r'(<h[1-4][^>]*>[^<]*?)<em>', r'\1 <em>', s, flags=re.S)
 
     # 표
     def tb(m):
