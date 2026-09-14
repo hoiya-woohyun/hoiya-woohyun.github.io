@@ -39,7 +39,17 @@ PRINT_CSS = """<style>
    글자를 이미지로 굽지 않는다. 브라우저 인쇄를 그대로 쓰므로
    PDF 안에서 복사·검색이 되고 채용 사이트의 파서가 읽을 수 있다. */
 @media print {
-  @page { margin: 14mm 12mm; }
+  /* 페이지 번호는 문서가 직접 찍는다(@page 여백 상자, Chrome 131+).
+     브라우저 인쇄 대화상자의 "머리글 및 바닥글"(날짜·제목·URL)은 CSS 로 끌 수 없으니
+     사용자가 끄고, 번호는 여기서 나온다. */
+  @page {
+    margin: 14mm 12mm 16mm;
+    @bottom-center {
+      content: counter(page) " / " counter(pages);
+      font: 8.5pt/1 'Apple SD Gothic Neo', 'Malgun Gothic', system-ui, sans-serif;
+      color: #8A94A6;
+    }
+  }
 
   /* 화면 전용 요소 — 고정 내비는 인쇄하면 매 장 상단에 반복된다 */
   .sitenav, .rail, .printbtn { display: none !important; }
@@ -147,7 +157,7 @@ NAV_CSS = """<style>
 </style>"""
 
 PRINT_BTN = """      <button type="button" class="printbtn" onclick="window.print()"
-        title="인쇄 대화상자에서 대상을 &quot;PDF로 저장&quot;으로 선택하세요">PDF 저장</button>
+        title="인쇄 대화상자에서 대상을 &quot;PDF로 저장&quot;으로 선택하고, 옵션의 &quot;머리글 및 바닥글&quot;은 끄세요 — 페이지 번호는 문서가 직접 찍습니다">PDF 저장</button>
 """
 
 PAGES = [
