@@ -239,8 +239,12 @@
 
   .block {
     display: grid; grid-template-columns: 48px 1fr; gap: 0 11px;
-    margin-top: 6px; break-inside: avoid; align-items: baseline;
+    margin-top: 6px; align-items: baseline;
+    /* 블록(수행·성과) 통째로 묶으면 긴 블록이 다음 장으로 밀려 장 하단이 빈다 — 항목 단위로만 묶는다 */
+    break-inside: auto;
   }
+  .block > .label { break-after: avoid; }
+  ul.lines > li { break-inside: avoid; }
   .block > .label {
     font-size: 8.4pt; font-weight: 700; letter-spacing: .04em;
     color: var(--ink-3);
