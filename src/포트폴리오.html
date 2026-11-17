@@ -1,0 +1,962 @@
+<title>배우현 포트폴리오</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<style>
+  /* 링크는 build.py 가 하나만 옮기므로 모노스페이스는 @import 로 받는다 */
+  @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap');
+
+  /* 포트폴리오만 다크 전용이다 — 이력서·경력기술서는 A4 밝은 문서 양식을 유지한다.
+     테마 분기를 두지 않는다: 값이 하나뿐이라 prefers-color-scheme 블록은 의미가 없다. */
+  :root {
+    --ground:    #1C1B18;
+    --surface:   #211F1C;
+    --sunken:    #151412;
+    --ink:       #F5F2E6;
+    --ink-2:     #BEBBB0;
+    --ink-3:     #93907F;
+    --rule:      #35322B;
+    --rule-2:    #272520;
+    --accent:    #F5F2E6;
+    --accent-2:  #DEDBD0;
+    --wash:      #F5F2E614;
+
+    /* alt 밴드는 불투명 #211F1C(=--surface) 대신 '땅 위에 얇게 깐 크림' 으로 둔다.
+       보이는 색은 같지만(실측 #211F1C 에 수렴) 불투명하지 않으므로 뒤의 배경 겹이
+       죽지 않는다 — 불투명 밴드를 두면 시차가 섹션마다 끊긴다.
+       --surface 는 내비·카드가 쓰므로 건드리지 않는다. */
+    --band-alt:  #F5F2E606;
+    /* 배경 격자선 — 본문 hairline(--rule)과 같은 색이되 더 묽다 */
+    --bg-line:   #35322B99;
+    --bg-glow:   #F5F2E60A;
+
+    --f-sans: 'Pretendard Variable', Pretendard, 'Apple SD Gothic Neo', 'Malgun Gothic', system-ui, sans-serif;
+    --f-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+  }
+  html { color-scheme: dark; background: var(--ground); }
+
+  * { box-sizing: border-box; }
+
+  body {
+    /* 배경색은 html 이 들고 있다(위 html 규칙). 여기서 칠하면 .bg(z-index:-1)를 덮는다.
+       html·body 에 transform/filter/opacity 를 주면 스택 문맥이 생겨 .bg 가 사라진다 — 주지 않는다. */
+    background: transparent;
+    color: var(--ink);
+    font-family: var(--f-sans);
+    font-size: 15px; font-weight: 400; line-height: 1.75;
+    word-break: keep-all; overflow-wrap: break-word;
+    /* 마지막 줄에 한 어절만 떨어지지 않게 — 제목은 아래에서 balance 로 덮는다 */
+    text-wrap: pretty;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: var(--accent); text-underline-offset: 3px; }
+  a:focus-visible { outline: 2px solid var(--accent-2); outline-offset: 3px; }
+
+  .wrap { max-width: 960px; margin: 0 auto; padding: 0 26px; }
+
+  /* ── 히어로 — 첫 화면을 통째로 쓴다 ────────── */
+  /* 내비가 흐름 안에 있으므로 그 높이만큼 빼야 첫 화면에 스크롤 안내까지 들어온다.
+     내비가 두 줄로 접히는 좁은 화면은 아래에서 따로 잡는다. */
+  .hero { min-height: 100vh; min-height: calc(100svh - 52px); display: flex; }
+  @media (max-width: 560px) { .hero { min-height: calc(100svh - 80px); } }
+  .hero > .wrap { flex: 1; display: flex; flex-direction: column; padding-block: 26px 40px; }
+  .kicker {
+    margin: 0; display: flex; align-items: center; gap: 20px;
+    font-family: var(--f-mono); font-size: 12px; font-weight: 500;
+    letter-spacing: .14em; text-transform: uppercase; color: var(--ink-2);
+  }
+  .kicker::after { content: ""; flex: 1; height: 1px; background: var(--rule); }
+
+  .hero-btm { margin-top: auto; }
+  h1.display {
+    margin: 0; font-size: clamp(46px, 11vw, 120px); font-weight: 800;
+    line-height: .94; letter-spacing: -.045em; text-transform: uppercase;
+    color: var(--ink);
+  }
+  h1.display span { display: block; }
+  .thesis {
+    margin: 30px 0 0; max-width: 20em;
+    font-size: clamp(17px, 2.4vw, 24px); font-weight: 600;
+    line-height: 1.5; letter-spacing: -.028em; color: var(--ink-2);
+    text-wrap: balance;
+  }
+  .thesis b { color: var(--ink); font-weight: 800; }
+
+  ul.whois {
+    margin: 34px 0 0; padding: 20px 0 0; list-style: none;
+    border-top: 1px solid var(--rule-2);
+    display: flex; flex-wrap: wrap; gap: 8px 26px;
+    font-family: var(--f-mono); font-size: 11.5px; color: var(--ink-3);
+  }
+  ul.whois b { color: var(--ink); font-weight: 500; }
+
+  .scrollcue {
+    margin: 30px 0 0; text-align: center;
+    font-family: var(--f-mono); font-size: 11px; letter-spacing: .2em;
+    color: var(--ink-3); animation: cue 2.2s ease-in-out infinite;
+  }
+  @keyframes cue { 0%, 100% { transform: none; } 50% { transform: translateY(5px); } }
+  @media (prefers-reduced-motion: reduce) { .scrollcue { animation: none; } }
+
+  /* ── 섹션 ────────────────────────────────────── */
+  section.band { padding-block: 64px; border-bottom: 1px solid var(--rule); }
+  section.band.alt { background: var(--band-alt); }
+  .shead { margin-bottom: 34px; }
+  /* 번호 · 영문 라벨 · 한국어 제목이 한 줄에 오되, 좁은 화면에서는 제목만 다음 줄로 */
+  .shead h2 {
+    margin: 0 0 10px; display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 14px;
+    font-family: var(--f-mono); font-size: 13px; font-weight: 500;
+    letter-spacing: .18em; text-transform: uppercase; color: var(--ink-3);
+  }
+  .shead h2 b.num { font-weight: 500; color: var(--ink-3); letter-spacing: .1em; }
+  .shead h2 em {
+    font-family: var(--f-sans); font-style: normal; font-size: 25px; font-weight: 800;
+    letter-spacing: -.032em; text-transform: none; color: var(--ink);
+    flex-basis: 100%; margin-top: 4px;
+  }
+  /* 라벨과 설명이 한 덩어리로 읽히게 간격을 좁히고, 폭은 본문(.built p)과 맞춘다 */
+  .shead p {
+    margin: 0; max-width: 42em; font-size: 15px; color: var(--ink-2);
+    text-wrap: pretty;
+  }
+  .shead p :is(b, strong) { color: var(--ink); font-weight: 600; }
+  .shead p + p { margin-top: 13px; }
+  .shead ul.chips + p { margin-top: 20px; }
+
+  /* 연락 — 정의 목록 */
+  .fact { margin: 0; display: grid; grid-template-columns: max-content 1fr; gap: 10px 26px; }
+  .fact dt {
+    font-family: var(--f-mono); font-size: 11.5px; letter-spacing: .12em;
+    text-transform: uppercase; color: var(--ink-3); padding-top: 3px;
+  }
+  .fact dd { margin: 0; font-size: 15px; color: var(--ink-2); }
+  /* 종이에서만 보이는 줄 — 화면의 버튼 대신 주소를 글자로 적는다 */
+  .fact .print-only { display: none; }
+  .fact dd b { color: var(--ink); font-weight: 600; }
+  ul.chips.docs { margin-top: 26px; }
+  /* 문서 링크는 한국어 문장이라 모노스페이스가 아니라 본문 서체로 둔다 */
+  ul.chips.docs > li { font-family: var(--f-sans); font-size: 13.5px; padding: 7px 14px; }
+  ul.chips.docs a { text-decoration: none; }
+  ul.chips.docs > li:hover { border-color: var(--accent); }
+
+  /* ── 나열 ────────────────────────────────────── */
+  /* 대시 뒤에 매달리던 나열을 받는다. pts = 서술형, chips = 짧은 명사형 */
+  ul.pts { margin: 9px 0 0; padding: 0; list-style: none; display: grid; gap: 7px; }
+  ul.pts > li {
+    font-size: 13.5px; color: var(--ink-2); line-height: 1.68;
+    padding-left: 14px; position: relative; max-width: 42em;
+  }
+  ul.pts > li::before {
+    content: ""; position: absolute; left: 0; top: .68em;
+    width: 5px; height: 1px; background: var(--ink-3);
+  }
+  ul.pts > li :is(strong, b) { color: var(--ink); font-weight: 600; }
+  ul.chips { margin: 13px 0 0; padding: 0; list-style: none; display: flex; flex-wrap: wrap; gap: 8px; }
+  ul.chips > li {
+    font-family: var(--f-mono); font-size: 12px; color: var(--ink-2);
+    background: var(--surface); border: 1px solid var(--rule); padding: 5px 11px;
+  }
+
+  /* ── 능력 ────────────────────────────────────── */
+  .abil { display: grid; gap: 24px; }
+  .abil > li { list-style: none; display: grid; gap: 8px; }
+  .abil h3 {
+    margin: 0; font-size: 18px; font-weight: 600; letter-spacing: -.018em;
+    line-height: 1.5; text-wrap: balance;
+  }
+  .abil h3::before {
+    content: ""; display: inline-block; vertical-align: .18em;
+    width: 18px; height: 2px; background: var(--accent); margin-right: 11px;
+  }
+  .abil p { margin: 0 0 0 29px; max-width: 40em; font-size: 14px; color: var(--ink-2); text-wrap: pretty; }
+  .abil ul.pts { margin-left: 29px; }
+
+  /* ── 사례 ────────────────────────────────────── */
+  .cases { display: grid; gap: 44px; }
+  .tools + .cases { margin-top: 44px; }
+  .case { display: grid; gap: 18px; }
+  .case > header h3 {
+    margin: 0 0 8px; font-size: 21px; font-weight: 700;
+    letter-spacing: -.024em; line-height: 1.42; text-wrap: balance;
+  }
+  .case > header p { margin: 0; max-width: 40em; font-size: 14px; color: var(--ink-2); text-wrap: pretty; }
+
+  .shift {
+    display: grid; gap: 1px; background: var(--rule);
+    border: 1px solid var(--rule);
+  }
+  @media (min-width: 720px) { .shift { grid-template-columns: 1fr 1fr; } }
+  .shift > div { background: var(--surface); padding: 18px 20px 20px; display: grid; gap: 9px; align-content: start; }
+  .shift > div.after { background: var(--wash); }
+  .shift h4 {
+    margin: 0; font-family: var(--f-mono); font-size: 10px; font-weight: 500;
+    letter-spacing: .12em; text-transform: uppercase; color: var(--ink-3);
+  }
+  .shift .after h4 { color: var(--accent); }
+  .shift ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 8px; }
+  .shift li { font-size: 13.5px; color: var(--ink-2); line-height: 1.68; padding-left: 14px; position: relative; }
+  .shift li::before { content: ""; position: absolute; left: 0; top: .68em; width: 5px; height: 1px; background: var(--ink-3); }
+  .shift .after li { color: var(--ink); }
+  .shift .after li::before { background: var(--accent); height: 2px; top: .62em; }
+
+  .built { display: grid; gap: 7px; }
+  .built h4 {
+    margin: 0; font-size: 12.5px; font-weight: 600; letter-spacing: .04em; color: var(--ink-3);
+  }
+  .built p { margin: 0; max-width: 42em; font-size: 14px; color: var(--ink-2); text-wrap: pretty; }
+  .built p strong { color: var(--ink); font-weight: 600; }
+
+
+  .case > header h3 em {
+    font-style: normal; font-weight: 400; font-size: .68em;
+    color: var(--ink-3); letter-spacing: -.01em;
+  }
+  .case .note {
+    margin: 0; max-width: 42em; font-size: 13.5px; color: var(--ink-3);
+    line-height: 1.78; padding-left: 14px; border-left: 2px solid var(--rule);
+    text-wrap: pretty;
+  }
+
+  /* ── 협업 지표 ───────────────────────────────── */
+  .metrics {
+    display: grid; gap: 1px; background: var(--rule);
+    border: 1px solid var(--rule); margin-bottom: 14px;
+  }
+  @media (min-width: 640px) { .metrics { grid-template-columns: repeat(3, 1fr); } }
+  .metrics > div { background: var(--surface); padding: 20px 20px 22px; }
+  .metrics dt {
+    font-family: var(--f-mono); font-size: 10px; font-weight: 500;
+    letter-spacing: .1em; text-transform: uppercase; color: var(--ink-3);
+    margin-bottom: 9px;
+  }
+  .metrics dd {
+    margin: 0; font-size: 24px; font-weight: 800; letter-spacing: -.026em;
+    line-height: 1.2; font-variant-numeric: tabular-nums;
+  }
+  .metrics dd small { font-size: 13px; font-weight: 500; color: var(--ink-2); margin-left: 3px; }
+  .metrics dd + p {
+    margin: 8px 0 0; font-size: 12px; color: var(--ink-3); line-height: 1.65;
+  }
+  .caveat {
+    margin: 0 0 30px; max-width: 44em; font-size: 12.5px; color: var(--ink-3);
+    line-height: 1.75; text-wrap: pretty;
+  }
+
+  /* 수치 뒤에 붙는 측정 기준·출처 한 줄. 경력기술서의 .src 와 같은 역할이다. */
+  .src {
+    display: block; margin-top: 2px;
+    font-size: 11.5px; line-height: 1.6; color: var(--ink-3); font-weight: 400;
+  }
+
+  /* ── 작업 목록 ───────────────────────────────── */
+  .cat { display: grid; }
+  .cat > div {
+    padding: 17px 0; border-bottom: 1px solid var(--rule-2);
+    display: grid; gap: 7px 26px;
+  }
+  @media (min-width: 780px) {
+    .cat > div { grid-template-columns: 206px minmax(0,1fr); }
+    .cat > div > :is(p, ul) + :is(p, ul) { grid-column: 2; }
+  }
+  .cat > div:last-child { border-bottom: 0; }
+  .cat > .catlab {
+    margin: 0; padding: 30px 0 10px; display: flex; flex-wrap: wrap;
+    align-items: baseline; gap: 4px 12px;
+    font-family: var(--f-mono); font-size: 11px; font-weight: 500;
+    letter-spacing: .16em; text-transform: uppercase; color: var(--ink-2);
+  }
+  .cat > .catlab:first-child { padding-top: 0; }
+  .cat > .catlab span {
+    font-family: var(--f-sans); font-size: 12px; font-weight: 400;
+    letter-spacing: normal; text-transform: none; color: var(--ink-3);
+  }
+  .cat h3 { margin: 0; font-size: 14px; font-weight: 600; letter-spacing: -.012em; line-height: 1.5; }
+  .cat h3 em {
+    display: block; font-style: normal; margin-top: 4px;
+    font-family: var(--f-mono); font-size: 10.5px; font-weight: 400; color: var(--ink-3);
+    font-variant-numeric: tabular-nums;
+  }
+  .cat p { margin: 0; font-size: 13.5px; color: var(--ink-2); line-height: 1.92; text-wrap: pretty; }
+  .cat p b { color: var(--ink); font-weight: 600; }
+  .cat p.pi { font-size: 13px; color: var(--ink-3); line-height: 1.75; }
+  .cat p.pi b { color: var(--ink-2); }
+  .cat ul.scope { margin: 0; padding: 0; list-style: none; display: grid; gap: 7px; }
+  .cat ul.scope > li {
+    position: relative; padding-left: 14px; font-size: 13.5px;
+    color: var(--ink-2); line-height: 1.68; text-wrap: pretty;
+  }
+  .cat ul.scope > li::before {
+    content: ""; position: absolute; left: 0; top: .68em;
+    width: 5px; height: 1px; background: var(--ink-3);
+  }
+  .cat ul.scope > li b { color: var(--ink); font-weight: 600; }
+  .cat p.run {
+    margin-top: 3px; padding-top: 9px; border-top: 1px dashed var(--rule-2);
+    font-size: 13px; line-height: 1.7;
+  }
+  .cat p.run b { color: var(--accent); font-weight: 600; }
+
+  /* ── 규모 · 표 ───────────────────────────────── */
+  .scroll { overflow-x: auto; border: 1px solid var(--rule); background: var(--surface); }
+  table.tbl { border-collapse: collapse; width: 100%; min-width: 560px; }
+  table.tbl th, table.tbl td { text-align: left; padding: 11px 16px; border-bottom: 1px solid var(--rule-2); }
+  table.tbl thead th {
+    font-family: var(--f-mono); font-size: 10px; font-weight: 500;
+    letter-spacing: .1em; text-transform: uppercase; color: var(--ink-3);
+    border-bottom: 1px solid var(--rule); white-space: nowrap;
+  }
+  table.tbl tbody th { font-size: 13.5px; font-weight: 600; color: var(--ink); white-space: nowrap; }
+  table.tbl td { font-size: 13px; color: var(--ink-2); }
+  table.tbl td.n { text-align: right; font-variant-numeric: tabular-nums; font-family: var(--f-mono); font-size: 12.5px; white-space: nowrap; }
+  table.tbl td.p { font-family: var(--f-mono); font-size: 11.5px; color: var(--ink-3); white-space: nowrap; font-variant-numeric: tabular-nums; }
+  table.tbl tbody tr:last-child th, table.tbl tbody tr:last-child td { border-bottom: 0; }
+  table.tbl tr.sum th, table.tbl tr.sum td { background: var(--sunken); color: var(--ink); font-weight: 600; }
+
+  .ratios { display: grid; gap: 16px; margin-top: 30px; }
+  .ratio { display: grid; gap: 7px; }
+  .ratio > .top { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; }
+  .ratio .lab { font-size: 13.5px; color: var(--ink-2); text-wrap: pretty; }
+  .ratio .lab b { color: var(--ink); font-weight: 600; }
+  .ratio .num {
+    font-family: var(--f-mono); font-size: 12px; color: var(--accent);
+    font-variant-numeric: tabular-nums; white-space: nowrap;
+  }
+  .ratio .bar { height: 3px; background: var(--rule); position: relative; }
+  .ratio .bar > i { position: absolute; inset: 0 auto 0 0; background: var(--accent); display: block; }
+
+  /* ── 개인 도구 ───────────────────────────────── */
+  .tools { display: grid; gap: 1px; background: var(--rule); border: 1px solid var(--rule); }
+  .tool { background: var(--surface); padding: 22px 22px 24px; display: grid; gap: 10px; }
+  @media (min-width: 760px) { .tool { grid-template-columns: 190px minmax(0,1fr); gap: 26px; align-items: start; } }
+  .tool > h3 { margin: 0; font-size: 15px; font-weight: 600; letter-spacing: -.012em; line-height: 1.55; }
+  .tool > h3 em {
+    display: block; font-style: normal; margin-top: 5px;
+    font-family: var(--f-mono); font-size: 11px; font-weight: 400; color: var(--ink-3);
+  }
+  .tool > div { display: grid; gap: 9px; }
+  .tool p { margin: 0; font-size: 14px; color: var(--ink-2); max-width: 40em; text-wrap: pretty; }
+  .tool p strong { color: var(--ink); font-weight: 600; }
+  .tool .chips { display: flex; flex-wrap: wrap; gap: 5px; }
+  .tool .built + .built, .tool .built + .chips { margin-top: 10px; }
+  .tool .fact { gap: 8px 20px; }
+  .tool .fact dd { font-size: 14px; }
+  .tool .fact dt { font-size: 11px; letter-spacing: .04em; }
+  .tool .chips span {
+    font-family: var(--f-mono); font-size: 10.5px; color: var(--ink-3);
+    border: 1px solid var(--rule); padding: 2px 7px;
+  }
+
+  /* ── 프로젝트 카드 — 화면 캡처 + 한눈 요약 ───────── */
+  .pcards { display: grid; gap: 28px; }
+  .pcard {
+    background: var(--surface); border: 1px solid var(--rule);
+    padding: 24px; display: grid; gap: 22px; grid-template-columns: minmax(0, 1fr);
+  }
+  @media (min-width: 760px) { .pcard { grid-template-columns: auto minmax(0,1fr); gap: 32px; align-items: start; } }
+  /* 캡처 캐러셀 — 두 장씩 보이고 옆으로 넘긴다. 스크롤 스냅만으로도 넘어가고, 버튼은 보조 */
+  .pcard .shots { width: 348px; max-width: 100%; }
+  .pcard .track {
+    display: flex; gap: 12px; overflow-x: auto; scroll-snap-type: x mandatory;
+    scrollbar-width: none; overscroll-behavior-x: contain;
+  }
+  .pcard .track::-webkit-scrollbar { display: none; }
+  .pcard .track img {
+    flex: 0 0 168px; scroll-snap-align: start; display: block; width: 168px; height: auto;
+    aspect-ratio: 390 / 844; border: 1px solid var(--rule); border-radius: 18px; background: var(--sunken);
+  }
+  @media (max-width: 420px) { .pcard .track img { flex-basis: calc(50% - 6px); width: calc(50% - 6px); } }
+  /* 데스크톱 화면 캡처 — 한 장씩 넓게 */
+  .pcard .shots.wide { width: 440px; }
+  .pcard .shots.wide .track img { flex-basis: 100%; width: 100%; aspect-ratio: 1440 / 900; border-radius: 8px; }
+  .pcard .snav { display: flex; align-items: center; justify-content: space-between; margin-top: 10px; }
+  .pcard .snav button {
+    font: inherit; font-size: 13px; color: var(--ink-2); background: transparent;
+    border: 1px solid var(--rule); width: 34px; height: 30px; cursor: pointer;
+  }
+  .pcard .snav button:hover:not(:disabled) { color: var(--ink); border-color: var(--ink-3); }
+  .pcard .snav button:disabled { opacity: .35; cursor: default; }
+  .pcard .snav button:focus-visible { outline: 2px solid var(--accent-2); outline-offset: 2px; }
+  .pcard .snav output { font-family: var(--f-mono); font-size: 11px; color: var(--ink-3); }
+  .pcard .body { display: grid; gap: 12px; align-content: start; }
+  .pcard h3 { margin: 0; font-size: 19px; font-weight: 650; letter-spacing: -.02em; line-height: 1.4; }
+  .pcard .def { margin: 0; font-size: 14.5px; color: var(--ink-2); max-width: 36em; text-wrap: pretty; }
+  .pcard .def b { color: var(--ink); font-weight: 600; }
+  .pcard .meta {
+    margin: 0; font-family: var(--f-mono); font-size: 11.5px; color: var(--ink-3); letter-spacing: .01em;
+  }
+  .pcard ul.did { margin: 4px 0 0; padding: 0; list-style: none; display: grid; gap: 7px; }
+  .pcard ul.did li { position: relative; padding-left: 16px; font-size: 14px; color: var(--ink-2); line-height: 1.65; }
+  .pcard ul.did li::before { content: "–"; position: absolute; left: 0; color: var(--ink-3); }
+  .pcard ul.did b { color: var(--ink); font-weight: 600; }
+  .pcard .chips { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 2px; }
+  .pcard .chips span {
+    font-family: var(--f-mono); font-size: 10.5px; color: var(--ink-3);
+    border: 1px solid var(--rule); padding: 2px 7px;
+  }
+  .pcard .links { display: flex; flex-wrap: wrap; gap: 6px 18px; margin: 4px 0 0; font-size: 13.5px; }
+  .pcard .links a { font-weight: 500; }
+
+  /* ── 경력 ────────────────────────────────────── */
+  .cv { display: grid; gap: 0; }
+  .cv > div {
+    display: grid; gap: 10px 26px; padding: 26px 0;
+    border-bottom: 1px solid var(--rule-2);
+  }
+  .cv > div:first-child { padding-top: 0; }
+  .cv > div:last-child { border-bottom: 0; padding-bottom: 0; }
+  @media (min-width: 720px) { .cv > div { grid-template-columns: 168px minmax(0,1fr); } }
+  .cv dt {
+    margin: 0; font-family: var(--f-mono); font-size: 12px; color: var(--ink-3);
+    font-variant-numeric: tabular-nums; line-height: 1.6;
+  }
+  .cv dt em { display: block; font-style: normal; margin-top: 3px; font-size: 10.5px; color: var(--ink-3); opacity: .8; }
+  .cv dd { margin: 0; display: grid; gap: 9px; }
+  .cv .org { font-size: 16px; font-weight: 700; letter-spacing: -.018em; line-height: 1.45; }
+  .cv .org small { font-size: 12.5px; font-weight: 500; color: var(--ink-3); letter-spacing: 0; margin-left: 8px; }
+  .cv .proj { display: grid; gap: 4px; }
+  .cv .proj > h4 {
+    margin: 0; font-size: 13.5px; font-weight: 600; color: var(--ink); line-height: 1.55;
+  }
+  .cv .proj > h4 em { font-style: normal; font-weight: 400; color: var(--ink-3); font-family: var(--f-mono); font-size: 10.5px; margin-left: 8px; }
+  .cv .proj > p { margin: 0; font-size: 13.5px; color: var(--ink-2); line-height: 1.85; max-width: 42em; text-wrap: pretty; }
+  .cv .proj > p b { color: var(--ink); font-weight: 600; }
+  .cv .st { font-family: var(--f-mono); font-size: 11px; color: var(--ink-3); line-height: 1.75; }
+
+  .edu { margin-top: 34px; padding-top: 20px; border-top: 1px solid var(--rule); display: grid; gap: 4px 26px; }
+  @media (min-width: 720px) { .edu { grid-template-columns: 168px minmax(0,1fr); } }
+  .edu .yr { font-family: var(--f-mono); font-size: 12px; color: var(--ink-3); font-variant-numeric: tabular-nums; }
+  .edu .sc { font-size: 14px; color: var(--ink-2); }
+  .edu .sc b { color: var(--ink); font-weight: 600; }
+
+  /* ── 스택 ────────────────────────────────────── */
+  .stack { display: grid; gap: 18px; }
+  .stack > div { display: grid; gap: 9px; }
+  @media (min-width: 700px) { .stack > div { grid-template-columns: 132px minmax(0,1fr); gap: 22px; align-items: baseline; } }
+  .stack h3 { margin: 0; font-family: var(--f-mono); font-size: 11px; font-weight: 500; letter-spacing: .08em; color: var(--ink-3); text-transform: uppercase; }
+  .stack p { margin: 0; font-size: 14px; color: var(--ink-2); line-height: 1.9; }
+  .stack p b { color: var(--ink); font-weight: 600; }
+
+  /* ── 푸터 ────────────────────────────────────── */
+  footer.end { padding-block: 40px 56px; }
+  footer.end p { margin: 0; font-size: 12.5px; color: var(--ink-3); max-width: 46em; line-height: 1.8; text-wrap: pretty; }
+  footer.end p + p { margin-top: 9px; }
+
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
+
+  /* ── 사이트 내비 ─────────────────────────────── */
+  .sitenav {
+    position: sticky; top: 0; z-index: 50;
+    background: var(--surface); border-bottom: 1px solid var(--rule);
+  }
+  /* 본문 폭(.wrap)은 문서마다 다르다 — 내비는 거기서 떼어내 두 페이지에서 같은 폭으로 고정한다 */
+  .sitenav-in {
+    display: flex; align-items: center; flex-wrap: wrap; gap: 6px 18px;
+    max-width: 1180px; margin-inline: auto;
+    padding-block: 12px; padding-inline: 28px;
+  }
+  .sitenav-who { font-size: 15px; font-weight: 700; letter-spacing: -.02em; color: var(--ink); }
+  .sitenav-role { font-size: 12.5px; color: var(--ink-3); }
+  .sitenav nav { margin-left: auto; display: flex; gap: 4px; }
+  .sitenav nav a {
+    font-size: 12.5px; text-decoration: none; color: var(--ink-3);
+    padding: 5px 12px; border: 1px solid transparent; white-space: nowrap;
+  }
+  .sitenav nav a:hover { color: var(--ink); border-color: var(--rule); }
+  .sitenav nav a[aria-current="page"] { color: var(--accent); border-color: var(--rule); background: var(--wash); font-weight: 600; }
+</style>
+
+<style>
+  /* ══ 기술 표기 · 다이어그램 · 모션 ═══════════════
+     이 블록은 시각 표현만 담당한다. 색은 전부 위 블록의 변수를 쓴다. */
+
+  /* ── 사례별 기술 배지 ────────────────────────── */
+  .techs {
+    margin: 0; padding: 0; list-style: none;
+    display: flex; flex-wrap: wrap; gap: 5px;
+  }
+  .techs > li {
+    font-family: var(--f-mono); font-size: 10.5px; line-height: 1.8;
+    color: var(--ink-3); border: 1px solid var(--rule);
+    padding: 2px 8px; white-space: nowrap;
+    transition: color .24s cubic-bezier(.22,.61,.36,1),
+                border-color .24s cubic-bezier(.22,.61,.36,1);
+  }
+  .techs > li:hover { color: var(--accent); border-color: var(--accent); }
+
+  /* ── 흐름 다이어그램 ─────────────────────────── */
+  .diagram {
+    overflow-x: auto; border: 1px solid var(--rule);
+    background: var(--surface); padding: 16px 18px;
+    color: var(--ink-3); /* SVG currentColor 기준 */
+  }
+  .diagram svg { display: block; width: 100%; min-width: 620px; height: auto; }
+  .diagram .cap {
+    margin: 0 0 12px; font-family: var(--f-mono); font-size: 9.5px;
+    font-weight: 500; letter-spacing: .13em; text-transform: uppercase;
+    color: var(--ink-3);
+  }
+  .dg-box { fill: var(--surface); stroke: var(--rule); }
+  .dg-box.on { fill: var(--wash); stroke: var(--accent); }
+  .dg-t { font-family: var(--f-sans); font-size: 11.5px; fill: var(--ink-2); }
+  .dg-t.on { fill: var(--ink); font-weight: 600; }
+  .dg-line { stroke: currentColor; fill: none; }
+  .dg-mine { stroke: var(--accent); fill: none; }
+  .dg-lab {
+    font-family: var(--f-mono); font-size: 10px; letter-spacing: .06em;
+    fill: var(--accent);
+  }
+  .dg-sub { font-family: var(--f-mono); font-size: 9.5px; fill: var(--ink-3); }
+
+  /* ── 스택 위계 ───────────────────────────────── */
+  .stack > div { border-left: 2px solid var(--rule); padding-left: 16px; }
+  .stack > div.t1 { border-left-color: var(--accent); }
+  .stack > div.t2 { border-left-color: var(--accent-2); }
+  .stack > div.t3 { border-left-color: var(--rule); }
+  .stack > div.t4 { border-left-color: var(--accent-2); }
+  .stack > div.t1 h3 { color: var(--accent); }
+  .stack ul.tk {
+    margin: 0; padding: 0; list-style: none;
+    display: flex; flex-wrap: wrap; gap: 6px;
+  }
+  .stack ul.tk > li {
+    font-family: var(--f-mono); font-size: 11.5px; line-height: 1.65;
+    color: var(--ink-2); border: 1px solid var(--rule-2);
+    padding: 3px 9px; max-width: 100%;
+    /* 긴 토큰 하나(OpenAPI 묶음) 때문에 좁은 화면에서 가로 스크롤이 생기지 않게 — nowrap 안 씀 */
+  }
+  .stack ul.tk > li.k { color: var(--ink); border-color: var(--rule); font-weight: 500; }
+  .stack ul.tk.lead > li { font-size: 12.5px; padding: 4px 11px; }
+  .stack ul.tk.lead > li.k { color: var(--accent); border-color: var(--accent); background: var(--wash); }
+  .stack ul.tk.wide > li.k { color: var(--ink); border-color: var(--accent-2); }
+  .stack ul.tk.quiet > li { font-size: 11px; color: var(--ink-3); }
+  .stack ul.tk.quiet > li.k { color: var(--ink-2); }
+
+  /* ── 섹션 색인 레일 ──────────────────────────
+     화면 우측 고정. 번호만 떠 있다가 hover·focus 에서 라벨이 나온다.
+     인쇄에서는 build.py 의 PRINT_CSS 가 .rail 을 통째로 숨긴다. */
+  .rail { position: fixed; right: 20px; top: 50%; transform: translateY(-50%); z-index: 40; }
+  .rail ol { list-style: none; margin: 0; padding: 0; display: grid; gap: 1px; }
+  .rail a {
+    display: flex; align-items: center; gap: 9px; padding: 4px 7px;
+    font-family: var(--f-mono); font-size: 10.5px; font-weight: 500;
+    letter-spacing: .12em; text-transform: uppercase;
+    color: var(--ink-3); text-decoration: none; border-radius: 2px;
+    transition: color .2s ease, background-color .2s ease;
+  }
+  .rail a::before {
+    content: ""; width: 14px; height: 1px; background: currentColor;
+    opacity: .45; transition: width .24s cubic-bezier(.22,.61,.36,1), opacity .2s ease;
+  }
+  .rail li.on a { color: var(--ink); }
+  .rail li.on a::before { width: 26px; opacity: 1; }
+  .rail a:hover, .rail a:focus-visible { color: var(--ink); background: var(--surface); }
+  .rail .lb {
+    max-width: 0; overflow: hidden; white-space: nowrap; opacity: 0;
+    transition: max-width .26s cubic-bezier(.22,.61,.36,1), opacity .2s ease;
+  }
+  .rail:hover .lb, .rail a:focus-visible .lb { max-width: 130px; opacity: 1; }
+  /* 본문 폭(960+패딩=1012) 옆에 레일 자리가 안 나오면 접는다.
+     실측: 레일 61px + 우측 여백 20px 이라 1175px 부터 본문과 겹치지 않는다. */
+  @media (max-width: 1180px) { .rail { display: none; } }
+
+  /* 앵커로 이동했을 때 sticky 헤더 아래로 숨지 않게 */
+  section[id] { scroll-margin-top: 64px; }
+  @media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
+
+  /* ── 호버 ────────────────────────────────────── */
+  .tool, .metrics > div { transition: box-shadow .28s cubic-bezier(.22,.61,.36,1); }
+  .tool:hover, .metrics > div:hover { box-shadow: inset 0 0 0 1px var(--accent); }
+
+  /* ── 스크롤 진입 ─────────────────────────────
+     초기 상태는 html.anim 아래에만 둔다. JS가 안 돌면(또는 reduced-motion이면)
+     클래스가 붙지 않으므로 아무것도 숨겨지지 않는다. */
+  .rv {
+    transition: opacity .38s cubic-bezier(.22,.61,.36,1),
+                transform .38s cubic-bezier(.22,.61,.36,1);
+    transition-delay: var(--d, 0ms);
+  }
+  html.anim .rv { opacity: 0; transform: translateY(14px); }
+  html.anim .rv.in { opacity: 1; transform: none; }
+
+  /* ── 히어로 진입 ─────────────────────────────── */
+  @keyframes hero-up { to { opacity: 1; transform: none; } }
+  html.anim .hero .kicker,
+  html.anim .hero h1,
+  html.anim .hero .thesis,
+  html.anim .hero .whois,
+  html.anim .hero .scrollcue {
+    opacity: 0; transform: translateY(12px);
+    animation: hero-up .55s cubic-bezier(.22,.61,.36,1) forwards;
+  }
+  html.anim .hero .kicker    { animation-delay: .04s; }
+  html.anim .hero h1         { animation-delay: .12s; }
+  html.anim .hero .thesis    { animation-delay: .24s; }
+  html.anim .hero .whois     { animation-delay: .34s; }
+  html.anim .hero .scrollcue { animation-delay: .44s; }
+
+  /* ── 비율 막대 차오르기 ──────────────────────
+     목표 폭은 인라인 style="width:..%"가 그대로 갖고 있고,
+     scaleX만 0 → 1로 움직인다. 인쇄에서 transform:none이면 목표 폭 그대로 남는다. */
+  .ratio .bar > i {
+    transform-origin: left center;
+    transition: transform .62s cubic-bezier(.22,.61,.36,1) .14s;
+  }
+  html.anim .ratio .bar > i { transform: scaleX(0); }
+  html.anim .ratio.in .bar > i { transform: scaleX(1); }
+
+  /* ── 배경 깊이 — 스크롤 타임라인 시차(parallax) ─────────────
+     두 겹이 서로 '다른 속도' 로 흐른다. 깊이는 속도 차에서 나오므로 한 겹만
+     움직이면 시차가 아니라 그냥 떠다니는 분위기다.
+       .bg-glow  먼 겹 — 따뜻한 광원. 느리게.
+       .bg-grid  가까운 겹 — 이 문서의 hairline 어휘를 그대로 깐 격자. 빠르게.
+
+     scroll listener 도 rAF 도 쓰지 않는다. animation-timeline: scroll() 은
+     시간 대신 스크롤바를 진행도로 삼으므로 컴포지터가 직접 굴린다 —
+     스크롤 중 main thread 를 전혀 건드리지 않는다.
+     perspective+translateZ 방식을 쓰지 않은 이유: 그건 html 에 스크롤 문맥을
+     만들어 sticky 내비·fixed 레일·scroll-margin-top 을 전부 깨뜨린다. */
+  .bg {
+    position: fixed; inset: -15% 0; z-index: -1;
+    pointer-events: none; overflow: hidden;
+    /* 위아래로 흘러넘치게 둔다 — iOS 주소창이 접힐 때 겹의 끝이 드러나지 않게 */
+
+    /* 비네트는 '겹' 이 아니라 여기(화면에 고정된 상자)에 건다.
+       겹에 걸면 마스크가 겹과 함께 떠올라 밝은 가운데가 화면 밖으로 빠져나가고,
+       스크롤할수록 격자가 통째로 지워진다. 여기 걸면 창은 제자리에 있고
+       그 창 너머로 겹이 흐른다 — 원래 의도한 그림이 이쪽이다. */
+    mask-image: radial-gradient(ellipse 84% 64% at 50% 42%,
+                #000 0%, #000 34%, transparent 84%);
+  }
+  .bg > i {
+    position: absolute; display: block;
+    /* 겹은 자기가 올라갈 거리(--travel)만큼 아래로 더 길어야 한다.
+       transform 은 무늬가 아니라 '상자째' 옮기는 것이라, 상자가 이동거리보다
+       짧으면 상자의 아랫변이 화면 위로 올라가 아래쪽이 빈 바탕으로 남는다.
+       --travel 이 음수이므로 bottom 에 그대로 넣으면 그만큼 아래로 늘어난다.
+       미지원 브라우저에서는 --travel 이 없다 — 그때는 움직이지도 않으므로 0. */
+    inset: 0 0 var(--travel, 0px) 0;
+  }
+
+  .bg-glow {
+    /* 광원은 비네트가 살아 있는 안쪽에 둔다 — 바깥에 두면 위 마스크가 그대로 지워버린다.
+       (86% 74% 에 뒀을 때 실측 마스크 알파 0.00 — 아예 안 보였다) */
+    background:
+      radial-gradient(ellipse 58% 40% at 30% 22%, var(--bg-glow) 0%, transparent 70%),
+      radial-gradient(ellipse 50% 36% at 72% 58%, var(--bg-glow) 0%, transparent 72%);
+  }
+  .bg-grid {
+    /* 타일이라 많이 움직여도 끝이 드러나지 않는다 — 이게 긴 문서에서 시차를
+       '국소적으로도' 느껴지게 하는 장치다. 고정 이미지면 전체 스크롤에 걸쳐
+       조금 움직이는 꼴이라 아무 변화도 안 보인다. */
+    background-image:
+      linear-gradient(to right,  var(--bg-line) 0 1px, transparent 1px 100%),
+      linear-gradient(to bottom, var(--bg-line) 0 1px, transparent 1px 100%);
+    background-size: 64px 64px;
+  }
+
+  @supports (animation-timeline: scroll()) {
+    @media (prefers-reduced-motion: no-preference) {
+      @keyframes bg-drift { to { transform: translate3d(0, var(--travel), 0); } }
+      /* animation 단축 속성을 쓰면 animation-timeline 이 auto 로 되돌아가 조용히
+         아무것도 안 움직인다 — 그래서 전부 개별 속성으로만 쓴다. */
+      .bg > i {
+        animation-name: bg-drift;
+        animation-duration: auto;          /* 길이는 스크롤 가능 거리가 정한다 */
+        animation-timing-function: linear;
+        animation-fill-mode: both;
+        animation-timeline: scroll(root block);
+      }
+      /* 시차의 세기 — 문서 전체를 끝까지 스크롤하는 동안 각 겹이 움직이는 거리.
+         둘의 '비' 가 깊이감을, 절대값이 움직임의 존재감을 정한다. */
+      .bg-grid { --travel: -1100px; }
+      .bg-glow { --travel: -300px;  }
+    }
+  }
+
+  /* ── 인쇄(PDF) — 모션 흔적을 전부 무효화 ─────── */
+  @media print {
+    /* transition 까지 꺼야 한다. opacity:1 만 주면 목표값일 뿐이라
+       .rv 의 .38s 전환을 타고 서서히 올라가고, 그 사이에 인쇄되면 본문이 흐리게 찍힌다. */
+    * { opacity: 1 !important; transform: none !important; animation: none !important;
+        transition: none !important; }
+    /* 화면 전용 장치 — 종이에서는 첫 화면을 통째로 쓸 이유도, 스크롤 안내도 없다 */
+    .hero { min-height: 0 !important; }
+    .hero > .wrap { padding-block: 0 !important; }
+    .scrollcue { display: none !important; }
+    /* 위 * 규칙이 opacity:1 · transform:none 을 강제하므로 투명도로는 숨을 수 없다 */
+    .bg { display: none !important; }
+    /* 지면은 흰 바탕이다 — 얇게 깐 크림이 남으면 밴드마다 얼룩으로 찍힌다 */
+    section.band.alt { background: transparent !important; }
+    /* 장 경계에서 갈리는 grid 는 Chrome 이 뒤 항목 위치를 잘못 잡아 줄이 겹친다 —
+       지면에서는 블록 흐름으로 펴고 gap 을 여백으로 바꾼다 */
+    .tool > div, .built { display: block !important; }
+    .tool > div > * + * { margin-top: 10px !important; }
+    .built > * + * { margin-top: 7px !important; }
+    /* 사례 제목·기술 태그만 장 끝에 남고 본문이 다음 장으로 가지 않게 */
+    .case > header, .case > .techs { break-after: avoid; page-break-after: avoid; }
+    /* 카드 한 장은 한 장 안에서 — 캡처와 요약이 갈리지 않게 */
+    .pcard { break-inside: avoid; page-break-inside: avoid; }
+    /* 종이에서는 넘길 수 없다 — 앞의 두 장만 싣고 넘김 버튼은 뺀다 */
+    .pcard .track { overflow: visible !important; }
+    .pcard .track img:nth-child(n+3), .pcard .snav { display: none !important; }
+    /* 버튼은 종이에서 누를 수 없다 — 이력서·경력기술서 주소를 연락 표에 글자로 싣고,
+       같은 안내를 되풀이하는 버튼 줄과 푸터의 경력기술서 줄은 뺀다 */
+    .fact .print-only { display: block !important; }
+    ul.chips.docs, footer.end .screen-only { display: none !important; }
+  }
+</style>
+
+<div class="bg" aria-hidden="true">
+  <i class="bg-glow"></i>
+  <i class="bg-grid"></i>
+</div>
+
+<header class="sitenav">
+  <div class="wrap sitenav-in">
+    <span class="sitenav-who">배우현</span>
+    <span class="sitenav-role">프론트엔드 개발자</span>
+    <nav>
+      <a href="https://hoiya-woohyun.github.io/" aria-current="page">포트폴리오</a>
+      <a href="https://hoiya-woohyun.github.io/resume.html">이력서</a>
+      <a href="https://hoiya-woohyun.github.io/career.html">경력기술서</a>
+    </nav>
+  </div>
+</header>
+
+<nav class="rail" aria-label="섹션 색인">
+  <ol>
+    <li data-sec="project"><a href="#project"><b>01</b><span class="lb">Project</span></a></li>
+    <li data-sec="work"><a href="#work"><b>02</b><span class="lb">Work</span></a></li>
+    <li data-sec="contact"><a href="#contact"><b>03</b><span class="lb">Contact</span></a></li>
+  </ol>
+</nav>
+
+<section class="hero" id="top">
+  <div class="wrap">
+    <p class="kicker">아파트·오피스텔 커뮤니티 플랫폼에서 8개 제품을 맡고, 반려견 동반 제주 여행 웹앱 「강아지랑 제주」를 기획해 운영하는 프론트엔드 개발자입니다.</p>
+    <div class="hero-btm">
+      <h1 class="display">Woohyun <span>Portfolio</span></h1>
+      <p class="thesis">직접 기획해 <b>운영 중인 제품</b>과 <b>회사에서 맡은 제품</b>을 소개합니다.</p>
+      <ul class="whois">
+        <li>프론트엔드 <b>7년 9개월</b></li>
+        <li><a href="https://zgnn.vercel.app">zgnn.vercel.app</a></li>
+        <li><a href="mailto:bwh1224@gmail.com">bwh1224@gmail.com</a></li>
+      </ul>
+    </div>
+    <p class="scrollcue" aria-hidden="true">Scroll</p>
+  </div>
+</section>
+
+<section id="project" class="band">
+  <div class="wrap">
+    <div class="shead">
+      <h2><b class="num">01</b> Project <em>직접 기획해 운영하는 제품</em></h2>
+    </div>
+    <div class="pcards">
+
+      <article class="pcard">
+        <div class="shots">
+          <div class="track" tabindex="0" aria-label="화면 캡처, 옆으로 넘겨 보기">
+            <img src="assets/portfolio/zgnn-home.png" alt="강아지랑 제주 홈 화면 — 강아지 등록 안내와 숙소·식당·카페 장소 수" width="390" height="844" loading="lazy">
+            <img src="assets/portfolio/zgnn-list.png" alt="숙소 목록 — 장소마다 마리당 요금·무게 제한·최대 마릿수 표시" width="390" height="844" loading="lazy">
+            <img src="assets/portfolio/zgnn-detail.png" alt="장소 상세 — 반려동물 이용 조건과 확인 날짜, 방문 전 확인 안내" width="390" height="844" loading="lazy">
+            <img src="assets/portfolio/zgnn-map.png" alt="지도 — 숙소·식당·카페를 지역별로 묶어 표시" width="390" height="844" loading="lazy">
+            <img src="assets/portfolio/zgnn-dog.png" alt="우리 강아지 등록 — 몸무게·마릿수·이동 수단 입력" width="390" height="844" loading="lazy">
+            <img src="assets/portfolio/zgnn-checklist.png" alt="여행 준비물 체크리스트" width="390" height="844" loading="lazy">
+          </div>
+          <div class="snav"><button type="button" class="prev" aria-label="이전 캡처">←</button><output aria-live="polite"></output><button type="button" class="next" aria-label="다음 캡처">→</button></div>
+        </div>
+        <div class="body">
+          <h3>강아지랑 제주</h3>
+          <p class="def">반려견 동반 제주 여행 설치형 웹앱(PWA). 강아지의 몸무게·마릿수·이동 수단을 한 번 등록하면 숙소·식당·카페마다 <b>우리 강아지가 갈 수 있는지</b> 판정해 보여 줍니다.</p>
+          <p class="meta">2026.09 ~ 운영 중 · 개인 프로젝트 · 기획·운영, AI 에이전트로 구현</p>
+          <ul class="did">
+            <li>원작자의 공개 Notion 가이드로 초기 데이터베이스를 만들고, 이후 장소는 <b>블로그 수집 → Claude 조건 구조화 → 원문 대조 → 운영자 승인</b> 순서로 추가</li>
+            <li>판정을 <b>갈 수 있어요 · 확인이 필요해요 · 확인된 정보가 없어요 · 이용하기 어려워요</b> 4단계로 나눠 목록·지도·일정·준비물에 반영</li>
+            <li>회원가입 없이 기기에 저장하는 정적 PWA로 운영하고, 블로그 원문은 번들에 싣지 않고 판정 입력만 공개</li>
+          </ul>
+          <div class="chips"><span>Next.js 16</span><span>React 19</span><span>TypeScript</span><span>Supabase</span><span>Vercel Functions</span><span>Serwist(PWA)</span><span>네이버 지도</span><span>Claude</span></div>
+          <p class="links"><a href="https://zgnn.vercel.app">서비스 열기 →</a><a href="https://github.com/hoiya-woohyun/zgnn">저장소 →</a><a href="https://github.com/hoiya-woohyun/zgnn/tree/main/docs/decisions">설계 결정 기록 →</a></p>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+<section id="work" class="band alt">
+  <div class="wrap">
+    <div class="shead">
+      <h2><b class="num">02</b> Work <em>회사에서 한 일</em></h2>
+      <p>주식회사 에이치티비욘드(아파트·오피스텔 커뮤니티 플랫폼)에서 <b>8개 프론트엔드 제품</b>을 맡고 있습니다.</p>
+    </div>
+
+    <div class="pcards">
+
+      <article class="pcard">
+        <div class="shots">
+          <div class="track" tabindex="0" aria-label="화면 캡처, 옆으로 넘겨 보기">
+            <img src="assets/portfolio/byb-home.png" alt="입주민 앱 홈 화면 — 단지 환영 문구와 공지사항·관리비·시설예약 등 자주 쓰는 메뉴" width="390" height="844" loading="lazy">
+            <img src="assets/portfolio/byb-all.png" alt="전체 서비스 — 생활지원·스마트라이프·커뮤니티센터와 단지마다 다른 추가 기능" width="390" height="844" loading="lazy">
+            <img src="assets/portfolio/byb-facility.png" alt="시설예약 — 채널 바로가기와 골프 타석·공유 오피스 등 예약 상품 목록" width="390" height="844" loading="lazy">
+            <img src="assets/portfolio/byb-story.png" alt="소통공간 — 단지 인기글과 게시판, 1:1 민원 안내" width="390" height="844" loading="lazy">
+            <img src="assets/portfolio/byb-market.png" alt="마켓 — 입주민 대상 상품 판매" width="390" height="844" loading="lazy">
+            <img src="assets/portfolio/byb-homeservice.png" alt="집안일 — 폐기물 수거·세차 등 생활 서비스 신청" width="390" height="844" loading="lazy">
+          </div>
+          <div class="snav"><button type="button" class="prev" aria-label="이전 캡처">←</button><output aria-live="polite"></output><button type="button" class="next" aria-label="다음 캡처">→</button></div>
+        </div>
+        <div class="body">
+          <h3>입주민 모바일 웹앱</h3>
+          <p class="def">아파트·오피스텔 입주민용 모바일 웹앱. 공지·관리비·시설 예약·방문차량 등 <b>단지 생활 기능</b>을 한 앱에서 제공하는 주력 제품입니다.</p>
+          <p class="meta">2024.04 ~ 2026.08 · 주식회사 에이치티비욘드 · 프론트엔드 · 현재 소스 코드의 35% 작성(팀 내 최다)</p>
+          <ul class="did">
+            <li><b>2026 디자인 리뉴얼</b>의 화면 골격(레이아웃·하단 탭·전체·마이·시설예약)과 화면 전환·당겨서 새로고침 등 앱 수준의 조작감 구현</li>
+            <li>서브도메인으로 단지를 식별하고 브랜드별 레이아웃만 분기해 <b>건설사 브랜드 7종을 코드베이스 1개로</b> 서비스</li>
+            <li>계약사·단지·사용자 3계층 권한을 <b>계약사가 구독하는 기능 묶음</b>으로 재설계해, 단지마다 다른 기능 구성을 권한 설정으로 반영</li>
+            <li>스마트홈(홈넷) 연동의 OAuth 콜백 구조를 재설계해 운영 환경에서만 되던 연동을 <b>개발·알파 환경에서도 동작</b>하게 전환</li>
+          </ul>
+          <div class="chips"><span>React</span><span>TypeScript</span><span>Vite</span><span>TanStack Router</span><span>TanStack Query</span><span>Recoil</span><span>Tailwind CSS</span><span>i18next</span><span>Sentry</span></div>
+          <p class="links"><a href="https://hoiya-woohyun.github.io/career.html">경력기술서에서 자세히 →</a></p>
+        </div>
+      </article>
+
+      <article class="pcard">
+        <div class="shots wide">
+          <div class="track" tabindex="0" aria-label="화면 캡처, 옆으로 넘겨 보기">
+            <img src="assets/portfolio/admin-home.png" alt="관리사무소 운영툴 홈 — 메뉴 구성과 공지사항·바로가기·사용 가이드" width="1440" height="900" loading="lazy">
+            <img src="assets/portfolio/admin-reservation.png" alt="관리사무소 운영툴 커뮤니티시설 예약자 현황 — 채널 필터와 예약 내역 표" width="1440" height="900" loading="lazy">
+          </div>
+          <div class="snav"><button type="button" class="prev" aria-label="이전 캡처">←</button><output aria-live="polite"></output><button type="button" class="next" aria-label="다음 캡처">→</button></div>
+        </div>
+        <div class="body">
+          <h3>사내 운영 콘솔 · 관리사무소 운영툴</h3>
+          <p class="def">본사 운영팀이 쓰는 사내 운영 콘솔과 단지 관리사무소가 쓰는 운영툴. 단지·세대·입주민 등록과 <b>시설 운영, 현장 기기·주차 관리</b>를 맡는 관리자 웹입니다.</p>
+          <p class="meta">2024.01 ~ 2026.08 · 주식회사 에이치티비욘드 · 프론트엔드</p>
+          <ul class="did">
+            <li>단지 개설 초기 설정을 콘솔 한 화면의 일괄 설정으로 통합해 <b>설정 주체를 개발자에서 기술영업팀으로 이전</b></li>
+            <li>엑셀을 붙여넣어 일괄 등록·검증하는 표 컴포넌트와, 현장 서버로 설정을 내려보낼 때의 <b>재확인·버전 차단 안전장치</b> 구현</li>
+            <li>식당 예약 상품을 기본 정책 + 예외 날짜 구조로 바꿔 <b>운영 날짜가 늘어도 등록 작업이 함께 늘지 않게</b> 재설계</li>
+          </ul>
+          <div class="chips"><span>React</span><span>TypeScript</span><span>Turborepo</span><span>pnpm workspace</span><span>TanStack Router</span><span>TanStack Query</span><span>TanStack Table</span><span>react-hook-form</span><span>zod</span><span>Tailwind CSS</span></div>
+          <p class="links"><a href="https://hoiya-woohyun.github.io/career.html">경력기술서에서 자세히 →</a></p>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+<section id="contact" class="band">
+  <div class="wrap">
+    <div class="shead">
+      <h2><b class="num">03</b> Contact <em>연락</em></h2>
+    </div>
+    <dl class="fact">
+      <dt>이메일</dt><dd><a href="mailto:bwh1224@gmail.com">bwh1224@gmail.com</a></dd>
+      <dt>사이트</dt><dd><a href="https://hoiya-woohyun.github.io/">hoiya-woohyun.github.io</a></dd>
+      <dt class="print-only">이력서</dt><dd class="print-only"><a href="https://hoiya-woohyun.github.io/resume.html">hoiya-woohyun.github.io/resume.html</a></dd>
+      <dt class="print-only">경력기술서</dt><dd class="print-only"><a href="https://hoiya-woohyun.github.io/career.html">hoiya-woohyun.github.io/career.html</a></dd>
+    </dl>
+    <ul class="chips docs">
+      <li><a href="https://hoiya-woohyun.github.io/resume.html">이력서 바로 보기 →</a></li>
+      <li><a href="https://hoiya-woohyun.github.io/career.html">경력기술서 바로 보기 →</a></li>
+    </ul>
+  </div>
+</section>
+
+<footer class="end">
+  <div class="wrap">
+    <p>강아지랑 제주의 사례와 수치는 공개 저장소의 결정·버그·작업 기록으로, 회사 사례는 경력기술서와 같은 기록으로 대조했습니다. 대조하지 못한 항목은 숫자 없이 적거나 넣지 않았습니다.</p>
+    <p class="screen-only" style="margin-top:16px;padding-top:14px;border-top:1px solid var(--rule-2);">
+      회사에서 맡은 제품의 담당 범위와 지표는 경력기술서에 있습니다 —
+      <a href="https://hoiya-woohyun.github.io/career.html">경력기술서 보기 →</a>
+      　·　연락은 <a href="mailto:bwh1224@gmail.com">bwh1224@gmail.com</a>
+    </p>
+  </div>
+</footer>
+
+<script>
+  /* 캡처 캐러셀 — 버튼으로 한 장씩 넘기고, 보이는 범위를 숫자로 알린다 */
+  Array.prototype.forEach.call(document.querySelectorAll('.pcard .shots'), function (box) {
+    var track = box.querySelector('.track'), out = box.querySelector('output');
+    var prev = box.querySelector('.prev'), next = box.querySelector('.next');
+    var imgs = track.querySelectorAll('img'), n = imgs.length;
+    function step() { return imgs.length > 1 ? imgs[1].offsetLeft - imgs[0].offsetLeft : track.clientWidth; }
+    function update() {
+      var s = step(), first = Math.round(track.scrollLeft / s);
+      var shown = Math.max(1, Math.round(track.clientWidth / s));
+      var last = Math.min(n, first + shown);
+      out.textContent = (shown > 1 && last > first + 1 ? (first + 1) + '–' + last : last) + ' / ' + n;
+      prev.disabled = track.scrollLeft <= 2;
+      next.disabled = track.scrollLeft + track.clientWidth >= track.scrollWidth - 2;
+    }
+    prev.addEventListener('click', function () { track.scrollBy({ left: -step(), behavior: 'smooth' }); });
+    next.addEventListener('click', function () { track.scrollBy({ left: step(), behavior: 'smooth' }); });
+    track.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', update);
+    update();
+  });
+
+  (function () {
+    var root = document.documentElement;
+    if (!('IntersectionObserver' in window)) return;
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    var targets = Array.prototype.slice.call(document.querySelectorAll(
+      '.abil > li, .case, .metrics > div, .caveat, .cat > div, .scroll, .ratio,' +
+      '.tool, .pcard, .cv > div, .stack > div, .fact, ul.chips.docs, footer.end p'
+    ));
+    if (!targets.length) return;
+
+    /* 초기 상태(opacity:0)는 이 클래스 아래에만 걸려 있다.
+       여기까지 왔다는 건 IO도 있고 reduced-motion도 아니라는 뜻. */
+    root.classList.add('anim');
+    targets.forEach(function (el) { el.classList.add('rv'); });
+
+    var io = new IntersectionObserver(function (entries) {
+      var n = 0;
+      entries.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        /* 한 번에 여러 개가 들어오면 앞 네 개만 살짝 어긋나게. 긴 목록이 늘어지지 않게 */
+        e.target.style.setProperty('--d', (n < 4 ? n * 60 : 0) + 'ms');
+        n++;
+        e.target.classList.add('in');
+        io.unobserve(e.target);
+      });
+    }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
+
+    targets.forEach(function (el) { io.observe(el); });
+  })();
+
+  /* 섹션 색인 레일 — 지금 읽고 있는 섹션을 표시한다.
+     위 블록과 분리한 이유: 저쪽은 reduced-motion 이면 통째로 빠져나가는데,
+     색인 표시는 모션이 아니라 위치 안내라 그때도 살아 있어야 한다. */
+  (function () {
+    var rail = document.querySelector('.rail');
+    if (!rail || !('IntersectionObserver' in window)) return;
+
+    var items = {}, secs = [];
+    Array.prototype.forEach.call(rail.querySelectorAll('li[data-sec]'), function (li) {
+      var sec = document.getElementById(li.getAttribute('data-sec'));
+      if (sec) { items[li.getAttribute('data-sec')] = li; secs.push(sec); }
+    });
+    if (!secs.length) return;
+
+    var visible = {};
+    function paint() {
+      /* 걸쳐 있는 것 중 '가장 아래' 가 지금 읽는 섹션이다.
+         가장 위를 고르면 앞 섹션이 관찰 영역에 남아 있는 동안 계속 이겨서,
+         마지막 섹션(Contact)처럼 짧은 것은 영영 표시되지 않는다. */
+      var cur = null;
+      secs.forEach(function (sec) {
+        if (visible[sec.id] && (!cur || sec.offsetTop > cur.offsetTop)) cur = sec;
+      });
+      Object.keys(items).forEach(function (id) {
+        items[id].classList.toggle('on', !!cur && id === cur.id);
+      });
+    }
+
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) { visible[e.target.id] = e.isIntersecting; });
+      paint();
+    }, { rootMargin: '-64px 0px -55% 0px', threshold: 0 });
+
+    secs.forEach(function (sec) { io.observe(sec); });
+  })();
+</script>
