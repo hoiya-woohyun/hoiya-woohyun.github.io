@@ -160,9 +160,12 @@ NAV_CSS = """<style>
 # 인쇄 창 대신 미리 구운 PDF(make pdf)를 내려받는다 — 브라우저의 머리글·바닥글이 끼지 않는다
 # 통합본(이력서 + 경력기술서)은 지원처 첨부용 — 어느 페이지에서든 같은 파일을 내려받는다.
 # 파일은 Makefile 의 COMBINED 가 resume.pdf · career.pdf 를 이어 붙여 만든다.
+# 버튼은 로컬(file:// · localhost)에서만 보인다 — 배포 사이트에서는 hidden 그대로 둔다.
+# 버튼 바로 뒤의 동기 스크립트가 hidden 을 풀어, 로컬에서도 버튼이 늦게 나타나지 않는다.
 COMBINED_PDF, COMBINED_NAME = "resume-career.pdf", "배우현_이력서+경력기술서.pdf"
-PRINT_BTN = """      <a class="printbtn" href="./{pdf}" download="{name}">PDF 저장</a>
-      <a class="printbtn printbtn--combined" href="./%s" download="%s">이력서 + 경력기술서 PDF</a>
+PRINT_BTN = """      <a class="printbtn" href="./{pdf}" download="{name}" hidden>PDF 저장</a>
+      <a class="printbtn printbtn--combined" href="./%s" download="%s" hidden>이력서 + 경력기술서 PDF</a>
+      <script>if (/^(|localhost|127\\.0\\.0\\.1|\\[::1\\])$/.test(location.hostname)) document.querySelectorAll('.printbtn').forEach(b => b.hidden = false);</script>
 """ % (COMBINED_PDF, COMBINED_NAME)
 
 PAGES = [  # (원본, 산출 HTML, 설명, 산출 PDF — Makefile 의 PDFS 와 같아야 한다, 내려받을 파일명)

@@ -482,8 +482,9 @@
       <a href="./index.html">포트폴리오</a>
       <a href="./resume.html">이력서</a>
       <a href="./career.html" aria-current="page">경력기술서</a>
-      <a class="printbtn" href="./career.pdf" download="배우현_경력기술서.pdf">PDF 저장</a>
-      <a class="printbtn printbtn--combined" href="./resume-career.pdf" download="배우현_이력서+경력기술서.pdf">이력서 + 경력기술서 PDF</a>
+      <a class="printbtn" href="./career.pdf" download="배우현_경력기술서.pdf" hidden>PDF 저장</a>
+      <a class="printbtn printbtn--combined" href="./resume-career.pdf" download="배우현_이력서+경력기술서.pdf" hidden>이력서 + 경력기술서 PDF</a>
+      <script>if (/^(|localhost|127\.0\.0\.1|\[::1\])$/.test(location.hostname)) document.querySelectorAll('.printbtn').forEach(b => b.hidden = false);</script>
     </nav>
   </div>
 </header>

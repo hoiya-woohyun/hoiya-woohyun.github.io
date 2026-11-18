@@ -10,6 +10,6 @@
 
 루트의 세 HTML 과 네 PDF(`portfolio.pdf` · `resume.pdf` · `career.pdf` · 이력서+경력기술서 통합본 `resume-career.pdf`)는 **산출물이라
 직접 편집하지 않습니다.** `src/` 의 본문을 고친 뒤 `make` 로 다시 만듭니다. `build.py` 가
-doctype·head 골격과 「PDF 저장」 버튼을 씌우고, 내비의 절대 URL 을 사이트 내부 상대 경로로
+doctype·head 골격과 「PDF 저장」 버튼(로컬에서 열 때만 보임)을 씌우고, 내비의 절대 URL 을 사이트 내부 상대 경로로
 바꿉니다. `make pdf` 는 headless Chrome 으로 브라우저 머리글·바닥글(날짜·제목·URL) 없이
 PDF 를 굽고, 버튼은 인쇄 창 대신 이 파일을 내려받습니다 — **본문을 고치면 PDF 도 함께 커밋합니다.**
