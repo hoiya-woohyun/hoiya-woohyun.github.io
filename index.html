@@ -838,7 +838,197 @@
     /* 버튼은 종이에서 누를 수 없다 — 이력서·경력기술서 주소를 연락 표에 글자로 싣고,
        같은 안내를 되풀이하는 버튼 줄과 푸터의 경력기술서 줄은 뺀다 */
     .fact .print-only { display: block !important; }
-    ul.chips.docs, footer.end .screen-only { display: none !important; }
+    ul.chips.docs { display: none !important; }
+  }
+</style>
+
+<style>
+  /* ══ 화면 리본 · 기기 프레임 · 캐러셀 · 확대 보기 ═══════
+     hover 효과는 전부 (hover: hover) 안에만 둔다 — 터치 기기에서 눌린 채 남지 않게.
+     카드에는 진입 효과(.rv)가 transform 을 쓰므로, 리프트는 독립 속성 translate 로 준다. */
+
+  /* ── 화면 리본 — 히어로와 본문 사이를 흐르는 캡처 띠 ── */
+  .reel {
+    position: relative; overflow: hidden; padding-block: 34px 40px;
+    border-block: 1px solid var(--rule);
+    -webkit-mask-image: linear-gradient(to right, transparent, #000 9%, #000 91%, transparent);
+            mask-image: linear-gradient(to right, transparent, #000 9%, #000 91%, transparent);
+  }
+  .reel-track { display: flex; gap: 18px; width: max-content; }
+  .reel img {
+    display: block; height: 300px; width: auto; flex: none;
+    border: 5px solid #0E0D0B; outline: 1px solid var(--rule); border-radius: 26px;
+    background: var(--sunken);
+    transition: opacity .3s ease, translate .4s cubic-bezier(.22,.61,.36,1), outline-color .3s ease;
+  }
+  .reel img.wide { border-radius: 10px; border-width: 22px 4px 4px; }
+  @media (max-width: 560px) { .reel img { height: 220px; } }
+  @media (prefers-reduced-motion: no-preference) {
+    .reel-track.go { animation: reel 70s linear infinite; }
+    @keyframes reel { to { transform: translateX(-50%); } }
+    .reel:hover .reel-track { animation-play-state: paused; }
+  }
+  @media (hover: hover) {
+    .reel:hover img { opacity: .45; }
+    .reel:hover img:hover { opacity: 1; translate: 0 -8px; outline-color: var(--ink-3); }
+  }
+
+  /* ── 기기 프레임 — 마크업 없이 테두리로 베젤을 그린다 ── */
+  .pcard .track { padding-block: 8px 6px; }
+  .pcard .track img {
+    border: 5px solid #0E0D0B; outline: 1px solid var(--rule); outline-offset: 0;
+    border-radius: 24px; cursor: zoom-in;
+    box-shadow: 0 14px 30px -18px #000;
+    transition: translate .35s cubic-bezier(.22,.61,.36,1), outline-color .25s ease,
+                box-shadow .35s ease, filter .3s ease;
+  }
+  /* 브라우저 창 — 위 테두리를 두껍게 깔고 그 위에 창 단추 세 개를 배경으로 찍는다.
+     테두리 영역에는 배경이 안 그려지므로 단추는 padding 영역에 둔다. */
+  .pcard .shots.wide .track img {
+    border-width: 0 1px 1px; border-color: var(--rule); border-radius: 9px;
+    padding-top: 22px; aspect-ratio: auto 1440 / 900; background-clip: padding-box;
+    background:
+      radial-gradient(circle at 14px 11px, var(--ink-3) 3px, transparent 3.6px),
+      radial-gradient(circle at 26px 11px, var(--rule) 3px, transparent 3.6px),
+      radial-gradient(circle at 38px 11px, var(--rule) 3px, transparent 3.6px),
+      linear-gradient(var(--sunken), var(--sunken)) top / 100% 22px no-repeat,
+      var(--sunken);
+  }
+  @media (hover: hover) {
+    .pcard .track img:hover {
+      translate: 0 -5px; outline-color: var(--ink-3);
+      box-shadow: 0 22px 34px -18px #000; filter: brightness(1.05);
+    }
+  }
+
+  /* ── 캐러셀 점 · 자동 넘김 진행 막대 ─────────── */
+  .pcard .snav { gap: 12px; }
+  .pcard .dots { display: flex; gap: 6px; flex: 1; justify-content: center; }
+  /* 좁은 화면에서는 점이 두 줄로 접힌다 — 숫자 표시는 점과 같은 정보라 뺀다 */
+  @media (max-width: 420px) { .pcard .dots { gap: 5px; } .pcard .snav output { display: none; } }
+  .pcard .dots button {
+    width: 7px; height: 7px; padding: 0; border: 0; border-radius: 4px;
+    background: var(--rule); cursor: pointer;
+    transition: width .3s cubic-bezier(.22,.61,.36,1), background-color .25s ease;
+  }
+  .pcard .dots button.on { width: 18px; background: var(--ink-2); }
+  .pcard .dots button:focus-visible { outline: 2px solid var(--accent-2); outline-offset: 2px; }
+  .pcard .snav .ctl { display: flex; align-items: center; gap: 8px; }
+  .pcard .snav button.play { width: 30px; font-size: 11px; }
+  .pcard .prog { height: 2px; margin-top: 8px; background: var(--rule-2); overflow: hidden; }
+  .pcard .prog > i {
+    display: block; height: 100%; background: var(--ink-3);
+    transform-origin: left center; transform: scaleX(0);
+    transition: transform .12s linear;
+  }
+  .pcard .shots:not(.auto) .prog, .pcard .shots:not(.auto) .play { display: none; }
+
+  /* ── 카드 hover — 커서를 따라오는 빛 + 살짝 뜨기 ── */
+  /* transition 을 새로 쓰면 .rv 의 진입 전환(opacity·transform)을 덮어쓴다 — 함께 적는다 */
+  .pcard {
+    position: relative;
+    transition: opacity .38s cubic-bezier(.22,.61,.36,1), transform .38s cubic-bezier(.22,.61,.36,1),
+                translate .35s cubic-bezier(.22,.61,.36,1), border-color .3s ease;
+    transition-delay: var(--d, 0ms), var(--d, 0ms), 0ms, 0ms;
+  }
+  .pcard > * { position: relative; }
+  .pcard::before {
+    content: ""; position: absolute; inset: 0; pointer-events: none;
+    background: radial-gradient(520px circle at var(--mx, 50%) var(--my, 30%), #F5F2E60D, transparent 62%);
+    opacity: 0; transition: opacity .4s ease;
+  }
+  @media (hover: hover) {
+    .pcard:hover { translate: 0 -3px; border-color: #4A463C; }
+    .pcard:hover::before { opacity: 1; }
+    .pcard .chips span { transition: color .2s ease, border-color .2s ease; }
+    .pcard .chips span:hover { color: var(--ink); border-color: var(--ink-3); }
+    .pcard .links a { transition: letter-spacing .25s ease; }
+    .pcard .links a:hover { letter-spacing: .02em; }
+    .pcard ul.did li { transition: color .2s ease; }
+    .pcard ul.did li:hover { color: var(--ink); }
+  }
+
+  /* ── 카드 안 흐름도 ───────────────────────────── */
+  .pcard > .diagram { grid-column: 1 / -1; margin: 4px 0 0; background: var(--sunken); }
+  .dg-pill { fill: var(--surface); stroke: var(--rule); }
+  .dg-dot.ok   { fill: var(--ink); }
+  .dg-dot.chk  { fill: var(--ink-2); }
+  .dg-dot.none { fill: var(--ink-3); }
+  .dg-dot.no   { fill: none; stroke: var(--ink-3); }
+  .dg-cell.base { fill: #2C2A25; }
+  .dg-cell.exc  { fill: var(--ink); }
+  .dg-tick { stroke: var(--ink-3); stroke-width: 1.4; fill: none; }
+  .dg-brand { fill: var(--surface); stroke: var(--rule); transition: fill .25s ease, stroke .25s ease; }
+  @media (hover: hover) {
+    .diagram g.hv { cursor: default; }
+    .diagram g.hv:hover .dg-box, .diagram g.hv:hover .dg-brand, .diagram g.hv:hover .dg-pill { stroke: var(--ink-2); fill: var(--wash); }
+    .diagram g.hv:hover .dg-t { fill: var(--ink); }
+    .dg-box, .dg-pill { transition: fill .25s ease, stroke .25s ease; }
+  }
+  /* 흐름선 — 화면에 들어온 뒤에만 점선이 흐른다 */
+  @media (prefers-reduced-motion: no-preference) {
+    .diagram .dg-mine.flow { stroke-dasharray: 5 5; }
+    .diagram.in .dg-mine.flow { animation: dg-flow 1.1s linear infinite; }
+    @keyframes dg-flow { to { stroke-dashoffset: -10; } }
+    html.anim .diagram .dg-cell.exc { opacity: 0; transform-box: fill-box; transform-origin: center; transform: scale(.4);
+      transition: opacity .4s ease, transform .5s cubic-bezier(.34,1.56,.64,1); transition-delay: calc(var(--i) * 140ms + 300ms); }
+    html.anim .diagram.in .dg-cell.exc { opacity: 1; transform: none; }
+  }
+
+  /* ── 확대 보기 ─────────────────────────────── */
+  dialog.lbx {
+    width: min(960px, 100vw - 32px); max-height: calc(100svh - 32px); padding: 0;
+    border: 1px solid var(--rule); background: var(--ground); color: var(--ink);
+  }
+  dialog.lbx::backdrop { background: #0B0A09D9; backdrop-filter: blur(4px); }
+  dialog.lbx[open] { animation: lbx-in .28s cubic-bezier(.22,.61,.36,1); }
+  @keyframes lbx-in { from { opacity: 0; transform: translateY(10px) scale(.98); } }
+  .lbx figure { margin: 0; display: grid; justify-items: center; gap: 12px; padding: 18px 18px 14px; }
+  .lbx img {
+    display: block; max-width: 100%; max-height: calc(100svh - 150px); width: auto; height: auto;
+    border: 1px solid var(--rule); border-radius: 12px;
+  }
+  .lbx img.swap { animation: lbx-swap .3s cubic-bezier(.22,.61,.36,1); }
+  @keyframes lbx-swap { from { opacity: 0; transform: translateX(var(--from, 12px)); } }
+  .lbx figcaption { font-size: 13.5px; color: var(--ink-2); text-align: center; max-width: 38em; text-wrap: balance; }
+  .lbx .bar {
+    display: flex; align-items: center; justify-content: space-between; gap: 12px;
+    padding: 10px 14px; border-top: 1px solid var(--rule);
+    font-family: var(--f-mono); font-size: 11px; color: var(--ink-3);
+  }
+  .lbx .bar button {
+    font: inherit; font-size: 13px; color: var(--ink-2); background: transparent;
+    border: 1px solid var(--rule); min-width: 34px; height: 30px; padding: 0 10px; cursor: pointer;
+  }
+  .lbx .bar button:hover { color: var(--ink); border-color: var(--ink-3); }
+  .lbx .bar button:focus-visible { outline: 2px solid var(--accent-2); outline-offset: 2px; }
+  @media (prefers-reduced-motion: reduce) { dialog.lbx[open], .lbx img.swap { animation: none; } }
+
+  /* ── 인쇄 ─────────────────────────────────── */
+  @media print {
+    .reel, .pcard .dots, .pcard .prog, .pcard .snav, dialog.lbx { display: none !important; }
+    .pcard::before { display: none !important; }
+    .pcard .track img { box-shadow: none !important; }
+    /* 지면 폭(약 720px)은 화면 분기점(760px)보다 좁아 카드가 한 단으로 쌓이고, 흐름도까지 더하면 한 장을 넘는다.
+       종이에서도 캡처(좁게)·설명을 나란히 두면 카드가 약 700px 로 한 장에 들어간다 — 그래서 카드째 묶는다(위 .pcard 규칙).
+       카드 안에서 장을 가르면 Chrome 이 grid 조각을 잘못 놓아 빈 테두리·겹침이 생긴다(실측). */
+    .pcard { grid-template-columns: 236px minmax(0, 1fr) !important; gap: 18px 24px !important; align-items: start; padding: 18px !important; }
+    .pcard .shots, .pcard .shots.wide { width: 236px !important; }
+    .pcard .track { gap: 8px !important; padding-block: 0 !important; }
+    .pcard .track img { flex-basis: 114px !important; width: 114px !important; border-width: 3px !important; border-radius: 16px !important; }
+    .pcard .shots.wide .track img { flex-basis: 100% !important; width: 100% !important; border-width: 0 1px 1px !important; border-radius: 6px !important; }
+    /* 와이드 캡처는 한 장이 칸을 다 채운다 — 두 번째 장은 overflow:visible 로 넘쳐 설명 밑에 깔린다 */
+    .pcard .shots.wide .track img:nth-child(n+2) { display: none !important; }
+    .diagram { overflow: visible !important; }
+    .diagram svg { min-width: 0 !important; }
+    /* 달력 칸은 다크 전용 색을 직접 박았다 — 흰 지면에서는 기본·예외가 둘 다 어둡게 찍혀 구분이 안 된다 */
+    .dg-cell.base { fill: #E3E8F0 !important; }
+    .dg-cell.exc  { fill: #14448F !important; }
+    /* 섹션 제목만 장 끝에 홀로 남지 않게 — Chrome 은 grid 앞의 break-after:avoid 를 지키지 않는다.
+       카드 한 장이 거의 한 쪽이므로 히어로는 표지로 두고 Project·Work 는 새 장에서 시작한다.
+       짧은 Contact 는 섹션째 묶는다. */
+    #project, #work { break-before: page; page-break-before: always; }
+    #contact { break-inside: avoid; page-break-inside: avoid; }
   }
 </style>
 
@@ -886,6 +1076,26 @@
   </div>
 </section>
 
+<!-- 장식용 캡처 띠 — 같은 캡처가 아래 카드에 설명과 함께 다시 나온다. 끊김 없는 순환을 위해 스크립트가 한 벌을 복제한다 -->
+<div class="reel" aria-hidden="true">
+  <div class="reel-track">
+    <img src="assets/portfolio/zgnn-home.png" alt="" width="390" height="844" loading="lazy">
+    <img src="assets/portfolio/byb-home.png" alt="" width="390" height="844" loading="lazy">
+    <img src="assets/portfolio/zgnn-list.png" alt="" width="390" height="844" loading="lazy">
+    <img src="assets/portfolio/admin-reservation.png" alt="" class="wide" width="1440" height="900" loading="lazy">
+    <img src="assets/portfolio/byb-facility.png" alt="" width="390" height="844" loading="lazy">
+    <img src="assets/portfolio/zgnn-detail-check.png" alt="" width="390" height="844" loading="lazy">
+    <img src="assets/portfolio/byb-all.png" alt="" width="390" height="844" loading="lazy">
+    <img src="assets/portfolio/zgnn-map.png" alt="" width="390" height="844" loading="lazy">
+    <img src="assets/portfolio/byb-story.png" alt="" width="390" height="844" loading="lazy">
+    <img src="assets/portfolio/admin-home.png" alt="" class="wide" width="1440" height="900" loading="lazy">
+    <img src="assets/portfolio/zgnn-saved.png" alt="" width="390" height="844" loading="lazy">
+    <img src="assets/portfolio/byb-market.png" alt="" width="390" height="844" loading="lazy">
+    <img src="assets/portfolio/zgnn-filter.png" alt="" width="390" height="844" loading="lazy">
+    <img src="assets/portfolio/byb-homeservice.png" alt="" width="390" height="844" loading="lazy">
+  </div>
+</div>
+
 <section id="project" class="band">
   <div class="wrap">
     <div class="shead">
@@ -896,10 +1106,13 @@
       <article class="pcard">
         <div class="shots">
           <div class="track" tabindex="0" aria-label="화면 캡처, 옆으로 넘겨 보기">
-            <img src="assets/portfolio/zgnn-home.png" alt="강아지랑 제주 홈 화면 — 강아지 등록 안내와 숙소·식당·카페 장소 수" width="390" height="844" loading="lazy">
-            <img src="assets/portfolio/zgnn-list.png" alt="숙소 목록 — 장소마다 마리당 요금·무게 제한·최대 마릿수 표시" width="390" height="844" loading="lazy">
+            <img src="assets/portfolio/zgnn-home.png" alt="강아지를 등록한 뒤의 홈 — 숙소·식당·카페마다 갈 수 있는 곳과 확인이 필요한 곳의 수" width="390" height="844" loading="lazy">
+            <img src="assets/portfolio/zgnn-list.png" alt="숙소 목록 — 장소마다 판정(갈 수 있어요)과 마리당 요금·무게 제한·최대 마릿수, 갈 수 있는 곳 먼저 정렬" width="390" height="844" loading="lazy">
+            <img src="assets/portfolio/zgnn-filter.png" alt="필터 — 우리 강아지 기준(전부·어려운 곳 빼고·갈 수 있는 곳만)과 지역 선택" width="390" height="844" loading="lazy">
+            <img src="assets/portfolio/zgnn-detail-check.png" alt="장소 상세 — 확인이 필요해요 판정과 근거가 된 원문, 확인한 날짜" width="390" height="844" loading="lazy">
             <img src="assets/portfolio/zgnn-detail.png" alt="장소 상세 — 반려동물 이용 조건과 확인 날짜, 방문 전 확인 안내" width="390" height="844" loading="lazy">
-            <img src="assets/portfolio/zgnn-map.png" alt="지도 — 숙소·식당·카페를 지역별로 묶어 표시" width="390" height="844" loading="lazy">
+            <img src="assets/portfolio/zgnn-map.png" alt="지도 — 숙소·식당·카페를 지역별로 묶고, 우리 강아지에게 어려운 곳은 흐리게 표시" width="390" height="844" loading="lazy">
+            <img src="assets/portfolio/zgnn-saved.png" alt="저장한 곳 — 하트를 누른 장소를 종류별·날짜별로 모아 보기" width="390" height="844" loading="lazy">
             <img src="assets/portfolio/zgnn-dog.png" alt="우리 강아지 등록 — 몸무게·마릿수·이동 수단 입력" width="390" height="844" loading="lazy">
             <img src="assets/portfolio/zgnn-checklist.png" alt="여행 준비물 체크리스트" width="390" height="844" loading="lazy">
           </div>
@@ -915,8 +1128,39 @@
             <li>회원가입 없이 기기에 저장하는 정적 PWA로 운영하고, 블로그 원문은 번들에 싣지 않고 판정 입력만 공개</li>
           </ul>
           <div class="chips"><span>Next.js 16</span><span>React 19</span><span>TypeScript</span><span>Supabase</span><span>Vercel Functions</span><span>Serwist(PWA)</span><span>네이버 지도</span><span>Claude</span></div>
-          <p class="links"><a href="https://zgnn.vercel.app">서비스 열기 →</a><a href="https://github.com/hoiya-woohyun/zgnn">저장소 →</a><a href="https://github.com/hoiya-woohyun/zgnn/tree/main/docs/decisions">설계 결정 기록 →</a></p>
+          <p class="links"><a href="https://zgnn.vercel.app">서비스 열기 →</a></p>
         </div>
+        <figure class="diagram">
+          <figcaption class="cap">장소 추가와 판정 흐름</figcaption>
+          <svg viewBox="0 0 880 214" role="img" aria-label="블로그 수집, Claude 조건 구조화, 원문 대조, 운영자 승인을 거쳐 장소 조건이 쌓이고, 등록한 강아지 조건과 합쳐 네 단계 판정을 냅니다.">
+            <defs>
+              <marker id="ah-z" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L8 4L0 8z" style="fill:var(--accent)"/></marker>
+            </defs>
+            <text class="dg-lab" x="22" y="16">장소 추가</text>
+            <text class="dg-sub" x="858" y="16" text-anchor="end">초기 데이터: 원작자의 공개 Notion 가이드</text>
+            <g class="hv"><rect class="dg-box" x="22" y="28" width="132" height="44" rx="4"/><text class="dg-t" x="88" y="54" text-anchor="middle">블로그 수집</text></g>
+            <g class="hv"><rect class="dg-box" x="190" y="28" width="176" height="44" rx="4"/><text class="dg-t" x="278" y="54" text-anchor="middle">Claude 조건 구조화</text></g>
+            <g class="hv"><rect class="dg-box" x="402" y="28" width="120" height="44" rx="4"/><text class="dg-t" x="462" y="54" text-anchor="middle">원문 대조</text></g>
+            <g class="hv"><rect class="dg-box" x="558" y="28" width="120" height="44" rx="4"/><text class="dg-t" x="618" y="54" text-anchor="middle">운영자 승인</text></g>
+            <g class="hv"><rect class="dg-box on" x="714" y="28" width="144" height="44" rx="4"/><text class="dg-t on" x="786" y="54" text-anchor="middle">장소 조건 데이터</text></g>
+            <path class="dg-mine flow" d="M158 50H184" marker-end="url(#ah-z)"/>
+            <path class="dg-mine flow" d="M370 50H396" marker-end="url(#ah-z)"/>
+            <path class="dg-mine flow" d="M526 50H552" marker-end="url(#ah-z)"/>
+            <path class="dg-mine flow" d="M682 50H708" marker-end="url(#ah-z)"/>
+
+            <text class="dg-lab" x="22" y="124">판정</text>
+            <g class="hv"><rect class="dg-box" x="22" y="136" width="256" height="44" rx="4"/><text class="dg-t" x="150" y="162" text-anchor="middle">우리 강아지 — 몸무게·마릿수·이동 수단</text></g>
+            <g class="hv"><rect class="dg-box on" x="314" y="136" width="104" height="44" rx="4"/><text class="dg-t on" x="366" y="162" text-anchor="middle">판정</text></g>
+            <path class="dg-mine flow" d="M282 158H308" marker-end="url(#ah-z)"/>
+            <path class="dg-mine flow" d="M786 76V106H366V130" marker-end="url(#ah-z)"/>
+            <path class="dg-mine flow" d="M422 158H448" marker-end="url(#ah-z)"/>
+            <g class="hv"><rect class="dg-pill" x="454" y="132" width="196" height="24" rx="12"/><circle class="dg-dot ok" cx="470" cy="144" r="4"/><text class="dg-t" x="482" y="148">갈 수 있어요</text></g>
+            <g class="hv"><rect class="dg-pill" x="662" y="132" width="196" height="24" rx="12"/><circle class="dg-dot chk" cx="678" cy="144" r="4"/><text class="dg-t" x="690" y="148">확인이 필요해요</text></g>
+            <g class="hv"><rect class="dg-pill" x="454" y="164" width="196" height="24" rx="12"/><circle class="dg-dot none" cx="470" cy="176" r="4"/><text class="dg-t" x="482" y="180">확인된 정보가 없어요</text></g>
+            <g class="hv"><rect class="dg-pill" x="662" y="164" width="196" height="24" rx="12"/><circle class="dg-dot no" cx="678" cy="176" r="3.5"/><text class="dg-t" x="690" y="180">이용하기 어려워요</text></g>
+            <text class="dg-sub" x="454" y="208">목록 · 지도 · 일정 · 준비물이 같은 판정을 씁니다</text>
+          </svg>
+        </figure>
       </article>
 
     </div>
@@ -954,8 +1198,30 @@
             <li>스마트홈(홈넷) 연동의 OAuth 콜백 구조를 재설계해 운영 환경에서만 되던 연동을 <b>개발·알파 환경에서도 동작</b>하게 전환</li>
           </ul>
           <div class="chips"><span>React</span><span>TypeScript</span><span>Vite</span><span>TanStack Router</span><span>TanStack Query</span><span>Recoil</span><span>Tailwind CSS</span><span>i18next</span><span>Sentry</span></div>
-          <p class="links"><a href="./career.html">경력기술서에서 자세히 →</a></p>
         </div>
+        <figure class="diagram">
+          <figcaption class="cap">건설사 브랜드 7종 · 코드베이스 1개</figcaption>
+          <svg viewBox="0 0 880 178" role="img" aria-label="접속한 서브도메인으로 단지를 식별하고, 건설사 브랜드 7종은 레이아웃만 분기하며 화면과 기능은 코드베이스 하나를 함께 씁니다.">
+            <defs>
+              <marker id="ah-b" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L8 4L0 8z" style="fill:var(--accent)"/></marker>
+            </defs>
+            <g class="hv"><rect class="dg-box" x="22" y="66" width="150" height="44" rx="4"/><text class="dg-t" x="97" y="92" text-anchor="middle">단지 서브도메인</text></g>
+            <g class="hv"><rect class="dg-box" x="208" y="66" width="118" height="44" rx="4"/><text class="dg-t" x="267" y="92" text-anchor="middle">단지 식별</text></g>
+            <path class="dg-mine flow" d="M176 88H202" marker-end="url(#ah-b)"/>
+            <path class="dg-mine flow" d="M330 88H344V50H356" marker-end="url(#ah-b)"/>
+            <text class="dg-lab" x="362" y="20">브랜드별 레이아웃만 분기</text>
+            <g class="hv"><rect class="dg-brand" x="362" y="30" width="62" height="40" rx="4"/><text class="dg-t" x="393" y="54" text-anchor="middle">브랜드 1</text></g>
+            <g class="hv"><rect class="dg-brand" x="433" y="30" width="62" height="40" rx="4"/><text class="dg-t" x="464" y="54" text-anchor="middle">브랜드 2</text></g>
+            <g class="hv"><rect class="dg-brand" x="504" y="30" width="62" height="40" rx="4"/><text class="dg-t" x="535" y="54" text-anchor="middle">브랜드 3</text></g>
+            <g class="hv"><rect class="dg-brand" x="575" y="30" width="62" height="40" rx="4"/><text class="dg-t" x="606" y="54" text-anchor="middle">브랜드 4</text></g>
+            <g class="hv"><rect class="dg-brand" x="646" y="30" width="62" height="40" rx="4"/><text class="dg-t" x="677" y="54" text-anchor="middle">브랜드 5</text></g>
+            <g class="hv"><rect class="dg-brand" x="717" y="30" width="62" height="40" rx="4"/><text class="dg-t" x="748" y="54" text-anchor="middle">브랜드 6</text></g>
+            <g class="hv"><rect class="dg-brand" x="788" y="30" width="62" height="40" rx="4"/><text class="dg-t" x="819" y="54" text-anchor="middle">브랜드 7</text></g>
+            <path class="dg-line" d="M393 70V104M464 70V104M535 70V104M606 70V104M677 70V104M748 70V104M819 70V104"/>
+            <g class="hv"><rect class="dg-box on" x="362" y="104" width="488" height="44" rx="4"/><text class="dg-t on" x="606" y="130" text-anchor="middle">공통 화면 · 기능 — 코드베이스 1개</text></g>
+            <text class="dg-sub" x="362" y="170">단지마다 다른 기능 구성은 계약사가 구독하는 기능 묶음으로 권한에서 정합니다</text>
+          </svg>
+        </figure>
       </article>
 
       <article class="pcard">
@@ -976,8 +1242,35 @@
             <li>식당 예약 상품을 기본 정책 + 예외 날짜 구조로 바꿔 <b>운영 날짜가 늘어도 등록 작업이 함께 늘지 않게</b> 재설계</li>
           </ul>
           <div class="chips"><span>React</span><span>TypeScript</span><span>Turborepo</span><span>pnpm workspace</span><span>TanStack Router</span><span>TanStack Query</span><span>TanStack Table</span><span>react-hook-form</span><span>zod</span><span>Tailwind CSS</span></div>
-          <p class="links"><a href="./career.html">경력기술서에서 자세히 →</a></p>
         </div>
+        <figure class="diagram">
+          <figcaption class="cap">식당 예약 상품 — 기본 정책 + 예외 날짜</figcaption>
+          <svg viewBox="0 0 880 222" role="img" aria-label="이전에는 운영 날짜마다 상품을 등록했고, 이후에는 기본 정책 하나에 다른 날만 예외 날짜로 둡니다.">
+            <defs>
+              <pattern id="pt-tick" width="30" height="30" patternUnits="userSpaceOnUse" x="40" y="52">
+                <rect class="dg-cell base" width="26" height="26" rx="3"/><path class="dg-tick" d="M8 13.5l4 4 7-8"/>
+              </pattern>
+              <pattern id="pt-base" width="30" height="30" patternUnits="userSpaceOnUse" x="500" y="52">
+                <rect class="dg-cell base" width="26" height="26" rx="3"/>
+              </pattern>
+              <marker id="ah-a" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L8 4L0 8z" style="fill:var(--accent)"/></marker>
+            </defs>
+            <text class="dg-lab" x="40" y="34">이전 — 날짜마다 상품 등록</text>
+            <rect x="40" y="52" width="206" height="146" fill="url(#pt-tick)"/>
+            <path class="dg-mine flow" d="M276 125H462" marker-end="url(#ah-a)"/>
+            <text class="dg-sub" x="369" y="114" text-anchor="middle">구조 재설계</text>
+            <text class="dg-lab" x="500" y="34">이후 — 기본 정책 + 예외 날짜</text>
+            <rect x="500" y="52" width="206" height="146" fill="url(#pt-base)"/>
+            <rect class="dg-cell exc" x="560" y="82" width="26" height="26" rx="3" style="--i:0"/>
+            <rect class="dg-cell exc" x="590" y="112" width="26" height="26" rx="3" style="--i:1"/>
+            <rect class="dg-cell exc" x="620" y="112" width="26" height="26" rx="3" style="--i:2"/>
+            <rect class="dg-cell exc" x="590" y="172" width="26" height="26" rx="3" style="--i:3"/>
+            <rect class="dg-cell base" x="736" y="70" width="14" height="14" rx="2"/><text class="dg-t" x="758" y="81">기본 정책</text>
+            <rect class="dg-cell exc" x="736" y="96" width="14" height="14" rx="2"/><text class="dg-t" x="758" y="107">예외 날짜</text>
+            <text class="dg-sub" x="736" y="150">운영 날짜가 늘어도</text>
+            <text class="dg-sub" x="736" y="166">등록 작업은 함께 늘지 않습니다</text>
+          </svg>
+        </figure>
       </article>
 
     </div>
@@ -994,45 +1287,172 @@
       <dt class="print-only">이력서</dt><dd class="print-only"><a href="./resume.html">hoiya-woohyun.github.io/resume.html</a></dd>
       <dt class="print-only">경력기술서</dt><dd class="print-only"><a href="./career.html">hoiya-woohyun.github.io/career.html</a></dd>
     </dl>
-    <ul class="chips docs">
-      <li><a href="./resume.html">이력서 바로 보기 →</a></li>
-      <li><a href="./career.html">경력기술서 바로 보기 →</a></li>
-    </ul>
   </div>
 </section>
 
 <footer class="end">
   <div class="wrap">
-    <p>강아지랑 제주의 사례와 수치는 공개 저장소의 결정·버그·작업 기록으로, 회사 사례는 경력기술서와 같은 기록으로 대조했습니다. 대조하지 못한 항목은 숫자 없이 적거나 넣지 않았습니다.</p>
-    <p class="screen-only" style="margin-top:16px;padding-top:14px;border-top:1px solid var(--rule-2);">
-      회사에서 맡은 제품의 담당 범위와 지표는 경력기술서에 있습니다 —
-      <a href="./career.html">경력기술서 보기 →</a>
-      　·　연락은 <a href="mailto:bwh1224@gmail.com">bwh1224@gmail.com</a>
-    </p>
+    <p>강아지랑 제주의 사례와 수치는 공개 저장소의 결정·버그·작업 기록으로, 회사 사례는 사내 작업 기록으로 대조했습니다. 대조하지 못한 항목은 숫자 없이 적거나 넣지 않았습니다.</p>
   </div>
 </footer>
 
 <script>
-  /* 캡처 캐러셀 — 버튼으로 한 장씩 넘기고, 보이는 범위를 숫자로 알린다 */
-  Array.prototype.forEach.call(document.querySelectorAll('.pcard .shots'), function (box) {
-    var track = box.querySelector('.track'), out = box.querySelector('output');
-    var prev = box.querySelector('.prev'), next = box.querySelector('.next');
-    var imgs = track.querySelectorAll('img'), n = imgs.length;
-    function step() { return imgs.length > 1 ? imgs[1].offsetLeft - imgs[0].offsetLeft : track.clientWidth; }
-    function update() {
-      var s = step(), first = Math.round(track.scrollLeft / s);
-      var shown = Math.max(1, Math.round(track.clientWidth / s));
-      var last = Math.min(n, first + shown);
-      out.textContent = (shown > 1 && last > first + 1 ? (first + 1) + '–' + last : last) + ' / ' + n;
-      prev.disabled = track.scrollLeft <= 2;
-      next.disabled = track.scrollLeft + track.clientWidth >= track.scrollWidth - 2;
+  var reduceMotion = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+
+  /* 자동 넘김 정책 — 한 장을 보여 주는 시간(ms). 0 을 돌려주면 그 캐러셀은 자동으로 넘기지 않는다.
+     CSS 의 reduced-motion 규칙은 JS 타이머를 막지 못하므로 여기서 직접 확인한다. */
+  function autoplayDelay(box, count) {
+    if (reduceMotion || count < 2) return 0;
+    return box.classList.contains('wide') ? 5200 : 3600;
+  }
+
+  /* 확대 보기 — 캐러셀 캡처를 누르면 크게 연다. 하나의 dialog 를 모든 캐러셀이 같이 쓴다 */
+  var lbx = (function () {
+    if (typeof HTMLDialogElement !== 'function') return null;
+    var d = document.createElement('dialog');
+    d.className = 'lbx';
+    d.setAttribute('aria-label', '캡처 크게 보기');
+    d.innerHTML = '<figure><img alt=""><figcaption></figcaption></figure>' +
+      '<div class="bar"><button type="button" class="p" aria-label="이전 캡처">←</button>' +
+      '<span class="c"></span><span><button type="button" class="n" aria-label="다음 캡처">→</button> ' +
+      '<button type="button" class="x">닫기</button></span></div>';
+    document.body.appendChild(d);
+    var img = d.querySelector('img'), cap = d.querySelector('figcaption'), cnt = d.querySelector('.c');
+    var list = [], at = 0, onClose = null;
+    function show(i, dir) {
+      at = (i + list.length) % list.length;
+      img.src = list[at].currentSrc || list[at].src;
+      img.alt = list[at].alt; cap.textContent = list[at].alt;
+      cnt.textContent = (at + 1) + ' / ' + list.length;
+      img.classList.remove('swap'); void img.offsetWidth;
+      if (dir) { img.style.setProperty('--from', (dir * 14) + 'px'); img.classList.add('swap'); }
     }
-    prev.addEventListener('click', function () { track.scrollBy({ left: -step(), behavior: 'smooth' }); });
-    next.addEventListener('click', function () { track.scrollBy({ left: step(), behavior: 'smooth' }); });
+    d.querySelector('.p').addEventListener('click', function () { show(at - 1, -1); });
+    d.querySelector('.n').addEventListener('click', function () { show(at + 1, 1); });
+    d.querySelector('.x').addEventListener('click', function () { d.close(); });
+    /* 바깥(backdrop)을 누르면 닫는다 — 클릭 대상이 dialog 자신일 때가 backdrop 이다 */
+    d.addEventListener('click', function (e) { if (e.target === d) d.close(); });
+    d.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowLeft') { e.preventDefault(); show(at - 1, -1); }
+      if (e.key === 'ArrowRight') { e.preventDefault(); show(at + 1, 1); }
+    });
+    d.addEventListener('close', function () { if (onClose) onClose(at); });
+    return {
+      open: function (imgs, i, done) { list = imgs; onClose = done; show(i, 0); d.showModal(); },
+      isOpen: function () { return d.open; }
+    };
+  })();
+
+  /* 캡처 캐러셀 — 버튼·점으로 넘기고, 화면에 보이는 동안 자동으로 넘긴다.
+     자동 넘김은 스크롤 위치만 바꾼다(복제 노드 없음) — 인쇄에서는 overflow:visible 이 되어 위치가 무의미해지고,
+     앞 두 장만 싣는 인쇄 규칙(nth-child)도 그대로 맞는다. */
+  Array.prototype.forEach.call(document.querySelectorAll('.pcard .shots'), function (box) {
+    var track = box.querySelector('.track'), out = box.querySelector('output'), nav = box.querySelector('.snav');
+    var prev = box.querySelector('.prev'), next = box.querySelector('.next');
+    var imgs = Array.prototype.slice.call(track.querySelectorAll('img')), n = imgs.length;
+
+    var dots = document.createElement('div');
+    dots.className = 'dots';
+    imgs.forEach(function (im, i) {
+      var b = document.createElement('button');
+      b.type = 'button'; b.setAttribute('aria-label', (i + 1) + '번째 캡처');
+      b.addEventListener('click', function () { go(i); hold(); });
+      dots.appendChild(b);
+    });
+    nav.insertBefore(dots, out);
+
+    function step() { return n > 1 ? imgs[1].offsetLeft - imgs[0].offsetLeft : track.clientWidth; }
+    function first() { return Math.round(track.scrollLeft / step()); }
+    function atEnd() { return track.scrollLeft + track.clientWidth >= track.scrollWidth - 2; }
+    function go(i) { track.scrollTo({ left: Math.max(0, i) * step(), behavior: reduceMotion ? 'auto' : 'smooth' }); }
+
+    function update() {
+      var s = step(), f = first();
+      var shown = Math.max(1, Math.round(track.clientWidth / s));
+      var last = Math.min(n, f + shown);
+      out.textContent = (shown > 1 && last > f + 1 ? (f + 1) + '–' + last : last) + ' / ' + n;
+      prev.disabled = track.scrollLeft <= 2;
+      next.disabled = atEnd();
+      Array.prototype.forEach.call(dots.children, function (b, i) { b.classList.toggle('on', i >= f && i < last); });
+    }
+    prev.addEventListener('click', function () { go(first() - 1); hold(); });
+    next.addEventListener('click', function () { go(first() + 1); hold(); });
     track.addEventListener('scroll', update, { passive: true });
     window.addEventListener('resize', update);
+
+    /* 클릭하면 크게 — 닫으면 마지막으로 본 캡처로 캐러셀을 맞춘다 */
+    imgs.forEach(function (im, i) {
+      im.addEventListener('click', function () {
+        if (!lbx) return;
+        lbx.open(imgs, i, function (at) { go(at); });
+      });
+    });
+    track.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' && lbx) { e.preventDefault(); lbx.open(imgs, first(), function (at) { go(at); }); }
+      if (e.key === 'ArrowRight') { e.preventDefault(); next.click(); }
+      if (e.key === 'ArrowLeft') { e.preventDefault(); prev.click(); }
+    });
     update();
+
+    /* ── 자동 넘김 ── 멈추는 조건: 포인터가 올라와 있음 · 포커스가 안에 있음 · 화면 밖 · 탭이 가려짐 ·
+       확대 보기가 열림 · 사용자가 일시정지. 사람이 직접 넘기면 진행을 처음부터 다시 센다(hold). */
+    var delay = autoplayDelay(box, n);
+    if (!delay) return;
+    box.classList.add('auto');
+    var prog = document.createElement('div'); prog.className = 'prog'; prog.innerHTML = '<i></i>';
+    box.appendChild(prog);
+    var bar = prog.firstChild;
+    var play = document.createElement('button');
+    play.type = 'button'; play.className = 'play';
+    nav.insertBefore(play, next);
+
+    var elapsed = 0, hover = false, focus = false, seen = false, paused = false, TICK = 120;
+    function setPlay() {
+      play.textContent = paused ? '▶' : 'Ⅱ';
+      play.setAttribute('aria-label', paused ? '자동 넘김 켜기' : '자동 넘김 멈추기');
+    }
+    /* 버튼·점 핸들러가 자동 넘김이 꺼진 캐러셀에서도 부르므로 bar 가 없을 수 있다 */
+    function hold() { elapsed = 0; if (bar) bar.style.transform = 'scaleX(0)'; }
+    play.addEventListener('click', function () { paused = !paused; setPlay(); hold(); });
+    setPlay();
+    box.addEventListener('pointerenter', function () { hover = true; });
+    box.addEventListener('pointerleave', function () { hover = false; });
+    box.addEventListener('focusin', function () { focus = true; });
+    box.addEventListener('focusout', function () { focus = box.contains(document.activeElement); });
+    track.addEventListener('touchstart', hold, { passive: true });
+    track.addEventListener('wheel', hold, { passive: true });
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (es) { seen = es[0].isIntersecting; }, { threshold: 0.6 }).observe(box);
+    } else { seen = true; }
+
+    setInterval(function () {
+      if (paused || hover || focus || !seen || document.hidden || (lbx && lbx.isOpen())) return;
+      elapsed += TICK;
+      bar.style.transform = 'scaleX(' + Math.min(1, elapsed / delay) + ')';
+      if (elapsed < delay) return;
+      hold();
+      if (atEnd()) go(0); else go(first() + 1);
+    }, TICK);
   });
+
+  /* 화면 리본 — 한 벌을 복제해 이어 붙이면 -50% 이동이 끊김 없는 순환이 된다 */
+  (function () {
+    var t = document.querySelector('.reel-track');
+    if (!t || reduceMotion) return;
+    Array.prototype.slice.call(t.children).forEach(function (el) { t.appendChild(el.cloneNode(true)); });
+    t.classList.add('go');
+  })();
+
+  /* 카드 hover 빛 — 커서 위치를 CSS 변수로 넘긴다 */
+  if (window.matchMedia && window.matchMedia('(hover: hover)').matches) {
+    Array.prototype.forEach.call(document.querySelectorAll('.pcard'), function (c) {
+      c.addEventListener('pointermove', function (e) {
+        var r = c.getBoundingClientRect();
+        c.style.setProperty('--mx', (e.clientX - r.left) + 'px');
+        c.style.setProperty('--my', (e.clientY - r.top) + 'px');
+      });
+    });
+  }
 
   (function () {
     var root = document.documentElement;
@@ -1041,7 +1461,7 @@
 
     var targets = Array.prototype.slice.call(document.querySelectorAll(
       '.abil > li, .case, .metrics > div, .caveat, .cat > div, .scroll, .ratio,' +
-      '.tool, .pcard, .cv > div, .stack > div, .fact, ul.chips.docs, footer.end p'
+      '.tool, .pcard, .diagram, .cv > div, .stack > div, .fact, ul.chips.docs, footer.end p'
     ));
     if (!targets.length) return;
 
