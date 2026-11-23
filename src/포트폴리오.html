@@ -881,6 +881,15 @@
     .pcard .shots.wide .track img { flex-basis: 100% !important; width: 100% !important; border-width: 0 1px 1px !important; border-radius: 6px !important; }
     /* 와이드 캡처는 한 장이 칸을 다 채운다 — 두 번째 장은 overflow:visible 로 넘쳐 설명 밑에 깔린다 */
     .pcard .shots.wide .track img:nth-child(n+2) { display: none !important; }
+    /* 수치 블록이 화면 크기 그대로면 카드가 한 쪽을 넘어 통째로 다음 장으로 밀린다.
+       측정 설명은 경력기술서 「지표 근거」 표에 그대로 있으므로 종이에서는 숫자만 남긴다. */
+    .pcard .body { gap: 8px !important; }
+    .metrics { margin: 4px 0 0 !important; grid-template-columns: repeat(3, 1fr) !important; }
+    .metrics > div { padding: 7px 10px 8px !important; }
+    .metrics dt { margin-bottom: 2px !important; }
+    .metrics dd { font-size: 14px !important; white-space: nowrap; }
+    .metrics dd small { font-size: 10.5px !important; }
+    .metrics dd + p { display: none !important; }
     .diagram { overflow: visible !important; }
     .diagram svg { min-width: 0 !important; }
     /* 달력 칸은 다크 전용 색을 직접 박았다 — 흰 지면에서는 기본·예외가 둘 다 어둡게 찍혀 구분이 안 된다 */
@@ -1028,7 +1037,7 @@
 <section id="work" class="band alt">
   <div class="wrap">
     <div class="shead">
-      <h2><b class="num">02</b> Work <em>회사에서 한 일</em></h2>
+      <h2><b class="num">02</b> Work <em>HT 비욘드</em></h2>
       <p>주식회사 에이치티비욘드(아파트·오피스텔 커뮤니티 플랫폼)에서 <b>8개 프론트엔드 제품</b>을 맡고 있습니다.</p>
     </div>
 
@@ -1055,7 +1064,13 @@
             <li>서브도메인으로 단지를 식별하고 브랜드별 레이아웃만 분기해 <b>건설사 브랜드 7종을 코드베이스 1개로</b> 서비스</li>
             <li>계약사·단지·사용자 3계층 권한을 <b>계약사가 구독하는 기능 묶음</b>으로 재설계해, 단지마다 다른 기능 구성을 권한 설정으로 반영</li>
             <li>스마트홈(홈넷) 연동의 OAuth 콜백 구조를 재설계해 운영 환경에서만 되던 연동을 <b>개발·알파 환경에서도 동작</b>하게 전환</li>
+          <li><b>번들러 전환·PR 검증 재구성</b>으로 빌드·PR 검사 시간 단축</li>
           </ul>
+          <dl class="metrics">
+            <div><dt>빌드 시간</dt><dd>115초 → 15초<small>−87%</small></dd><p>번들러 전환 직전·직후 커밋, 같은 장비에서 캐시 없이 2회 평균</p></div>
+            <div><dt>PR 빌드 검사</dt><dd>8.1분 → 2.8분<small>−66%</small></dd><p>전후 성공 실행 215·229건 기준 · 느린 10%는 21.1분 → 4.0분</p></div>
+            <div><dt>권한 가드 적용</dt><dd>495<small>/ 564 라우트</small></dd><p>레이아웃 라우트 한 곳에서 일괄 적용 · 구조 값</p></div>
+          </dl>
           <div class="chips"><span>React</span><span>TypeScript</span><span>Vite</span><span>TanStack Router</span><span>TanStack Query</span><span>Recoil</span><span>Tailwind CSS</span><span>i18next</span><span>Sentry</span></div>
         </div>
         <figure class="diagram">
@@ -1103,31 +1118,192 @@
           <div class="chips"><span>React</span><span>TypeScript</span><span>Turborepo</span><span>pnpm workspace</span><span>TanStack Router</span><span>TanStack Query</span><span>TanStack Table</span><span>react-hook-form</span><span>zod</span><span>Tailwind CSS</span></div>
         </div>
         <figure class="diagram">
-          <figcaption class="cap">식당 예약 상품 — 기본 정책 + 예외 날짜</figcaption>
-          <svg viewBox="0 0 880 222" role="img" aria-label="이전에는 운영 날짜마다 상품을 등록했고, 이후에는 기본 정책 하나에 다른 날만 예외 날짜로 둡니다.">
+          <figcaption class="cap">식당 예약 상품 — 날짜마다 등록 → 기본 정책 + 예외 날짜</figcaption>
+          <svg viewBox="0 0 880 280" role="img" aria-label="이전에는 운영하는 날짜마다 상품을 하나씩 등록했고, 이후에는 기본 정책 하나를 두고 휴무나 시간대가 다른 날만 예외 날짜로 덮어씁니다.">
             <defs>
-              <pattern id="pt-tick" width="30" height="30" patternUnits="userSpaceOnUse" x="40" y="52">
-                <rect class="dg-cell base" width="26" height="26" rx="3"/><path class="dg-tick" d="M8 13.5l4 4 7-8"/>
-              </pattern>
-              <pattern id="pt-base" width="30" height="30" patternUnits="userSpaceOnUse" x="500" y="52">
-                <rect class="dg-cell base" width="26" height="26" rx="3"/>
-              </pattern>
               <marker id="ah-a" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L8 4L0 8z" style="fill:var(--accent)"/></marker>
             </defs>
-            <text class="dg-lab" x="40" y="34">이전 — 날짜마다 상품 등록</text>
-            <rect x="40" y="52" width="206" height="146" fill="url(#pt-tick)"/>
-            <path class="dg-mine flow" d="M276 125H462" marker-end="url(#ah-a)"/>
-            <text class="dg-sub" x="369" y="114" text-anchor="middle">구조 재설계</text>
-            <text class="dg-lab" x="500" y="34">이후 — 기본 정책 + 예외 날짜</text>
-            <rect x="500" y="52" width="206" height="146" fill="url(#pt-base)"/>
-            <rect class="dg-cell exc" x="560" y="82" width="26" height="26" rx="3" style="--i:0"/>
-            <rect class="dg-cell exc" x="590" y="112" width="26" height="26" rx="3" style="--i:1"/>
-            <rect class="dg-cell exc" x="620" y="112" width="26" height="26" rx="3" style="--i:2"/>
-            <rect class="dg-cell exc" x="590" y="172" width="26" height="26" rx="3" style="--i:3"/>
-            <rect class="dg-cell base" x="736" y="70" width="14" height="14" rx="2"/><text class="dg-t" x="758" y="81">기본 정책</text>
-            <rect class="dg-cell exc" x="736" y="96" width="14" height="14" rx="2"/><text class="dg-t" x="758" y="107">예외 날짜</text>
-            <text class="dg-sub" x="736" y="150">운영 날짜가 늘어도</text>
-            <text class="dg-sub" x="736" y="166">등록 작업은 함께 늘지 않습니다</text>
+            <text class="dg-lab" x="40" y="28">이전 — 날짜마다 상품 등록</text>
+            <text class="dg-sub" x="40" y="54">운영하는 날마다 상품을 새로 만든다</text>
+            <text class="dg-sub" x="55" y="84" text-anchor="middle">일</text>
+            <text class="dg-sub" x="89" y="84" text-anchor="middle">월</text>
+            <text class="dg-sub" x="123" y="84" text-anchor="middle">화</text>
+            <text class="dg-sub" x="157" y="84" text-anchor="middle">수</text>
+            <text class="dg-sub" x="191" y="84" text-anchor="middle">목</text>
+            <text class="dg-sub" x="225" y="84" text-anchor="middle">금</text>
+            <text class="dg-sub" x="259" y="84" text-anchor="middle">토</text>
+            <rect class="dg-cell base" x="108" y="92" width="30" height="26" rx="3"/>
+            <text class="dg-sub" x="112" y="102">1</text>
+            <path class="dg-tick" d="M121 108l3 3 6-7"/>
+            <rect class="dg-cell base" x="142" y="92" width="30" height="26" rx="3"/>
+            <text class="dg-sub" x="146" y="102">2</text>
+            <path class="dg-tick" d="M155 108l3 3 6-7"/>
+            <rect class="dg-cell base" x="176" y="92" width="30" height="26" rx="3"/>
+            <text class="dg-sub" x="180" y="102">3</text>
+            <path class="dg-tick" d="M189 108l3 3 6-7"/>
+            <rect class="dg-cell base" x="210" y="92" width="30" height="26" rx="3"/>
+            <text class="dg-sub" x="214" y="102">4</text>
+            <path class="dg-tick" d="M223 108l3 3 6-7"/>
+            <rect class="dg-cell base" x="244" y="92" width="30" height="26" rx="3"/>
+            <text class="dg-sub" x="248" y="102">5</text>
+            <path class="dg-tick" d="M257 108l3 3 6-7"/>
+            <rect class="dg-cell base" x="40" y="122" width="30" height="26" rx="3"/>
+            <text class="dg-sub" x="44" y="132">6</text>
+            <path class="dg-tick" d="M53 138l3 3 6-7"/>
+            <rect class="dg-cell base" x="74" y="122" width="30" height="26" rx="3"/>
+            <text class="dg-sub" x="78" y="132">7</text>
+            <path class="dg-tick" d="M87 138l3 3 6-7"/>
+            <rect class="dg-cell base" x="108" y="122" width="30" height="26" rx="3"/>
+            <text class="dg-sub" x="112" y="132">8</text>
+            <path class="dg-tick" d="M121 138l3 3 6-7"/>
+            <rect class="dg-cell base" x="142" y="122" width="30" height="26" rx="3"/>
+            <text class="dg-sub" x="146" y="132">9</text>
+            <path class="dg-tick" d="M155 138l3 3 6-7"/>
+            <rect class="dg-cell base" x="176" y="122" width="30" height="26" rx="3"/>
+            <text class="dg-sub" x="180" y="132">10</text>
+            <path class="dg-tick" d="M189 138l3 3 6-7"/>
+            <rect class="dg-cell base" x="210" y="122" width="30" height="26" rx="3"/>
+            <text class="dg-sub" x="214" y="132">11</text>
+            <path class="dg-tick" d="M223 138l3 3 6-7"/>
+            <rect class="dg-cell base" x="244" y="122" width="30" height="26" rx="3"/>
+            <text class="dg-sub" x="248" y="132">12</text>
+            <path class="dg-tick" d="M257 138l3 3 6-7"/>
+            <rect class="dg-cell base" x="40" y="152" width="30" height="26" rx="3"/>
+            <text class="dg-sub" x="44" y="162">13</text>
+            <path class="dg-tick" d="M53 168l3 3 6-7"/>
+            <rect class="dg-cell base" x="74" y="152" width="30" height="26" rx="3"/>
+            <text class="dg-sub" x="78" y="162">14</text>
+            <path class="dg-tick" d="M87 168l3 3 6-7"/>
+            <rect class="dg-cell base" x="108" y="152" width="30" height="26" rx="3"/>
+            <text class="dg-sub" x="112" y="162">15</text>
+            <path class="dg-tick" d="M121 168l3 3 6-7"/>
+            <rect class="dg-cell base" x="142" y="152" width="30" height="26" rx="3"/>
+            <text class="dg-sub" x="146" y="162">16</text>
+            <path class="dg-tick" d="M155 168l3 3 6-7"/>
+            <rect class="dg-cell base" x="176" y="152" width="30" height="26" rx="3"/>
+            <text class="dg-sub" x="180" y="162">17</text>
+            <path class="dg-tick" d="M189 168l3 3 6-7"/>
+            <rect class="dg-cell base" x="210" y="152" width="30" height="26" rx="3"/>
+            <text class="dg-sub" x="214" y="162">18</text>
+            <path class="dg-tick" d="M223 168l3 3 6-7"/>
+            <rect class="dg-cell base" x="244" y="152" width="30" height="26" rx="3"/>
+            <text class="dg-sub" x="248" y="162">19</text>
+            <path class="dg-tick" d="M257 168l3 3 6-7"/>
+            <rect class="dg-cell base" x="40" y="182" width="30" height="26" rx="3"/>
+            <text class="dg-sub" x="44" y="192">20</text>
+            <path class="dg-tick" d="M53 198l3 3 6-7"/>
+            <rect class="dg-cell base" x="74" y="182" width="30" height="26" rx="3"/>
+            <text class="dg-sub" x="78" y="192">21</text>
+            <path class="dg-tick" d="M87 198l3 3 6-7"/>
+            <rect class="dg-cell base" x="108" y="182" width="30" height="26" rx="3"/>
+            <text class="dg-sub" x="112" y="192">22</text>
+            <path class="dg-tick" d="M121 198l3 3 6-7"/>
+            <rect class="dg-cell base" x="142" y="182" width="30" height="26" rx="3"/>
+            <text class="dg-sub" x="146" y="192">23</text>
+            <path class="dg-tick" d="M155 198l3 3 6-7"/>
+            <rect class="dg-cell base" x="176" y="182" width="30" height="26" rx="3"/>
+            <text class="dg-sub" x="180" y="192">24</text>
+            <path class="dg-tick" d="M189 198l3 3 6-7"/>
+            <rect class="dg-cell base" x="210" y="182" width="30" height="26" rx="3"/>
+            <text class="dg-sub" x="214" y="192">25</text>
+            <path class="dg-tick" d="M223 198l3 3 6-7"/>
+            <rect class="dg-cell base" x="244" y="182" width="30" height="26" rx="3"/>
+            <text class="dg-sub" x="248" y="192">26</text>
+            <path class="dg-tick" d="M257 198l3 3 6-7"/>
+            <rect class="dg-cell base" x="40" y="212" width="30" height="26" rx="3"/>
+            <text class="dg-sub" x="44" y="222">27</text>
+            <path class="dg-tick" d="M53 228l3 3 6-7"/>
+            <rect class="dg-cell base" x="74" y="212" width="30" height="26" rx="3"/>
+            <text class="dg-sub" x="78" y="222">28</text>
+            <path class="dg-tick" d="M87 228l3 3 6-7"/>
+            <rect class="dg-cell base" x="108" y="212" width="30" height="26" rx="3"/>
+            <text class="dg-sub" x="112" y="222">29</text>
+            <path class="dg-tick" d="M121 228l3 3 6-7"/>
+            <rect class="dg-cell base" x="142" y="212" width="30" height="26" rx="3"/>
+            <text class="dg-sub" x="146" y="222">30</text>
+            <path class="dg-tick" d="M155 228l3 3 6-7"/>
+            <text class="dg-t" x="40" y="262">등록 <tspan style="font-weight:600;fill:var(--ink)">운영하는 날마다 1건씩</tspan></text>
+
+            <path class="dg-mine flow" d="M290 160H476" marker-end="url(#ah-a)"/>
+            <text class="dg-sub" x="383" y="149" text-anchor="middle">구조 재설계</text>
+
+            <text class="dg-lab" x="500" y="28">이후 — 기본 정책 + 예외 날짜</text>
+            <g class="hv"><rect class="dg-box on" x="500" y="38" width="234" height="26" rx="4"/><text class="dg-t on" x="617" y="55" text-anchor="middle">기본 정책 · 영업 요일 · 시간대</text></g>
+            <text class="dg-sub" x="515" y="84" text-anchor="middle">일</text>
+            <text class="dg-sub" x="549" y="84" text-anchor="middle">월</text>
+            <text class="dg-sub" x="583" y="84" text-anchor="middle">화</text>
+            <text class="dg-sub" x="617" y="84" text-anchor="middle">수</text>
+            <text class="dg-sub" x="651" y="84" text-anchor="middle">목</text>
+            <text class="dg-sub" x="685" y="84" text-anchor="middle">금</text>
+            <text class="dg-sub" x="719" y="84" text-anchor="middle">토</text>
+            <rect class="dg-cell base" x="568" y="92" width="30" height="26" rx="3"/>
+            <text class="dg-sub" x="572" y="102">1</text>
+            <rect class="dg-cell base" x="602" y="92" width="30" height="26" rx="3"/>
+            <text class="dg-sub" x="606" y="102">2</text>
+            <rect class="dg-cell base" x="636" y="92" width="30" height="26" rx="3"/>
+            <text class="dg-sub" x="640" y="102">3</text>
+            <rect class="dg-cell base" x="670" y="92" width="30" height="26" rx="3"/>
+            <text class="dg-sub" x="674" y="102">4</text>
+            <rect class="dg-cell base" x="704" y="92" width="30" height="26" rx="3"/>
+            <text class="dg-sub" x="708" y="102">5</text>
+            <rect class="dg-cell exc" x="500" y="122" width="30" height="26" rx="3" style="--i:0"/>
+            <text class="dg-sub" x="504" y="132" style="fill:var(--ground)">6</text>
+            <rect class="dg-cell base" x="534" y="122" width="30" height="26" rx="3"/>
+            <text class="dg-sub" x="538" y="132">7</text>
+            <rect class="dg-cell base" x="568" y="122" width="30" height="26" rx="3"/>
+            <text class="dg-sub" x="572" y="132">8</text>
+            <rect class="dg-cell base" x="602" y="122" width="30" height="26" rx="3"/>
+            <text class="dg-sub" x="606" y="132">9</text>
+            <rect class="dg-cell base" x="636" y="122" width="30" height="26" rx="3"/>
+            <text class="dg-sub" x="640" y="132">10</text>
+            <rect class="dg-cell base" x="670" y="122" width="30" height="26" rx="3"/>
+            <text class="dg-sub" x="674" y="132">11</text>
+            <rect class="dg-cell base" x="704" y="122" width="30" height="26" rx="3"/>
+            <text class="dg-sub" x="708" y="132">12</text>
+            <rect class="dg-cell base" x="500" y="152" width="30" height="26" rx="3"/>
+            <text class="dg-sub" x="504" y="162">13</text>
+            <rect class="dg-cell base" x="534" y="152" width="30" height="26" rx="3"/>
+            <text class="dg-sub" x="538" y="162">14</text>
+            <rect class="dg-cell exc" x="568" y="152" width="30" height="26" rx="3" style="--i:1"/>
+            <text class="dg-sub" x="572" y="162" style="fill:var(--ground)">15</text>
+            <rect class="dg-cell exc" x="602" y="152" width="30" height="26" rx="3" style="--i:2"/>
+            <text class="dg-sub" x="606" y="162" style="fill:var(--ground)">16</text>
+            <rect class="dg-cell base" x="636" y="152" width="30" height="26" rx="3"/>
+            <text class="dg-sub" x="640" y="162">17</text>
+            <rect class="dg-cell base" x="670" y="152" width="30" height="26" rx="3"/>
+            <text class="dg-sub" x="674" y="162">18</text>
+            <rect class="dg-cell base" x="704" y="152" width="30" height="26" rx="3"/>
+            <text class="dg-sub" x="708" y="162">19</text>
+            <rect class="dg-cell base" x="500" y="182" width="30" height="26" rx="3"/>
+            <text class="dg-sub" x="504" y="192">20</text>
+            <rect class="dg-cell base" x="534" y="182" width="30" height="26" rx="3"/>
+            <text class="dg-sub" x="538" y="192">21</text>
+            <rect class="dg-cell base" x="568" y="182" width="30" height="26" rx="3"/>
+            <text class="dg-sub" x="572" y="192">22</text>
+            <rect class="dg-cell base" x="602" y="182" width="30" height="26" rx="3"/>
+            <text class="dg-sub" x="606" y="192">23</text>
+            <rect class="dg-cell base" x="636" y="182" width="30" height="26" rx="3"/>
+            <text class="dg-sub" x="640" y="192">24</text>
+            <rect class="dg-cell base" x="670" y="182" width="30" height="26" rx="3"/>
+            <text class="dg-sub" x="674" y="192">25</text>
+            <rect class="dg-cell base" x="704" y="182" width="30" height="26" rx="3"/>
+            <text class="dg-sub" x="708" y="192">26</text>
+            <rect class="dg-cell exc" x="500" y="212" width="30" height="26" rx="3" style="--i:3"/>
+            <text class="dg-sub" x="504" y="222" style="fill:var(--ground)">27</text>
+            <rect class="dg-cell base" x="534" y="212" width="30" height="26" rx="3"/>
+            <text class="dg-sub" x="538" y="222">28</text>
+            <rect class="dg-cell base" x="568" y="212" width="30" height="26" rx="3"/>
+            <text class="dg-sub" x="572" y="222">29</text>
+            <rect class="dg-cell base" x="602" y="212" width="30" height="26" rx="3"/>
+            <text class="dg-sub" x="606" y="222">30</text>
+            <text class="dg-t" x="500" y="262">등록 <tspan style="font-weight:600;fill:var(--ink)">기본 정책 1건 + 다른 날만 예외</tspan></text>
+
+            <rect class="dg-cell base" x="762" y="100" width="14" height="14" rx="2"/><text class="dg-t" x="784" y="111">기본 정책대로</text>
+            <rect class="dg-cell exc" x="762" y="126" width="14" height="14" rx="2"/><text class="dg-t" x="784" y="137">예외 날짜</text>
+            <text class="dg-sub" x="762" y="168">휴무 · 시간대 변경만</text>
+            <text class="dg-sub" x="762" y="184">그날 덮어씁니다</text>
+            <text class="dg-sub" x="762" y="216">운영 날짜가 늘어도</text>
+            <text class="dg-sub" x="762" y="232">등록은 늘지 않습니다</text>
           </svg>
         </figure>
       </article>
@@ -1151,7 +1327,7 @@
 
 <footer class="end">
   <div class="wrap">
-    <p>강아지랑 제주의 사례와 수치는 공개 저장소의 결정·버그·작업 기록으로, 회사 사례는 사내 작업 기록으로 대조했습니다. 대조하지 못한 항목은 숫자 없이 적거나 넣지 않았습니다.</p>
+    <p>강아지랑 제주의 사례와 수치는 저장소의 결정·버그·작업 기록으로, 회사 사례는 사내 작업 기록으로 대조했습니다. 대조하지 못한 항목은 숫자 없이 적거나 넣지 않았습니다.</p>
   </div>
 </footer>
 
