@@ -900,6 +900,13 @@
        짧은 Contact 는 섹션째 묶는다. */
     #project, #work { break-before: page; page-break-before: always; }
     #contact { break-inside: avoid; page-break-inside: avoid; }
+    /* 표지는 히어로만으로 아래 절반이 비고, 마지막 장은 연락처만으로 대부분 빈다.
+       화면 순서는 그대로 두고, 종이에서만 연락처·출처 안내를 표지 빈칸에 올린다
+       (위치 지정 조상이 없어 첫 장 기준 좌표로 찍힌다). */
+    #contact, footer.end { position: absolute; left: 0; right: 0; }
+    #contact { top: 500px; }
+    #contact .shead h2 b.num { display: none; } /* 표지에 오면 03 번호가 순서와 어긋난다 */
+    footer.end { top: 790px; border-top: 0 !important; }
   }
 </style>
 
