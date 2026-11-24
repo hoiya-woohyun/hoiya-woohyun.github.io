@@ -556,7 +556,7 @@
           <li>저장소 문서를 <b>구조 설계·결정 기록(ADR)·기능 명세·화면 스펙·버그 원인 분석</b> 5종과 색인으로 나누고, 코드를 고치면 갱신할 문서를 <b>AGENTS.md·CLAUDE.md 규칙으로 강제</b></li>
           <li>openapi-typescript로 OpenAPI 스펙에서 타입·클라이언트·쿼리 훅을 생성하는 파이프라인을 <b>4개 제품에 도입</b></li>
           <li>흩어진 도메인 정책을 <b>출처를 인용하는 LLM 위키로 정리</b> (백엔드 팀과 공동)</li>
-          <li>정기 배포 후 Claude가 변경 코드를 읽어 위키와 어긋난 내용을 찾고 <b>문서 수정 PR을 열어 담당자에게 리뷰를 요청하는 GitHub Actions</b> 구현</li>
+          <li>정기 배포 후 Claude가 변경 코드를 읽어 위키와 어긋난 내용을 찾으면(감지 단계는 백엔드 팀) <b>문서 수정 PR을 열어 담당자에게 리뷰를 요청하는 GitHub Actions</b> 구현</li>
         </ul>
       </div>
       <div class="block">
@@ -569,7 +569,7 @@
           </li>
           <li class="metric-li">API 타입을 직접 정의하던 방식에서 <b>생성된 타입을 참조하는 방식으로 전환</b>
             <ul class="ev">
-              <li>API 1건을 연동할 때 직접 작성하던 코드를 <b class="metric">평균 35줄에서 4줄로 축소</b></li>
+              <li>API 1건을 연동할 때 직접 작성하던 코드를 <b class="metric">평균 35줄에서 4줄로 축소</b> (이전 방식 POS 정의 52건 기준 구조 값)</li>
             </ul>
           </li>
           <li>서버 스펙 변경을 <b>배포 전 타입 생성 단계의 컴파일 에러로 확인</b></li>
@@ -855,11 +855,7 @@
       <div class="block">
         <div class="label">성과</div>
         <ul class="lines">
-          <li>현장 서버 원격 접속 절차를 간소화해 <b>현장 장애 대응이 빨라짐</b>
-            <ul class="ev">
-              <li>로그 조회가 동시 접속 상한에서 빠져 실제 원격 접속 대기 해소</li>
-            </ul>
-          </li>
+          <li>로그 조회가 동시 접속 상한을 쓰지 않게 되어 <b>실제 원격 접속 대기 해소</b></li>
         </ul>
       </div>
       <div class="block">
@@ -913,8 +909,8 @@
       <div class="block">
         <div class="label">수행</div>
         <ul class="lines">
-          <li>webpack(CRA) → Vite, npm → pnpm <b>3개 제품 동시 전환</b> (비교 문서·가이드라인을 먼저 공유)</li>
-          <li>사내 운영 콘솔 <b>모노레포(Turborepo · pnpm workspace) 초기 구축</b>, 제품마다 따로 두던 Vite·ESLint·TypeScript 설정을 <b>공용 설정 패키지 한 곳으로 집약</b></li>
+          <li>webpack(CRA) → Vite, npm → pnpm <b>3개 제품 전환</b> (비교 문서·가이드라인을 먼저 공유)</li>
+          <li>사내 운영 콘솔 모노레포(Turborepo · pnpm workspace)에서 제품마다 따로 두던 Vite·ESLint·TypeScript 설정을 <b>공용 설정 패키지 한 곳으로 집약</b></li>
           <li>TanStack Router <b>파일 기반 라우팅</b>으로 바꿔 라우트 수동 등록 제거, 권한 가드를 레이아웃 라우트에 통합</li>
           <li>화면 이동 시 <code>useNavigate</code> 사용 규칙을 ESLint로 강제</li>
           <li>Vite 전환 때 Vitest 설정을 넣고, 이후 4개 저장소에서 <b>단위·통합 테스트 파일 약 350개</b> 작성 (키오스크 결제 단계·세션, Sentry 오류 등급, 단지·시설·기기 매핑 등) · 라이브 서버 검증용 Playwright 설정</li>
