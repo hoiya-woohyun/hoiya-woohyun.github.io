@@ -383,12 +383,12 @@
               <li>파일 기반 라우팅으로 바꾸고 권한 가드를 레이아웃 라우트에 통합해 <b>화면 564개 중 495개에 일괄 적용</b></li>
             </ul>
           </li>
-          <li><b class="k">웹뷰 호환성</b>iOS·Android 네이티브 앱 웹뷰의 플랫폼 차이 대응 — iOS 스와이프백·history 스택, Android 물리 백버튼의 오버레이 닫기 순서, 구형 앱의 safe-area 이중 적용 보정
+          <li><b class="k">웹뷰 호환성</b>iOS 웹뷰에서만 틀어지던 뒤로가기 스택은 스와이프백과 앱 내 뒤로가기를 구분해 바로잡고, Android 물리 백버튼은 가장 나중에 연 바텀시트·모달부터 닫게 함 · 구형 앱의 safe-area 이중 여백은 앱 버전 기준으로 보정
             <ul class="ev">
               <li>iOS 웹뷰에서 화면 전체가 멈추던 동적 import 실패를 <b>재시도·조건부 새로고침으로 자동 복구</b></li>
             </ul>
           </li>
-          <li><b class="k">네이티브</b>ANPR(차량번호 자동 인식) 결과를 관리사무소 운영툴 웹뷰와 연동, 브라우저 OCR 화면도 네이티브 인식으로 전환(실패 시 웹 OCR)
+          <li><b class="k">네이티브</b>관리사무소 운영툴 웹뷰가 관리자 앱의 네이티브 차량번호 인식(ANPR) 결과를 받아 쓰게 하고, 웹 OCR은 인식 실패 때만 쓰도록 바꿈
             <ul class="ev">
               <li>순회 중 <b>카메라로 비추면 정기·방문·미등록 차량 즉시 판별</b></li>
               <li>인식 요청을 순서대로 처리하고 늦게 도착한 결과는 버려 <b>이전 요청의 번호판이 표시되던 오류 해소</b></li>
@@ -401,7 +401,7 @@
         <ul class="lines">
           <li><b class="k">번들러 전환</b>webpack(CRA) → Vite, npm → pnpm 3개 제품 전환
             <ul class="ev">
-              <li>빌드 <b>약 115초 → 약 15초 (87% 단축)</b> · 입주민 앱 기준, TypeScript 타입 검사 포함, 동일 장비</li>
+              <li>빌드 <b>약 262초 → 약 13초 (95% 단축)</b> · 입주민 앱 기준</li>
             </ul>
           </li>
           <li><b class="k">CI 병렬화</b>PR마다 순서대로 돌던 코드 검사·테스트·빌드를 병렬로 재구성해 <b>PR 빌드 검사 시간 보통 8.1분 → 2.8분 (66% 단축)</b>
@@ -409,8 +409,8 @@
               <li>오래 걸릴 때 <b>21.1분 → 4.0분</b> (입주민 앱, 2025.10~2026.02)</li>
             </ul>
           </li>
-          <li><b class="k">공용 설정</b>제품마다 따로 두던 Vite·ESLint·TypeScript 설정을 공용 설정 패키지 한 곳으로 집약</li>
-          <li><b class="k">품질 검사</b>PR이 새로 만든 Dead Code를 Knip으로 찾아 원인 줄에 리뷰 코멘트를 남기는 CI 구성, Vitest·Playwright 테스트 환경 구성 (테스트 파일 약 350개)</li>
+          <li><b class="k">공용 설정</b>사내 운영 콘솔 모노레포에서 앱마다 따로 두던 Vite·TypeScript·ESLint·Tailwind·Prettier 설정을 공용 설정 패키지로 모아, 앱은 가져다 쓰기만 하게 함</li>
+          <li><b class="k">품질 검사</b>리뷰에서 눈으로 찾던 것을 CI로 넘김 — PR이 새로 만든 Dead Code는 Knip 리포트로, 타입 오류는 원인 줄 리뷰 코멘트로 · Vitest·Playwright 테스트 환경 구성</li>
         </ul>
       </li>
       <li>
@@ -422,7 +422,7 @@
               <li>화면 일부의 첫 조회 실패가 <b>화면 전체 오류로 번지지 않게 격리</b></li>
             </ul>
           </li>
-          <li><b class="k">관측성</b>Sentry 도입·알림 기준 수립으로 <b>장애 인지 경로를 고객 문의에서 모니터링 알림으로 이전</b></li>
+          <li><b class="k">관측성</b>고객 문의가 들어와야 알던 장애를 <b>Sentry 알림으로 먼저 인지</b> — 도입 뒤 쏟아진 신호는 「그 기능을 쓸 수 있는가」로 등급을 나누고 원인 단위로 묶어, <b>정상 업무 거절이 장애 알림에 섞이지 않게 함</b></li>
         </ul>
       </li>
     </ul>
@@ -507,7 +507,7 @@
               <li>초기 설정 주체를 <b>개발자에서 기술영업팀으로 이전</b> · 설정 누락을 등록 단계의 화면·서버 이중 검증으로 확인</li>
             </ul>
           </li>
-          <li>사내 운영 콘솔 모노레포(Turborepo · pnpm workspace)의 <b>공용 설정 패키지(TypeScript·ESLint·Tailwind·Prettier) 정의</b>, 디자인 시스템 패키지 분리
+          <li>사내 운영 콘솔 모노레포(Turborepo · pnpm workspace)의 <b>공용 설정 패키지(Vite·TypeScript·ESLint·Tailwind·Prettier) 정의</b>, 디자인 시스템 패키지 분리
             <ul class="ev">
               <li>CI에 빌드 캐시 재사용·타입 검사 비차단 분리·타입 오류 PR 인라인 리포트 도입, <b>머지를 막지 않고 타입 오류를 머지 전에 확인</b></li>
             </ul>

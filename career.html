@@ -910,7 +910,7 @@
         <div class="label">수행</div>
         <ul class="lines">
           <li>webpack(CRA) → Vite, npm → pnpm <b>3개 제품 전환</b> (비교 문서·가이드라인을 먼저 공유)</li>
-          <li>사내 운영 콘솔 모노레포(Turborepo · pnpm workspace)에서 제품마다 따로 두던 Vite·ESLint·TypeScript 설정을 <b>공용 설정 패키지 한 곳으로 집약</b></li>
+          <li>사내 운영 콘솔 모노레포(Turborepo · pnpm workspace)에서 제품마다 따로 두던 Vite·TypeScript·ESLint·Tailwind·Prettier 설정을 <b>공용 설정 패키지 한 곳으로 집약</b></li>
           <li>TanStack Router <b>파일 기반 라우팅</b>으로 바꿔 라우트 수동 등록 제거, 권한 가드를 레이아웃 라우트에 통합</li>
           <li>화면 이동 시 <code>useNavigate</code> 사용 규칙을 ESLint로 강제</li>
           <li>Vite 전환 때 Vitest 설정을 넣고, 이후 4개 저장소에서 <b>단위·통합 테스트 파일 약 350개</b> 작성 (키오스크 결제 단계·세션, Sentry 오류 등급, 단지·시설·기기 매핑 등) · 라이브 서버 검증용 Playwright 설정</li>
@@ -923,7 +923,7 @@
         <ul class="lines">
           <li class="metric-li">빌드 시간 단축
             <ul class="ev">
-              <li>빌드 <b class="metric">약 115초 → 약 15초 (87% 단축)</b> · 입주민 앱 기준, TypeScript 타입 검사 포함, 동일 장비</li>
+              <li>빌드 <b class="metric">약 262초 → 약 13초 (95% 단축)</b> · 입주민 앱 기준</li>
             </ul></li>
           <li>새 화면을 추가하면 <b>권한 가드가 자동으로 따라오는</b> 구조를 확보
             <ul class="ev">
@@ -1357,8 +1357,8 @@
         </tr>
         <tr>
           <th scope="row">빌드 시간</th>
-          <td>약 115초 → 약 15초(87% 단축)</td>
-          <td>입주민 앱 전환 직전·직후 커밋(2024.06)을 같은 장비·같은 Node 버전에서 캐시 없이 2회씩 다시 빌드한 평균. 전후 모두 타입 검사 포함이며, 전환 전 빌드에만 ESLint 가 들어 있었다(제외 시 83초). 전환 당시 측정값은 전환 후 쪽에 타입 검사가 빠져 있어 쓰지 않음</td>
+          <td>약 262초 → 약 13초(95% 단축)</td>
+          <td>입주민 앱 전환 중 점검 기록(2024.05): npm·CRA 빌드(npm run build) 약 262초, pnpm·Vite 빌드(pnpm build) 약 13초. 측정 장비·캐시·타입 검사 포함 여부는 기록에 없음</td>
         </tr>
         <tr>
           <th scope="row">API 1건 연동 시 직접 작성하는 코드</th>
