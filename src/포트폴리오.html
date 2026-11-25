@@ -376,6 +376,7 @@
   .pcard .snav button:focus-visible { outline: 2px solid var(--accent-2); outline-offset: 2px; }
   .pcard .snav output { font-family: var(--f-mono); font-size: 11px; color: var(--ink-3); }
   .pcard .body { display: grid; gap: 12px; align-content: start; }
+  .pcard > .body:only-child { grid-column: 1 / -1; }
   .pcard h3 { margin: 0; font-size: 19px; font-weight: 650; letter-spacing: -.02em; line-height: 1.4; }
   .pcard .def { margin: 0; font-size: 14.5px; color: var(--ink-2); max-width: 36em; text-wrap: pretty; }
   .pcard .def b { color: var(--ink); font-weight: 600; }
@@ -1108,23 +1109,43 @@
       <article class="pcard">
         <div class="shots wide">
           <div class="track" tabindex="0" aria-label="화면 캡처, 옆으로 넘겨 보기">
+            <img src="assets/portfolio/console-device-grid.png" alt="사내 운영 콘솔 현장 설정 — 출입기기를 엑셀처럼 편집하는 일괄 등록 표" width="1440" height="900" loading="lazy">
+            <img src="assets/portfolio/console-facility.png" alt="사내 운영 콘솔 현장 설정 — 시설마다 연결된 기기 목록" width="1440" height="900" loading="lazy">
+          </div>
+          <div class="snav"><button type="button" class="prev" aria-label="이전 캡처">←</button><output aria-live="polite"></output><button type="button" class="next" aria-label="다음 캡처">→</button></div>
+        </div>
+        <div class="body">
+          <h3>사내 운영 콘솔</h3>
+          <p class="def">본사 운영팀이 쓰는 사내 운영 콘솔(모노레포). 단지 개설 초기 설정과 <b>출입카드·세대·시설·현장 기기 등록, 단지 현장 서버 동기화</b>를 맡는 관리자 웹입니다.</p>
+          <p class="meta">2024.02 ~ 2026.11 · 주식회사 에이치티비욘드 · 프론트엔드</p>
+          <ul class="did">
+            <li>단지를 열 때마다 개발자가 대신 등록하던 초기 설정을 콘솔 한 화면의 일괄 설정으로 모아 <b>설정 주체를 개발자에서 기술영업팀으로 이전</b></li>
+            <li>엑셀을 붙여넣어 일괄 등록·검증하는 표 컴포넌트 구현, 콘솔 설정을 현장 서버로 내려보낼 때는 <b>비밀번호 재확인 · 현장 서버 버전이 낮으면 동기화 차단</b></li>
+            <li>시설에 기기를 연결(매핑)하고, 연결을 끊으면 딸린 컨트롤러·하위 기기까지 <b>함께 해제될 행을 판정해 확인 후 반영</b></li>
+            <li>단지 → 시설 → 기기 연결을 한 화면에서 보는 <b>시설 관계도(Beta)</b>를 React Flow 로 PoC 부터 만들어 출시</li>
+          </ul>
+          <div class="chips"><span>React</span><span>TypeScript</span><span>Turborepo</span><span>pnpm workspace</span><span>TanStack Query</span><span>TanStack Table</span><span>Tailwind CSS</span></div>
+        </div>
+      </article>
+
+      <article class="pcard">
+        <div class="shots wide">
+          <div class="track" tabindex="0" aria-label="화면 캡처, 옆으로 넘겨 보기">
             <img src="assets/portfolio/admin-home.png" alt="관리사무소 운영툴 홈 — 메뉴 구성과 공지사항·바로가기·사용 가이드" width="1440" height="900" loading="lazy">
             <img src="assets/portfolio/admin-reservation.png" alt="관리사무소 운영툴 커뮤니티시설 예약자 현황 — 채널 필터와 예약 내역 표" width="1440" height="900" loading="lazy">
           </div>
           <div class="snav"><button type="button" class="prev" aria-label="이전 캡처">←</button><output aria-live="polite"></output><button type="button" class="next" aria-label="다음 캡처">→</button></div>
         </div>
         <div class="body">
-          <h3>사내 운영 콘솔 · 관리사무소 운영툴</h3>
-          <p class="def">본사 운영팀이 쓰는 사내 운영 콘솔과 단지 관리사무소가 쓰는 운영툴. 단지·세대·입주민 등록과 <b>시설 운영, 현장 기기·주차 관리</b>를 맡는 관리자 웹입니다.</p>
+          <h3>관리사무소 운영툴</h3>
+          <p class="def">단지 관리사무소가 쓰는 운영툴. 입주민·세대 관리와 <b>커뮤니티시설·식당 예약 운영, 주차·방문차량 관리</b>를 맡는 관리자 웹입니다.</p>
           <p class="meta">2024.01 ~ 2026.11 · 주식회사 에이치티비욘드 · 프론트엔드</p>
           <ul class="did">
-            <li>단지를 열 때마다 개발자가 대신 등록하던 초기 설정을 콘솔 한 화면의 일괄 설정으로 모아 <b>설정 주체를 개발자에서 기술영업팀으로 이전</b></li>
-            <li>엑셀을 붙여넣어 일괄 등록·검증하는 표 컴포넌트 구현, 콘솔 설정을 현장 서버로 내려보낼 때는 <b>비밀번호 재확인 · 현장 서버 버전이 낮으면 동기화 차단</b></li>
             <li>식당 예약 상품을 기본 정책 + 예외 날짜 구조로 바꿔 <b>운영 날짜가 늘어도 등록 작업이 함께 늘지 않게</b> 재설계</li>
             <li>고객사 개인정보 점검에 맞춰 입주민 관리 화면의 이름·동호수·연락처·카드 ID를 <b>기본으로 가리고 필요할 때만 여는 마스킹</b> 적용 (서버는 백엔드 팀)</li>
             <li>PC 화면 전제였던 단지 주차 관리를 <b>관리자 앱 웹뷰에서 주차장을 돌며 쓰는 화면으로 전환</b> — 메뉴 없는 전용 경로, 모바일 목록, 신고 화면 바로 진입</li>
           </ul>
-          <div class="chips"><span>React</span><span>TypeScript</span><span>Turborepo</span><span>pnpm workspace</span><span>TanStack Router</span><span>TanStack Query</span><span>TanStack Table</span><span>react-hook-form</span><span>zod</span><span>Tailwind CSS</span></div>
+          <div class="chips"><span>React</span><span>TypeScript</span><span>TanStack Query</span><span>Ant Design</span><span>styled-components</span><span>i18next</span><span>SheetJS</span></div>
         </div>
         <figure class="diagram">
           <figcaption class="cap">식당 예약 상품 — 날짜마다 등록 → 기본 정책 + 예외 날짜</figcaption>
