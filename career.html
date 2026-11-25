@@ -616,11 +616,11 @@
           <li>스마트홈(홈넷) 연동의 <b>OAuth 콜백 구조를 재설계</b>해 운영 환경에서만 되던 연동을 개발·알파 환경에서도 동작하도록 전환, 계정 ID 길이 제약으로 연동하지 못하던 사용자 문제 해소</li>
           <li><b>iOS·Android 네이티브 웹뷰 호환성</b> 대응
             <ul class="ev">
-              <li>iOS: 스와이프백과 앱 내 뒤로가기를 구분해 화면 전환을 분기하고, 이탈 방지 모달의 history 이중 조작으로 <b>iOS 웹뷰에서만 틀어지던 뒤로가기 스택</b> 수정</li>
-              <li>Android: 물리 백버튼이 가장 나중에 열린 바텀시트·모달부터 닫도록 오버레이 스택 구현, 구형 앱 버전에서 <b>safe-area 여백이 이중 적용</b>되던 문제를 앱 버전 기준으로 보정</li>
-              <li>iOS 웹뷰의 동적 import 실패로 <b>화면 전체가 멈추던 문제</b>를 백오프 재시도·조건부 1회 새로고침과 라우트 청크 재시도 Vite 플러그인으로 복구</li>
-              <li>저사양 Android 웹뷰의 렌더링 성능(프레임 드롭)을 transform·opacity 기반 CSS 애니메이션으로 개선, 바텀시트 높이를 100dvh 로 전환, 백그라운드 상태의 View Transition 오류 차단</li>
-              <li>카카오톡 인앱·WebKit 팝업에서 window.opener·localStorage 가 null 일 때 나던 오류 방어</li>
+              <li><b>iOS 웹뷰에서만 뒤로가기 스택이 틀어지던 문제</b> — 이탈 방지 모달이 history 를 두 번 조작하던 것을 바로잡고, 스와이프백과 앱 내 뒤로가기를 구분해 화면 전환을 분기</li>
+              <li>Android 물리 백버튼은 가장 나중에 연 바텀시트·모달부터 닫도록 오버레이 스택 구현 · 구형 앱의 <b>safe-area 이중 여백</b>은 앱 버전 기준으로 보정</li>
+              <li>iOS 웹뷰에서 동적 import 가 실패하면 <b>화면 전체가 멈추던 문제</b> — 백오프 재시도·조건부 1회 새로고침과 라우트 청크 재시도 Vite 플러그인으로 자동 복구</li>
+              <li>저사양 Android 웹뷰에서 프레임이 떨어지던 애니메이션을 transform·opacity 기반 CSS 로 바꿈 · 바텀시트 높이 100dvh 적용 · 백그라운드 상태의 View Transition 오류 차단</li>
+              <li>카카오톡 인앱·WebKit 팝업에서 window.opener·localStorage 가 null 이라 나던 오류 방어</li>
             </ul>
           </li>
         </ul>
@@ -804,11 +804,7 @@
       <div class="block">
         <div class="label">판단</div>
         <ul class="lines">
-          <li>관리자 앱 판별을 UserAgent 대신 <b>네이티브 브리지 객체가 있는지</b>로 판별
-            <ul class="ev">
-              <li>앱팀에 UA 표식을 따로 요청할 필요가 없음</li>
-            </ul>
-          </li>
+          <li>관리자 앱인지를 UserAgent 대신 <b>네이티브 브리지 객체가 있는지</b>로 판별해, 앱팀에 UA 표식을 따로 요청하지 않음</li>
         </ul>
       </div>
       <div class="block">
@@ -816,9 +812,9 @@
         <ul class="lines">
           <li>코인세탁기는 <b>입주민 인증(안면인식·카드) → 이력 조회 → 결제 → 기기 제어 전 과정</b>을 담당하고 3개 저장소의 배포 순서를 통제</li>
           <li>엘리베이터 연동 착수 전 API 스펙을 대조해 <b>호출 이력 API가 없음을 찾고 서버 작업으로 분리</b></li>
-          <li>관리자 앱의 네이티브 번호판 인식 결과를 <b>관리사무소 운영툴 웹뷰와 연동</b>
+          <li>관리사무소 운영툴 웹뷰가 <b>관리자 앱의 네이티브 번호판 인식 결과를 받아 쓰게</b> 하고, 웹 OCR 은 인식 실패 때만 쓰도록 바꿈
             <ul class="ev">
-              <li>브라우저 OCR 로 남아 있던 화면도 네이티브 인식으로 바꾸고 실패 시 웹 OCR 로 폴백</li>
+              <li>브라우저 OCR 로만 인식하던 화면도 같은 방식으로 바꿈</li>
             </ul>
           </li>
           <li>번호판 인식 요청을 순서대로 처리하고 <b>늦게 도착한 이전 결과는 폐기</b></li>
@@ -917,7 +913,7 @@
         <div class="label">수행</div>
         <ul class="lines">
           <li>webpack(CRA) → Vite, npm → pnpm <b>3개 제품 전환</b> (비교 문서·가이드라인을 먼저 공유)</li>
-          <li>사내 운영 콘솔 모노레포(Turborepo · pnpm workspace)에서 제품마다 따로 두던 Vite·TypeScript·ESLint·Tailwind·Prettier 설정을 <b>공용 설정 패키지 한 곳으로 집약</b></li>
+          <li>사내 운영 콘솔 모노레포(Turborepo · pnpm workspace)에서 앱마다 따로 두던 Vite·TypeScript·ESLint·Tailwind·Prettier 설정을 공용 설정 패키지로 모아, <b>앱은 가져다 쓰기만 하고 규칙은 패키지 한 곳에서 바꾸게</b> 함</li>
           <li>TanStack Router <b>파일 기반 라우팅</b>으로 바꿔 라우트 수동 등록 제거, 권한 가드를 레이아웃 라우트에 통합</li>
           <li>화면 이동 시 <code>useNavigate</code> 사용 규칙을 ESLint로 강제</li>
           <li>Vite 전환 때 Vitest 설정을 넣고, 이후 4개 저장소에서 <b>단위·통합 테스트 파일 약 350개</b> 작성 (키오스크 결제 단계·세션, Sentry 오류 등급, 단지·시설·기기 매핑 등) · 라이브 서버 검증용 Playwright 설정</li>
@@ -961,7 +957,6 @@
           <li>PR이 새로 만든 Dead Code를 <b>GitHub Actions에서 Knip으로 찾아 리포트</b>하는 검사 도입
             <ul class="ev">
               <li>변경 전 코드와 머지 예정 코드를 각각 분석 — <b>이 PR이 새로 만든 미사용 파일만 분리</b></li>
-              <li>원인이 된 줄에 리뷰 코멘트 자동 게시</li>
               <li>리포트를 근거로 미사용 파일을 정리하되, <b>최근 1달 안에 수정된 파일은 제거 대상에서 제외</b>하는 기준을 둠</li>
             </ul>
           </li>
@@ -1042,7 +1037,7 @@
               <li><b>재현 조건을 묻지 않고 발생 지점 특정</b></li>
             </ul>
           </li>
-          <li>알림이 오면 <b>등급으로 처리 우선순위를 바로 판단</b></li>
+          <li>정상 업무 거절이 장애 알림에 섞이지 않아, 알림이 오면 <b>등급만 보고 처리 우선순위를 판단</b></li>
           <li>오류가 아닌 사용 흐름도 기록되어 <b>문의가 오면 앱 조작 문제인지부터 확인</b></li>
         </ul>
       </div>
