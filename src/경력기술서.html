@@ -242,7 +242,9 @@
   ul.lines li { position: relative; padding-left: 12px; color: var(--ink-2); }
   ul.lines li::before { content: "–"; position: absolute; left: 0; color: var(--ink-3); }
 
-  .stack { color: var(--ink-2); font-size: 9.2pt; line-height: 1.5; }
+  .stack { color: var(--ink-2); font-size: 9.2pt; line-height: 1.5; break-inside: avoid; }
+  /* 스택 줄이 쪽 끝에서 잘려 다음 쪽으로 한두 단어만 넘어가지 않게 — 라벨과 함께 묶는다 */
+  .block:has(> .stack) { break-inside: avoid; }
 
   ol.contrib { margin: 0; padding: 0; list-style: none; counter-reset: c; }
   ol.contrib > li {
@@ -685,6 +687,7 @@
         <div class="label">성과</div>
         <ul class="lines">
           <li>주변기기 연동 불일치를 <b>매장 방문 없이 개발 중에 확인</b></li>
+          <li>카트 탭 1회당 다시 그리는 컴포넌트 <b class="metric">96 → 43개</b>, 8탭 합계 50ms → 26ms <span class="src">(차세대 POS, React DevTools Profiler · 개발 빌드 측정)</span></li>
           <li>주문을 해석하는 지점을 <b>클라이언트 3곳 → 공통 응답 스키마 1곳</b>으로 축소
             <ul class="ev">
               <li>상태 불일치와 영수증 출력 누락·순서 밀림 해소</li>
@@ -1312,6 +1315,11 @@
           <th scope="row">주당 Sentry 알림 · 월 쿼터 사용률</th>
           <td>72.5회 → 26.9회 · 298% → 78%</td>
           <td>입주민 앱 Teams·메일 알림 합계(2026.10.27~11.09 / 11.10~11.22, 주당 환산) · 조직 월 쿼터 대비(2026.08 기준 90일 / 11.10~11.22, 30일 환산). 둘 다 대부분 수집 정리로 덜 보낸 결과이며 오류 감소를 뜻하지 않음</td>
+        </tr>
+        <tr>
+          <th scope="row">카트 탭 1회당 리렌더 컴포넌트</th>
+          <td>96개 → 43개 · 8탭 합계 50ms → 26ms</td>
+          <td>차세대 POS 개발 빌드. React DevTools Profiler 기록과 console.count 대조, Playwright 커밋 훅으로 전후 비교. 상용 빌드 측정값 아님</td>
         </tr>
         <tr>
           <th scope="row">토큰 갱신 응답 없음 오류</th>
