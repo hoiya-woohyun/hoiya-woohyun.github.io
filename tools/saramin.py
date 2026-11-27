@@ -69,7 +69,7 @@ def build(src):
     o += [txt(m) for m in re.findall(r'<h3>(.*?)</h3>', sec('핵심 역량'), re.S)]
 
     head('경력 사항')
-    for c in sec('경력 상세').split('<div class="co">')[1:]:
+    for c in re.split(r'<div class="co(?: long)?">', sec('경력 상세'))[1:]:
         nm = re.search(r'<h3>(.*?)</h3>', c, re.S)
         if not nm: continue
         o += [rule('-'), '회사명   %s' % txt(nm.group(1))]

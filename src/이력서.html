@@ -175,30 +175,6 @@
   /* 역량 본문은 문단이 아니라 개조식 항목이다 — 제목의 대시 들여쓰기(23px)에 맞춘다 */
   .skills ul.lines { margin: 2px 0 0 23px; }
 
-  /* ── 경력 요약 표 ─────────────────────────── */
-  .tablewrap { overflow-x: auto; }
-  table.sum { width: 100%; border-collapse: collapse; font-size: 9.5pt; }
-  table.sum thead { display: table-header-group; }
-  table.sum tr { break-inside: avoid; }
-  table.sum th {
-    text-align: left; font-size: 8.5pt; font-weight: 700;
-    letter-spacing: .06em; color: var(--ink-3);
-    padding: 0 9px 6px 0; border-bottom: 1.5px solid var(--rule);
-    white-space: nowrap;
-  }
-  table.sum th:last-child, table.sum td:last-child { padding-right: 0; }
-  table.sum td {
-    padding: 8px 9px 8px 0; border-bottom: 1px solid var(--rule-2);
-    vertical-align: baseline; color: var(--ink-2); line-height: 1.5;
-  }
-  table.sum td.co-name { font-weight: 700; color: var(--ink); white-space: nowrap; }
-  table.sum td.co-term { white-space: nowrap; color: var(--ink); font-weight: 500; }
-  table.sum td.co-term small {
-    display: block; font-size: 8.5pt; font-weight: 400; color: var(--ink-3);
-  }
-  table.sum td.co-role { white-space: nowrap; }
-  table.sum tr:last-child td { border-bottom: none; }
-
   /* ── 회사 블록 ────────────────────────────── */
   .sec-note {
     margin: 0 0 11px; font-size: 9.5pt; line-height: 1.55; color: var(--ink-3);
@@ -333,7 +309,7 @@
       <li>React·TypeScript 주력. 아파트·오피스텔 커뮤니티 플랫폼에서 입주민 앱 바이비·운영 콘솔·매장 POS·BYB-CMS 등 <b>8개 제품 담당</b>.</li>
       <li>건설사 브랜드마다 다른 단지 웹뷰(<b>DAU 약 5만</b>)를 <b>코드베이스 1개로 서비스하는 구조</b> 설계. 주문·주차·기기 제어처럼 앱·웹뷰·POS·네이티브에 동시에 걸친 도메인의 <b>상태 전이 규칙과 연동 규격 통일</b>.</li>
       <li>제품 개발과 별개로 <b>사람이 매번 기억하고 판단하던 일을 코드 생성·CI 검증·문서 규격으로 이관</b>. OpenAPI 스펙 기반 타입 생성, CI 정적 분석 게이트, ADR·위키 기반 결정 근거 규격화.</li>
-      <li>클레온에서는 <b>웹팀 리드로 영상 생성 플랫폼 3개 제품 런칭</b>, PR 연동 CI/CD로 머지 전 코드 리뷰를 강제하는 프로세스 확립.</li>
+      <li>클레온에서는 <b>웹팀 리드로 영상 생성 플랫폼 3개 제품 런칭</b>, PR 미리보기 배포·main 머지 자동 배포 구성.</li>
     </ul>
   </section>
 
@@ -343,7 +319,7 @@
       <li>
         <h3>OpenAPI 기반 타입 연동</h3>
         <ul class="lines">
-          <li><b class="k">타입 생성</b>제품마다 직접 정의하던 API 타입을 <b>OpenAPI 스펙에서 타입·클라이언트·쿼리 훅을 생성하는 방식으로 교체</b> (4개 제품), 서버 스펙 변경을 배포 전 컴파일 에러로 확인
+          <li><b class="k">타입 생성</b><b>OpenAPI 스펙 기반 타입·클라이언트·쿼리 훅 자동 생성 도입</b> (4개 제품), 서버 스펙 변경은 배포 전 컴파일 에러로 감지
             <ul class="ev">
               <li>API 1건 연동 시 직접 작성하던 코드 <b>평균 35줄 → 4줄</b> (이전 방식 POS 정의 52건 기준)</li>
             </ul>
@@ -353,7 +329,7 @@
       <li>
         <h3>멀티 브랜드 구조 설계</h3>
         <ul class="lines">
-          <li><b class="k">브랜드 분기</b>서브도메인으로 단지를 식별하고 브랜드별 레이아웃만 분기해 <b>건설사 브랜드 7종 서비스</b>, 신규 브랜드는 <b>레이아웃·브랜드 설정만 추가</b>하고 기능 코드 수정 없음</li>
+          <li><b class="k">브랜드 분기</b>레이아웃 한 층 분기 구조로 <b>건설사 브랜드 7종 서비스</b>, 신규 브랜드는 <b>레이아웃·브랜드 설정만 추가</b></li>
         </ul>
       </li>
       <li>
@@ -374,7 +350,7 @@
       <li>
         <h3>AI 기반 개발 환경 구성</h3>
         <ul class="lines">
-          <li><b class="k">규격 작성</b>도메인 정책을 <b>설계·결정·기능·화면·버그 5종 문서와 색인</b>으로 나눠 Claude Code가 작업 전에 찾아 읽게 하고, 버그 원인 분석·결정 기록(ADR) 형식을 설계해 팀원 4명이 이어 작성
+          <li><b class="k">규격 작성</b>Claude Code가 작업 전 읽는 <b>도메인 문서 5종(설계·결정·기능·화면·버그)·색인</b> 구성, 버그 원인 분석·ADR 형식 설계 (팀원 4명이 이어 작성)
             <ul class="ev">
               <li>버그 분석 문서 102건 중 <b>본인 59건</b>, 팀원 작성 40건</li>
             </ul>
@@ -385,64 +361,6 @@
   </section>
 
   <section>
-    <h2>경력 요약</h2>
-    <table class="sum">
-      <thead>
-        <tr>
-          <th>회사</th>
-          <th>재직 기간</th>
-          <th>직무·역할</th>
-          <th>담당 제품 및 성과</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td class="co-name">주식회사 에이치티비욘드</td>
-          <td class="co-term">2024.01 ~ 재직 중 · <small>2년 11개월</small></td>
-          <td class="co-role">프론트엔드 개발</td>
-          <td>입주민 앱·운영 콘솔·매장 POS·BYB-CMS 등 8개 제품 담당. 타입 파이프라인·CI 게이트·관측성 등 프론트엔드 플랫폼 구축</td>
-        </tr>
-        <tr>
-          <td class="co-name">주식회사 러너스</td>
-          <td class="co-term">2023.04 ~ 2023.07 · <small>4개월 (+프리랜서 2개월)</small></td>
-          <td class="co-role">개발팀 · 웹팀 팀장</td>
-          <td>수퍼클럽 — 다국어(i18n) 체계 적용, webpack에서 Vite로 번들러 전환</td>
-        </tr>
-        <tr>
-          <td class="co-name">주식회사 클레온</td>
-          <td class="co-term">2021.06 ~ 2023.04 · <small>1년 11개월</small></td>
-          <td class="co-role">프로덕트 센터 ·<br>웹팀 리드</td>
-          <td>영상 생성 플랫폼 3개 제품 런칭</td>
-        </tr>
-        <tr>
-          <td class="co-name">주식회사 집펀드</td>
-          <td class="co-term">2021.05 ~ 2021.06 · <small>2개월</small></td>
-          <td class="co-role">React Native<br>앱 개발</td>
-          <td>집비서 모바일 — 부동산 매물 검색 앱의 공통 컴포넌트 작업</td>
-        </tr>
-        <tr>
-          <td class="co-name">주식회사 씨와이</td>
-          <td class="co-term">2020.01 ~ 2020.12 · <small>1년</small></td>
-          <td class="co-role">프론트엔드 개발<br>(NPD)</td>
-          <td>COS247 — 화장품 위탁 생산 중개 B2B 플랫폼 초기 구축 및 어드민 개발</td>
-        </tr>
-        <tr>
-          <td class="co-name">주식회사 이글루코퍼레이션</td>
-          <td class="co-term">2019.04 ~ 2019.11 · <small>8개월</small></td>
-          <td class="co-role">프론트엔드 개발</td>
-          <td>AEGIS — 공통 코드 관리 화면 개발 및 UI 유지보수</td>
-        </tr>
-        <tr>
-          <td class="co-name">아이디스트</td>
-          <td class="co-term">2017.03 ~ 2017.09 · <small>7개월</small></td>
-          <td class="co-role">기획·디자인·개발</td>
-          <td>IDIST — 특허·실용신안 외의 아이디어를 자산화하는 플랫폼 개발</td>
-        </tr>
-      </tbody>
-    </table>
-  </section>
-
-  <section>
     <h2>경력 상세</h2>
 
     <!-- ① HT Beyond -->
@@ -450,10 +368,10 @@
       <div class="co-head">
         <h3>주식회사 에이치티비욘드</h3>
         <span class="role">프론트엔드 개발</span>
-        <span class="term">2024.01 ~ 재직 중</span>
+        <span class="term">2024.01 ~ 재직 중 · 2년 11개월</span>
       </div>
       <p class="co-desc">
-        아파트·오피스텔 커뮤니티 플랫폼. <b>8개 프론트엔드 제품 담당</b>.
+        아파트·오피스텔 커뮤니티 플랫폼.
       </p>
       <div class="block">
         <div class="label">주요 업무</div>
@@ -461,16 +379,17 @@
           <li><b>입주민 앱</b> — 아파트·오피스텔 입주민용 모바일 웹뷰 (2024.04 ~)
             <ul class="ev">
               <li>담당: 멀티 브랜드 레이아웃 구조·권한 체계·네이티브 웹뷰 호환성·인증 세션</li>
-              <li>건설사 계약 버전마다 고정 브랜치를 따로 배포하던 방식을 <b>계약사가 구독한 기능 묶음 권한으로 켜고 끄는 방식</b>으로 바꿈 (계약사·단지·사용자 3계층 권한)</li>
-              <li>권한 가드를 레이아웃 라우트에 통합해 <b>라우트 564개 중 495개에 일괄 적용</b></li>
-              <li>iOS 웹뷰에서만 틀어지던 뒤로가기 스택을 바로잡고, 화면 전체가 멈추던 동적 import 실패를 <b>재시도·조건부 새로고침으로 자동 복구</b></li>
+              <li><b>권한 기반 ON/OFF 메뉴구성</b>으로 전환</li>
+              <li><b>권한 가드의 라우트</b>로 전환 (495/564)</li>
+              <li><b>iOS 스와이프 백 stack History 정합성</b> 개선</li>
+              <li><b>동적 import 실패 자동 복구</b> (재시도·조건부 새로고침)</li>
               <li>API 클라이언트·파일 업로드·동기화가 함께 쓰는 토큰 갱신에 <b>시도당 5초 시간 제한·일시 오류 재시도(최대 3회 시도)</b> 적용, 화면 로드 1,000건당 <b>갱신 응답 없음 오류 0.88건 → 0.02건</b></li>
             </ul>
           </li>
           <li><b>사내 운영 콘솔</b> — 본사 운영팀이 단지를 개설하고 현장을 관리하는 관리자 웹 (2024.02 ~)
             <ul class="ev">
               <li>담당: 현장 관리(시설·기기·현장 서버 동기화) 프론트엔드, 기여 약 70%</li>
-              <li>흩어져 있던 단지 개설 초기 설정을 <b>한 화면의 일괄 설정으로 통합</b>해 초기 설정 주체를 <b>개발자에서 기술영업팀으로 이전</b></li>
+              <li>단지 개설 초기 설정을 <b>한 화면 일괄 설정으로 통합</b>, 설정 주체를 <b>개발자 → 기술영업팀으로 이전</b></li>
               <li><b>시설–기기 연결(매핑)</b>과 연쇄 해제 확인, 단지 → 시설 → 기기를 한 화면에서 보는 <b>시설 관계도(Beta)</b> 구현</li>
               <li>엑셀과 복사·붙여넣기가 오가는 <b>자체 데이터 그리드 엔진</b>으로 일괄 등록 표 교체 · 엘리베이터 매핑·호출 모니터링, 골프타석 요금 정책, 권한 매트릭스, 연동 탭(주차 관제·홈넷) 개발</li>
             </ul>
@@ -478,30 +397,32 @@
           <li><b>관리사무소 운영툴</b> — 단지 관리사무소가 입주민·시설·주차를 관리하는 관리자 웹 (2024.01 ~)
             <ul class="ev">
               <li>담당: 식당 예약 상품 · 입주민 관리 · 주차 · 다국어 프론트엔드</li>
-              <li>식당 예약 상품을 기본 정책 + 예외 날짜 구조로 바꿔 <b>운영 날짜가 늘어도 등록 작업이 함께 늘지 않게</b> 재설계</li>
-              <li>입주민 정보에 <b>기본으로 가리고 필요할 때만 여는 마스킹</b> 적용 (서버는 백엔드 팀), PC 화면 전제였던 주차 관리를 <b>관리자 앱 웹뷰용 화면으로 전환</b></li>
-              <li>관리자 앱의 네이티브 차량번호 인식(ANPR) 결과를 웹뷰가 받아 쓰게 해, <b>카메라로 비추면 정기·방문·미등록 차량 즉시 판별</b></li>
+              <li>식당 예약 상품 관리(기본 정책 · 월 캘린더 · 일괄 등록 · 개별 수정) 구현, <b>메뉴별 부분 저장 흐름</b> 설계 (전체 치환 방식의 슬롯 저장 API 대응)</li>
+              <li>입주민 정보 <b>기본 마스킹·필요 시 열람</b> 적용 (서버는 백엔드 팀), PC 전용 주차 관리를 <b>관리자 앱 웹뷰 화면으로 전환</b></li>
+              <li>네이티브 차량번호 인식(ANPR) 결과 연동으로 <b>정기·방문·미등록 차량 즉시 판별</b>, 앱 판별은 UserAgent 대신 네이티브 브리지 객체 유무로 (앱팀 추가 요청 없음)</li>
             </ul>
           </li>
           <li><b>매장 POS·주문 키오스크</b> — 단지 상가 매장의 결제 단말과 고객용 주문 화면 (2024.05 ~)
             <ul class="ev">
               <li>담당: 주문 연동·매장 주변기기 연동</li>
-              <li>같은 주문을 입주민 앱·POS·관리사무소 운영툴이 각자 해석하던 것을, 서버의 주문 응답 통합에 맞춰 <b>같은 생성 타입만 참조하도록 정리</b>해 상태 불일치·영수증 출력 누락 해소</li>
-              <li>매장 단말 팀과 수기 문서로 맞추던 카드리더·안면인식기 연동 규격을 OpenAPI 스펙 하나로 합쳐, <b>매장에 나가 재현해야 알던 규격 불일치를 로컬 컴파일 에러로 확인</b></li>
+              <li>서버 주문 응답 통합에 맞춰 입주민 앱·POS·관리사무소 운영툴이 <b>같은 생성 타입만 참조하도록 통일</b>, 상태 불일치·영수증 출력 누락 해소</li>
+              <li>매장 단말 팀과의 카드리더·안면인식기 연동 규격을 수기 문서 → OpenAPI 스펙으로 통합, <b>규격 불일치를 현장 재현 대신 로컬 컴파일 에러로 확인</b></li>
+              <li>React Profiler로 카트 리렌더 원인 특정, 카트를 화면 단위 임시 상태로 보고 전역 store 대신 <b>Context 분리</b> (상품 목록·카테고리 탭 리렌더 제거)</li>
             </ul>
           </li>
           <li><b>BYB-CMS</b> — 단지 광고 운영·기기 원격 관리 (2025.01 ~ 11)
             <ul class="ev">
               <li>담당: 프론트엔드 개발 (프론트엔드 1명, 착수~런칭)</li>
-              <li>광고 운영 전 화면과 매출·통계 대시보드 구축, 공통 컴포넌트는 Ant Design 기본값을 그대로 쓰고, <b>컴포넌트를 만들 시간을 광고 운영 화면 개발에 씀</b></li>
-              <li><b>현장 방문 없이 설치 기기를 일괄 제어·재시작</b>하고 설치 파일(APK)을 원격 배포하는 기기 관리 기능 구축</li>
+              <li>광고 운영 전 화면·매출·통계 대시보드 구축, 공통 컴포넌트는 Ant Design 기본값으로 두고 <b>개발 시간을 광고 운영 화면에 집중</b></li>
+              <li><b>설치 기기 원격 일괄 제어·재시작·APK 배포</b> 기능 구축 (현장 방문 불필요)</li>
             </ul>
           </li>
           <li><b>프론트엔드 플랫폼</b> — 여러 제품이 함께 쓰는 빌드·배포 기반
             <ul class="ev">
               <li>사내 운영 콘솔 모노레포(Turborepo · pnpm workspace)의 <b>공용 설정 패키지(Vite·TypeScript·ESLint·Tailwind·Prettier) 정의</b>, 디자인 시스템 패키지는 팀원과 함께 분리</li>
-              <li>CI에 타입 검사 비차단 분리·타입 오류 PR 인라인 리포트 도입(빌드 캐시 재사용은 팀원과 함께), <b>머지를 막지 않고 타입 오류를 머지 전에 확인</b> · PR이 새로 만든 Dead Code는 Knip 리포트로 검출</li>
-              <li>배포 자격증명을 개인 토큰(PAT) 대신 <b>조직 GitHub App 설치 토큰</b>으로 10개 저장소 일괄 전환해 퇴사·권한 변경에도 CI가 멈추지 않고, 토큰은 CI 작업마다 발급돼 1시간 뒤 만료</li>
+              <li>CI <b>타입 검사 비차단 분리·타입 오류 PR 인라인 리포트</b> 도입 (빌드 캐시 재사용은 팀원과 함께), PR이 새로 만든 Dead Code는 Knip 리포트로 검출</li>
+              <li>Vite 전환 때 Vitest 도입, 키오스크 결제 단계·세션, 단지·시설·기기 매핑 등 <b>장애 영향이 큰 영역부터</b> 4개 저장소 단위·통합 테스트 작성</li>
+              <li>배포 자격증명을 개인 토큰(PAT) → <b>조직 GitHub App 설치 토큰</b>으로 전환 (10개 저장소), 퇴사·권한 변경에도 CI 유지 · CI 작업마다 발급되는 1시간 만료 토큰</li>
               <li>정기 배포 후 Claude가 변경 코드를 읽어 <b>위키 문서 수정 PR을 여는 GitHub Actions</b> 구현 (위키 구조는 백엔드 팀)</li>
               <li>Sentry 오류를 등급으로 나누고, <b>화면이 사유를 안내하는 업무 거절은 확인된 조합만 수집에서 제외</b></li>
             </ul>
@@ -515,7 +436,7 @@
       <div class="co-head">
         <h3>주식회사 러너스</h3>
         <span class="role">개발팀 · 웹팀 팀장</span>
-        <span class="term">2023.04 ~ 2023.07 <small>(+프리랜서 2개월)</small></span>
+        <span class="term">2023.04 ~ 2023.07 · 4개월 <small>(+프리랜서 2개월)</small></span>
       </div>
       <p class="co-desc">수퍼클럽 — 클럽 커뮤니티에 게임·NFT 마켓플레이스를 결합한 Web3 소셜 플랫폼 프론트엔드 개선.</p>
       <div class="block">
@@ -533,15 +454,15 @@
       <div class="co-head">
         <h3>주식회사 클레온</h3>
         <span class="role">프로덕트 센터 · 웹팀 리드</span>
-        <span class="term">2021.06 ~ 2023.04</span>
+        <span class="term">2021.06 ~ 2023.04 · 1년 11개월</span>
       </div>
-      <p class="co-desc">영상 생성 AI 플랫폼. 웹팀 리드로 <b>영상 생성 플랫폼 3개 제품 런칭</b>과 개발 프로세스 정비 담당.</p>
+      <p class="co-desc">영상 생성 AI 플랫폼. 웹팀 리드로 프론트엔드 개발과 개발 프로세스 정비 담당.</p>
       <div class="block">
         <div class="label">주요 업무</div>
         <ul class="lines">
           <li><b>Klone V2</b> — 슬라이드 기반 가상인간 영상 제작 플랫폼 (2022.05 ~ 2023.04)
             <ul class="ev">
-              <li>PR 미리보기 배포와 <b>리뷰 승인 머지 조건</b> 설정, 배포 자동화</li>
+              <li><b>PR 미리보기 배포</b> 연결, 배포 자동화</li>
               <li>Konva 에디터에 <b>이미지 공통 기반 클래스를 두고 확장</b>해 이미지·스티커 구현 (위치·각도 변경)</li>
               <li>PPT와 유사한 편집 단축키 적용</li>
             </ul>
@@ -565,7 +486,7 @@
       <div class="co-head">
         <h3>주식회사 집펀드</h3>
         <span class="role">React Native 앱 개발</span>
-        <span class="term">2021.05 ~ 2021.06</span>
+        <span class="term">2021.05 ~ 2021.06 · 2개월</span>
       </div>
       <p class="co-desc">집비서 — 부동산 매물 검색 모바일 앱.</p>
       <div class="block">
@@ -580,7 +501,7 @@
       <div class="co-head">
         <h3>주식회사 씨와이</h3>
         <span class="role">프론트엔드 개발 (NPD)</span>
-        <span class="term">2020.01 ~ 2020.12</span>
+        <span class="term">2020.01 ~ 2020.12 · 1년</span>
       </div>
       <p class="co-desc">COS247 — 화장품 위탁 생산 중개 B2B 플랫폼.</p>
       <div class="block">
@@ -596,7 +517,7 @@
       <div class="co-head">
         <h3>주식회사 이글루코퍼레이션</h3>
         <span class="role">프론트엔드 개발</span>
-        <span class="term">2019.04 ~ 2019.11</span>
+        <span class="term">2019.04 ~ 2019.11 · 8개월</span>
       </div>
       <p class="co-desc">AEGIS — KT와 협업한 보안 로그 분석 관리자 플랫폼.</p>
       <div class="block">
@@ -612,7 +533,7 @@
       <div class="co-head">
         <h3>아이디스트</h3>
         <span class="role">기획 · 디자인 · 개발</span>
-        <span class="term">2017.03 ~ 2017.09</span>
+        <span class="term">2017.03 ~ 2017.09 · 7개월</span>
       </div>
       <p class="co-desc">IDIST — 특허·실용신안 외의 아이디어를 자산화하는 플랫폼.</p>
       <div class="block">

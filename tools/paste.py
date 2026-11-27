@@ -85,7 +85,7 @@ def first(pat, s):
 def companies(sec):
     """경력 상세 섹션을 회사 단위로. 각 원소는 (이름, 역할, 기간, 설명, 성과 li HTML, 프로젝트 HTML 목록)."""
     out = []
-    for chunk in sec.split('<div class="co">')[1:]:
+    for chunk in re.split(r'<div class="co(?: long)?">', sec)[1:]:
         name = first(r'<h3>(.*?)</h3>', chunk)
         role = first(r'<span class="role">(.*?)</span>', chunk)
         term = first(r'<span class="term">(.*?)</span>', chunk)
