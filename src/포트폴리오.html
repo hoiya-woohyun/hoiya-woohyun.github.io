@@ -435,11 +435,6 @@
   .stack p { margin: 0; font-size: 14px; color: var(--ink-2); line-height: 1.9; }
   .stack p b { color: var(--ink); font-weight: 600; }
 
-  /* ── 푸터 ────────────────────────────────────── */
-  footer.end { padding-block: 40px 56px; }
-  footer.end p { margin: 0; font-size: 12.5px; color: var(--ink-3); max-width: 46em; line-height: 1.8; text-wrap: pretty; }
-  footer.end p + p { margin-top: 9px; }
-
   @media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
 
   /* ── 사이트 내비 ─────────────────────────────── */
@@ -902,12 +897,119 @@
     #project, #work { break-before: page; page-break-before: always; }
     #contact { break-inside: avoid; page-break-inside: avoid; }
     /* 표지는 히어로만으로 아래 절반이 비고, 마지막 장은 연락처만으로 대부분 빈다.
-       화면 순서는 그대로 두고, 종이에서만 연락처·출처 안내를 표지 빈칸에 올린다
+       화면 순서는 그대로 두고, 종이에서만 연락처를 표지 빈칸에 올린다
        (위치 지정 조상이 없어 첫 장 기준 좌표로 찍힌다). */
-    #contact, footer.end { position: absolute; left: 0; right: 0; }
+    #contact { position: absolute; left: 0; right: 0; }
     #contact { top: 500px; }
     #contact .shead h2 b.num { display: none; } /* 표지에 오면 03 번호가 순서와 어긋난다 */
-    footer.end { top: 790px; border-top: 0 !important; }
+  }
+</style>
+
+<style>
+  /* ══ 스크롤 연동 연출 ═══════════════════════════
+     전부 animation-timeline(scroll() · view())으로 굴린다 — 스크롤 리스너가 없다.
+     미지원 브라우저 · reduced-motion · 인쇄에서는 블록째 빠지고 정적 배치가 그대로 남는다.
+     정적 기본값을 두지 않는다: translate · scale · clip-path 는 인쇄 규칙의 transform:none 이
+     못 막으므로 keyframe 안에서만 값을 갖게 해 animation:none 하나로 꺼지게 한다.
+     animation 단축 속성은 timeline 을 auto 로 되돌린다 — 전부 개별 속성으로만 쓴다. */
+
+  /* 「Portfolio」 가 옆으로 빠져나가며 가로 스크롤을 만들지 않게. hidden 은 스크롤 문맥을 만들어 sticky 내비를 깨뜨린다 */
+  .hero { overflow-x: clip; view-timeline-name: --hero; }
+
+  /* 섹션 번호 — 제목 오른쪽에 크게 깔리는 윤곽 숫자. 글자는 data-n 에서 오고 대체 텍스트는 비운다 */
+  .shead[data-n] { position: relative; isolation: isolate; view-timeline-name: --shead; }
+  .shead[data-n]::before {
+    content: attr(data-n) / "";
+    position: absolute; right: -4px; top: -34px; z-index: -1; pointer-events: none;
+    font-family: var(--f-mono); font-size: clamp(88px, 15vw, 168px); font-weight: 500;
+    line-height: 1; letter-spacing: -.06em;
+    color: transparent; -webkit-text-stroke: 1px var(--rule);
+  }
+
+  /* 지표 수치 되감기(스크립트) — 진짜 값은 눈에서만 잠시 숨기고, aria-hidden 덧그림이 센다 */
+  .tick-run { display: none; }
+  .tick.run .tick-run { display: inline-block; text-align: left; }
+  .tick.run .tick-v {
+    position: absolute; width: 1px; height: 1px; overflow: hidden;
+    clip-path: inset(50%); white-space: nowrap;
+  }
+
+  @supports (animation-timeline: scroll()) {
+    @media (prefers-reduced-motion: no-preference) {
+      /* 읽은 만큼 — 내비 아랫선이 왼쪽부터 차오른다 */
+      .sitenav::after {
+        content: ""; position: absolute; left: 0; right: 0; bottom: -1px; height: 1px;
+        background: var(--ink-3); transform-origin: left center;
+        animation-name: sn-read;
+        animation-duration: auto;
+        animation-timing-function: linear;
+        animation-fill-mode: both;
+        animation-timeline: scroll(root block);
+      }
+      @keyframes sn-read { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+    }
+  }
+
+  @supports (animation-timeline: view()) {
+    @media (prefers-reduced-motion: no-preference) {
+      /* 히어로 퇴장 — 글이 스크롤보다 느리게 내려가며 흐려지고(시차), 「Portfolio」 는 옆으로 빠진다.
+         .hero > .wrap 자식들은 진입 애니메이션(hero-up)을 이미 쓰므로 퇴장은 부모·span 에만 건다 */
+      .hero > .wrap, h1.display span {
+        animation-duration: auto;
+        animation-timing-function: linear;
+        animation-fill-mode: both;
+        animation-timeline: --hero;
+        animation-range: exit 0% exit 85%;
+      }
+      .hero > .wrap { animation-name: hero-exit; }
+      h1.display span { animation-name: hero-split; }
+      @keyframes hero-exit { to { opacity: 0; translate: 0 24vh; } }
+      @keyframes hero-split { to { translate: 16vw 0; } }
+
+      /* 화면 리본 — 지나가는 동안 순환 띠 전체가 한 번 더 밀려, 스크롤할수록 빨리 흐르는 것처럼 보인다.
+         .reel-track 은 순환 애니메이션을 쓰므로 바깥 껍질(.reel-drift)에 건다 */
+      .reel-drift {
+        animation-name: reel-drift;
+        animation-duration: auto;
+        animation-timing-function: linear;
+        animation-fill-mode: both;
+        animation-timeline: view();
+        animation-range: cover 0% cover 100%;
+      }
+      @keyframes reel-drift { to { translate: -220px 0; } }
+
+      /* 섹션 머리 — 한국어 제목은 왼쪽부터 닦이듯 드러나고, 윤곽 숫자는 반대로 천천히 떠오른다 */
+      .shead[data-n] h2 em, .shead[data-n]::before {
+        animation-duration: auto;
+        animation-fill-mode: both;
+        animation-timeline: --shead;
+      }
+      .shead[data-n] h2 em {
+        animation-name: shead-wipe;
+        animation-timing-function: cubic-bezier(.22,.61,.36,1);
+        animation-range: cover 4% cover 32%;
+      }
+      .shead[data-n]::before {
+        animation-name: shead-num;
+        animation-timing-function: linear;
+        animation-range: cover 0% cover 100%;
+      }
+      @keyframes shead-wipe {
+        from { clip-path: inset(0 100% 0 0); translate: 0 .3em; }
+        to   { clip-path: inset(0 0 0 0);    translate: 0 0; }
+      }
+      @keyframes shead-num {
+        from { translate: 0 56px; opacity: 0; }
+        30%  { opacity: 1; }
+        to   { translate: 0 -40px; opacity: .6; }
+      }
+    }
+  }
+
+  @media print {
+    .shead[data-n]::before { display: none !important; }
+    .tick-run { display: none !important; }
+    .tick .tick-v { position: static !important; width: auto !important; height: auto !important; clip-path: none !important; }
   }
 </style>
 
@@ -954,7 +1056,7 @@
 
 <!-- 장식용 캡처 띠 — 같은 캡처가 아래 카드에 설명과 함께 다시 나온다. 끊김 없는 순환을 위해 스크립트가 한 벌을 복제한다 -->
 <div class="reel" aria-hidden="true">
-  <div class="reel-track">
+  <div class="reel-drift"><div class="reel-track">
     <img src="assets/portfolio/zgnn-home.png" alt="" width="390" height="844" loading="lazy">
     <img src="assets/portfolio/byb-home.png" alt="" width="390" height="844" loading="lazy">
     <img src="assets/portfolio/zgnn-list.png" alt="" width="390" height="844" loading="lazy">
@@ -969,12 +1071,12 @@
     <img src="assets/portfolio/byb-market.png" alt="" width="390" height="844" loading="lazy">
     <img src="assets/portfolio/zgnn-filter.png" alt="" width="390" height="844" loading="lazy">
     <img src="assets/portfolio/byb-homeservice.png" alt="" width="390" height="844" loading="lazy">
-  </div>
+  </div></div>
 </div>
 
 <section id="project" class="band">
   <div class="wrap">
-    <div class="shead">
+    <div class="shead" data-n="01">
       <h2><b class="num">01</b> Project <em>직접 기획해 운영하는 제품</em></h2>
     </div>
     <div class="pcards">
@@ -1044,7 +1146,7 @@
 </section>
 <section id="work" class="band alt">
   <div class="wrap">
-    <div class="shead">
+    <div class="shead" data-n="02">
       <h2><b class="num">02</b> Work <em>HT 비욘드</em></h2>
       <p>주식회사 에이치티비욘드(아파트·오피스텔 커뮤니티 플랫폼)에서 <b>8개 프론트엔드 제품</b>을 맡고 있습니다.</p>
     </div>
@@ -1075,9 +1177,9 @@
             <li>번들러를 바꾸고 순서대로 돌던 PR 검사·테스트·빌드를 <b>병렬로 재구성</b></li>
           </ul>
           <dl class="metrics">
-            <div><dt>빌드 시간</dt><dd>262초 → 13초<small>−95%</small></dd><p>입주민 앱 전환 중 점검 기록 · npm·CRA 빌드 → pnpm·Vite 빌드</p></div>
-            <div><dt>PR 빌드 검사</dt><dd>8.1분 → 2.8분<small>−66%</small></dd><p>전후 성공 실행 215·229건 기준 · 느린 10%는 21.1분 → 4.0분</p></div>
-            <div><dt>권한 가드 적용</dt><dd>495<small>/ 564 라우트</small></dd><p>레이아웃 라우트 한 곳에서 일괄 적용 · 구조 값</p></div>
+            <div><dt>빌드 시간</dt><dd>262초 → <span class="tick" data-from="262">13</span>초<small>−95%</small></dd><p>입주민 앱 · CRA → Vite 전환</p></div>
+            <div><dt>PR 빌드 검사</dt><dd>8.1분 → <span class="tick" data-from="8.1">2.8</span>분<small>−66%</small></dd><p>오래 걸릴 때는 21.1분 → 4.0분</p></div>
+            <div><dt>권한 가드 적용</dt><dd><span class="tick" data-from="0">495</span><small>/ 564 라우트</small></dd><p>레이아웃 라우트 한 곳에서 일괄 적용</p></div>
           </dl>
           <div class="chips"><span>React</span><span>TypeScript</span><span>Vite</span><span>TanStack Router</span><span>TanStack Query</span><span>Recoil</span><span>Tailwind CSS</span><span>i18next</span><span>Sentry</span></div>
         </div>
@@ -1141,7 +1243,7 @@
           <p class="def">단지 관리사무소가 쓰는 운영툴. 입주민·세대 관리와 <b>커뮤니티시설·식당 예약 운영, 주차·방문차량 관리</b>를 맡는 관리자 웹입니다.</p>
           <p class="meta">2024.01 ~ 2026.11 · 주식회사 에이치티비욘드 · 프론트엔드</p>
           <ul class="did">
-            <li>식당 예약 상품을 기본 정책 + 예외 날짜 구조로 바꿔 <b>운영 날짜가 늘어도 등록 작업이 함께 늘지 않게</b> 재설계</li>
+            <li>식당 예약 상품 관리(기본 정책 · 월 캘린더 · 일괄 등록 · 개별 수정) 구현, 슬롯 저장 API가 전체 치환이라 <b>한 메뉴만 고쳐도 다른 메뉴가 지워지지 않게</b> 저장 흐름 설계</li>
             <li>고객사 개인정보 점검에 맞춰 입주민 관리 화면의 이름·동호수·연락처·카드 ID를 <b>기본으로 가리고 필요할 때만 여는 마스킹</b> 적용 (서버는 백엔드 팀)</li>
             <li>PC 화면 전제였던 단지 주차 관리를 <b>관리자 앱 웹뷰에서 주차장을 돌며 쓰는 화면으로 전환</b> — 메뉴 없는 전용 경로, 모바일 목록, 신고 화면 바로 진입</li>
           </ul>
@@ -1343,7 +1445,7 @@
 </section>
 <section id="contact" class="band">
   <div class="wrap">
-    <div class="shead">
+    <div class="shead" data-n="03">
       <h2><b class="num">03</b> Contact <em>연락</em></h2>
     </div>
     <dl class="fact">
@@ -1355,11 +1457,6 @@
   </div>
 </section>
 
-<footer class="end">
-  <div class="wrap">
-    <p>강아지랑 제주의 사례와 수치는 저장소의 결정·버그·작업 기록으로, 회사 사례는 사내 작업 기록으로 대조했습니다. 대조하지 못한 항목은 숫자 없이 적거나 넣지 않았습니다.</p>
-  </div>
-</footer>
 
 <script>
   var reduceMotion = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
@@ -1526,7 +1623,7 @@
 
     var targets = Array.prototype.slice.call(document.querySelectorAll(
       '.abil > li, .case, .metrics > div, .caveat, .cat > div, .scroll, .ratio,' +
-      '.tool, .pcard, .diagram, .cv > div, .stack > div, .fact, ul.chips.docs, footer.end p'
+      '.tool, .pcard, .diagram, .cv > div, .stack > div, .fact, ul.chips.docs'
     ));
     if (!targets.length) return;
 
@@ -1548,6 +1645,52 @@
     }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
 
     targets.forEach(function (el) { io.observe(el); });
+  })();
+
+  /* 지표 수치 되감기 — 바뀐 뒤 값(13초)을 바뀌기 전 값(262초)에서부터 세어 보여 준다.
+     DOM 의 글자는 끝까지 최종값이다: 세는 숫자는 aria-hidden 덧그림이고, 진짜 값은 눈에서만 잠시 숨긴다.
+     PDF 를 굽는 headless 인쇄가 도중에 찍어도 인쇄 규칙이 덧그림을 걷어내고 진짜 값을 되살린다. */
+  (function () {
+    if (reduceMotion || !('IntersectionObserver' in window)) return;
+    var els = document.querySelectorAll('.metrics .tick[data-from]');
+    if (!els.length) return;
+    var DUR = 1100;
+
+    /* 진행도 t(0~1)에서 보여 줄 값 — 처음엔 빠르게, 최종값 근처에서 천천히 내려앉는다(ease-out cubic) */
+    function tickValue(from, to, t) {
+      var e = 1 - Math.pow(1 - t, 3);
+      return from + (to - from) * e;
+    }
+
+    function run(el) {
+      var to = el.textContent.trim(), from = el.getAttribute('data-from');
+      var digits = (to.split('.')[1] || '').length;
+      var a = parseFloat(from), b = parseFloat(to);
+      el.innerHTML = '<span class="tick-v"></span><span class="tick-run" aria-hidden="true"></span>';
+      el.firstChild.textContent = to;
+      var out = el.lastChild;
+      /* 자릿수가 줄어드는 동안 뒤 글자가 흔들리지 않게 — 숫자는 tabular-nums 라 1ch 가 한 자리다 */
+      out.style.minWidth = Math.max(from.length, to.length) + 'ch';
+      el.classList.add('run');
+      var t0 = null;
+      function frame(now) {
+        if (t0 === null) t0 = now;
+        var t = Math.min(1, (now - t0) / DUR);
+        out.textContent = t < 1 ? tickValue(a, b, t).toFixed(digits) : to;
+        if (t < 1) requestAnimationFrame(frame);
+        else el.classList.remove('run');
+      }
+      requestAnimationFrame(frame);
+    }
+
+    var io = new IntersectionObserver(function (es) {
+      es.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        io.unobserve(e.target);
+        run(e.target);
+      });
+    }, { threshold: 0.9 });
+    Array.prototype.forEach.call(els, function (el) { io.observe(el); });
   })();
 
   /* 섹션 색인 레일 — 지금 읽고 있는 섹션을 표시한다.
