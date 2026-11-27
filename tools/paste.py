@@ -55,6 +55,24 @@ def items_of(block):
     p = Lines(); p.feed(block); return p.result()
 
 
+def ul_lines(c, start=0):
+    """start 이후 첫 <ul class="lines"> 부터 짝이 맞는 </ul> 까지. 없으면 ''."""
+    i = c.find('<ul class="lines">', start)
+    if i < 0: return ''
+    depth = 0
+    for m in re.finditer(r'<(/?)ul\b[^>]*>', c[i:]):
+        depth += -1 if m.group(1) else 1
+        if depth == 0: return c[i:i + m.end()]
+    return c[i:]
+
+
+def intro_paras(block):
+    """자기소개 섹션 → 문단 목록. 줄글(p) 이든 불릿(li) 이든 같은 모양으로."""
+    ps = [txt(m) for m in re.findall(r'<p\b[^>]*>(.*?)</p>', block, re.S)]
+    ps = [t for t in ps if t]
+    return ps or [t for _, t in items_of(block)]
+
+
 def plain_lines(block):
     """[핵심 성과]용 — 상위는 「- 」, 하위는 2칸 들여쓴 「- 」. 플랫폼 칸은 들여쓰기만으론 층이 안 보여 기호를 붙인다."""
     return [('  - ' if d else '- ') + t for d, t in items_of(block)]
@@ -129,6 +147,21 @@ def project(p, role):
     return o + ['']
 
 
+def resume_project(p, role):
+    """이력서 경력 상세의 div.proj → 제품명 → 담당 → 불릿 순. 경력기술서에 없는 회사의 대체 경로."""
+    title = first(r'<h4>(.*?)</h4>', p)
+    term = first(r'<span class="term">(.*?)</span>', p)
+    note = first(r'<span class="note[^"]*">(.*?)</span>', p)
+    mine = re.sub(r'^담당\s*[:：]\s*', '', first(r'<p class="proj-role">(.*?)</p>', p))
+    o = ['프로젝트명', title, '']
+    if term: o += ['기간', term, '']
+    if note: o += ['[제품]', note, '']
+    if mine: o += ['[담당]', mine, '']
+    b = ul_lines(p)
+    if b: o += ['[주요 업무 및 성과]'] + plain_lines(b) + ['']
+    return o + ['']
+
+
 def build(resume, career):
     r = io.open(resume, encoding='utf-8').read()
     c = io.open(career, encoding='utf-8').read()
@@ -142,14 +175,14 @@ def build(resume, career):
     o += ['[한 줄 소개]', first(r'<p class="tagline">(.*?)</p>', r), '']
 
     o += ['[자기소개]']
-    for _, t in items_of(section(r, '자기소개')):
+    for t in intro_paras(section(r, '자기소개')):
         o += [t, '']
 
     career_by_name = {n: (role, term, desc, projs)
                       for n, role, term, desc, _, projs in
                       companies(section(c, '경력 상세')) + companies(section(c, '개인 프로젝트'))}
     for sec, mark in (('경력 상세', ''), ('개인 프로젝트', '[개인 프로젝트] ')):
-        for name, role, term, desc, ul, _ in companies(section(r, sec)):
+        for name, role, term, desc, ul, rprojs in companies(section(r, sec)):
             o += ['=' * W, '%s%s | %s | %s' % (mark, name, role, term), '=' * W, '']
             if name in career_by_name:
                 _, _, cdesc, projs = career_by_name[name]
@@ -158,6 +191,9 @@ def build(resume, career):
             else:
                 if desc: o += [desc, '']
                 if ul: o += ['[주요 업무 및 성과]'] + plain_lines(ul) + ['']
+                if rprojs:
+                    o.append('')
+                    for p in rprojs: o += resume_project(p, role)
                 o.append('')
 
     o += ['=' * W, '[보유 기술]']

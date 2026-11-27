@@ -1179,7 +1179,7 @@
           <dl class="metrics">
             <div><dt>빌드 시간</dt><dd>262초 → <span class="tick" data-from="262">13</span>초<small>−95%</small></dd><p>입주민 앱 · CRA → Vite 전환</p></div>
             <div><dt>PR 빌드 검사</dt><dd>8.1분 → <span class="tick" data-from="8.1">2.8</span>분<small>−66%</small></dd><p>오래 걸릴 때는 21.1분 → 4.0분</p></div>
-            <div><dt>권한 가드 적용</dt><dd><span class="tick" data-from="0">495</span><small>/ 564 라우트</small></dd><p>레이아웃 라우트 한 곳에서 일괄 적용</p></div>
+            <div><dt>권한 가드 적용</dt><dd><span class="tick" data-from="0">495</span><small>/ 564 라우트</small></dd><p>레이아웃 라우트에서 일괄 적용</p></div>
           </dl>
           <div class="chips"><span>React</span><span>TypeScript</span><span>Vite</span><span>TanStack Router</span><span>TanStack Query</span><span>Recoil</span><span>Tailwind CSS</span><span>i18next</span><span>Sentry</span></div>
         </div>
@@ -1203,7 +1203,7 @@
             <g class="hv"><rect class="dg-brand" x="788" y="30" width="62" height="40" rx="4"/><text class="dg-t" x="819" y="54" text-anchor="middle">브랜드 7</text></g>
             <path class="dg-line" d="M393 70V104M464 70V104M535 70V104M606 70V104M677 70V104M748 70V104M819 70V104"/>
             <g class="hv"><rect class="dg-box on" x="362" y="104" width="488" height="44" rx="4"/><text class="dg-t on" x="606" y="130" text-anchor="middle">공통 화면 · 기능 — 코드베이스 1개</text></g>
-            <text class="dg-sub" x="362" y="170">단지마다 다른 기능 구성은 계약사가 구독하는 기능 묶음으로 권한에서 정합니다</text>
+            <text class="dg-sub" x="362" y="170">단지마다 다른 기능은 계약사가 구독한 기능 묶음에 따라 권한으로 켜고 끕니다</text>
           </svg>
         </figure>
       </article>
@@ -1243,9 +1243,9 @@
           <p class="def">단지 관리사무소가 쓰는 운영툴. 입주민·세대 관리와 <b>커뮤니티시설·식당 예약 운영, 주차·방문차량 관리</b>를 맡는 관리자 웹입니다.</p>
           <p class="meta">2024.01 ~ 2026.11 · 주식회사 에이치티비욘드 · 프론트엔드</p>
           <ul class="did">
-            <li>식당 예약 상품 관리(기본 정책 · 월 캘린더 · 일괄 등록 · 개별 수정) 구현, 슬롯 저장 API가 전체 치환이라 <b>한 메뉴만 고쳐도 다른 메뉴가 지워지지 않게</b> 저장 흐름 설계</li>
-            <li>고객사 개인정보 점검에 맞춰 입주민 관리 화면의 이름·동호수·연락처·카드 ID를 <b>기본으로 가리고 필요할 때만 여는 마스킹</b> 적용 (서버는 백엔드 팀)</li>
-            <li>PC 화면 전제였던 단지 주차 관리를 <b>관리자 앱 웹뷰에서 주차장을 돌며 쓰는 화면으로 전환</b> — 메뉴 없는 전용 경로, 모바일 목록, 신고 화면 바로 진입</li>
+            <li>식당 예약 상품 관리(기본 정책 · 월 캘린더 · 일괄 등록 · 개별 수정) 구현, 전체 덮어쓰기 방식 저장 API에서 <b>메뉴별 부분 수정</b> 지원</li>
+            <li>고객사 개인정보 점검에 맞춰 입주민 관리 화면의 이름·동호수·연락처·카드 ID를 <b>기본으로 가리고 필요할 때만 여는 마스킹</b> 적용</li>
+            <li>PC 화면 전제였던 단지 주차 관리를 <b>PC·관리자 앱 웹뷰 반응형으로 전환</b> — 메뉴 없는 전용 경로, 모바일 목록, 신고 화면 바로 진입</li>
           </ul>
           <div class="chips"><span>React</span><span>TypeScript</span><span>TanStack Query</span><span>Ant Design</span><span>styled-components</span><span>i18next</span><span>SheetJS</span></div>
         </div>
@@ -1434,8 +1434,6 @@
             <rect class="dg-cell exc" x="762" y="126" width="14" height="14" rx="2"/><text class="dg-t" x="784" y="137">예외 날짜</text>
             <text class="dg-sub" x="762" y="168">휴무 · 시간대 변경만</text>
             <text class="dg-sub" x="762" y="184">그날 덮어씁니다</text>
-            <text class="dg-sub" x="762" y="216">운영 날짜가 늘어도</text>
-            <text class="dg-sub" x="762" y="232">등록은 늘지 않습니다</text>
           </svg>
         </figure>
       </article>
