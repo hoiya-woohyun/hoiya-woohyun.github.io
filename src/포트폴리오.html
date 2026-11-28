@@ -394,6 +394,7 @@
   }
   .pcard .links { display: flex; flex-wrap: wrap; gap: 6px 18px; margin: 4px 0 0; font-size: 13.5px; }
   .pcard .links a { font-weight: 500; }
+  .pcard .meta .mlinks a { color: inherit; font-weight: 500; }
 
   /* ── 경력 ────────────────────────────────────── */
   .cv { display: grid; gap: 0; }
@@ -900,8 +901,14 @@
        화면 순서는 그대로 두고, 종이에서만 연락처를 표지 빈칸에 올린다
        (위치 지정 조상이 없어 첫 장 기준 좌표로 찍힌다). */
     #contact { position: absolute; left: 0; right: 0; }
-    #contact { top: 500px; }
-    #contact .shead h2 b.num { display: none; } /* 표지에 오면 03 번호가 순서와 어긋난다 */
+    #contact { top: 360px; }
+    #contact .shead h2 b.num { display: none; } /* 표지에 오면 04 번호가 순서와 어긋난다 */
+    /* 카드 한 장이 한 쪽을 꽉 채워, 메타 줄에 링크가 붙어 한 줄만 늘어도 다음 장으로 밀린다.
+       종이에서는 카드 링크를 빼고 표지 연락처의 「출시 제품」 줄로 모은다. Now 도 표지 빈칸에 둔다. */
+    .pcard .meta .mlinks, .pcard .meta .mlinks-sep { display: none; }
+    #now { position: absolute; left: 0; right: 0; top: 670px; border: 0; padding-block: 0; }
+    #now .shead { margin-bottom: 0; }
+    #now .shead h2 b.num { display: none; }
   }
 </style>
 
@@ -1034,7 +1041,8 @@
   <ol>
     <li data-sec="project"><a href="#project"><b>01</b><span class="lb">Project</span></a></li>
     <li data-sec="work"><a href="#work"><b>02</b><span class="lb">Work</span></a></li>
-    <li data-sec="contact"><a href="#contact"><b>03</b><span class="lb">Contact</span></a></li>
+    <li data-sec="now"><a href="#now"><b>03</b><span class="lb">Now</span></a></li>
+    <li data-sec="contact"><a href="#contact"><b>04</b><span class="lb">Contact</span></a></li>
   </ol>
 </nav>
 
@@ -1168,7 +1176,7 @@
         <div class="body">
           <h3>입주민 모바일 웹앱</h3>
           <p class="def">아파트·오피스텔 입주민용 모바일 웹앱 바이비로, 네이티브 앱 안의 웹뷰로 동작합니다. 공지·관리비·시설 예약·방문차량 등 <b>단지 생활 기능</b>을 한 앱에서 제공하는 주력 제품이며, <b>DAU 약 5만</b> 규모입니다.</p>
-          <p class="meta">2024.04 ~ 2026.11 · 주식회사 에이치티비욘드 · 프론트엔드</p>
+          <p class="meta">2024.04 ~ 2026.11 · 주식회사 에이치티비욘드 · 프론트엔드<span class="mlinks-sep"> · </span><span class="mlinks"><a href="https://apps.apple.com/kr/app/id1531294084">App Store →</a> · <a href="https://play.google.com/store/apps/details?id=com.htbeyond.bybeyond">Google Play →</a></span></p>
           <ul class="did">
             <li><b>iOS 웹뷰에서만 틀어지던 뒤로가기 스택</b>을 바로잡고, 동적 import 실패로 멈추던 화면은 재시도·새로고침으로 <b>자동 복구</b></li>
             <li>서브도메인으로 단지를 식별하고 브랜드별 레이아웃만 분기해 <b>건설사 브랜드 7종을 코드베이스 1개로</b> 서비스</li>
@@ -1219,7 +1227,7 @@
         <div class="body">
           <h3>사내 운영 콘솔</h3>
           <p class="def">본사 운영팀이 쓰는 사내 운영 콘솔(모노레포). 단지 개설 초기 설정과 <b>출입카드·세대·시설·현장 기기 등록, 단지 현장 서버 동기화</b>를 맡는 관리자 웹입니다.</p>
-          <p class="meta">2024.02 ~ 2026.11 · 주식회사 에이치티비욘드 · 프론트엔드</p>
+          <p class="meta">2024.02 ~ 2026.11 · 주식회사 에이치티비욘드 · 프론트엔드<span class="mlinks-sep"> · </span><span class="mlinks">비공개 사내 관리자 웹</span></p>
           <ul class="did">
             <li>단지를 열 때마다 개발자가 대신 등록하던 초기 설정을 콘솔 한 화면의 일괄 설정으로 모아 <b>설정 주체를 개발자에서 기술영업팀으로 이전</b></li>
             <li>엑셀을 붙여넣어 일괄 등록·검증하는 표 컴포넌트 구현, 콘솔 설정을 현장 서버로 내려보낼 때는 <b>비밀번호 재확인 · 현장 서버 버전이 낮으면 동기화 차단</b></li>
@@ -1242,7 +1250,7 @@
         <div class="body">
           <h3>관리사무소 운영툴</h3>
           <p class="def">단지 관리사무소가 쓰는 운영툴. 입주민·세대 관리와 <b>커뮤니티시설·식당 예약 운영, 주차·방문차량 관리</b>를 맡는 관리자 웹입니다.</p>
-          <p class="meta">2024.01 ~ 2026.11 · 주식회사 에이치티비욘드 · 프론트엔드</p>
+          <p class="meta">2024.01 ~ 2026.11 · 주식회사 에이치티비욘드 · 프론트엔드<span class="mlinks-sep"> · </span><span class="mlinks">비공개 사내 관리자 웹</span></p>
           <ul class="did">
             <li>식당 예약 상품 관리(기본 정책 · 월 캘린더 · 일괄 등록 · 개별 수정) 구현, 전체 덮어쓰기 방식 저장 API에서 <b>메뉴별 부분 수정</b> 지원</li>
             <li>고객사 개인정보 점검에 맞춰 입주민 관리 화면의 이름·동호수·연락처·카드 ID를 <b>기본으로 가리고 필요할 때만 여는 마스킹</b> 적용</li>
@@ -1442,16 +1450,26 @@
     </div>
   </div>
 </section>
-<section id="contact" class="band">
+<section id="now" class="band">
   <div class="wrap">
     <div class="shead" data-n="03">
-      <h2><b class="num">03</b> Contact <em>연락</em></h2>
+      <h2><b class="num">03</b> Now <em>요즘 파고드는 주제</em></h2>
+      <p><b>AI 에이전트로 개발 프로세스의 반복 작업 줄이기.</b> OpenAPI 타입 자동 생성 · CI 정적 분석 게이트 · ADR·위키 결정 기록으로 사람이 기억하던 규칙을 코드로 옮겨 왔고, 이제 판단이 필요한 반복까지 넓히고 있습니다.</p>
+      <p>강아지랑 제주에서 <b>블로그 수집 → Claude 구조화 → 원문 대조 → 운영자 승인</b> 파이프라인을 만들며, AI 출력은 그대로 쓰지 않고 <b>원문에 근거 없는 값은 코드가 버리는 검증 단계</b>가 핵심이라는 걸 확인했습니다.</p>
+    </div>
+  </div>
+</section>
+<section id="contact" class="band">
+  <div class="wrap">
+    <div class="shead" data-n="04">
+      <h2><b class="num">04</b> Contact <em>연락</em></h2>
     </div>
     <dl class="fact">
       <dt>이메일</dt><dd><a href="mailto:bwh1224@gmail.com">bwh1224@gmail.com</a></dd>
       <dt>사이트</dt><dd><a href="https://hoiya-woohyun.github.io/">hoiya-woohyun.github.io</a></dd>
       <dt class="print-only">이력서</dt><dd class="print-only"><a href="https://hoiya-woohyun.github.io/resume.html">hoiya-woohyun.github.io/resume.html</a></dd>
       <dt class="print-only">경력기술서</dt><dd class="print-only"><a href="https://hoiya-woohyun.github.io/career.html">hoiya-woohyun.github.io/career.html</a></dd>
+      <dt class="print-only">출시 제품</dt><dd class="print-only">입주민 앱 바이비 <a href="https://apps.apple.com/kr/app/id1531294084">App Store</a> · <a href="https://play.google.com/store/apps/details?id=com.htbeyond.bybeyond">Google Play</a> · 사내 운영 콘솔 · 관리사무소 운영툴은 비공개 사내 관리자 웹</dd>
     </dl>
   </div>
 </section>
